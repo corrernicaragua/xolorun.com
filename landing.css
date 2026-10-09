@@ -269,7 +269,7 @@ img { max-width: 100%; height: auto; }
 /* ───────── la ruta: el teléfono recorre el símbolo ───────── */
 .ruta { position: relative; outline: 0; }
 .ruta .pin { position: relative; height: calc(100svh - var(--top-h)); min-height: 560px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-.ruta .steps { position: relative; z-index: 2; display: grid; grid-template-rows: auto auto; align-content: center; padding: 0 0 0 var(--gut); pointer-events: none; }
+.ruta .steps { position: relative; z-index: 2; display: grid; grid-template-rows: auto; align-content: center; padding: 0 0 0 var(--gut); pointer-events: none; }
 .ruta .step { grid-area: 1 / 1; opacity: 0; visibility: hidden; max-width: 30rem; }
 .ruta .step.on { opacity: 1; visibility: visible; }
 .ruta .step .label { display: flex; align-items: center; gap: 10px; }
@@ -277,13 +277,7 @@ img { max-width: 100%; height: auto; }
 .ruta .step .h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); }
 .ruta .step p { margin: 16px 0 0; color: var(--lago-400); font-size: clamp(1rem, 1.4vw, 1.125rem); }
 /* los controles de la ruta: anterior, los puntos y siguiente (con la barra del avance automático) */
-.ruta .ctl { grid-area: 2 / 1; display: flex; align-items: center; gap: 14px; margin-top: 28px; pointer-events: auto; }
 @keyframes autob { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.ruta .dots { display: flex; gap: 6px; }
-.ruta .dots button { width: 22px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; border-radius: 50%; }
-.ruta .dots button::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--lago-100); transition: background var(--t1) var(--ease), transform var(--t1) var(--ease); }
-.ruta .dots button.on::before { background: var(--lago); transform: scale(1.2); }
-.ruta .dots button.now::before { background: var(--arcilla); transform: scale(1.35); }
 .stage { position: relative; z-index: 1; overflow: hidden; }
 .stage .world { position: absolute; left: 0; top: 0; width: var(--ww); height: var(--wh); transform-origin: 0 0; will-change: transform; }
 .stage .world > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }   /* solo el mapa: el teléfono también vive dentro del mundo */
@@ -313,10 +307,8 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 760px) {
   /* en celular los controles van arriba del texto, pegados al escenario, lejos de la barra de pestañas */
   .ruta .pin { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
-  .ruta .step { grid-area: 2 / 1; }
-  .ruta .ctl { grid-area: 1 / 1; margin: 0 0 14px; justify-content: center; }
-  .ruta .pin { height: auto; min-height: calc(100svh - var(--top-h)); grid-template-rows: minmax(330px, 1fr) auto; }   /* el escenario nunca baja de 330 px: en pantallas cortas la sección crece y se hace scroll */
-  .ruta .steps { padding: 12px var(--gut) calc(var(--dock-h) + 2px); align-content: start; }
+  .ruta .pin { height: auto; min-height: 0; grid-template-rows: clamp(330px, 50svh, 460px) auto; }   /* el escenario, y debajo el texto; sin estirarse al alto de la pantalla */
+  .ruta .steps { padding: 12px var(--gut) 8px; align-content: start; }
   .ruta .step .h2 { font-size: clamp(1.5rem, 6.6vw, 2rem); }
   .ruta .step p { font-size: .9375rem; margin-top: 8px; }
   .ruta .step .acts { margin-top: 14px !important; }

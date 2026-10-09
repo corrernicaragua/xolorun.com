@@ -114,7 +114,7 @@
     for (const el of $$('[data-words], [data-rise], #stats', root)) {
       if (el.closest('#hero')) continue;
       if (G && !reduced) {
-        if (el.hasAttribute('data-words')) splitWords(el).forEach((w) => { w.style.transform = 'translateY(110%)'; });
+        if (el.hasAttribute('data-words')) G.set(splitWords(el), { yPercent: 110 });   // con GSAP, no con transform en línea: GSAP lo leía como píxeles y las palabras nunca subían
         else if (el.hasAttribute('data-rise')) G.set(el, { autoAlpha: 0 });
       }
       io.observe(el);
@@ -380,7 +380,7 @@
     const sec = $('#ruta'), stage = $('#stage'), world = $('#world'), svg = $('#world-svg'), g = $('#world-g');
     const guide = $('#w-guide'), trail = $('#w-trail'), tramo = $('#w-tramo'), capa = $('#w-capa'), capb = $('#w-capb'), stopsG = $('#w-stops'), nameG = $('#w-name');
     const tagS = $('#tag-salida'), tagM = $('#tag-meta'), tape = $('#tape'), carrier = $('#carrier'), phone = $('#route-phone'), remate = $('#remate'), firmaEnd = $('#firma-end');
-    const steps = $$('.step', $('#steps')), dots = $('#dots');
+    const steps = $$('.step', $('#steps'));
     const SYM = 'M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445';
     const SEG = 'M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642';
     const ANCH = [[36, 158], [94, 100], [126, 74], null, [198, 131], [226, 160]];   // dónde para el teléfono (null = en medio del tramo arcilla)
@@ -391,8 +391,6 @@
     let idx = -1, active = false, raf = 0, cam = { x: 0, y: 0, k: 1 }, want = { x: 0, y: 0, k: 1 }, snapped = false, kitPlayed = false, nameOn = false;
     guide.setAttribute('d', SYM); trail.setAttribute('d', SYM); tramo.setAttribute('d', SEG);
     capa.setAttribute('cx', 64.055); capa.setAttribute('cy', 181.954); capb.setAttribute('cx', 104.874); capb.setAttribute('cy', 169.445);
-    dots.innerHTML = Array.from({ length: N + 1 }, (_, k) => '<button type="button" role="tab" aria-label="' + (k < N ? 'Paso ' + (k + 1) : 'La meta') + '" aria-selected="false"></button>').join('');
-    const dotEls = $$('button', dots);
     function toWorld(x, y) { return [M + (x - 24.918) * S, M + (y - 62) * S]; }
     function layout() {
       const sw = stage.clientWidth, sh = stage.clientHeight;
@@ -449,7 +447,6 @@
       trail.style.strokeDasharray = '1 1'; trail.style.strokeDashoffset = (1 - fr).toFixed(4);
       capa.classList.toggle('on', fr > .004); capb.classList.toggle('on', fr >= metaF - .002);
       $$('.stopd', stopsG).forEach((d, k) => { d.classList.toggle('on', stops[k] <= fr + .004); d.classList.toggle('now', near === k && traveling < .3); });
-      dotEls.forEach((d, k) => { d.classList.toggle('on', k <= near); d.classList.toggle('now', k === near); d.setAttribute('aria-selected', k === near ? 'true' : 'false'); });
       // la cinta de meta
       if (fr >= tapeF && !snapped) { snapped = true; snapTape(); }
       else if (fr < tapeF - .02 && snapped) { snapped = false; resetTape(); }
@@ -511,12 +508,6 @@
     }
     function stopAuto() { if (auto) clearTimeout(auto); auto = 0; }
     document.addEventListener('visibilitychange', () => { if (!document.hidden && !auto && !tl) startAuto(); });
-    // los puntos, el teclado y deslizar sobre el teléfono saltan de paso; el ciclo continúa desde ahí
-    dotEls.forEach((d, k) => d.addEventListener('click', () => goTo(k, true)));
-    sec.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); goTo(cur + 1, true); } if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1, true); } });
-    let sx = null;
-    stage.addEventListener('pointerdown', (e) => { sx = e.clientX; }, { passive: true });
-    stage.addEventListener('pointerup', (e) => { if (sx !== null && Math.abs(e.clientX - sx) > 40) goTo(e.clientX < sx ? cur + 1 : cur - 1, true); sx = null; }, { passive: true });
     const io2 = new IntersectionObserver((ents) => {
       for (const e of ents) {
         active = e.isIntersecting && e.intersectionRatio >= .45;
