@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xolo Run · Todas las carreras de Nicaragua, en un solo lugar</title>
+<meta name="description" content="Xolo Run es la app para las carreras de Nicaragua: las encuentras, te inscribes, pagas y llevas tu dorsal en el teléfono. Todavía no sale: anótate en la lista de espera o cuéntanos cómo corres.">
+<meta name="theme-color" content="#F3EFE7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Xolo Run · Mismas rutas. Más gente.">
+<meta property="og:description" content="La app para las carreras de Nicaragua. Todavía no sale: anótate y te avisamos primero.">
+<meta property="og:url" content="https://xolorun.com/">
+<meta property="og:image" content="https://xolorun.com/og.jpg">
+<meta property="og:locale" content="es_NI">
+<link rel="canonical" href="https://xolorun.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="marca/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="marca/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="marca/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="landing.css">
+<script>document.documentElement.className = 'js';</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
+<script src="landing.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+
+<!-- El símbolo y el nombre se reutilizan desde aquí (los maestros del kit; nunca se redibujan) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="sym-g">
+      <path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="butt" stroke-linejoin="round"/>
+      <circle cx="64.055" cy="181.954" r="12" fill="currentColor"/><circle cx="104.874" cy="169.445" r="12" fill="currentColor"/>
+      <path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" fill="none" stroke="#C65A3D" stroke-width="24" stroke-linecap="butt" stroke-linejoin="round"/>
+    </g>
+    <g id="name-g" fill="currentColor">
+      <path d="M0.000 0.000 L22.506 0.000 L86.000 100.000 L63.494 100.000ZM63.494 0.000 L86.000 0.000 L22.506 100.000 L0.000 100.000Z"/>
+      <path d="M120.000 50.0 A52.0 52.0 0 1 0 224.000 50.0 A52.0 52.0 0 1 0 120.000 50.0ZM139.000 50.0 A33.0 33.0 0 1 0 205.000 50.0 A33.0 33.0 0 1 0 139.000 50.0Z" fill-rule="evenodd"/>
+      <path d="M254.000 0.000 L273.000 0.000 L273.000 81.000 L316.000 81.000 L316.000 100.000 L254.000 100.000Z"/>
+      <path d="M338.000 50.0 A52.0 52.0 0 1 0 442.000 50.0 A52.0 52.0 0 1 0 338.000 50.0ZM357.000 50.0 A33.0 33.0 0 1 0 423.000 50.0 A33.0 33.0 0 1 0 357.000 50.0Z" fill-rule="evenodd"/>
+      <path d="M516.000 0.000 L525.500 0.000 L525.500 100.000 L516.000 100.000ZM542.400 44.500 L553.110 44.500 L582.000 100.000 L571.290 100.000Z"/>
+      <path d="M520.750 0 H553.000 A27.0 27.0 0 0 1 553.000 54 H520.750ZM520.750 9.5 H553.000 A17.5 17.5 0 0 1 553.000 44.5 H520.750Z" fill-rule="evenodd"/>
+      <path d="M614.0 0 V62.000 A38.0 38.0 0 0 0 690.000 62.000 V0 H680.500 V62.000 A28.5 28.5 0 0 1 623.500 62.000 V0Z"/>
+      <path d="M722.000 0.000 L731.500 0.000 L731.500 100.000 L722.000 100.000ZM792.500 0.000 L802.000 0.000 L802.000 100.000 L792.500 100.000ZM722.000 0.000 L733.514 0.000 L802.000 100.000 L790.486 100.000Z"/>
+    </g>
+    <symbol id="logo-h" viewBox="0 0 1167.83 190"><g transform="scale(1.43940) translate(-24.918 -62.000)"><use href="#sym-g"/></g><g transform="translate(365.829 45.000)"><use href="#name-g"/></g></symbol>
+    <symbol id="sym" viewBox="0 0 211.08 132"><g transform="translate(-24.918 -62.000)"><use href="#sym-g"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="top" id="top">
+  <a class="brand" href="#inicio" data-tab-link="inicio" aria-label="Xolo Run, inicio"><svg viewBox="0 0 1167.83 190" role="img" aria-label="Xolo Run" style="color:#12383B"><use href="#logo-h"/></svg></a>
+  <button class="ask" type="button" data-sheet>Preguntas</button>
+</header>
+<nav class="tabs" id="tabs" role="tablist" aria-label="Secciones">
+    <i class="ind" aria-hidden="true"></i><i class="trk" aria-hidden="true"></i><i class="seg" aria-hidden="true"></i>
+    <button class="tab" role="tab" id="tab-inicio" aria-controls="inicio" aria-selected="true" data-tab="inicio">Inicio</button>
+    <button class="tab" role="tab" id="tab-encuesta" aria-controls="encuesta" aria-selected="false" tabindex="-1" data-tab="encuesta">Encuesta</button>
+    <button class="tab" role="tab" id="tab-lista" aria-controls="lista" aria-selected="false" tabindex="-1" data-tab="lista">Lista de espera<span class="n" data-tab-n></span></button>
+  </nav>
+<div class="speed" id="speed" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div id="ghost" aria-hidden="true"><i class="gband"></i><i class="gseg"></i><svg class="gsym" viewBox="0 0 211.08 132"><use href="#sym"/></svg></div>
+
+<main id="main" class="panels">
+
+  <!-- ═══════════ PESTAÑA 1 · INICIO ═══════════ -->
+  <section class="panel" id="inicio" role="tabpanel" aria-labelledby="tab-inicio">
+
+    <div class="wrap">
+      <div class="hero" id="hero">
+        <svg class="hero-route" id="hero-route" aria-hidden="true" preserveAspectRatio="none"><path class="rb" id="hr-base" pathLength="1"/><path class="rs" id="hr-seg" pathLength="1"/></svg>
+        <div class="copy">
+          <p class="label" data-rise>Correr en Nicaragua</p>
+          <h1 class="h1" id="t-hero" data-words>Inscribirte no debería ser una carrera.</h1>
+          <p class="lede" data-rise>Xolo Run es la app para las carreras de Nicaragua: las encuentras, te inscribes, pagas y llevas tu dorsal en el teléfono, todo en un solo lugar. Todavía no sale. Anótate y te avisamos primero.</p>
+          <div class="acts" data-rise>
+            <button class="cta" type="button" data-tab-link="lista"><span class="roll" data-roll>Quiero mi dorsal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            <a class="link2" href="#ruta" data-scroll>Ver cómo funciona<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+          </div>
+          <p class="fila" id="hero-fila" data-rise></p>
+        </div>
+
+        <div class="scene" id="scene" aria-hidden="true">
+          <svg class="sweep" id="sweep" aria-hidden="true"><circle id="sweep-c" fill="none" stroke="#12383B" stroke-width="14" r="0" opacity="0"/></svg>
+          <span class="bub" style="left:-4%;top:18%">¿Hay cupos todavía?</span>
+          <span class="bub r" style="right:-6%;top:26%">Mandé la foto ayer</span>
+          <span class="bub" style="left:-8%;top:52%">Se acabaron los cupos</span>
+          <span class="bub r" style="right:-4%;top:60%">¿Te confirmaron?</span>
+          <span class="bub" style="left:2%;top:82%">Sin señal aquí</span>
+          <div class="phone" id="hero-phone"><div class="screen">
+            <span class="ej">Ejemplo</span>
+            <div class="scr caos on" data-s="caos">
+              <span class="sb" style="color:#8FB1B2"><i>9:41</i><i style="color:#E07A5F">5 %</i></span>
+              <p class="k">Notificaciones</p>
+              <div class="nt"><i class="o">O</i><div><b>Organización</b><span>Foto del comprobante, por favor</span></div></div>
+              <div class="nt"><i>G</i><div><b>Grupo Corredores 10K</b><span>¿Todavía hay cupos?</span></div></div>
+              <div class="nt"><i class="a">A</i><div><b>Ana</b><span>¿Me mandas la captura?</span></div></div>
+              <div class="nt"><i>C</i><div><b>Carlos</b><span>¿Ya te confirmaron?</span></div></div>
+              <div class="nt"><i class="x">!</i><div><b>Batería</b><span>Queda 5 %</span></div></div>
+              <div class="nt"><i class="o">O</i><div><b>Organización</b><span>Quedan pocos cupos</span></div></div>
+              <div class="nt"><i class="a">A</i><div><b>Ana</b><span>Yo pagué y todavía nada</span></div></div>
+              <div class="nt"><i>G</i><div><b>Grupo Corredores 10K</b><span>¿Alguien sabe dónde pagar?</span></div></div>
+            </div>
+            <div class="scr" data-s="app">
+              <span class="sb"><i>9:41</i><i>100 %</i></span>
+              <p class="h4">Carreras</p>
+              <div class="chips"><i class="on">Todas</i><i>5K</i><i>10K</i><i>21K</i></div>
+              <div class="card big"><div class="land" data-land="0"><span class="d">21K</span></div><div class="tx"><b>Media maratón de ejemplo</b><span>Domingo · 05:30 · Managua</span></div></div>
+              <div class="card"><div class="land" data-land="1"><span class="d">10K</span></div><div class="tx"><b>10K de ejemplo</b><span>Sábado · 06:00 · Granada</span></div></div>
+              <div class="card"><div class="land" data-land="2"><span class="d">5K</span></div><div class="tx"><b>5K de ejemplo</b><span>Domingo · 06:00 · León</span></div></div>
+              <div class="tabbar"><i class="on"></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="scr" data-s="crews">
+              <span class="sb"><i>9:41</i><i>100 %</i></span>
+              <p class="k">Reto de la semana</p>
+              <b class="big">18.4 <small>de 25 km</small></b>
+              <div class="trk"><i style="--p:74%"></i></div>
+              <p class="k">Crews cerca de tu zona</p>
+              <div class="crew on"><span class="av">CL</span><div><b>Crew de ejemplo</b><span>Managua · Sábado 05:30</span></div><em>Unido</em></div>
+              <div class="crew"><span class="av">LM</span><div><b>Crew de ejemplo</b><span>Masaya · Domingo 05:45</span></div><em>Unirme</em></div>
+              <div class="tabbar"><i></i><i></i><i class="on"></i><i></i></div>
+            </div>
+            <div class="scr dark" data-s="dorsal">
+              <span class="sb"><i>9:41</i><i>Sin señal</i></span>
+              <p class="k">Mi dorsal</p>
+              <div class="bib">
+                <div class="bb"><svg viewBox="0 0 211.08 132" style="color:#12383B"><use href="#sym"/></svg>Media maratón de ejemplo</div>
+                <div class="num">0427</div>
+                <div class="who">Ana T.<small>21K · Categoría libre</small></div>
+                <div class="qrrow"><div><span class="pill">Pago confirmado</span><p class="cap">Muestra este QR en la entrega de kits.</p></div><div class="qr"><svg data-qr-ill viewBox="0 0 21 21" shape-rendering="crispEdges"></svg></div></div>
+              </div>
+              <p class="off"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tu dorsal funciona sin conexión.</p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- lo que nos contaron -->
+    <section class="band dark" id="hoy" aria-labelledby="t-hoy">
+      <div class="wrap">
+        <p class="label" data-rise>Hoy, inscribirse a una carrera</p>
+        <h2 class="h2" id="t-hoy" data-words>Lo que nos contaron 179 personas que corren en Nicaragua</h2>
+        <p class="lede" data-rise>Antes de construir, preguntamos. Estas son sus respuestas, con su base. Son el mapa de lo que Xolo Run tiene que resolver.</p>
+        <div class="stats" id="stats"></div>
+        <p class="src">Encuesta «Correr en Nicaragua», respuestas completas del 6 al 8 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta. <button class="textlink" type="button" data-tab-link="encuesta" style="min-height:auto;color:inherit">Súmate a la encuesta</button>.</p>
+      </div>
+    </section>
+
+    <!-- la ruta -->
+    <section class="ruta" id="ruta" aria-labelledby="t-ruta" tabindex="-1">
+      <div class="pin">
+        <div class="steps" id="steps">
+          <h2 class="vh" id="t-ruta">Así es con Xolo Run</h2>
+          <div class="step on" data-step="0"><p class="label"><i></i>Paso 1</p><h3 class="h2">Encuentras tu carrera.</h3><p>Todas las carreras de Nicaragua, en un solo lugar. Las de tu zona, primero, y con tiempo para decidir.</p></div>
+          <div class="step" data-step="1"><p class="label"><i></i>Paso 2</p><h3 class="h2">Te inscribes desde el teléfono.</h3><p>Distancia, talla y contacto de emergencia en pocos pasos. Tus datos quedan guardados para la próxima.</p></div>
+          <div class="step" data-step="2"><p class="label"><i></i>Paso 3</p><h3 class="h2">Pagas. Confirmado.</h3><p>Subes tu comprobante en la app y ves el estado de tu pago. Sin capturas por chat, sin preguntar si llegó.</p></div>
+          <div class="step" data-step="3"><p class="label"><i></i>Paso 4 · El tramo de encuentro</p><h3 class="h2">Tu crew te espera.</h3><p>Crews por zona y un reto cada semana, para que nadie corra solo.</p></div>
+          <div class="step" data-step="4"><p class="label"><i></i>Paso 5</p><h3 class="h2">Tu dorsal, aunque no haya señal.</h3><p>Tu dorsal con QR funciona sin conexión, con sol directo y con poca batería.</p></div>
+          <div class="step" data-step="5"><p class="label"><i></i>Paso 6</p><h3 class="h2">Recoges tu kit con un escaneo.</h3><p>El equipo del evento escanea tu QR y listo. Sin lista de papel ni comprobante impreso.</p></div>
+          <div class="step" data-step="6"><p class="label"><i></i>La meta</p><h3 class="h2">Tu única preocupación: <span style="color:#1F6366">correr.</span></h3><p>La ruta que recorriste es nuestro logo. Mismas rutas. Más gente.</p><div class="acts" style="margin-top:22px;pointer-events:auto"><button class="cta" type="button" data-tab-link="lista"><span class="roll" data-roll>Quiero mi dorsal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button></div></div>
+          <div class="ctl" id="ctl">
+            <button class="cbtn" type="button" data-prev aria-label="Paso anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+            <div class="dots" id="dots" role="tablist" aria-label="Pasos de la ruta"></div>
+            <button class="cbtn next" type="button" data-next aria-label="Siguiente paso"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg><i class="auto" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="stage" id="stage" aria-hidden="true">
+          <div class="world" id="world">
+            <svg id="world-svg">
+              <g id="world-g">
+                <path class="guide" id="w-guide"/>
+                <path class="trail" id="w-trail" pathLength="1"/>
+                <path class="tramo" id="w-tramo"/>
+                <circle class="capa" id="w-capa" r="12"/><circle class="capb" id="w-capb" r="12"/>
+                <g id="w-stops"></g>
+              </g>
+              <g id="w-name" opacity="0" style="color:#12383B"><use href="#name-g"/></g>
+            </svg>
+            <span class="wordtag" id="tag-salida">Salida</span>
+            <span class="wordtag" id="tag-meta">Meta</span>
+            <div class="tape" id="tape"><i class="a"></i><i class="b"></i></div>
+            <div class="carrier" id="carrier">
+              <div class="shadow"></div>
+              <div class="phone" id="route-phone"><div class="screen">
+                <span class="ej">Ejemplo</span>
+                <div class="scr on" data-s="carreras">
+                  <span class="sb"><i>9:41</i><i>100 %</i></span>
+                  <p class="h4">Carreras</p>
+                  <p class="muted">Cerca de tu zona</p>
+                  <div class="card big"><div class="land" data-land="0"><span class="d">21K</span></div><div class="tx"><b>Media maratón de ejemplo</b><span>Domingo · 05:30 · Managua</span></div></div>
+                  <div class="card"><div class="land" data-land="1"><span class="d">10K</span></div><div class="tx"><b>10K de ejemplo</b><span>Sábado · 06:00 · Granada</span></div></div>
+                  <div class="card"><div class="land" data-land="2"><span class="d">5K</span></div><div class="tx"><b>5K de ejemplo</b><span>Domingo · 06:00 · León</span></div></div>
+                  <div class="tabbar"><i class="on"></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="scr" data-s="inscripcion">
+                  <span class="sb"><i>9:41</i><i>100 %</i></span>
+                  <p class="k">Inscripción · paso 2 de 3</p>
+                  <div class="trk"><i style="--p:66%"></i></div>
+                  <p class="h4 sm">Media maratón de ejemplo</p>
+                  <p class="k">Distancia</p>
+                  <div class="opts"><i>5K</i><i>10K</i><i class="on">21K</i></div>
+                  <p class="k">Talla de camiseta</p>
+                  <div class="opts"><i>S</i><i class="on">M</i><i>L</i><i>XL</i></div>
+                  <div class="sum"><span>Contacto de emergencia</span><b>Listo</b></div>
+                  <div class="btn">Continuar al pago</div>
+                </div>
+                <div class="scr" data-s="pago">
+                  <span class="sb"><i>9:41</i><i>100 %</i></span>
+                  <p class="k">Inscripción · paso 3 de 3</p>
+                  <div class="trk"><i style="--p:100%"></i></div>
+                  <p class="h4 sm">Pago por transferencia</p>
+                  <div class="rcpt"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5"/></svg><div><b>Tu comprobante</b><span>Subido desde la app</span></div></div>
+                  <ol class="states"><li class="ok">Comprobante enviado</li><li class="ok">Revisado por el equipo del evento</li><li class="ok" data-last>Pago confirmado</li></ol>
+                  <div class="okbox" data-okbox><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Pago confirmado<small>Tu dorsal ya está en la app.</small></div>
+                </div>
+                <div class="scr" data-s="crews">
+                  <span class="sb"><i>9:41</i><i>100 %</i></span>
+                  <p class="k">Reto de la semana</p>
+                  <b class="big">18.4 <small>de 25 km</small></b>
+                  <div class="trk"><i style="--p:74%"></i></div>
+                  <p class="k">Crews cerca de tu zona</p>
+                  <div class="crew on"><span class="av">CL</span><div><b>Crew de ejemplo</b><span>Managua · Sábado 05:30</span></div><em>Unido</em></div>
+                  <div class="crew"><span class="av">LM</span><div><b>Crew de ejemplo</b><span>Masaya · Domingo 05:45</span></div><em>Unirme</em></div>
+                  <div class="crew"><span class="av">RG</span><div><b>Crew de ejemplo</b><span>Granada · Miércoles 18:00</span></div><em>Unirme</em></div>
+                  <div class="tabbar"><i></i><i></i><i class="on"></i><i></i></div>
+                </div>
+                <div class="scr dark" data-s="dorsal">
+                  <span class="sb"><i>9:41</i><i>Sin señal</i></span>
+                  <p class="k">Mi dorsal</p>
+                  <div class="bib">
+                    <div class="bb"><svg viewBox="0 0 211.08 132" style="color:#12383B"><use href="#sym"/></svg>Media maratón de ejemplo</div>
+                    <div class="num">0427</div>
+                    <div class="who">Ana T.<small>21K · Categoría libre</small></div>
+                    <div class="qrrow"><div><span class="pill">Pago confirmado</span><p class="cap">Muestra este QR en la entrega de kits.</p></div><div class="qr"><svg data-qr-ill viewBox="0 0 21 21" shape-rendering="crispEdges"></svg><i class="sl"></i><i class="fr"></i></div></div>
+                  </div>
+                  <p class="off"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tu dorsal funciona sin conexión.</p>
+                  <div class="toast" data-toast><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Kit entregado</div>
+                </div>
+              </div></div>
+            </div>
+            <div class="lock" id="lock"></div>
+          </div>
+          <div class="remate" id="remate"><div class="bg"></div></div>
+          <p class="firma firma-end" id="firma-end">Mismas rutas. Más gente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- el trato -->
+    <section class="band" id="trato" aria-labelledby="t-trato">
+      <div class="wrap">
+        <p class="label" data-rise>Mientras la construimos</p>
+        <h2 class="h2" id="t-trato" data-words>Un trato claro entre quienes corren y nosotros</h2>
+        <div class="trato" data-rise>
+          <div class="col">
+            <p class="label">Lo que te damos</p>
+            <ul>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 11h16M8 7V5M16 7V5"/></svg></span><div><b>Tu número en la fila</b><span>Un dorsal con tu nombre, tu zona y tu lugar. Es tuyo desde hoy.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg></span><div><b>El aviso antes que nadie</b><span>Cuando Xolo Run abra, te escribimos primero por WhatsApp o por correo.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 0-.01M16 12a4 4 0 1 0 0-.01M3 20a5 5 0 0 1 10 0M11 20a5 5 0 0 1 10 0"/></svg></span><div><b>Gente de tu zona</b><span>Si quieres, te invitamos al grupo de WhatsApp de tu zona cuando lo abramos.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h3v3h-3zM20 14v6h-3"/></svg></span><div><b>Tu enlace para tu crew</b><span>El QR de tu dorsal es tu enlace: quien lo escanee se anota contigo.</span></div></li>
+            </ul>
+          </div>
+          <div class="col cl">
+            <p class="label cl">Lo que te pedimos</p>
+            <ul>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/></svg></span><div><b>Un minuto</b><span>Tu nombre, dónde corres, cómo corres y un contacto. Nada más.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg></span><div><b>Tu historia, si puedes</b><span>La encuesta es anónima y dura de 3 a 8 minutos. Con ella decidimos qué construir primero.</span></div></li>
+              <li><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12h12M12 6l6 6-6 6"/></svg></span><div><b>Que corras la voz</b><span>Comparte tu enlace con quien corre contigo. Más gente en la fila, más carreras en la app.</span></div></li>
+            </ul>
+          </div>
+        </div>
+        <div class="honesto" data-rise>
+          <span class="mark"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7zM9 12l2 2 4-4"/></svg></span>
+          <div><b>Sin promesas que no podamos cumplir</b><p>No anunciamos fechas, cupos ni precios hasta que sean seguros. No vendemos ni compartimos tus datos, y puedes pedir que los borremos cuando quieras.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- dos caminos -->
+    <section class="band" id="caminos-s" aria-labelledby="t-caminos" style="padding-top:0">
+      <div class="wrap">
+        <p class="label" data-rise>Dos caminos, los dos cortos</p>
+        <h2 class="h2" id="t-caminos" data-words>Elige por dónde empezar</h2>
+        <div class="caminos" data-rise>
+          <button class="camino cl" type="button" data-tab-link="lista">
+            <p class="label">Lista de espera</p>
+            <h3 class="h3">Reclama tu dorsal</h3>
+            <p>Tu número en la fila, el aviso cuando abramos y tu enlace para invitar a tu crew.</p>
+            <span class="go-ln">Quiero mi dorsal<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <svg class="mini" viewBox="0 0 211.08 132" aria-hidden="true"><g transform="translate(-24.918 -62)"><path pathLength="1" d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" stroke-width="24" stroke-linejoin="round"/></g></svg>
+          </button>
+          <button class="camino" type="button" data-tab-link="encuesta">
+            <p class="label">Encuesta «Correr en Nicaragua»</p>
+            <h3 class="h3">Cuéntanos cómo corres</h3>
+            <p>Anónima, de 3 a 8 minutos. Sirve aunque no corras carreras. 179 personas ya respondieron.</p>
+            <span class="go-ln">Responder la encuesta<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <svg class="mini" viewBox="0 0 211.08 132" aria-hidden="true"><g transform="translate(-24.918 -62)"><path pathLength="1" d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" stroke-width="24" stroke-linejoin="round"/></g></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="wrap">
+        <div class="fx">
+          <svg viewBox="0 0 1167.83 190" role="img" aria-label="Xolo Run" style="color:#12383B"><use href="#logo-h"/></svg>
+          <p class="firma">Mismas rutas. Más gente.</p>
+          <div class="links"><button type="button" data-sheet>Preguntas</button><button type="button" data-priv>Aviso de privacidad</button></div>
+        </div>
+        <p class="fine">Xolo Run · Nicaragua. Hecho por gente que corre.</p>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ═══════════ PESTAÑA 2 · ENCUESTA ═══════════ -->
+  <section class="panel enc" id="encuesta" role="tabpanel" aria-labelledby="tab-encuesta" hidden>
+    <div class="wrap enc-grid">
+      <div class="enc-copy">
+        <p class="label">Encuesta «Correr en Nicaragua»</p>
+        <h2 class="h2 enc-h2">Cuéntanos cómo corres.</h2>
+        <p class="lede enc-lede">Anónima, de 3 a 8 minutos. Sirve aunque no corras carreras. Con lo que nos cuentes decidimos qué construir primero.</p>
+        <ul class="facts enc-facts">
+          <li><i></i><span>179 personas ya respondieron</span></li>
+          <li><i></i><span>No pedimos tu nombre ni tu contacto</span></li>
+          <li><i></i><span>Se guarda sola: puedes seguir después</span></li>
+        </ul>
+        <p class="enc-mini">Anónima · de 3 a 8 minutos · sirve aunque no corras carreras</p>
+        <a class="textlink" id="enc-open" href="https://corrernicaragua.github.io/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>Abrir en otra pestaña</a>
+      </div>
+      <div class="enc-dev" id="enc-dev">
+        <div class="phone enc-phone" id="enc-phone"><div class="screen">
+          <div class="wait" id="enc-wait"><svg viewBox="0 0 211.08 132" aria-hidden="true"><g transform="translate(-24.918 -62)"><path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445"/><path class="run" pathLength="1" d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445"/></g></svg><p>Cargando la encuesta…</p><a class="textlink" id="enc-fallback" href="https://corrernicaragua.github.io/" target="_blank" rel="noopener" hidden>Si no aparece, ábrela aquí</a></div>
+          <iframe id="enc-frame" title="Encuesta «Correr en Nicaragua»" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PESTAÑA 3 · LISTA DE ESPERA ═══════════ -->
+  <section class="panel" id="lista" role="tabpanel" aria-labelledby="tab-lista" hidden>
+    <div class="wrap">
+      <div class="lista">
+        <div class="side">
+          <div class="bib" id="bib" aria-hidden="true"><div class="tilt" id="bib-tilt">
+            <div class="bcard">
+              <div class="band"><svg viewBox="0 0 1167.83 190" aria-hidden="true" style="color:#F3EFE7"><use href="#logo-h"/></svg><span>Lista de espera</span></div>
+              <div class="stripes" id="stripes"><i></i><i></i><i></i><i></i></div>
+              <div class="body">
+                <div><p class="k">Nº en la fila</p><div class="num" data-bib-num><span class="ph">0000</span></div></div>
+                <div class="qr" data-bib-qr><svg viewBox="0 0 211.08 132" class="sym" style="color:#12383B"><use href="#sym"/></svg></div>
+              </div>
+              <div class="foot">
+                <div><p class="name empty" data-bib-name>Tu nombre</p><p class="meta"><span class="empty" data-bib-zone>Tu zona</span> · <span data-bib-state>Sin reclamar</span></p></div>
+                <span class="fr">QR · tu enlace</span>
+              </div>
+              <i class="hole a"></i><i class="hole b"></i><i class="hole c"></i><i class="hole d"></i>
+            </div>
+          </div></div>
+        </div>
+        <div class="panel-w" id="panel-w">
+          <p class="fila-n" id="fila-n" hidden><i></i><span>Ya hay <b data-fila-n>0</b> personas en la fila</span></p>
+          <p class="label stepno" id="stepno"><span data-stepno>Paso 1 de 4</span><span class="pg" id="pg" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i></span></p>
+          <h2 class="h2" id="t-lista" tabindex="-1" style="font-size:clamp(1.9rem,4.2vw,3rem)">Tu dorsal te espera</h2>
+          <p class="sub" id="sub">Cada respuesta se imprime en tu dorsal. Al final te damos tu número en la fila y te avisamos primero cuando abramos.</p>
+          <form class="wiz" id="wiz" novalidate>
+            <div class="step" data-step="0">
+              <p class="lbl" id="q-name">¿Cómo te llamamos?</p>
+              <div class="neb" data-field="name">
+                <input id="f-name" name="name" type="text" autocomplete="given-name" maxlength="60" placeholder=" " aria-describedby="q-name e-name h-name">
+                <label for="f-name">Tu nombre</label>
+              </div>
+              <p class="err" id="e-name"></p>
+              <p class="hint" id="h-name">Así aparece en tu dorsal.</p>
+              <div class="nav"><button class="go" type="submit">Seguir<svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+            </div>
+            <fieldset class="step" data-step="1" hidden aria-describedby="e-zone">
+              <legend class="lbl">¿Dónde corres?</legend>
+              <div class="tiles" id="tiles"></div>
+              <p class="err" id="e-zone"></p>
+              <div class="nav"><button class="go" type="submit">Seguir<svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="textlink" type="button" data-prev>Atrás</button></div>
+            </fieldset>
+            <fieldset class="step" data-step="2" hidden aria-describedby="e-profile">
+              <legend class="lbl">¿Cómo corres hoy?</legend>
+              <div class="orbit" id="orbit"></div>
+              <p class="err" id="e-profile"></p>
+              <div class="nav"><button class="go" type="submit">Seguir<svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="textlink" type="button" data-prev>Atrás</button></div>
+            </fieldset>
+            <div class="step" data-step="3" hidden>
+              <p class="lbl" id="q-contact">¿Dónde te avisamos?</p>
+              <div class="neb tel" data-field="contact">
+                <span class="pre" aria-hidden="true">+505</span>
+                <input id="f-contact" name="contact" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="24" placeholder=" " aria-describedby="q-contact e-contact h-contact">
+                <label for="f-contact" id="l-contact">Tu WhatsApp</label>
+              </div>
+              <p class="err" id="e-contact"></p>
+              <p class="hint" id="h-contact">Son 8 dígitos, como 8888 8888. Te avisamos cuando abramos. Nada más.</p>
+              <button class="textlink swap" type="button" data-swap>Prefiero dejar mi correo</button>
+              <div class="checks">
+                <label class="check" data-group><span class="cb"><input type="checkbox" name="group"><svg viewBox="0 0 35.6 35.6" aria-hidden="true"><circle class="bg" cx="17.8" cy="17.8" r="17"/><circle class="ring" cx="17.8" cy="17.8" r="14.37"/><polyline class="tick" points="11.78 18.12 15.55 22.23 25.17 12.87"/></svg></span><span>Quiero entrar al grupo de WhatsApp de mi zona cuando lo abramos.</span></label>
+                <div>
+                  <label class="check" data-consent><span class="cb"><input type="checkbox" name="consent" aria-describedby="e-consent"><svg viewBox="0 0 35.6 35.6" aria-hidden="true"><circle class="bg" cx="17.8" cy="17.8" r="17"/><circle class="ring" cx="17.8" cy="17.8" r="14.37"/><polyline class="tick" points="11.78 18.12 15.55 22.23 25.17 12.87"/></svg></span><span>Acepto que Xolo Run guarde estos datos para avisarme del lanzamiento y del piloto. Puedo pedir que los borren cuando quiera. <a href="#privacidad" data-priv>Aviso de privacidad</a></span></label>
+                  <p class="err" id="e-consent"></p>
+                </div>
+              </div>
+              <input class="hp" name="sitio" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <div class="nav"><span class="sweep-w"><button class="go" type="submit" data-final><span class="gl">Recibir mi número</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg><i class="spin" aria-hidden="true"></i></button></span><button class="textlink" type="button" data-prev>Atrás</button></div>
+              <p class="err" data-send></p>
+            </div>
+            <div class="res" id="res" hidden tabindex="-1"></div>
+          </form>
+          <noscript><p class="hint">Para anotarte necesitas activar JavaScript en tu navegador.</p></noscript>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog class="sheet" id="sheet" aria-labelledby="t-faq">
+  <div class="sheet-in">
+    <div class="sheet-head"><h2 id="t-faq">Preguntas</h2><button class="x" type="button" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <details><summary>¿Qué es Xolo Run?</summary><div><p>Una app para las carreras de Nicaragua: ver todas en un solo calendario, inscribirte y pagar desde el teléfono, llevar tu dorsal con QR y recoger tu kit con un escaneo. También crews por zona y un reto cada semana.</p></div></details>
+    <details><summary>¿Cuándo sale?</summary><div><p>Todavía no tiene fecha. Quienes están en la lista se enteran primero, y no vamos a anunciar una fecha hasta que sea segura.</p></div></details>
+    <details><summary>¿Cuesta algo anotarme?</summary><div><p>No. Anotarte en la lista no cuesta nada y no te compromete a nada.</p></div></details>
+    <details><summary>¿La encuesta y la lista son lo mismo?</summary><div><p>No. La encuesta es anónima: nos cuenta cómo se vive correr aquí. La lista de espera guarda tu contacto para avisarte. Puedes hacer una, las dos o ninguna.</p></div></details>
+    <details><summary>¿Qué hacen con mis datos?</summary><div><p>Los usamos solo para avisarte del lanzamiento y del piloto y, si lo marcaste, para invitarte al grupo de WhatsApp de tu zona. No los vendemos ni los compartimos. Puedes pedir que los borremos cuando quieras. El detalle está en el <a href="#privacidad" data-priv>aviso de privacidad</a>.</p></div></details>
+    <details><summary>Organizo carreras o tengo un crew</summary><div><p>Al anotarte, marca «Organizo carreras o un crew» y te escribimos para contarte cómo funciona Xolo Run para organizadores y crews.</p></div></details>
+    <details class="priv" id="privacidad">
+      <summary>Aviso de privacidad de la lista de espera</summary>
+      <div>
+        <dl>
+          <div><dt>Responsable</dt><dd data-controller></dd></div>
+          <div><dt>Qué guardamos</dt><dd>Tu nombre, tu WhatsApp o tu correo, tu zona, cómo corres, si quieres entrar al grupo de tu zona y el enlace por el que llegaste.</dd></div>
+          <div><dt>Para qué</dt><dd>Para avisarte del lanzamiento y del piloto de Xolo Run, invitarte al grupo de WhatsApp de tu zona si lo pediste y saber qué canales funcionan. No vendemos ni compartimos tus datos.</dd></div>
+          <div><dt>Dónde</dt><dd>En una base de datos de Supabase, en servidores de Estados Unidos, con acceso solo del equipo de Xolo Run.</dd></div>
+          <div><dt>Cuánto tiempo</dt><dd data-retention></dd></div>
+          <div><dt>Tus derechos</dt><dd>Puedes pedir ver, corregir o borrar tus datos, o retirar tu permiso, en cualquier momento (Ley 787 de Protección de Datos Personales). Escríbenos a <span data-contact></span>.</dd></div>
+          <div><dt>Versión</dt><dd data-version></dd></div>
+        </dl>
+      </div>
+    </details>
+    <p class="fb"><svg viewBox="0 0 211.08 132" style="color:#12383B"><use href="#sym"/></svg>Xolo Run · Nicaragua</p>
+  </div>
+</dialog>
+<div id="confeti" aria-hidden="true"></div>
+</body>
+</html>
