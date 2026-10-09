@@ -397,7 +397,7 @@
     function layout() {
       const sw = stage.clientWidth, sh = stage.clientHeight;
       if (!sw || !sh) return;
-      pw = mobile.matches ? clamp(sw * .46, 160, 190) : clamp(sh * .3, 190, 250);
+      pw = mobile.matches ? clamp(Math.min(sw * .42, sh * .39), 140, 172) : clamp(sh * .3, 190, 250);   // en celular cabe entero en el escenario
       S = mobile.matches ? clamp(sw * 2.3 / 211, 3.2, 5) : clamp(sw * 1.8 / 211, 4.2, 7.5);
       WW = 211.08 * S + 2 * M; WH = 132 * S + 2 * M;
       world.style.setProperty('--ww', WW + 'px'); world.style.setProperty('--wh', WH + 'px');
@@ -445,7 +445,7 @@
       const traveling = i < N ? Math.sin(u * Math.PI) : 0, near = Math.round(q);
       const dir = Math.cos(qp.a * Math.PI / 180) >= 0 ? 1 : -1;
       carrier.style.transform = 'translate(' + qp.x.toFixed(1) + 'px,' + qp.y.toFixed(1) + 'px)';
-      phone.style.transform = 'translate(-50%,-56%) perspective(1500px) rotateY(' + (dir * 16 * traveling).toFixed(2) + 'deg) rotateX(' + (6 * traveling).toFixed(2) + 'deg) rotate(' + (clamp(Math.sin(qp.a * Math.PI / 180) * -6, -8, 8) * traveling).toFixed(2) + 'deg)';
+      phone.style.transform = 'translate(-50%,' + (mobile.matches ? -50 : -56) + '%) perspective(1500px) rotateY(' + (dir * 16 * traveling).toFixed(2) + 'deg) rotateX(' + (6 * traveling).toFixed(2) + 'deg) rotate(' + (clamp(Math.sin(qp.a * Math.PI / 180) * -6, -8, 8) * traveling).toFixed(2) + 'deg)';
       trail.style.strokeDasharray = '1 1'; trail.style.strokeDashoffset = (1 - fr).toFixed(4);
       capa.classList.toggle('on', fr > .004); capb.classList.toggle('on', fr >= metaF - .002);
       $$('.stopd', stopsG).forEach((d, k) => { d.classList.toggle('on', stops[k] <= fr + .004); d.classList.toggle('now', near === k && traveling < .3); });
@@ -521,7 +521,7 @@
     function resize() { if (panels.inicio.hidden) return; layout(); place(true); }
     function paintCam() { world.style.transform = 'translate(' + cam.x.toFixed(1) + 'px,' + cam.y.toFixed(1) + 'px) scale(' + cam.k.toFixed(4) + ')'; }
     function tick() {
-      const lag = reduced ? 1 : .11;
+      const lag = reduced ? 1 : (mobile.matches ? .2 : .11);   // en celular la cámara sigue más de cerca: el escenario es bajo y el teléfono se salía
       cam.x += (want.x - cam.x) * lag; cam.y += (want.y - cam.y) * lag; cam.k += (want.k - cam.k) * lag;
       paintCam();
       raf = active ? requestAnimationFrame(tick) : 0;
