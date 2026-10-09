@@ -159,7 +159,6 @@ img { max-width: 100%; height: auto; }
   box-shadow: 0 40px 80px -30px rgba(18, 56, 59, .55), inset 0 0 0 2px #2A2E31; transform-style: flat; }   /* flat: con preserve-3d la pantalla se salía del cuerpo al girar (se veía negro en celular) */
 .phone::before { content: ""; position: absolute; left: 50%; top: calc(var(--pw, 250px) * .035); width: calc(var(--pw, 250px) * .26); height: calc(var(--pw, 250px) * .07); margin-left: calc(var(--pw, 250px) * -.13); border-radius: 999px; background: var(--obs); z-index: 5; }
 .phone .screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: calc(var(--pw, 250px) * .105); background: var(--arena); color: var(--lago); font-size: calc(var(--pw, 250px) * .052); line-height: 1.3; transform: translateZ(0); }
-.phone .ej { position: absolute; z-index: 6; right: 7%; top: 2.6%; padding: .25em .6em; border-radius: 999px; background: var(--niebla-200); color: var(--lago-400); font: 700 .62em/1.1 "Space Grotesk", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
 .scr { position: absolute; inset: 0; padding: 14% 7% 7%; display: flex; flex-direction: column; gap: .55em; visibility: hidden; opacity: 0; will-change: transform; }
 .scr.on { visibility: visible; opacity: 1; }
 .scr .sb { position: absolute; left: 8%; right: 8%; top: 4.6%; display: flex; justify-content: space-between; font: 600 .78em/1 "Inter", sans-serif; color: var(--lago-400); }
