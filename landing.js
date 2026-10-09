@@ -397,8 +397,8 @@
     function layout() {
       const sw = stage.clientWidth, sh = stage.clientHeight;
       if (!sw || !sh) return;
-      pw = mobile.matches ? clamp(Math.min(sw * .42, sh * .39), 140, 172) : clamp(sh * .3, 190, 250);   // en celular cabe entero en el escenario
-      S = mobile.matches ? clamp(sw * 2.3 / 211, 3.2, 5) : clamp(sw * 1.8 / 211, 4.2, 7.5);
+      pw = mobile.matches ? clamp(Math.min(sw * .42, sh * .38), 120, 172) : clamp(sh * .3, 190, 250);   // en celular cabe entero en el escenario
+      S = mobile.matches ? clamp(sw * 1.9 / 211, 2.8, 4) : clamp(sw * 1.8 / 211, 4.2, 7.5);              // mundo más chico en celular: menos textura que mover
       WW = 211.08 * S + 2 * M; WH = 132 * S + 2 * M;
       world.style.setProperty('--ww', WW + 'px'); world.style.setProperty('--wh', WH + 'px');
       swPx = clamp(S * 4.2, 14, 30);
@@ -545,9 +545,16 @@
       const from = scr.find((s) => s.dataset.s === curScr), to = scr.find((s) => s.dataset.s === name), fwd = scr.indexOf(to) > scr.indexOf(from);
       curScr = name;
       if (!G || reduced) { from.classList.remove('on'); to.classList.add('on'); return; }
+      // si se toca rápido, se corta lo que estuviera en curso y solo quedan a la vista la que sale y la que entra
+      G.killTweensOf(scr);
+      scr.forEach((s) => { if (s !== from && s !== to) { s.classList.remove('on'); G.set(s, { clearProps: 'transform,opacity,visibility' }); } });
       to.classList.add('on');
-      G.fromTo(to, { xPercent: fwd ? 100 : -100 }, { xPercent: 0, duration: .42, ease: 'power3.inOut' });
-      G.fromTo(from, { xPercent: 0 }, { xPercent: fwd ? -30 : 30, duration: .42, ease: 'power3.inOut', onComplete: () => { from.classList.remove('on'); G.set(from, { clearProps: 'transform' }); } });
+      // la pantalla que queda encima (la última en el DOM) recorre todo el ancho; la de abajo solo acompaña un poco
+      const toOnTop = scr.indexOf(to) > scr.indexOf(from);
+      const dir = fwd ? 1 : -1;
+      G.fromTo(to, { xPercent: toOnTop ? 100 * dir : 30 * dir, autoAlpha: 1 }, { xPercent: 0, autoAlpha: 1, duration: .42, ease: 'power3.inOut' });
+      G.fromTo(from, { xPercent: 0, autoAlpha: 1 }, { xPercent: toOnTop ? -30 * dir : -100 * dir, autoAlpha: 1, duration: .42, ease: 'power3.inOut',
+        onComplete: () => { from.classList.remove('on'); G.set(from, { clearProps: 'transform,opacity,visibility' }); } });
     }
     function playPago() {
       if (!G || reduced) return;
