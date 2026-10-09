@@ -480,31 +480,38 @@
     // el texto y la pantalla cambian juntos, a mitad del viaje
     function syncIdx() { setIdx(clamp(Math.floor(q + .5), 0, N)); }
     const drv = { get q() { return q; }, set q(v) { q = v; syncIdx(); place(); }, get z() { return z; }, set z(v) { z = v; place(); } };
+    // La ruta es una animación continua, como un anuncio: recorre los pasos sola, llega a la meta, vuelve al inicio y
+    // repite, sin detenerse nunca (Saymond, 9 oct). Tocar un punto o deslizar solo salta de paso; el ciclo sigue.
     function goTo(n, byUser) {
       n = clamp(n, 0, N);
-      if (byUser) { touched = true; stopAuto(); }
-      if (n === cur) return;
+      stopAuto();
+      if (n === cur) { startAuto(); return; }
       const from = cur; cur = n;
       if (tl) tl.kill();
-      if (SLOW) { q = n; z = n === N ? 1 : 0; syncIdx(); place(true); paintAuto(); return; }
-      tl = G.timeline({ onComplete: () => { tl = null; if (!byUser && !touched && cur < N) startAuto(); } });
+      if (SLOW) { q = n; z = n === N ? 1 : 0; syncIdx(); place(true); startAuto(); return; }
+      tl = G.timeline({ onComplete: () => { tl = null; startAuto(); } });
+      if (from === N && n === 0 && !byUser) {
+        // de la meta al inicio: un corte con fundido, como cuando un anuncio vuelve a empezar
+        tl.to(stage, { autoAlpha: 0, duration: .4, ease: 'power2.in' })
+          .add(() => { drv.z = 0; drv.q = 0; place(true); })
+          .to(stage, { autoAlpha: 1, duration: .5, ease: 'power2.out' });
+        return;
+      }
       if (z > 0 && n < N) tl.to(drv, { z: 0, duration: .5, ease: 'power2.inOut' });
       tl.to(drv, { q: n, duration: .9 + .32 * Math.abs(n - from), ease: 'power2.inOut' });
       if (n === N) tl.to(drv, { z: 1, duration: 1.1, ease: 'power2.inOut' }, '>-.05');
-      paintAuto();
     }
-    // avance automático mientras la sección está a la vista y nadie la ha tocado; cada paso dura unos segundos
-    const AUTO_MS = 4800, autoBar = $('.auto', sec);
-    function paintAuto() {
-      if (!autoBar) return;
-      autoBar.classList.remove('run'); void autoBar.offsetWidth;
-      if (auto) { autoBar.style.setProperty('--ms', AUTO_MS + 'ms'); autoBar.classList.add('run'); }
+    // cada paso dura unos segundos; en la meta se queda un poco más y luego vuelve al inicio. El reloj corre siempre:
+    // aunque la sección no esté a la vista o se esté en otra pestaña (entonces solo espera), al volver sigue en curso.
+    const AUTO_MS = 4600, META_MS = 4200;
+    function startAuto() {
+      stopAuto();
+      if (SLOW) return;
+      auto = setTimeout(() => { auto = 0; if (document.hidden || tab !== 'inicio' || tl) { startAuto(); return; } goTo(cur < N ? cur + 1 : 0); }, cur >= N ? META_MS : AUTO_MS);
     }
-    function startAuto() { stopAuto(); if (touched || cur >= N || SLOW) return; auto = setTimeout(() => { auto = 0; if (!document.hidden && active && tab === 'inicio') goTo(cur + 1); }, AUTO_MS); paintAuto(); }
-    function stopAuto() { if (auto) clearTimeout(auto); auto = 0; paintAuto(); }
-    // controles: anterior, siguiente, los puntos, el teclado y deslizar sobre el teléfono
-    $('[data-prev]', sec).addEventListener('click', () => goTo(cur - 1, true));
-    $('[data-next]', sec).addEventListener('click', () => goTo(cur < N ? cur + 1 : 0, true));
+    function stopAuto() { if (auto) clearTimeout(auto); auto = 0; }
+    document.addEventListener('visibilitychange', () => { if (!document.hidden && !auto && !tl) startAuto(); });
+    // los puntos, el teclado y deslizar sobre el teléfono saltan de paso; el ciclo continúa desde ahí
     dotEls.forEach((d, k) => d.addEventListener('click', () => goTo(k, true)));
     sec.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); goTo(cur + 1, true); } if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1, true); } });
     let sx = null;
@@ -513,8 +520,7 @@
     const io2 = new IntersectionObserver((ents) => {
       for (const e of ents) {
         active = e.isIntersecting && e.intersectionRatio >= .45;
-        if (active) { if (!raf) raf = requestAnimationFrame(tick); if (!touched) startAuto(); }
-        else stopAuto();
+        if (active) { place(true); if (!raf) raf = requestAnimationFrame(tick); }   // al volver, la cámara se planta donde va la animación
       }
     }, { threshold: [0, .45, 1] });
     io2.observe(sec);
@@ -586,7 +592,7 @@
       burst(sr.left + cam.x + q.x * cam.k, sr.top + cam.y + q.y * cam.k - pw * .4, 46);
     }
     function resetTape() { const a = $('.a', tape), b = $('.b', tape); if (G) G.set([a, b], { clearProps: 'all' }); tape.style.opacity = 1; }
-    layout(); setIdx(0); place(true);
+    layout(); setIdx(0); place(true); startAuto();   // arranca desde la carga: cuando alguien llega a la sección, ya está en curso
     return { resize, goTo, get step() { return cur; }, get p() { return q / N; } };
   })();
 

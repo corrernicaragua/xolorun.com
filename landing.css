@@ -278,14 +278,6 @@ img { max-width: 100%; height: auto; }
 .ruta .step p { margin: 16px 0 0; color: var(--lago-400); font-size: clamp(1rem, 1.4vw, 1.125rem); }
 /* los controles de la ruta: anterior, los puntos y siguiente (con la barra del avance automático) */
 .ruta .ctl { grid-area: 2 / 1; display: flex; align-items: center; gap: 14px; margin-top: 28px; pointer-events: auto; }
-.ruta .cbtn { position: relative; width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--lago); background: none; color: var(--lago); display: grid; place-items: center; cursor: pointer; overflow: hidden; transition: background var(--t1) var(--ease), color var(--t1) var(--ease), transform var(--t1) var(--ease); }
-.ruta .cbtn svg { width: 22px; height: 22px; }
-.ruta .cbtn:hover { background: var(--lago); color: var(--arena); }
-.ruta .cbtn:active { transform: scale(.94); }
-.ruta .cbtn.next { background: var(--arcilla); border-color: var(--arcilla); color: var(--white); }
-.ruta .cbtn.next:hover { background: var(--arcilla-600); border-color: var(--arcilla-600); }
-.ruta .cbtn .auto { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255, 255, 255, .85); transform: scaleX(0); transform-origin: 0 50%; }
-.ruta .cbtn .auto.run { animation: autob var(--ms, 4800ms) linear forwards; }
 @keyframes autob { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .ruta .dots { display: flex; gap: 6px; }
 .ruta .dots button { width: 22px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; border-radius: 50%; }
@@ -322,11 +314,9 @@ img { max-width: 100%; height: auto; }
   /* en celular los controles van arriba del texto, pegados al escenario, lejos de la barra de pestañas */
   .ruta .pin { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
   .ruta .step { grid-area: 2 / 1; }
-  .ruta .ctl { grid-area: 1 / 1; margin: 0 0 14px; justify-content: space-between; }   /* flechas a los bordes y puntos al centro: la fila ocupa todo el ancho */
-  .ruta .dots { flex: 1; justify-content: center; }
+  .ruta .ctl { grid-area: 1 / 1; margin: 0 0 14px; justify-content: center; }
   .ruta .pin { height: auto; min-height: calc(100svh - var(--top-h)); grid-template-rows: minmax(330px, 1fr) auto; }   /* el escenario nunca baja de 330 px: en pantallas cortas la sección crece y se hace scroll */
   .ruta .steps { padding: 12px var(--gut) calc(var(--dock-h) + 2px); align-content: start; }
-  .ruta .cbtn { width: 44px; height: 44px; }
   .ruta .step .h2 { font-size: clamp(1.5rem, 6.6vw, 2rem); }
   .ruta .step p { font-size: .9375rem; margin-top: 8px; }
   .ruta .step .acts { margin-top: 14px !important; }
