@@ -295,7 +295,7 @@ img { max-width: 100%; height: auto; }
 .ruta .dots button.now::before { background: var(--arcilla); transform: scale(1.35); }
 .stage { position: relative; z-index: 1; overflow: hidden; }
 .stage .world { position: absolute; left: 0; top: 0; width: var(--ww); height: var(--wh); transform-origin: 0 0; will-change: transform; }
-.stage .world svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.stage .world > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }   /* solo el mapa: el teléfono también vive dentro del mundo */
 .stage .guide { fill: none; stroke: var(--niebla-300); stroke-linecap: butt; stroke-linejoin: round; }
 .stage .trail { fill: none; stroke: var(--lago); stroke-linecap: butt; stroke-linejoin: round; }
 .stage .tramo { fill: none; stroke: var(--arcilla); stroke-linecap: butt; }
