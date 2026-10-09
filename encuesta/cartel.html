@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartel · Correr en Nicaragua</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Cartel para imprimir en carta o A4 y pegar en la entrega de kits, parques o grupos de caminata. Marca Xolo Run · Ruta Común. */
+  :root { --arena: #F3EFE7; --lago: #12383B; --lago-400: #4D6A6C; --jade: #1F6366; --arcilla: #C65A3D; --arcilla-600: #9E4831; --niebla: #B7C2BE; color-scheme: light; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #DBE0DE; color: var(--lago); font-family: "Inter", system-ui, sans-serif; }
+  .tools { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 16px; }
+  .tools button, .tools label { font: 600 1rem/1 "Inter", sans-serif; padding: 12px 18px; border-radius: 12px; border: 0; background: var(--arcilla); color: #fff; cursor: pointer; }
+  .tools label { background: #fff; color: var(--lago); display: inline-flex; gap: 8px; align-items: center; }
+  .tools select { font: inherit; background: #fff; color: var(--lago); border: 1.5px solid var(--lago-400); border-radius: 8px; padding: 4px 6px; }
+  .sheet {
+    position: relative; width: min(100% - 32px, 8.5in); aspect-ratio: 8.5 / 11; margin: 0 auto 32px; background: var(--arena);
+    padding: 7% 8%; display: flex; flex-direction: column; gap: 3%; overflow: hidden;
+    box-shadow: 0 20px 50px -24px rgba(18, 56, 59, .45);
+  }
+  /* la línea de ruta cruza el cartel con su tramo encendido */
+  .route { position: absolute; left: 0; right: 0; top: 40%; width: 100%; height: auto; pointer-events: none; }
+  .sheet > *:not(.route) { position: relative; }
+  .mark { font: 600 clamp(12px, 2vw, 20px)/1 "Space Grotesk", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--arcilla-600); }
+  h1 { margin: 0; font: 700 clamp(46px, 11vw, 112px)/1 "Space Grotesk", sans-serif; letter-spacing: -.035em; }
+  h1 em { font: italic 400 1.05em/1 "Newsreader", Georgia, serif; letter-spacing: -.01em; color: var(--jade); }
+  .lede { margin: 0; max-width: 30em; font: 500 clamp(15px, 2.6vw, 26px)/1.4 "Inter", sans-serif; color: var(--lago-400); }
+  .lede b { color: var(--lago); font-weight: 600; }
+  .scan { margin-top: auto; display: flex; align-items: center; gap: 6%; }
+  .qr { flex: none; width: 40%; aspect-ratio: 1; background: #fff; border-radius: 4%; padding: 3%; box-shadow: 0 0 0 1px var(--niebla); }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .qr svg path, .qr svg rect[fill="black"] { fill: var(--lago); }
+  .how { display: grid; gap: .6em; font: 500 clamp(15px, 2.5vw, 24px)/1.4 "Inter", sans-serif; }
+  .how .big { font: 700 clamp(24px, 4.6vw, 46px)/1.05 "Space Grotesk", sans-serif; letter-spacing: -.02em; color: var(--lago); }
+  .how .url { font-size: .72em; color: var(--lago-400); word-break: break-all; }
+  .foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 5%; font: 500 clamp(11px, 1.8vw, 16px)/1.45 "Inter", sans-serif; color: var(--lago-400); }
+  .foot .by { flex: none; display: grid; gap: .5em; justify-items: end; font-size: .9em; }
+  .logo { display: block; width: clamp(110px, 22vw, 210px); height: auto; }
+  @page { size: letter; margin: 0; }
+  @media print {
+    html, body { background: var(--arena); }
+    .tools { display: none; }
+    .sheet { width: 100vw; height: 100vh; aspect-ratio: auto; margin: 0; box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="tools">
+  <label for="canal">El QR cuenta respuestas como
+    <select id="canal">
+      <option value="cartel">cartel (general)</option>
+      <option value="kits">entrega de kits</option>
+      <option value="parque">parque</option>
+      <option value="caminata">grupo de caminata</option>
+      <option value="colegio">colegio o club</option>
+    </select>
+  </label>
+  <button type="button" onclick="window.print()">Imprimir</button>
+</div>
+<main class="sheet">
+  <svg class="route" viewBox="0 0 850 200" aria-hidden="true"><path d="M-20 150 C 180 140 220 40 400 50 S 640 170 870 120" fill="none" stroke="#12383B" stroke-width="16" stroke-linecap="round"/><path d="M-20 150 C 180 140 220 40 400 50 S 640 170 870 120" fill="none" stroke="#C65A3D" stroke-width="16" pathLength="100" stroke-dasharray="9 200" stroke-dashoffset="-56"/></svg>
+  <div class="mark">Correr en Nicaragua</div>
+  <h1>Cuéntanos cómo <em>corres</em></h1>
+  <p class="lede">O cómo caminas, o cómo acompañas. <b>Encuesta anónima de 3 a 8 minutos</b> para todas las edades, de niñas y niños a adultos mayores.</p>
+  <div class="scan">
+    <div class="qr" id="qr" role="img" aria-label="Código QR de la encuesta"></div>
+    <div class="how">
+      <span class="big">Escanea con tu cámara</span>
+      <span>Y contéstala aquí mismo, en tu teléfono.</span>
+      <span class="url" id="url"></span>
+    </div>
+  </div>
+  <div class="foot"><p style="margin:0">No pedimos nombre, cédula ni teléfono. Si tienes menos de 13 años, contéstala junto a una persona adulta.</p><div class="by"><span>Una encuesta de</span><svg class="logo" role="img" aria-label="Xolo Run" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1167.83 190.00"><g transform="scale(1.43940) translate(-24.918 -62.000)"><path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" stroke="#12383B" fill="none" stroke-width="24" stroke-linecap="butt" stroke-linejoin="round"/><circle cx="64.055" cy="181.954" r="12.0" fill="#12383B"/><circle cx="104.874" cy="169.445" r="12.0" fill="#12383B"/><path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" stroke="#C65A3D" fill="none" stroke-width="24" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(365.829 45.000)"><path d="M0.000 0.000 L22.506 0.000 L86.000 100.000 L63.494 100.000ZM63.494 0.000 L86.000 0.000 L22.506 100.000 L0.000 100.000Z" fill="#12383B" fill-rule="nonzero"/><path d="M120.000 50.0 A52.0 52.0 0 1 0 224.000 50.0 A52.0 52.0 0 1 0 120.000 50.0ZM139.000 50.0 A33.0 33.0 0 1 0 205.000 50.0 A33.0 33.0 0 1 0 139.000 50.0Z" fill="#12383B" fill-rule="evenodd"/><path d="M254.000 0.000 L273.000 0.000 L273.000 81.000 L316.000 81.000 L316.000 100.000 L254.000 100.000Z" fill="#12383B" fill-rule="nonzero"/><path d="M338.000 50.0 A52.0 52.0 0 1 0 442.000 50.0 A52.0 52.0 0 1 0 338.000 50.0ZM357.000 50.0 A33.0 33.0 0 1 0 423.000 50.0 A33.0 33.0 0 1 0 357.000 50.0Z" fill="#12383B" fill-rule="evenodd"/><path d="M516.000 0.000 L525.500 0.000 L525.500 100.000 L516.000 100.000ZM542.400 44.500 L553.110 44.500 L582.000 100.000 L571.290 100.000Z" fill="#12383B" fill-rule="nonzero"/><path d="M520.750 0 H553.000 A27.0 27.0 0 0 1 553.000 54 H520.750ZM520.750 9.5 H553.000 A17.5 17.5 0 0 1 553.000 44.5 H520.750Z" fill="#12383B" fill-rule="evenodd"/><path d="M614.0 0 V62.000 A38.0 38.0 0 0 0 690.000 62.000 V0 H680.500 V62.000 A28.5 28.5 0 0 1 623.500 62.000 V0Z" fill="#12383B" fill-rule="nonzero"/><path d="M722.000 0.000 L731.500 0.000 L731.500 100.000 L722.000 100.000ZM792.500 0.000 L802.000 0.000 L802.000 100.000 L792.500 100.000ZM722.000 0.000 L733.514 0.000 L802.000 100.000 L790.486 100.000Z" fill="#12383B" fill-rule="nonzero"/></g></svg></div></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+  const BASE = 'https://xolorun.com/encuesta/';
+  const sel = document.getElementById('canal');
+  function draw() {
+    const link = BASE + '?c=' + sel.value;
+    const q = qrcode(0, 'M'); q.addData(link); q.make();
+    document.getElementById('qr').innerHTML = q.createSvgTag({ cellSize: 8, margin: 0, scalable: true });
+    document.getElementById('url').textContent = link.replace('https://', '');
+  }
+  sel.addEventListener('change', draw);
+  draw();
+</script>
+</body>
+</html>

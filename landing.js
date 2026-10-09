@@ -10,9 +10,8 @@
   const CONSENT_VERSION = '2026-10-06';
   // Pendiente antes de publicar (ticket 86aktb1qp): quién responde por los datos, su contacto y el plazo
   const CONTROLLER = { name: '', contact: '', retention: '' };
-  const SURVEY_URL = 'https://opiniones.xolorun.com/';   // la encuesta vive en su subdominio (GitHub Pages de corrernicaragua.github.io)
+  const SURVEY_URL = new URL('encuesta/', location.href).href;   // la encuesta vive en este mismo sitio (xolorun.com/encuesta/)
   const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  const SURVEY_LOCAL = 'http://localhost:4530/';
   const STORE = 'xolo-dorsal-v1', QUEUE = 'xolo-fila-pendiente-v1', ORIGIN = 'xolo-origen-v1';
   const PUBLIC_URL = location.origin + location.pathname;
   const MIN_FILA = 25;   // la cantidad de personas en la fila se muestra solo a partir de aquí
@@ -606,7 +605,7 @@
   // ───────── Pestaña: la encuesta, incrustada ─────────
   const frame = $('#enc-frame'), encWait = $('#enc-wait'), encFallback = $('#enc-fallback'), encOpen = $('#enc-open');
   function surveyURL() {
-    const base = LOCAL ? SURVEY_LOCAL : SURVEY_URL;
+    const base = SURVEY_URL;
     const q = testing ? 'c=prueba' : 'c=' + encodeURIComponent(origin.channel || 'landing') + '&campana=' + encodeURIComponent(origin.campaign || 'landing');
     return base + '?' + q;
   }
@@ -619,8 +618,7 @@
     frame.addEventListener('load', () => { clearTimeout(t); frame.classList.add('ready'); encWait.hidden = true; }, { once: true });
   }
   // la encuesta, al terminar, puede pedir abrir la lista de espera
-  const surveyOrigin = new URL(LOCAL ? SURVEY_LOCAL : SURVEY_URL).origin;
-  window.addEventListener('message', (e) => { if (e.origin === surveyOrigin && e.data && e.data.xolo === 'lista') showTab('lista'); });
+  window.addEventListener('message', (e) => { if (e.origin === location.origin && e.data && e.data.xolo === 'lista') showTab('lista'); });
 
   // ───────── Pestaña: la lista de espera ─────────
   const form = $('#wiz'), steps = $$('.step', form), res = $('#res'), stepno = $('[data-stepno]'), pg = $$('#pg i'), stripes = $$('#stripes i');
