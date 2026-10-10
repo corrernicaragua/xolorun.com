@@ -81,7 +81,7 @@ img { max-width: 100%; height: auto; }
 .tab:hover { color: var(--lago); }
 /* el indicador es la línea de ruta: un trazo con su único tramo encendido, que corre de una pestaña a otra */
 .tabs .ind { position: absolute; left: 4px; top: 4px; height: 40px; width: 90px; border-radius: 999px; background: var(--white); box-shadow: 0 1px 2px rgba(18, 56, 59, .12), 0 0 0 1px rgba(18, 56, 59, .06); pointer-events: none; transition: transform var(--t2) var(--ease), width var(--t2) var(--ease); }
-.tabs .trk { position: absolute; left: var(--x0, 40px); width: var(--x1, 200px); bottom: 7px; height: 2px; border-radius: 1px; background: var(--lago-100); pointer-events: none; }
+.tabs .trk { display: none; }   /* la línea gris entre pestañas chocaba con las letras (Saymond, 10 oct); queda solo el tramo arcilla bajo la pestaña activa */
 .tabs .seg { position: absolute; left: 0; bottom: 5px; width: 26px; height: 6px; border-radius: 3px; background: var(--arcilla); pointer-events: none; transform-origin: 50% 50%; }
 .tabs .seg::after { content: ""; position: absolute; right: -6px; top: -1px; width: 8px; height: 8px; border-radius: 50%; background: var(--lago); opacity: 0; transition: opacity var(--t1) var(--ease); }
 .tabs.running .seg::after { opacity: 1; }
@@ -436,8 +436,8 @@ img { max-width: 100%; height: auto; }
 .neb .pre { display: none; padding: 20px 0 2px 18px; font: 500 1.125rem/1 "Inter", sans-serif; color: var(--lago-400); }
 .neb.tel:not(.intl) .pre { display: block; }
 .neb.tel:not(.intl) input { padding-left: 6px; }
-.neb.tel:not(.intl) label { left: 66px; }   /* en reposo, después del +505 (antes se montaba encima); al flotar vuelve al borde */
-.neb.tel:not(.intl) input:focus ~ label, .neb.tel:not(.intl) input:not(:placeholder-shown) ~ label { left: 18px; }
+.neb.tel:not(.intl) label { left: 66px; top: 22px; bottom: 4px; transform: none; display: flex; align-items: center; transition: font-size var(--t1) var(--ease), top var(--t1) var(--ease), left var(--t1) var(--ease); }   /* en reposo va después del +505 y en su misma línea, la del número (centrada quedaba más arriba que el prefijo); al flotar vuelve al borde */
+.neb.tel:not(.intl) input:focus ~ label, .neb.tel:not(.intl) input:not(:placeholder-shown) ~ label { left: 18px; top: 12px; bottom: auto; display: block; }
 .err { margin: 8px 0 0; min-height: 1.2em; font-size: .875rem; font-weight: 500; color: var(--arcilla-600); }
 .err:empty { display: none; }
 .hint { margin: 8px 0 0; font-size: .875rem; color: var(--lago-400); }
