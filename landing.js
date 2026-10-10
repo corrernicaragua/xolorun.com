@@ -26,10 +26,10 @@
   const STATS = [
     { n: 72, u: '%', say: 'quiso inscribirse a una carrera en el último año y al final no lo hizo.', cap: 'Qué pasó',
       bars: [['La fecha no le quedaba', 33], ['Se acabaron los cupos', 27], ['Se enteró tarde', 25], ['No tenía con quién ir', 25]],
-      base: 'Base: 88 que ya corrieron una carrera; razones de las 63 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribes en pocos pasos.' },
+      base: 'Base: 88 que ya corrieron una carrera; razones de las 63 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribís en pocos pasos.' },
     { n: 71, u: '%', say: 'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.', cap: 'Cómo pagó su última carrera',
       bars: [['Transferencia', 47], ['Fue gratis', 28], ['Tarjeta en línea', 10], ['Efectivo', 8]],
-      base: 'Base: 41 que pagaron por transferencia. El 46 % de quienes pagaron no quedó confirmado al instante.', xo: 'Subes tu comprobante en la app y ves el estado de tu pago.' },
+      base: 'Base: 41 que pagaron por transferencia. El 46 % de quienes pagaron no quedó confirmado al instante.', xo: 'Subís tu comprobante en la app y ves el estado de tu pago.' },
     { n: 62, u: '%', say: 'tuvo un problema la última vez que mostró algo en el teléfono en la calle.', cap: 'Qué le pasó',
       bars: [['El sol no dejaba ver', 38], ['No había señal ni datos', 34], ['La batería estaba baja', 15]],
       base: 'Base: 122 a quienes les tocó mostrar algo. El 21 % esperó más de 30 minutos por su kit.', xo: 'Tu dorsal con QR funciona sin conexión, y el kit se entrega con un escaneo.' },
@@ -767,9 +767,9 @@
   const normEmail = (v) => { v = (v || '').trim().toLowerCase(); return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(v) && v.length <= 254 ? v : null; };
   function readContact() {
     const v = contact.value.trim();
-    if (!v) { setErr('#e-contact', mail ? 'Escribe tu correo para avisarte.' : 'Escribe tu WhatsApp para avisarte.', cField); return null; }
+    if (!v) { setErr('#e-contact', mail ? 'Escribí tu correo para avisarte.' : 'Escribí tu WhatsApp para avisarte.', cField); return null; }
     const ok = mail ? normEmail(v) : normPhone(v);
-    if (!ok) { setErr('#e-contact', mail ? 'Revisa el correo: falta algo, como la @ o el dominio.' : 'Revisa el número: son 8 dígitos, como 8888 8888. Si no es de Nicaragua, empieza con + y el código del país.', cField); return null; }
+    if (!ok) { setErr('#e-contact', mail ? 'Revisá el correo: falta algo, como la @ o el dominio.' : 'Revisá el número: son 8 dígitos, como 8888 8888. Si no es de Nicaragua, empieza con + y el código del país.', cField); return null; }
     setErr('#e-contact', '', cField);
     return ok;
   }
@@ -796,11 +796,11 @@
       setErr('#e-name', '', nameField); showStep(1); return;
     }
     if (si === 1) {
-      if (!form.elements.zone.value) { setErr('#e-zone', 'Elige dónde corres.'); shake(); $('[name=zone]', form).focus(); return; }
+      if (!form.elements.zone.value) { setErr('#e-zone', 'Elegí dónde corrés.'); shake(); $('[name=zone]', form).focus(); return; }
       showStep(2); return;
     }
     if (si === 2) {
-      if (!form.elements.profile.value) { setErr('#e-profile', 'Elige la que más se parezca a ti.'); shake(); $('[name=profile]', form).focus(); return; }
+      if (!form.elements.profile.value) { setErr('#e-profile', 'Elegí la que más se parezca a vos.'); shake(); $('[name=profile]', form).focus(); return; }
       showStep(3); return;
     }
     const c = readContact(), consent = $('[name=consent]', form);
@@ -832,7 +832,7 @@
       if (resp.ok) return { ok: true, data: await resp.json() };
       const body = await resp.json().catch(() => ({}));
       if (resp.status >= 500 || body.hint === 'reintentar' || resp.status === 429) return { retry: true };
-      return { message: 'No pudimos guardar tus datos. Revisa que estén bien escritos e intenta otra vez.' };
+      return { message: 'No pudimos guardar tus datos. Revisá que estén bien escritos e intentá otra vez.' };
     } catch (e) { return { retry: true }; }
   }
   // el lugar apartado se reenvía solo: al volver la señal, al abrir la pestaña y cada 20 s mientras la página esté abierta
@@ -849,7 +849,7 @@
     else if (r.retry) retryT = setTimeout(flushQueue, 20000);
     else {
       store.set(QUEUE, null);
-      if (!res.hidden) res.innerHTML = '<h3>No pudimos guardar tu lugar</h3><p>Algo en los datos no pasó. Vuelve a llenar el formulario, toma un minuto.</p><button class="textlink" type="button" onclick="location.reload()">Volver a intentarlo</button>';
+      if (!res.hidden) res.innerHTML = '<h3>No pudimos guardar tu lugar</h3><p>Algo en los datos no pasó. Volvé a llenar el formulario, toma un minuto.</p><button class="textlink" type="button" onclick="location.reload()">Volver a intentarlo</button>';
     }
   }
   // cuántas personas hay en la fila: se muestra solo cuando ya son varias
@@ -888,12 +888,12 @@
     const link = r.code ? inviteLink(r.code) : PUBLIC_URL;
     const who = r.via === 'mail' ? 'por correo' : 'por WhatsApp';
     let html;
-    if (r.queued) html = '<h3>Tu lugar está apartado</h3><p>Lo guardamos en este teléfono y lo enviamos apenas tengas señal. Si puedes, no cierres esta página hasta ver tu número.</p>';
-    else if (r.existing) html = '<h3>Ya estabas en la fila</h3><p>Ese contacto ya se había anotado, así que conservas tu lugar. Te escribimos ' + who + ' cuando abramos.</p>';
+    if (r.queued) html = '<h3>Tu lugar está apartado</h3><p>Lo guardamos en este teléfono y lo enviamos apenas tengás señal. Si podés, no cerrés esta página hasta ver tu número.</p>';
+    else if (r.existing) html = '<h3>Ya estabas en la fila</h3><p>Ese contacto ya se había anotado, así que conservás tu lugar. Te escribimos ' + who + ' cuando abramos.</p>';
     else if (n === null) html = '<h3>Prueba guardada</h3><p>Las pruebas del equipo no reciben número en la fila.</p>';
-    else html = '<h3>Listo. Nos vemos en la ruta.</h3><p>Tienes el #' + n + ' en la fila. Te escribimos ' + who + ' cuando abramos. El QR de tu dorsal es tu enlace: quien lo escanee se anota contigo.</p>';
+    else html = '<h3>Listo. Nos vemos en la ruta.</h3><p>Tenés el #' + n + ' en la fila. Te escribimos ' + who + ' cuando abramos. El QR de tu dorsal es tu enlace: quien lo escanee se anota con vos.</p>';
     if (!r.queued && r.code) {
-      const text = 'Me anoté en Xolo Run, la app para las carreras de Nicaragua' + (n ? ', y tengo el #' + n + ' en la fila' : '') + '. Saca tu dorsal: ' + link;
+      const text = 'Me anoté en Xolo Run, la app para las carreras de Nicaragua' + (n ? ', y tengo el #' + n + ' en la fila' : '') + '. Sacá tu dorsal: ' + link;
       html += '<div class="share">' +
         '<a class="go" href="https://wa.me/?text=' + encodeURIComponent(text) + '" target="_blank" rel="noopener">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.7 9.7 0 0 0-8.3 14.8L2.4 21.6l4.7-1.2A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>' +
@@ -902,7 +902,7 @@
         '<button class="textlink" type="button" data-copy><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>Copiar mi enlace</button>' +
         '</div><p class="linkline">Tu enlace: ' + esc(link.replace(/^https?:\/\//, '')) + '</p>';
     }
-    if (!r.queued) html += '<div class="enc-box"><p><b>¿Nos ayudas con unos minutos?</b></p><p>Responde la encuesta «Correr en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.</p>' +
+    if (!r.queued) html += '<div class="enc-box"><p><b>¿Nos ayudás con unos minutos?</b></p><p>Respondé la encuesta «Correr en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.</p>' +
       '<button class="textlink" type="button" data-tab-link="encuesta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Responder la encuesta</button></div>';
     if (testing && !r.queued) html += '<details class="raw"><summary>Lo que se guardó (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre></details>';
     steps.forEach((s) => { s.hidden = true; }); stepno.textContent = 'Dorsal reclamado'; $('#sub').hidden = true; paintProgress(4);
@@ -998,11 +998,11 @@
     const nm = (bName.classList.contains('empty') ? '' : bName.textContent).toUpperCase().slice(0, 18); if (nm) x.fillText(nm, bx + 56, by + 520);
     x.fillStyle = '#4D6A6C'; x.font = '500 28px Inter'; x.letterSpacing = '0px';
     x.fillText((bZone.classList.contains('empty') ? '' : bZone.textContent + ' · ') + 'En la fila', bx + 56, by + 570);
-    x.textAlign = 'right'; x.font = '500 24px "Space Grotesk"'; x.letterSpacing = '4px'; x.fillText('QR · ESCANÉALO Y ANÓTATE', bx + bw - 56, by + 570); x.textAlign = 'left';
+    x.textAlign = 'right'; x.font = '500 24px "Space Grotesk"'; x.letterSpacing = '4px'; x.fillText('QR · ESCANEALO Y ANOTATE', bx + bw - 56, by + 570); x.textAlign = 'left';
     for (const [hx, hy] of [[bx + 26, by + 150], [bx + bw - 26, by + 150], [bx + 26, by + bh - 26], [bx + bw - 26, by + bh - 26]]) { x.fillStyle = '#F3EFE7'; x.beginPath(); x.arc(hx, hy, 11, 0, 7); x.fill(); x.strokeStyle = '#B7C2BE'; x.lineWidth = 2; x.stroke(); }
     const sw = 820, sh = 116, sx = (W - sw) / 2, sy = 1690;
     x.setLineDash([16, 12]); x.lineWidth = 4; x.strokeStyle = '#12383B'; x.beginPath(); x.roundRect(sx, sy, sw, sh, 24); x.stroke(); x.setLineDash([]);
-    x.textAlign = 'center'; x.font = '600 40px Inter'; x.letterSpacing = '0px'; x.fillStyle = '#12383B'; x.fillText('Saca tu dorsal aquí', W / 2, sy + sh / 2 + 14);
+    x.textAlign = 'center'; x.font = '600 40px Inter'; x.letterSpacing = '0px'; x.fillStyle = '#12383B'; x.fillText('Sacá tu dorsal aquí', W / 2, sy + sh / 2 + 14);
     return cv;
   }
   async function saveStory(btn, n, code) {
@@ -1029,7 +1029,7 @@
     let d = $('#story-view');
     if (!d) {
       d = document.createElement('dialog'); d.id = 'story-view'; d.className = 'story-view'; d.setAttribute('aria-label', 'Tu dorsal para historias');
-      d.innerHTML = '<p>Mantén presionada la imagen y elige «Guardar imagen». Después súbela a tu historia.</p><img alt="Tu dorsal de Xolo Run con tu número y tu QR"><button class="go" type="button" data-close-story>Listo</button>';
+      d.innerHTML = '<p>Mantené presionada la imagen y elegí «Guardar imagen». Después subila a tu historia.</p><img alt="Tu dorsal de Xolo Run con tu número y tu QR"><button class="go" type="button" data-close-story>Listo</button>';
       document.body.appendChild(d);
       d.addEventListener('click', (e) => { if (e.target === d || e.target.closest('[data-close-story]')) d.close(); });
     }

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Correr en Nicaragua · Encuesta de Xolo Run</title>
 <!-- La vista previa del enlace (WhatsApp, Messenger, Instagram) es lo primero que ve la gente del grupo que la comparte: dice de quién es. -->
-<meta name="description" content="Encuesta anónima de Xolo Run, un proyecto nicaragüense que está creando una app para carreras. Cuéntanos cómo corres, caminas o acompañas: 3 a 8 minutos.">
+<meta name="description" content="Encuesta anónima de Xolo Run, un proyecto nicaragüense que está creando una app para carreras. Contanos cómo corrés, caminás o acompañás: 3 a 8 minutos.">
 <meta name="theme-color" content="#F3EFE7">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
@@ -14,11 +14,11 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_NI">
 <meta property="og:site_name" content="Correr en Nicaragua · Xolo Run">
-<meta property="og:title" content="Cuéntanos cómo corres · Encuesta de Xolo Run">
-<meta property="og:description" content="Encuesta anónima de Xolo Run, un proyecto nicaragüense que está creando una app para carreras. 3 a 8 minutos, sirve aunque no corras.">
+<meta property="og:title" content="Contanos cómo corrés · Encuesta de Xolo Run">
+<meta property="og:description" content="Encuesta anónima de Xolo Run, un proyecto nicaragüense que está creando una app para carreras. 3 a 8 minutos, sirve aunque no corrás.">
 <meta property="og:url" content="https://xolorun.com/encuesta/">
 <meta property="og:image" content="https://xolorun.com/encuesta/og.jpg">
-<meta property="og:image:alt" content="Logo de Xolo Run y el texto Cuéntanos cómo corres, con una línea de ruta que cruza la imagen">
+<meta property="og:image:alt" content="Logo de Xolo Run y el texto Contanos cómo corrés, con una línea de ruta que cruza la imagen">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -282,7 +282,7 @@
 <body>
 <div id="app"></div>
 <p class="sr" id="announce" aria-live="polite"></p>
-<noscript><p class="wrap" style="padding-block:40px">Para contestar la encuesta necesitas activar JavaScript en tu navegador.</p></noscript>
+<noscript><p class="wrap" style="padding-block:40px">Para contestar la encuesta necesitás activar JavaScript en tu navegador.</p></noscript>
 <script>
 (() => {
   'use strict';
@@ -306,20 +306,20 @@
   const DRY = LOCAL && !PARAMS.has('enviar');
 
   // ───────── Preguntas (fuente: documento «Encuesta: cómo se vive el correr en Nicaragua») ─────────
-  const BLOCK = { '0': 'Sobre ti', A: 'Cómo te mueves', B: 'Por qué', C: 'Lo que te frena', D: 'Con quién', E: 'Tu última carrera', F: 'Cuando acompañas', N: 'Niñas y niños', T: 'Tu teléfono', Z: 'Para cerrar' };
+  const BLOCK = { '0': 'Sobre vos', A: 'Cómo te movés', B: 'Por qué', C: 'Lo que te frena', D: 'Con quién', E: 'Tu última carrera', F: 'Cuando acompañás', N: 'Niñas y niños', T: 'Tu teléfono', Z: 'Para cerrar' };
   const o = (v, t, extra) => Object.assign({ v, t }, extra || {});
   const NOSE = o('nose', 'No me acuerdo');
   const OTRO = o('otro', 'Otro');
 
   const Q = {
-    P1: { b: '0', type: 'single', title: '¿En qué departamento vives?', help: 'No hay respuestas correctas ni respuestas que nos convengan: si hoy todo te funciona bien, eso también nos sirve.', next: 'P2', options: [
+    P1: { b: '0', type: 'single', title: '¿En qué departamento vivís?', help: 'No hay respuestas correctas ni respuestas que nos convengan: si hoy todo te funciona bien, eso también nos sirve.', next: 'P2', options: [
       o('managua', 'Managua'), o('carazo', 'Carazo'), o('masaya', 'Masaya'), o('granada', 'Granada'),
       o('leon', 'León o Chinandega'), o('rivas', 'Rivas'), o('norte', 'Norte (Estelí, Matagalpa, Jinotega, Nueva Segovia, Madriz)'),
       o('otro', 'Otro departamento'), o('fuera', 'Vivo fuera de Nicaragua')] },
-    P2: { b: '0', type: 'single', required: true, title: '¿Cuántos años tienes?', help: 'Si contestas junto a una niña o un niño, marca su edad.', next: 'P3', def: '25-34', options: [
+    P2: { b: '0', type: 'single', required: true, title: '¿Cuántos años tenés?', help: 'Si contestás junto a una niña o un niño, marcá su edad.', next: 'P3', def: '25-34', options: [
       o('menos13', 'Menos de 13', { next: 'N0' }), o('13-17', '13 a 17'), o('18-24', '18 a 24'), o('25-34', '25 a 34'),
       o('35-44', '35 a 44'), o('45-59', '45 a 59'), o('60+', '60 o más')] },
-    P3: { b: '0', type: 'single', required: true, title: '¿Cuál de estas frases se parece más a ti hoy?', help: 'Elige la que más se acerque.', def: 'semanal', options: [
+    P3: { b: '0', type: 'single', required: true, title: '¿Cuál de estas frases se parece más a vos hoy?', help: 'Elegí la que más se acerque.', def: 'semanal', options: [
       o('aun', 'Todavía no corro ni camino como ejercicio, pero me llama la atención', { next: 'B1' }),
       o('ocasional', 'Camino o troto de vez en cuando, sin un plan', { next: 'A1' }),
       o('semanal', 'Corro o camino al menos una vez por semana', { next: 'A1' }),
@@ -329,52 +329,52 @@
 
     A1: { b: 'A', type: 'single', title: 'En las últimas 4 semanas, ¿cuántas veces saliste a correr o caminar como ejercicio?', next: 'A2', options: [
       o('ninguna', 'Ninguna'), o('1-3', '1 a 3'), o('4-8', '4 a 8'), o('9-15', '9 a 15'), o('mas15', 'Más de 15'), NOSE] },
-    A2: { b: 'A', type: 'single', title: 'La última vez que saliste, ¿con quién fuiste?', help: 'Piensa en esa salida, no en la de siempre.', next: 'A3', options: [
+    A2: { b: 'A', type: 'single', title: 'La última vez que saliste, ¿con quién fuiste?', help: 'Pensá en esa salida, no en la de siempre.', next: 'A3', options: [
       o('sin', 'Sin compañía'), o('pareja', 'Con mi pareja'), o('familia', 'Con hijas, hijos u otra familia'), o('amistades', 'Con amistades'),
       o('grupo', 'Con un grupo o club de corredores'), o('entrenador', 'Con mi entrenador o entrenadora'), NOSE] },
-    A3: { b: 'A', type: 'multi', title: '¿Qué usas para llevar la cuenta de lo que corres o caminas?', help: 'Puedes elegir varias.', next: 'B1', options: [
+    A3: { b: 'A', type: 'multi', title: '¿Qué usás para llevar la cuenta de lo que corrés o caminás?', help: 'Podés elegir varias.', next: 'B1', options: [
       o('nada', 'Nada', { ex: true }), o('strava', 'Strava'), o('reloj', 'Un reloj (Garmin, Apple Watch, Samsung u otro)'),
       o('app', 'Una app del teléfono (Nike Run Club, Apple Salud, Google Fit u otra)'), o('papel', 'Lo anoto en papel o en las notas del teléfono'),
       o('entrenador', 'Lo lleva mi entrenador o entrenadora'), OTRO] },
 
-    B1: { b: 'B', type: 'multi', max: 2, title: '¿Qué te hizo empezar, o qué te hace querer empezar?', help: 'Elige hasta 2.', next: 'C1', options: [
+    B1: { b: 'B', type: 'multi', max: 2, title: '¿Qué te hizo empezar, o qué te hace querer empezar?', help: 'Elegí hasta 2.', next: 'C1', options: [
       o('salud', 'Mi salud o una recomendación médica'), o('condicion', 'Mejorar mi condición física'), o('mente', 'Despejar la mente y bajar el estrés'),
       o('compartir', 'Compartir con familia o amistades'), o('meta', 'Una meta, como terminar mi primera carrera'), o('invitacion', 'Alguien me invitó'),
       o('redes', 'Lo vi en redes sociales'), OTRO] },
 
-    C2: { b: 'C', type: 'single', title: '¿Qué pasó cuando lo dejaste?', help: 'Elige la razón principal.', next: 'B1', options: [
+    C2: { b: 'C', type: 'single', title: '¿Qué pasó cuando lo dejaste?', help: 'Elegí la razón principal.', next: 'B1', options: [
       o('lesion', 'Me lesioné o tuve un tema de salud'), o('horarios', 'Cambiaron mis horarios (trabajo, estudios, hijos)'),
       o('grupo', 'Mi grupo o mi compañía para correr dejó de ir'), o('aburri', 'Me aburrí o perdí la meta'), o('mude', 'Me mudé'),
       o('seguridad', 'No me sentía con seguridad al salir'), OTRO] },
-    C1: { b: 'C', type: 'multi', max: 3, title: 'En el último mes, ¿qué te impidió correr o caminar más seguido?', help: 'Elige hasta 3.', next: 'D1', options: [
+    C1: { b: 'C', type: 'multi', max: 3, title: 'En el último mes, ¿qué te impidió correr o caminar más seguido?', help: 'Elegí hasta 3.', next: 'D1', options: [
       o('tiempo', 'Falta de tiempo (trabajo, estudios, cuidar a alguien)'), o('clima', 'El calor o la lluvia'),
       o('seguridad', 'No me siento con seguridad en la calle (tráfico, perros, asaltos, oscuridad)'), o('compania', 'No tengo con quién ir'),
       o('salud', 'Un dolor, una lesión o un tema de salud'), o('ganas', 'Cansancio o falta de ganas'), o('lugar', 'No hay un lugar cerca donde correr o caminar'),
       o('saber', 'No sé cómo empezar ni cómo entrenar'), o('pena', 'Me da pena que me vean, o siento que no tengo el nivel'),
       o('nada', 'Nada me lo impidió', { ex: true }), OTRO] },
 
-    D1: { b: 'D', type: 'single', title: 'Hoy, ¿formas parte de algún grupo para salir a correr o caminar?', help: 'Un club, un grupo de WhatsApp o un equipo.', def: 'uno', options: [
+    D1: { b: 'D', type: 'single', title: 'Hoy, ¿formás parte de algún grupo para salir a correr o caminar?', help: 'Un club, un grupo de WhatsApp o un equipo.', def: 'uno', options: [
       o('nunca', 'No, nunca he estado en uno', { next: 'D3' }), o('antes', 'No, estuve en uno y ya no', { next: 'D4' }),
       o('uno', 'Sí, en uno', { next: 'D2' }), o('varios', 'Sí, en más de uno', { next: 'D2' })] },
-    D2: { b: 'D', type: 'multi', title: '¿Cómo se ponen de acuerdo para salir?', help: 'Puedes elegir varias.', next: 'E0', options: [
+    D2: { b: 'D', type: 'multi', title: '¿Cómo se ponen de acuerdo para salir?', help: 'Podés elegir varias.', next: 'E0', options: [
       o('whatsapp', 'Grupo de WhatsApp'), o('instagram', 'Instagram'), o('fijo', 'Ya tenemos día, hora y lugar fijos'),
       o('app', 'Una app (Strava u otra)'), o('entrenador', 'Nos avisa el entrenador o la entrenadora'), OTRO] },
-    D3: { b: 'D', type: 'multi', title: '¿Por qué no estás en un grupo?', help: 'Puedes elegir varias.', next: 'E0', options: [
+    D3: { b: 'D', type: 'multi', title: '¿Por qué no estás en un grupo?', help: 'Podés elegir varias.', next: 'E0', options: [
       o('conozco', 'No conozco ninguno cerca'), o('horarios', 'Los horarios no me quedan'), o('pena', 'Me da pena por mi ritmo o mi nivel'),
       o('prefiero', 'Prefiero ir sin compañía o con mi gente'), o('pensado', 'No lo había pensado'), OTRO] },
-    D4: { b: 'D', type: 'multi', title: '¿Por qué dejaste el grupo?', help: 'Puedes elegir varias.', next: 'E0', options: [
+    D4: { b: 'D', type: 'multi', title: '¿Por qué dejaste el grupo?', help: 'Podés elegir varias.', next: 'E0', options: [
       o('horarios', 'Los horarios'), o('ritmo', 'El ritmo era muy rápido o muy lento para mí'), o('deshizo', 'El grupo se deshizo'),
       o('mude', 'Me mudé'), o('parte', 'No me sentía parte'), OTRO] },
 
-    E0: { b: 'E', type: 'single', title: '¿En cuántas carreras participaste en los últimos 12 meses?', help: 'Cuenta cualquier carrera o caminata con número de corredor.', def: '1', options: [
+    E0: { b: 'E', type: 'single', title: '¿En cuántas carreras participaste en los últimos 12 meses?', help: 'Contá cualquier carrera o caminata con número de corredor.', def: '1', options: [
       o('nunca', 'Nunca he participado en una', { next: 'E1' }), o('antes', 'Ninguna en el último año, pero sí antes', { next: 'EI' }),
       o('1', '1', { next: 'EI' }), o('2-3', '2 o 3', { next: 'EI' }), o('4-6', '4 a 6', { next: 'EI' }), o('7+', '7 o más', { next: 'EI' })] },
-    E1: { b: 'E', type: 'multi', title: '¿Qué te ha frenado para inscribirte en una?', help: 'Puedes elegir varias.', next: 'T1', options: [
+    E1: { b: 'E', type: 'multi', title: '¿Qué te ha frenado para inscribirte en una?', help: 'Podés elegir varias.', next: 'T1', options: [
       o('prep', 'Siento que todavía no tengo la preparación'), o('distancias', 'Las distancias me parecen muy largas'), o('precio', 'El precio'),
       o('entero', 'No me entero, o me entero tarde'), o('fechas', 'Las fechas o los horarios'), o('lejos', 'Son lejos de donde vivo'),
       o('compania', 'No tengo con quién ir'), o('pensado', 'No lo había pensado'), OTRO] },
-    EI: { b: 'E', type: 'info', title: 'Piensa en la última carrera en la que te inscribiste.', help: 'Las próximas preguntas son sobre esa carrera. Si no te acuerdas de algo, está bien.', cta: 'Ya la tengo', next: 'E2' },
-    E2: { b: 'E', type: 'single', title: '¿Cómo te enteraste de esa carrera?', help: 'Elige la principal.', next: 'E3', options: [
+    EI: { b: 'E', type: 'info', title: 'Pensá en la última carrera en la que te inscribiste.', help: 'Las próximas preguntas son sobre esa carrera. Si no te acordás de algo, está bien.', cta: 'Ya la tengo', next: 'E2' },
+    E2: { b: 'E', type: 'single', title: '¿Cómo te enteraste de esa carrera?', help: 'Elegí la principal.', next: 'E3', options: [
       o('instagram', 'Instagram'), o('facebook', 'Facebook'), o('tiktok', 'TikTok'), o('whatsapp', 'Un grupo de WhatsApp'), o('alguien', 'Me contó alguien'),
       o('pagina', 'Una página de carreras (como Nicaragua Running)'), o('grupo', 'Mi grupo o club'), o('afiche', 'Un afiche o en una tienda'), NOSE, OTRO] },
     E3: { b: 'E', type: 'single', title: '¿Cómo te inscribiste?', next: 'E4', options: [
@@ -388,7 +388,7 @@
       o('20-30', 'US$20 a 30 (C$730 a 1,100)'), o('mas30', 'Más de US$30'), NOSE] },
     E6: { b: 'E', type: 'single', title: '¿En qué moneda estaba el precio?', next: 'E7', options: [
       o('cordobas', 'Córdobas'), o('dolares', 'Dólares'), o('ambas', 'En las dos'), NOSE] },
-    E7: { b: 'E', type: 'multi', title: 'Después de pagar, ¿qué tuviste que hacer para que te confirmaran?', help: 'Puedes elegir varias.', next: 'E8', options: [
+    E7: { b: 'E', type: 'multi', title: 'Después de pagar, ¿qué tuviste que hacer para que te confirmaran?', help: 'Podés elegir varias.', next: 'E8', options: [
       o('foto_wa', 'Mandar la foto del comprobante por WhatsApp'), o('foto_correo', 'Mandarla por correo o en un formulario'),
       o('preguntar', 'Escribir o llamar para preguntar si les llegó el pago'), o('esperar', 'Esperar a que me escribieran'),
       o('nada', 'Nada: quedó confirmado al instante', { ex: true }), o('nose', 'No me acuerdo', { ex: true })] },
@@ -397,7 +397,7 @@
       o('nunca', 'Nunca me confirmaron: solo llegué'), NOSE] },
     E9: { b: 'E', type: 'single', title: 'Contándote, ¿a cuántas personas inscribiste en esa carrera?', def: 'solo', options: [
       o('solo', 'Solo a mí', { next: 'E11' }), o('2', 'A 2', { next: 'E10' }), o('3-4', 'A 3 o 4', { next: 'E10' }), o('5+', 'A 5 o más', { next: 'E10' })] },
-    E10: { b: 'E', type: 'multi', title: '¿A quiénes inscribiste además de ti?', help: 'Puedes elegir varias.', next: 'E11', options: [
+    E10: { b: 'E', type: 'multi', title: '¿A quiénes inscribiste además de vos?', help: 'Podés elegir varias.', next: 'E11', options: [
       o('pareja', 'Mi pareja'), o('hijos', 'Hijas o hijos menores de 18'), o('familia', 'Otra familia'), o('amistades', 'Amistades'),
       o('trabajo', 'Compañeros de trabajo'), o('grupo', 'Mi grupo de corredores')] },
     E11: { b: 'E', type: 'single', title: '¿Cuánto esperaste para retirar tu kit, contando la fila?', help: 'El kit es la camiseta, el número y la medalla.', next: 'E12', options: [
@@ -405,7 +405,7 @@
       o('otra', 'Lo retiró otra persona por mí'), o('nokit', 'No hubo kit'), NOSE] },
     E12: { b: 'E', type: 'single', title: '¿Tuviste que escribirle o llamarle al organizador para preguntar algo?', def: 'no', options: [
       o('no', 'No', { next: 'E14' }), o('si', 'Sí', { next: 'E13' })] },
-    E13: { b: 'E', type: 'multi', title: '¿Sobre qué?', help: 'Puedes elegir varias.', next: 'E14', options: [
+    E13: { b: 'E', type: 'multi', title: '¿Sobre qué?', help: 'Podés elegir varias.', next: 'E14', options: [
       o('pago', 'Si le llegó mi pago'), o('talla', 'La talla de la camiseta'), o('kit', 'Dónde y cuándo retirar el kit'),
       o('ruta', 'La ruta, la hora de salida o el parqueo'), o('cambiar', 'Cambiar la distancia o la talla'), o('reembolso', 'Un reembolso'),
       o('resultados', 'Los resultados o los tiempos'), o('fotos', 'Las fotos'), OTRO] },
@@ -415,58 +415,58 @@
       o('si', 'Sí'), o('no', 'No'), o('nosabia', 'No sabía que se podía')] },
     E16: { b: 'E', type: 'single', title: 'En los últimos 12 meses, ¿quisiste inscribirte a una carrera y al final no lo hiciste?', def: 'no', options: [
       o('no', 'No', { next: 'E18' }), o('si', 'Sí', { next: 'E17' })] },
-    E17: { b: 'E', type: 'multi', title: '¿Qué pasó?', help: 'Puedes elegir varias.', next: 'E18', options: [
+    E17: { b: 'E', type: 'multi', title: '¿Qué pasó?', help: 'Podés elegir varias.', next: 'E18', options: [
       o('cupos', 'Se acabaron los cupos'), o('tarde', 'Me enteré tarde'), o('precio', 'El precio'), o('complicado', 'Inscribirme era complicado'),
       o('talla', 'No había mi talla'), o('fecha', 'La fecha no me quedaba'), o('lejos', 'Era lejos'), o('compania', 'No tenía con quién ir'), OTRO] },
-    E18: { b: 'E', type: 'text', optional: true, title: 'Cuéntanos lo más complicado, molesto o confuso de esa última carrera.', help: 'Desde que te enteraste hasta que cruzaste la meta. Si no hubo nada, puedes saltarla.', next: 'T1' },
+    E18: { b: 'E', type: 'text', optional: true, title: 'Contanos lo más complicado, molesto o confuso de esa última carrera.', help: 'Desde que te enteraste hasta que cruzaste la meta. Si no hubo nada, podés saltarla.', next: 'T1' },
 
-    F1: { b: 'F', type: 'multi', title: '¿A quién acompañas a correr o a las carreras?', help: 'Puedes elegir varias.', next: 'F2', options: [
+    F1: { b: 'F', type: 'multi', title: '¿A quién acompañás a correr o a las carreras?', help: 'Podés elegir varias.', next: 'F2', options: [
       o('hijos', 'Hija o hijo'), o('pareja', 'Pareja'), o('padres', 'Mamá o papá'), o('familia', 'Otra familia'), o('amistades', 'Amistades'), OTRO] },
     F2: { b: 'F', type: 'single', title: '¿Has ido alguna vez a una carrera para acompañar a alguien?', def: 'si', options: [
       o('si', 'Sí', { next: 'F3' }), o('no', 'No', { next: 'F6' })] },
-    F3: { b: 'F', type: 'multi', title: 'La última vez, ¿qué hiciste tú?', help: 'Puedes elegir varias.', next: 'F4', options: [
+    F3: { b: 'F', type: 'multi', title: 'La última vez, ¿qué hiciste vos?', help: 'Podés elegir varias.', next: 'F4', options: [
       o('inscripcion', 'Hice su inscripción y pagué'), o('kit', 'Retiré su kit'), o('meta', 'Hice el viaje y esperé en la meta'),
       o('ninos', 'Cuidé a niñas o niños mientras corría'), o('fotos', 'Tomé fotos o videos'), o('corri', 'Corrí o caminé a su lado'), OTRO] },
-    F4: { b: 'F', type: 'multi', max: 2, title: '¿Qué fue lo más difícil para ti ese día?', help: 'Elige hasta 2.', next: 'F5', options: [
+    F4: { b: 'F', type: 'multi', max: 2, title: '¿Qué fue lo más difícil para vos ese día?', help: 'Elegí hasta 2.', next: 'F5', options: [
       o('parqueo', 'El parqueo o el transporte'), o('esperar', 'No sabía dónde esperar ni dónde ver la llegada'),
       o('calor', 'El calor, la falta de sombra o de baños'), o('encontrar', 'Encontrar a mi corredor al terminar'), o('hora', 'Saber a qué hora iba a llegar'),
       o('aburrian', 'Las niñas o los niños se aburrían'), o('nada', 'Nada', { ex: true }), OTRO] },
     F5: { b: 'F', type: 'single', title: '¿Esa carrera tenía alguna distancia o actividad para niñas, niños o para caminar en familia?', next: 'F6', options: [
       o('si', 'Sí'), o('no', 'No'), o('nose', 'No sé')] },
-    F6: { b: 'F', type: 'single', title: '¿Has pensado en correr o caminar tú también?', def: 'no', options: [
+    F6: { b: 'F', type: 'single', title: '¿Has pensado en correr o caminar vos también?', def: 'no', options: [
       o('intente', 'Sí, y ya lo intenté', { next: 'C1' }), o('no_empezado', 'Sí, pero no he empezado', { next: 'C1' }), o('no', 'No me interesa', { next: 'T1' })] },
 
-    N0: { b: 'N', type: 'info', title: 'Esta parte es para la niña o el niño.', help: 'Persona adulta: léele cada pregunta en voz alta y deja que escoja sin ayudarle. No hay respuestas buenas ni malas.', cta: 'Empezamos', next: 'N1' },
-    N1: { b: 'N', type: 'multi', tiles: true, title: '¿Dónde corres o juegas a correr?', help: 'Puedes escoger varias.', next: 'N2', options: [
+    N0: { b: 'N', type: 'info', title: 'Esta parte es para la niña o el niño.', help: 'Persona adulta: leele cada pregunta en voz alta y dejá que escoja sin ayudarle. No hay respuestas buenas ni malas.', cta: 'Empezamos', next: 'N1' },
+    N1: { b: 'N', type: 'multi', tiles: true, title: '¿Dónde corrés o jugás a correr?', help: 'Podés escoger varias.', next: 'N2', options: [
       o('escuela', 'En la escuela', { i: 'escuela' }), o('casa', 'En mi casa o en mi calle', { i: 'casa' }), o('parque', 'En el parque', { i: 'parque' }),
       o('deporte', 'En un deporte', { i: 'deporte' }), o('carreras', 'En carreras con número', { i: 'dorsal' })] },
-    N2: { b: 'N', type: 'single', tiles: true, title: '¿Con quién corres más?', next: 'N3', options: [
+    N2: { b: 'N', type: 'single', tiles: true, title: '¿Con quién corrés más?', next: 'N3', options: [
       o('familia', 'Con mi familia', { i: 'familia' }), o('amigos', 'Con mis amigos', { i: 'amigos' }),
       o('profe', 'Con mi profe o mi entrenador', { i: 'profe' }), o('sola', 'Yo sola o yo solo', { i: 'sola' })] },
     N3: { b: 'N', type: 'single', title: '¿Alguna vez corriste una carrera con un número en el pecho?', def: 'si', options: [
       o('si', 'Sí', { next: 'N4' }), o('no', 'No', { next: 'NA' }), o('nose', 'No sé', { next: 'NA' })] },
-    N4: { b: 'N', type: 'multi', tiles: true, title: '¿Qué fue lo que más te gustó?', help: 'Puedes escoger varias.', next: 'N5', options: [
+    N4: { b: 'N', type: 'multi', tiles: true, title: '¿Qué fue lo que más te gustó?', help: 'Podés escoger varias.', next: 'N5', options: [
       o('medalla', 'La medalla', { i: 'medalla' }), o('camiseta', 'La camiseta', { i: 'camiseta' }), o('meta', 'Llegar a la meta', { i: 'meta' }),
       o('familia', 'Que fue mi familia', { i: 'familia' }), o('fiesta', 'La música y la fiesta', { i: 'musica' }), o('fotos', 'Las fotos', { i: 'fotos' }),
       o('otra', 'Otra cosa', { i: 'otra' })] },
-    N5: { b: 'N', type: 'multi', tiles: true, title: '¿Y qué no te gustó?', help: 'Puedes escoger varias.', next: 'NA', options: [
+    N5: { b: 'N', type: 'multi', tiles: true, title: '¿Y qué no te gustó?', help: 'Podés escoger varias.', next: 'NA', options: [
       o('calor', 'El calor', { i: 'sol' }), o('cansancio', 'Me cansé mucho', { i: 'cansado' }), o('temprano', 'Levantarme muy temprano', { i: 'temprano' }),
       o('esperar', 'Esperar mucho', { i: 'esperar' }), o('gente', 'Había mucha gente', { i: 'gente' }), o('nada', 'Nada, todo me gustó', { i: 'bien', ex: true })] },
     NA: { b: 'N', type: 'info', title: 'Ahora contesta la persona adulta.', help: 'Tres preguntas más y terminamos.', cta: 'Seguir', next: 'N6' },
     N6: { b: 'N', type: 'single', title: '¿Quién inscribió a la niña o al niño en su última carrera o actividad con inscripción?', next: 'N7', options: [
       o('yo', 'Yo'), o('familia', 'Otra persona de la familia'), o('escuela', 'La escuela'), o('club', 'Un club o un entrenador'), o('nunca', 'Nunca ha participado en una')] },
-    N7: { b: 'N', type: 'multi', max: 2, title: '¿Qué te preocupa cuando corre fuera de casa o en una carrera?', help: 'Elige hasta 2.', next: 'N8', options: [
+    N7: { b: 'N', type: 'multi', max: 2, title: '¿Qué te preocupa cuando corre fuera de casa o en una carrera?', help: 'Elegí hasta 2.', next: 'N8', options: [
       o('seguridad', 'La seguridad de la ruta o el tráfico'), o('perderse', 'Que se pierda o se separe de mí'), o('calor', 'El calor y que tome agua'),
       o('larga', 'Que la distancia sea muy larga para su edad'), o('sin_distancia', 'Que no haya una distancia para su edad'), o('nada', 'Nada', { ex: true }), OTRO] },
-    N8: { b: 'N', type: 'single', title: '¿Tú también corres o caminas como ejercicio?', next: 'END_KIDS', options: [o('si', 'Sí'), o('no', 'No')] },
+    N8: { b: 'N', type: 'single', title: '¿Vos también corrés o caminás como ejercicio?', next: 'END_KIDS', options: [o('si', 'Sí'), o('no', 'No')] },
 
-    T1: { b: 'T', type: 'single', title: '¿Qué teléfono usas?', next: 'T2', options: [
+    T1: { b: 'T', type: 'single', title: '¿Qué teléfono usás?', next: 'T2', options: [
       o('android', 'Android (Samsung, Xiaomi, Motorola, Tecno u otro)'), o('iphone', 'iPhone'), o('familia', 'Uso el de otra persona de mi familia'), o('ninguno', 'No tengo teléfono')] },
-    T2: { b: 'T', type: 'multi', title: 'La última vez que tuviste que mostrar algo en tu teléfono en la calle, ¿pasó algo de esto?', help: 'Una entrada, un código QR o un comprobante. Puedes elegir varias.', next: 'Z1', options: [
+    T2: { b: 'T', type: 'multi', title: 'La última vez que tuviste que mostrar algo en tu teléfono en la calle, ¿pasó algo de esto?', help: 'Una entrada, un código QR o un comprobante. Podés elegir varias.', next: 'Z1', options: [
       o('senal', 'No cargaba por falta de señal o de datos'), o('bateria', 'La batería estaba baja o se apagó'), o('sol', 'No se veía por el sol'),
       o('bien', 'Funcionó bien', { ex: true }), o('no_toco', 'No me ha tocado', { ex: true })] },
-    Z1: { b: 'Z', type: 'text', optional: true, title: 'Si le contaras a una amistad lo más frustrante de correr o caminar en Nicaragua, ¿qué le dirías?', help: 'Con tus palabras. Basta una frase, y si no se te ocurre nada, puedes saltarla.', next: 'Z2' },
-    Z2: { b: 'Z', type: 'single', title: '¿Con qué te identificas?', next: 'Z3', options: [o('mujer', 'Mujer'), o('hombre', 'Hombre'), o('nodecir', 'Prefiero no decir'), OTRO] },
+    Z1: { b: 'Z', type: 'text', optional: true, title: 'Si le contaras a una amistad lo más frustrante de correr o caminar en Nicaragua, ¿qué le dirías?', help: 'Con tus palabras. Basta una frase, y si no se te ocurre nada, podés saltarla.', next: 'Z2' },
+    Z2: { b: 'Z', type: 'single', title: '¿Con qué te identificás?', next: 'Z3', options: [o('mujer', 'Mujer'), o('hombre', 'Hombre'), o('nodecir', 'Prefiero no decir'), OTRO] },
     // Z3 suma Facebook y «una página o grupo que sigo» (sin ser miembro): es el canal de difusión que estamos usando con los administradores.
     Z3: { b: 'Z', type: 'single', title: '¿Cómo te llegó esta encuesta?', next: 'END', options: [
       o('instagram', 'Instagram'), o('facebook', 'Facebook'), o('whatsapp', 'Un grupo de WhatsApp'), o('directo', 'Me la pasó alguien directo'),
@@ -565,7 +565,7 @@
     sending: ['Enviando tus respuestas…', ''],
     ok: DRY ? ['Vista local: no se envió nada.', 'En el sitio publicado aquí se confirma que tus respuestas llegaron.'] : ['Tus respuestas llegaron.', 'Gracias por tomarte el tiempo.'],
     offline: ['Sin señal por ahora.', 'Tus respuestas quedaron guardadas en este teléfono y se envían solas cuando vuelva la conexión.'],
-    error: ['No pudimos guardar tus respuestas.', 'Intenta de nuevo en un momento.']
+    error: ['No pudimos guardar tus respuestas.', 'Intentá de nuevo en un momento.']
   };
   function sendBox() {
     if (state.send === 'idle') return '';
@@ -871,9 +871,9 @@
     return 'Faltan ~' + Math.max(1, Math.round((left * SECS_PER_Q) / 60)) + ' min';
   }
   const CHEERS = {
-    quarter: ['Buen ritmo.', 'Ya llevas un cuarto del recorrido.'],
-    half: ['Mitad del recorrido.', 'Lo que nos cuentas decide qué construimos y qué no.'],
-    last: ['Último tramo.', 'Ya casi cruzas la meta y te llevas tu medalla.']
+    quarter: ['Buen ritmo.', 'Ya llevás un cuarto del recorrido.'],
+    half: ['Mitad del recorrido.', 'Lo que nos contás decide qué construimos y qué no.'],
+    last: ['Último tramo.', 'Ya casi cruzás la meta y te llevás tu medalla.']
   };
   // Se llama al llegar a una pregunta nueva: deja un mensaje si cruzó un hito que aún no había visto
   function checkMilestone() {
@@ -930,7 +930,7 @@
   }
   function medalText() {
     const n = state.finisherNo;
-    if (typeof n === 'number') return 'Eres la persona número ' + n + ' en cruzar la meta.';
+    if (typeof n === 'number') return 'Sos la persona número ' + n + ' en cruzar la meta.';
     if (DRY) return 'Vista local de evaluación: no se envió nada, así que no hay número de llegada.';
     if (state.channel === 'prueba') return 'Medalla de prueba: las pruebas del equipo no reciben número.';
     if (n === undefined && state.send === 'sending') return 'Calculando tu número de llegada…';
@@ -946,7 +946,7 @@
   function updateMedal() {
     const el = document.getElementById('medal');
     if (el) el.outerHTML = medalBox();
-    if (typeof state.finisherNo === 'number') announce('Eres la persona número ' + state.finisherNo + ' en cruzar la meta.');
+    if (typeof state.finisherNo === 'number') announce('Sos la persona número ' + state.finisherNo + ' en cruzar la meta.');
   }
 
   // Imagen 1080 × 1920 para historias, con espacio para el sticker de enlace
@@ -976,7 +976,7 @@
     // textos
     x.textAlign = 'center'; x.letterSpacing = '0px';
     x.font = '600 50px Inter'; x.fillStyle = '#12383B'; x.fillText(kids ? 'Terminamos la encuesta' : 'Terminé la encuesta', cx, cy + r + 96);
-    x.font = '500 40px Inter'; x.fillStyle = '#4D6A6C'; x.fillText('¿Y tú? Cuéntanos cómo corres', cx, cy + r + 156);
+    x.font = '500 40px Inter'; x.fillStyle = '#4D6A6C'; x.fillText('¿Y vos? Contanos cómo corrés', cx, cy + r + 156);
     const bw = 820, bh = 118, bx = (W - bw) / 2, by = cy + r + 186;
     x.setLineDash([16, 12]); x.lineWidth = 4; x.strokeStyle = '#12383B'; x.beginPath(); x.roundRect(bx, by, bw, bh, 24); x.stroke(); x.setLineDash([]);
     x.font = '600 42px Inter'; x.fillStyle = '#12383B'; x.fillText('xolorun.com/encuesta', cx, by + bh / 2 + 15);
@@ -1000,7 +1000,7 @@
         setTimeout(() => URL.revokeObjectURL(url), 4000);
       }
       announce('Tu medalla está lista para tus historias.');
-    } catch (e) { announce('No se pudo preparar la imagen. Intenta de nuevo.'); }
+    } catch (e) { announce('No se pudo preparar la imagen. Intentá de nuevo.'); }
     btn.textContent = old;
   }
   if (channelFrom() === 'prueba') window.__medalla = async (n, kids) => (await makeStoryCanvas(n, kids)).toDataURL('image/png');
@@ -1022,8 +1022,8 @@
     const resume = hasDraft();
     return '<section class="field enter" data-scene="track"><canvas class="scene" aria-hidden="true"></canvas>' +
       '<div class="field-inner">' + topbar(false) +
-      '<div class="wrap stack"><h1 class="headline">Cuéntanos cómo <em>corres</em></h1>' +
-      '<p class="lede">O cómo caminas, o cómo acompañas.</p>' +
+      '<div class="wrap stack"><h1 class="headline">Contanos cómo <em>corrés</em></h1>' +
+      '<p class="lede">O cómo caminás, o cómo acompañás.</p>' +
         // Quién la hace, en la primera pantalla (lo pidieron los administradores). El detalle está en #quienes
         '<div class="who"><h2>Una encuesta de <b>' + BRAND + '</b></h2>' +
           '<button type="button" class="link" data-act="about">Quiénes somos y qué hacemos con tus respuestas</button></div></div>' +
@@ -1031,9 +1031,9 @@
       '<div class="wrap stack">' +
         (DRY ? '<p class="local">Vista local de evaluación: las respuestas no se envían.</p>' : '') +
         '<ul class="facts"><li>3 a 8 minutos</li><li>Anónima</li><li>Sin nombre ni teléfono</li></ul>' +
-        '<p class="promise">Al final te llevas <b>tu medalla de finalista.</b></p>' +
-        '<p class="kidnote">¿Tienes menos de 13 años? Contéstala junto a tu mamá, tu papá o la persona adulta que te cuida.</p>' +
-        nudge('kit-g', '¿Administras un club, una página o un grupo?', 'Obtén material listo para difundirla') + '</div>' +
+        '<p class="promise">Al final te llevás <b>tu medalla de finalista.</b></p>' +
+        '<p class="kidnote">¿Tenés menos de 13 años? Contestala junto a tu mamá, tu papá o la persona adulta que te cuida.</p>' +
+        nudge('kit-g', '¿Administrás un club, una página o un grupo?', 'Obtené material listo para difundirla') + '</div>' +
       // Fuera de la columna de abajo: con la tarjeta de autoría arriba, el botón sigue a la vista desde la primera pantalla
       '<div class="wrap actions">' +
         (resume
@@ -1083,7 +1083,7 @@
     const q = Q[id], a = state.answers[id];
     const answered = isAnswered(q, a) || !!q.optional;
     const body = q.type === 'text'
-      ? '<label class="sr" for="ta">' + esc(q.title) + '</label><textarea class="textarea" id="ta" maxlength="600" placeholder="Escribe aquí…">' + esc(a || '') + '</textarea><span class="count" id="count">' + String((a || '').length) + ' de 600</span>'
+      ? '<label class="sr" for="ta">' + esc(q.title) + '</label><textarea class="textarea" id="ta" maxlength="600" placeholder="Escribí aquí…">' + esc(a || '') + '</textarea><span class="count" id="count">' + String((a || '').length) + ' de 600</span>'
       : optionsHTML(q, a);
     return '<section class="q enter">' +
       '<header class="band">' + topbar(true) +
@@ -1108,7 +1108,7 @@
     return { version: VERSION, path: end === 'END_KIDS' ? 'ninez' : 'general', channel: state.channel, answers: out, client_id: state.clientId || uuid() };
   }
   const shareURL = () => PUBLIC_URL + '?c=compartido';
-  const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corras: ' + shareURL();
+  const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corrás: ' + shareURL();
 
   const MEGA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l6 4V6L7 10H4zM16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
   const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
@@ -1128,23 +1128,23 @@
       '<p>Al inicio te dijimos quiénes somos. El detalle de la app lo dejamos para el final, para no influir en tus respuestas. Esto es lo que queremos que haga ' + BRAND + ':</p>' +
       '<ul class="ticks">' +
         '<li>' + CHECK + '<span>Inscripción y pago en un solo lugar, sin WhatsApp de por medio.</span></li>' +
-        '<li>' + CHECK + '<span>Tu dorsal en el teléfono, aunque no tengas señal.</span></li>' +
+        '<li>' + CHECK + '<span>Tu dorsal en el teléfono, aunque no tengás señal.</span></li>' +
         '<li>' + CHECK + '<span>Crews por zona y un reto cada semana.</span></li>' +
       '</ul></div>';
     const again = kids
-      ? '<div class="stack"><h3>¿Tú también corres o caminas?</h3><p class="muted">Contesta la encuesta otra vez, ahora sobre ti.</p><button type="button" class="ghost" data-act="restart">Contestar sobre mí</button></div>'
+      ? '<div class="stack"><h3>¿Vos también corrés o caminás?</h3><p class="muted">Contestá la encuesta otra vez, ahora sobre vos.</p><button type="button" class="ghost" data-act="restart">Contestar sobre mí</button></div>'
       : '';
     // Compartir: un gesto rápido (WhatsApp) y, para quien quiera más, el kit con imagen y texto
     const share = '<div class="spread"><p class="eyebrow">Llévala más lejos</p>' +
       '<h3>Hay historias que todavía no nos llegan</h3>' +
-      '<p class="muted">Sobre todo las de quien corre poco, camina o solo acompaña. Si se la pasas a alguien así, lo que construyamos se va a parecer más a lo que de verdad vive la gente aquí.</p>' +
+      '<p class="muted">Sobre todo las de quien corre poco, camina o solo acompaña. Si se la pasás a alguien así, lo que construyamos se va a parecer más a lo que de verdad vive la gente aquí.</p>' +
       '<div class="share-row">' +
         '<a class="' + (waitlistBox() ? 'ghost' : 'go as-link') + '" href="https://wa.me/?text=' + encodeURIComponent(inviteText()) + '" target="_blank" rel="noopener">' + CHAT_ICON + 'Enviar por WhatsApp</a>' +
         '<button type="button" class="ghost" data-act="kit">' + SHARE_ICON + 'Crear imagen para mis historias</button>' +
         '<button type="button" class="ghost" data-act="copy">' + LINK_ICON + 'Copiar enlace</button>' +
       '</div>' +
-      (state.shareFallback ? '<label class="sr" for="share-text">Invitación para copiar</label><textarea class="share-text" id="share-text" readonly>' + esc(inviteText()) + '</textarea><p class="muted">Mantén presionado el texto para copiarlo.</p>' : '') +
-      nudge('kit-g', '¿Administras un club, una página o un grupo?', 'Obtén material listo para tu comunidad') +
+      (state.shareFallback ? '<label class="sr" for="share-text">Invitación para copiar</label><textarea class="share-text" id="share-text" readonly>' + esc(inviteText()) + '</textarea><p class="muted">Mantené presionado el texto para copiarlo.</p>' : '') +
+      nudge('kit-g', '¿Administrás un club, una página o un grupo?', 'Obtené material listo para tu comunidad') +
       '</div>';
     const raw = state.channel === 'prueba'
       ? '<details class="raw"><summary>Lo que se envió (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(state.final, null, 2)) + '</pre></details>'
@@ -1163,8 +1163,8 @@
     if (!base && !EMBED) return '';
     const q = state.channel === 'prueba' ? 'c=prueba' : 'c=encuesta&campana=' + encodeURIComponent(state.channel || 'directo');
     return '<div class="spread wl"><p class="eyebrow">Lista de espera</p>' +
-      '<h3>Reclama tu dorsal en ' + BRAND + '</h3>' +
-      '<p class="muted">Anótate y te damos tu número en la fila. Te avisamos primero cuando abramos. Es aparte de la encuesta: tus respuestas siguen siendo anónimas.</p>' +
+      '<h3>Reclamá tu dorsal en ' + BRAND + '</h3>' +
+      '<p class="muted">Anotate y te damos tu número en la fila. Te avisamos primero cuando abramos. Es aparte de la encuesta: tus respuestas siguen siendo anónimas.</p>' +
       '<a class="go as-link" href="' + esc(EMBED ? '#lista' : base + '?' + q + '#lista') + '"' + (EMBED ? ' data-embed-lista' : '') + '>Quiero mi dorsal<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
   }
 
@@ -1182,7 +1182,7 @@
 
   // ───────── Transparencia: quiénes somos ─────────
   const contactHTML = () => CONTACT.href
-    ? '<p>¿Dudas? Escríbenos: <a href="' + esc(CONTACT.href) + '" target="_blank" rel="noopener">' + esc(CONTACT.label) + '</a></p>' : '';
+    ? '<p>¿Dudas? Escribinos: <a href="' + esc(CONTACT.href) + '" target="_blank" rel="noopener">' + esc(CONTACT.label) + '</a></p>' : '';
 
   // Todas las preguntas, por bloque, para que cualquiera las revise antes de contestar o compartir
   function questionList() {
@@ -1213,13 +1213,13 @@
         '<p>No te vamos a vender nada. Si hoy todo te funciona bien, también nos sirve saberlo.</p></section>' +
       '<section><h2>Qué preguntamos y qué no</h2><ul class="plain">' +
         '<li>No pedimos nombre, cédula, teléfono ni correo.</li>' +
-        '<li>Solo preguntamos tu departamento y tu rango de edad, no dónde vives exactamente.</li>' +
-        '<li>Tus respuestas se guardan a medida que avanzas, aunque no termines, sin nada que te identifique. Así sabemos qué preguntas cansan.</li>' +
-        '<li>Si tienes menos de 13 años, la contestas junto a una persona adulta.</li></ul>' +
+        '<li>Solo preguntamos tu departamento y tu rango de edad, no dónde vivís exactamente.</li>' +
+        '<li>Tus respuestas se guardan a medida que avanzás, aunque no terminés, sin nada que te identifique. Así sabemos qué preguntas cansan.</li>' +
+        '<li>Si tenés menos de 13 años, la contestás junto a una persona adulta.</li></ul>' +
         questionList() + '</section>' +
       '<section><h2>Quién ve las respuestas</h2>' +
         '<p>Solo el equipo de ' + BRAND + '. Quienes comparten la encuesta no la organizan ni ven las respuestas. Si publicamos resultados, serán cifras generales, nunca respuestas de una persona.</p></section>' +
-      '<section>' + nudge('kit-g', '¿Administras un club, una página o un grupo?', 'Obtén material listo para difundirla') + '</section>' +
+      '<section>' + nudge('kit-g', '¿Administrás un club, una página o un grupo?', 'Obtené material listo para difundirla') + '</section>' +
       '<div class="stack"><button type="button" class="go" data-act="home">Volver a la encuesta</button></div>');
   }
 
@@ -1238,17 +1238,17 @@
       const who = n || 'nuestra comunidad';
       if (sh.where === 'historia') return 'Encuesta anónima de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. No es de ' + who + ': solo ayudamos a difundirla.\n' + link;
       if (sh.where === 'post') return '¿Cómo se vive el correr en Nicaragua? ' + BRAND + ', un proyecto nicaragüense independiente, está haciendo una encuesta anónima para entenderlo y nos pidió ayuda para difundirla.\n\n' +
-        'La encuesta no es de ' + who + ' y no vemos las respuestas. Toma de 3 a 8 minutos, no pide nombre ni teléfono y sirve aunque no corras carreras: también si caminas o acompañas a alguien.\n\nContéstala aquí: ' + link;
+        'La encuesta no es de ' + who + ' y no vemos las respuestas. Toma de 3 a 8 minutos, no pide nombre ni teléfono y sirve aunque no corrás carreras: también si caminás o acompañás a alguien.\n\nContestala aquí: ' + link;
       return '¡Hola a todos! Les paso una encuesta anónima de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. No es de ' + who + ': solo ayudamos a difundirla. Son de 3 a 8 minutos y sirve aunque no corran carreras.\n' + link;
     }
-    if (sh.where === 'historia') return (done ? 'Ya conté cómo corro. ¿Y tú?' : '¿Cómo corres tú?') + ' Encuesta anónima sobre el correr en Nicaragua, de ' + BRAND + '.\n' + link;
-    if (sh.where === 'post') return (done ? 'Acabo de contestar' : 'Les comparto') + ' una encuesta anónima sobre cómo se vive el correr en Nicaragua. La hace ' + BRAND + ', un proyecto nicaragüense. Son de 3 a 8 minutos y sirve aunque no corras carreras: también si caminas o acompañas a alguien.\n' + link;
-    return 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corras:\n' + link;
+    if (sh.where === 'historia') return (done ? 'Ya conté cómo corro. ¿Y vos?' : '¿Cómo corrés vos?') + ' Encuesta anónima sobre el correr en Nicaragua, de ' + BRAND + '.\n' + link;
+    if (sh.where === 'post') return (done ? 'Acabo de contestar' : 'Les comparto') + ' una encuesta anónima sobre cómo se vive el correr en Nicaragua. La hace ' + BRAND + ', un proyecto nicaragüense. Son de 3 a 8 minutos y sirve aunque no corrás carreras: también si caminás o acompañás a alguien.\n' + link;
+    return 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corrás:\n' + link;
   }
   const TIPS = {
-    historia: 'Sube la imagen a tu historia y pon el sticker de enlace sobre el recuadro punteado, con tu enlace.',
-    post: 'Publica la imagen con el texto de abajo. El código QR lleva a la encuesta con tu enlace.',
-    mensaje: 'Manda la imagen y el texto juntos: así se ve de qué se trata antes de abrir el enlace.'
+    historia: 'Subí la imagen a tu historia y poné el sticker de enlace sobre el recuadro punteado, con tu enlace.',
+    post: 'Publicá la imagen con el texto de abajo. El código QR lleva a la encuesta con tu enlace.',
+    mensaje: 'Mandá la imagen y el texto juntos: así se ve de qué se trata antes de abrir el enlace.'
   };
 
   const radio = (attr, val, cur, title, sub) => '<button type="button" class="opt" role="radio" aria-checked="' + (val === cur) + '" ' + attr + '="' + val + '">' +
@@ -1275,9 +1275,9 @@
       '<p class="muted">Tu enlace: <span class="mono" id="slink">' + esc(shLink()) + '</span></p>' +
       '<p class="muted">' + (g ? 'Con este enlace solo sabemos cuántas respuestas llegaron por tu comunidad, nunca quién respondió. Y la encuesta le dice a cada persona, desde el inicio, que es de ' + BRAND + ' y que ustedes no ven las respuestas.' : 'Con este enlace solo sabemos cuántas respuestas llegaron por publicaciones como la tuya, nunca quién respondió.') + '</p>' +
       '</section>';
-    const review = !g ? '' : '<section><h2>Antes de compartirla</h2><p>Puedes revisar todas las preguntas que va a ver tu comunidad.</p>' + questionList() + '</section>';
+    const review = !g ? '' : '<section><h2>Antes de compartirla</h2><p>Podés revisar todas las preguntas que va a ver tu comunidad.</p>' + questionList() + '</section>';
     return pageShell(
-      '<section><p class="eyebrow">Difunde la encuesta</p><h1 tabindex="-1" id="qt">Llévala más lejos</h1>' +
+      '<section><p class="eyebrow">Difundí la encuesta</p><h1 tabindex="-1" id="qt">Llévala más lejos</h1>' +
         '<p>Cada respuesta nueva hace que lo que construimos se parezca más a lo que vive quien corre, camina o acompaña en Nicaragua. Te armamos el material en un momento.</p></section>' +
       '<section><h2>¿Cómo la vas a compartir?</h2>' + modes + '</section>' + who + where + kit + review +
       '<div class="stack"><button type="button" class="' + (sh.mode ? 'ghost' : 'go') + '" data-act="home">Volver a la encuesta</button></div>');
@@ -1335,13 +1335,13 @@
     x.letterSpacing = '6px'; x.font = '500 30px ' + DISPLAY; x.fillStyle = '#9E4831'; x.fillText('CORRER EN NICARAGUA · ENCUESTA', L, top + 54);
     // titular
     x.letterSpacing = '-4px';
-    const size = Math.min(fitFont(x, 'Cuéntanos', '700', DISPLAY, story ? 200 : 150, W - 2 * L), story ? 200 : 150);
+    const size = Math.min(fitFont(x, 'Contanos', '700', DISPLAY, story ? 200 : 150, W - 2 * L), story ? 200 : 150);
     const lh = Math.round(size * 1.0); let y = top + 90 + lh;
     x.font = '700 ' + size + 'px ' + DISPLAY; x.fillStyle = '#12383B';
-    x.fillText('Cuéntanos', L - 4, y); y += lh; x.fillText('cómo', L - 4, y); y += lh;
-    x.letterSpacing = '-1px'; x.font = 'italic 400 ' + Math.round(size * 1.05) + 'px Newsreader'; x.fillStyle = '#1F6366'; x.fillText('corres', L - 4, y);
+    x.fillText('Contanos', L - 4, y); y += lh; x.fillText('cómo', L - 4, y); y += lh;
+    x.letterSpacing = '-1px'; x.font = 'italic 400 ' + Math.round(size * 1.05) + 'px Newsreader'; x.fillStyle = '#1F6366'; x.fillText('corrés', L - 4, y);
     x.letterSpacing = '0px'; x.font = '500 ' + (story ? 46 : 40) + 'px ' + BODY; x.fillStyle = '#4D6A6C';
-    y += story ? 80 : 74; x.fillText('O cómo caminas, o cómo acompañas.', L, y);
+    y += story ? 80 : 74; x.fillText('O cómo caminás, o cómo acompañás.', L, y);
     // pista con corredores
     const lanes = story ? 5 : 3, gap = story ? 56 : 50, y0 = y + (story ? 70 : 40);
     const kinds = [['run', 'senior', 'run'], ['kid', 'run', 'kid'], ['run', 'kid', 'senior'], ['senior', 'run', 'kid'], ['you', 'run', 'run']].slice(5 - lanes);
@@ -1369,11 +1369,11 @@
       if (g) {
         x.fillStyle = '#1F6366'; fitFont(x, 'Compartida por ' + (n || 'nuestra comunidad'), '600', BODY, 42, W - 2 * L); x.fillText('Compartida por ' + (n || 'nuestra comunidad'), L, y);
         y += 54; x.fillStyle = '#4D6A6C'; fitFont(x, 'La encuesta es de ' + BRAND + ' y no vemos tus respuestas.', '500', BODY, 34, W - 2 * L); x.fillText('La encuesta es de ' + BRAND + ' y no vemos tus respuestas.', L, y);
-      } else { x.fillStyle = '#4D6A6C'; x.font = '500 38px ' + BODY; x.fillText('Sirve aunque no corras carreras.', L, y); }
+      } else { x.fillStyle = '#4D6A6C'; x.font = '500 38px ' + BODY; x.fillText('Sirve aunque no corrás carreras.', L, y); }
       // recuadro para el sticker de enlace
       const bw = W - 2 * L, bh = 120, bx = L, byy = Math.min(H - 300, y + 50);
       x.setLineDash([16, 12]); x.lineWidth = 4; x.strokeStyle = '#12383B'; x.beginPath(); x.roundRect(bx, byy, bw, bh, 24); x.stroke(); x.setLineDash([]);
-      x.textAlign = 'center'; x.font = '600 42px ' + BODY; x.fillStyle = '#12383B'; x.fillText('Toca el enlace y cuéntanos', W / 2, byy + bh / 2 + 15); x.textAlign = 'start';
+      x.textAlign = 'center'; x.font = '600 42px ' + BODY; x.fillStyle = '#12383B'; x.fillText('Tocá el enlace y contanos', W / 2, byy + bh / 2 + 15); x.textAlign = 'start';
     } else {
       const qs = 300, qx = W - L - qs, qy = H - 70 - qs;
       let fy = qy + 50;
@@ -1392,7 +1392,7 @@
         const m = q.getModuleCount(), pad = 22, cell = (qs - pad * 2) / m;
         x.fillStyle = '#12383B';
         for (let r = 0; r < m; r++) for (let c = 0; c < m; c++) if (q.isDark(r, c)) x.fillRect(qx + pad + c * cell, qy + pad + r * cell, Math.ceil(cell), Math.ceil(cell));
-      } else { x.fillStyle = '#12383B'; x.textAlign = 'center'; x.font = '600 26px ' + BODY; x.fillText('Escanea', qx + qs / 2, qy + qs / 2); x.textAlign = 'start'; }
+      } else { x.fillStyle = '#12383B'; x.textAlign = 'center'; x.font = '600 26px ' + BODY; x.fillText('Escaneá', qx + qs / 2, qy + qs / 2); x.textAlign = 'start'; }
     }
     return cv;
   }
@@ -1409,7 +1409,7 @@
         setTimeout(() => URL.revokeObjectURL(url), 4000);
       }
       announce('Imagen lista.');
-    } catch (e) { announce('No se pudo preparar la imagen. Intenta de nuevo.'); }
+    } catch (e) { announce('No se pudo preparar la imagen. Intentá de nuevo.'); }
     btn.lastChild.textContent = old;
   }
 
@@ -1448,7 +1448,7 @@
     const q = Q[state.current], a = state.answers[state.current];
     if (q.optional && !isAnswered(q, a)) delete state.answers[state.current]; // saltada: no se guarda nada
     else if (q.type !== 'info' && !isAnswered(q, a)) {
-      say(q.type === 'text' ? 'Escribe al menos una palabra para seguir. Si no hubo nada, escribe «nada».' : 'Elige una opción para seguir. Si no te acuerdas, elige «No me acuerdo».');
+      say(q.type === 'text' ? 'Escribí al menos una palabra para seguir. Si no hubo nada, escribí «nada».' : 'Elegí una opción para seguir. Si no te acordás, elegí «No me acuerdo».');
       return;
     }
     const nx = nextOf(state.current, a);
@@ -1500,7 +1500,7 @@
     else if (op.ex) next = [v];
     else {
       next = cur.filter((x) => !(q.options.find((y) => y.v === x) || {}).ex);
-      if (q.max && next.length >= q.max) { say('Puedes elegir hasta ' + q.max + '. Quita una para cambiarla.'); return; }
+      if (q.max && next.length >= q.max) { say('Podés elegir hasta ' + q.max + '. Quitá una para cambiarla.'); return; }
       next.push(v);
     }
     state.hint = '';
@@ -1521,7 +1521,7 @@
     }
     if (b.dataset.v) {
       const v = b.dataset.v;
-      if (b.getAttribute('aria-disabled') === 'true') say('Puedes elegir hasta ' + Q[state.current].max + '. Quita una para cambiarla.');
+      if (b.getAttribute('aria-disabled') === 'true') say('Podés elegir hasta ' + Q[state.current].max + '. Quitá una para cambiarla.');
       else pick(v);
       const again = app.querySelector('[data-v="' + v + '"]'); if (again) again.focus({ preventScroll: true });
       return;
@@ -1535,7 +1535,7 @@
     else if (act === 'ssave') { if (shCanvas) saveCanvas(shCanvas, 'encuesta-correr-en-nicaragua-' + (sh.where === 'historia' ? 'historia' : 'publicacion') + '.png', shText(), b); }
     else if (act === 'scopy') {
       const ta = document.getElementById('stext');
-      const ok = () => { b.lastChild.textContent = 'Texto copiado'; announce('Texto copiado. Pégalo en tu publicación.'); };
+      const ok = () => { b.lastChild.textContent = 'Texto copiado'; announce('Texto copiado. Pegalo en tu publicación.'); };
       const fail = () => { if (ta) { ta.focus({ preventScroll: true }); ta.select(); } announce('No se pudo copiar solo. El texto quedó seleccionado para que lo copies.'); };
       try { navigator.clipboard.writeText(ta ? ta.value : shText()).then(ok, fail); } catch (err) { fail(); }
     }
@@ -1546,7 +1546,7 @@
     else if (act === 'retry') { setSend('sending'); flush(); }
     else if (act === 'big') { state.big = !state.big; render('same'); const t = app.querySelector('[data-act="big"]'); if (t) t.focus({ preventScroll: true }); announce(state.big ? 'Letra grande activada.' : 'Letra normal.'); }
     else if (act === 'copy') {
-      const ok = () => { b.lastChild.textContent = 'Enlace copiado'; announce('Enlace copiado. Pégalo en WhatsApp o donde quieras.'); };
+      const ok = () => { b.lastChild.textContent = 'Enlace copiado'; announce('Enlace copiado. Pegalo en WhatsApp o donde querás.'); };
       const fail = () => {
         state.shareFallback = true; render('same');
         const ta = document.getElementById('share-text');
