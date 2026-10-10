@@ -79,6 +79,29 @@
   if (hasFresh) store.set(ORIGIN, origin);
   const testing = origin.channel === 'prueba';
 
+  // ───────── Contador de visitas (sin datos personales) ─────────
+  // Solo suma eventos en nuestra base (track_hit, migración 0016): por día, canal, campaña y tipo de dispositivo.
+  // Nada por persona: sin cookies, sin IP ni identificadores. Las marcas «ya conté esto» viven solo en este navegador.
+  // No cuenta en local ni en pruebas del equipo (?c=prueba).
+  const inApp = /Instagram/i.test(navigator.userAgent) ? 'instagram' : /FBAN|FBAV|FB_IAB/i.test(navigator.userAgent) ? 'facebook' : /WhatsApp/i.test(navigator.userAgent) ? 'whatsapp' : '';
+  const hitSeen = (k) => { try { if (sessionStorage.getItem('xr-h-' + k)) return true; sessionStorage.setItem('xr-h-' + k, '1'); } catch (e) {} return false; };
+  const MEDIR = params.get('medir') === '1';   // solo para el QA en local: deja salir las llamadas, que la base simulada registra
+  function hit(event, once) {
+    if ((testing || LOCAL) && !MEDIR) return;
+    if (once && hitSeen(event)) return;
+    try {
+      fetch(SUPABASE_URL + '/rest/v1/rpc/track_hit', { method: 'POST', keepalive: true, headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_site: 'landing', p_event: event, p_channel: origin.channel || 'directo', p_campaign: origin.campaign || '', p_device: mobile.matches ? 'movil' : 'escritorio', p_in_app: inApp }) }).catch(() => {});
+    } catch (e) {}
+  }
+  hit('visita', true);
+  // una persona por día: una marca con la fecha en este navegador, sin enviar ningún identificador
+  try { const d = new Date(), today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); if (store.get('xr-dia') !== today) { store.set('xr-dia', today); hit('visita_dia'); } } catch (e) {}
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a[href^="https://wa.me"]')) hit('compartir_whatsapp');
+    const tl = e.target.closest('[data-tab-link]'); if (tl) hit('cta_' + tl.dataset.tabLink);
+  });
+
   // ───────── Aviso de privacidad ─────────
   const pend = '<span class="pending">en confirmación</span>';
   $('[data-controller]').innerHTML = CONTROLLER.name ? esc(CONTROLLER.name) : pend;
@@ -166,6 +189,7 @@
   }
   function tabFromHash() { const h = location.hash.replace('#', ''); return TABS.includes(h) ? h : (h === 'privacidad' ? 'lista' : 'inicio'); }
   function showTab(name, opts = {}) {
+    hit('pestana_' + name, true);
     if (!TABS.includes(name)) name = 'inicio';
     const { push = true, quiet = false } = opts;
     // durante una transición no se pierde el toque ni el «atrás» del navegador: se aplica el último pedido apenas termine
@@ -697,6 +721,7 @@
     if (t) t.focus({ preventScroll: true });
   }
   function showStep(n) {
+    hit('paso_' + (n + 1), true);
     const old = steps[si], nu = steps[n];
     si = n; stepno.textContent = 'Paso ' + (n + 1) + ' de ' + steps.length;
     paintProgress(n);
@@ -885,6 +910,7 @@
     state.result = r.queued ? null : r;
     if (!r.queued && !testing) store.set(STORE, { position: r.position, code: r.code, existing: !!r.existing, via: r.via, name: bName.classList.contains('empty') ? '' : bName.textContent, zone: bZone.classList.contains('empty') ? '' : bZone.textContent });
     const n = typeof r.position === 'number' ? r.position : null;
+    if (!quiet) hit(r.queued ? 'inscripcion_pendiente' : r.existing ? 'inscripcion_repetida' : n === null ? 'inscripcion_prueba' : 'inscripcion');
     const link = r.code ? inviteLink(r.code) : PUBLIC_URL;
     const who = r.via === 'mail' ? 'por correo' : 'por WhatsApp';
     let html;
@@ -920,6 +946,7 @@
   }
   document.addEventListener('click', async (e) => {
     const copy = e.target.closest('[data-copy]'), story = e.target.closest('[data-story]');
+    if (copy) hit('copiar_enlace'); if (story) hit('guardar_historia');
     if (copy && state.result && state.result.code) {
       const link = inviteLink(state.result.code);
       // el portapapeles moderno no existe en http ni en algunos navegadores dentro de apps: se copia a la antigua y, si tampoco, se muestra el enlace
@@ -951,6 +978,7 @@
         showResult({ queued: true, via: q.p_email ? 'mail' : 'wa' }, true);
       }
       flushQueue();
+      if (!q) hit('paso_1', true);   // el primer paso ya está a la vista al abrir: showStep no lo recorre
       if (!q && !quiet && G && !reduced && !ghosting) G.fromTo(tilt, { rotationY: 24, y: 20, autoAlpha: 0 }, { rotationY: 0, y: 0, autoAlpha: 1, duration: .9, ease: EASE, delay: .15 });
     }
   }
@@ -1047,7 +1075,9 @@
   }
   function closeSheet() {
     if (!sheet.open) return;
-    if (G && !reduced) G.to(sheet, mobile.matches ? { yPercent: 100 } : { xPercent: 100 }, { duration: .3, ease: 'power2.in', onComplete: () => { sheet.close(); G.set(sheet, { clearProps: 'all' }); } });
+    // un solo objeto de vars: con dos objetos GSAP ignoraba el segundo, nunca llamaba a sheet.close() y el diálogo quedaba
+    // abierto fuera de pantalla con la página oscurecida y bloqueada (visto en producción el 10 oct)
+    if (G && !reduced) G.to(sheet, { ...(mobile.matches ? { yPercent: 100 } : { xPercent: 100 }), duration: .3, ease: 'power2.in', overwrite: true, onComplete: () => { sheet.close(); G.set(sheet, { clearProps: 'all' }); } });
     else sheet.close();
   }
   document.addEventListener('click', (e) => {
@@ -1064,6 +1094,7 @@
   // ───────── Arranque ─────────
   function start() {
     const first = tabFromHash();
+    hit('pestana_' + first, true);
     history.replaceState({ tab: first }, '', location.hash ? location.href : location.href + '#' + first);
     placeInd('inicio');
     if (first !== 'inicio') showTab(first, { push: false, quiet: true });

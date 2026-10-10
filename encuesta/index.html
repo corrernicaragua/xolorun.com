@@ -520,6 +520,21 @@
     } catch (e) { return null; }
   };
   const state = { view: 'welcome', current: 'P1', answers: {}, history: [], big: false, hint: '', final: null, send: 'idle', shareFallback: false, channel: channelFrom(), clientId: null, milestones: [], cheer: null, finisherNo: undefined };
+
+  // ───────── Contador de visitas (sin datos personales): sumas por día y canal en nuestra base (track_hit), nada por persona ─────────
+  const inApp = /Instagram/i.test(navigator.userAgent) ? 'instagram' : /FBAN|FBAV|FB_IAB/i.test(navigator.userAgent) ? 'facebook' : /WhatsApp/i.test(navigator.userAgent) ? 'whatsapp' : '';
+  const hitSeen = (k) => { try { if (sessionStorage.getItem('xr-h-' + k)) return true; sessionStorage.setItem('xr-h-' + k, '1'); } catch (e) {} return false; };
+  function hit(event, once) {
+    if ((LOCAL || state.channel === 'prueba') && !PARAMS.has('medir')) return;   // ?medir=1 solo para el QA en local
+    if (once && hitSeen(event)) return;
+    try {
+      fetch(SUPABASE_URL + '/rest/v1/rpc/track_hit', { method: 'POST', keepalive: true, headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_site: 'encuesta', p_event: event, p_channel: state.channel || 'directo', p_campaign: '', p_device: innerWidth < 760 ? 'movil' : 'escritorio', p_in_app: inApp }) }).catch(() => {});
+    } catch (e) {}
+  }
+  hit('visita', true);
+  try { const d = new Date(), today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); if (localStorage.getItem('xr-dia') !== today) { localStorage.setItem('xr-dia', today); hit('visita_dia'); } } catch (e) {}
+  document.addEventListener('click', (e) => { if (e.target.closest('a[href^="https://wa.me"]')) hit('compartir_whatsapp'); });
   function save() {
     try {
       if (state.view === 'done' || state.view === 'doneKids') { localStorage.removeItem(STORE); return; }
@@ -1000,6 +1015,7 @@
         setTimeout(() => URL.revokeObjectURL(url), 4000);
       }
       announce('Tu medalla está lista para tus historias.');
+      hit('medalla_guardada');
     } catch (e) { announce('No se pudo preparar la imagen. Intentá de nuevo.'); }
     btn.textContent = old;
   }
@@ -1215,7 +1231,8 @@
         '<li>No pedimos nombre, cédula, teléfono ni correo.</li>' +
         '<li>Solo preguntamos tu departamento y tu rango de edad, no dónde vivís exactamente.</li>' +
         '<li>Tus respuestas se guardan a medida que avanzás, aunque no terminés, sin nada que te identifique. Así sabemos qué preguntas cansan.</li>' +
-        '<li>Si tenés menos de 13 años, la contestás junto a una persona adulta.</li></ul>' +
+        '<li>Si tenés menos de 13 años, la contestás junto a una persona adulta.</li>' +
+        '<li>Contamos las visitas al sitio solo como sumas por día y canal: sin cookies, sin dirección IP ni nada que te identifique.</li></ul>' +
         questionList() + '</section>' +
       '<section><h2>Quién ve las respuestas</h2>' +
         '<p>Solo el equipo de ' + BRAND + '. Quienes comparten la encuesta no la organizan ni ven las respuestas. Si publicamos resultados, serán cifras generales, nunca respuestas de una persona.</p></section>' +
@@ -1414,6 +1431,7 @@
   }
 
   function render(dir) {
+    if (state.view === 'done' || state.view === 'doneKids') hit('encuesta_fin', true);
     scenes.forEach((s) => s.destroy()); scenes = [];
     document.documentElement.classList.toggle('big', state.big);
     let html;
@@ -1526,8 +1544,8 @@
       const again = app.querySelector('[data-v="' + v + '"]'); if (again) again.focus({ preventScroll: true });
       return;
     }
-    if (act === 'start') { state.view = 'q'; state.current = 'P1'; state.clientId = uuid(); state.milestones = []; state.cheer = null; render(); window.scrollTo(0, 0); sendProgress(); }
-    else if (act === 'resume') { state.view = 'q'; if (!state.clientId) state.clientId = uuid(); render(); sendProgress(); }
+    if (act === 'start') { hit('encuesta_inicio'); state.view = 'q'; state.current = 'P1'; state.clientId = uuid(); state.milestones = []; state.cheer = null; render(); window.scrollTo(0, 0); sendProgress(); }
+    else if (act === 'resume') { hit('encuesta_reanudada'); state.view = 'q'; if (!state.clientId) state.clientId = uuid(); render(); sendProgress(); }
     else if (act === 'about') openPage('about');
     else if (act === 'kit') { if (!sh.mode) sh.mode = 'persona'; openPage('share'); }
     else if (act === 'kit-g') { sh.mode = 'grupo'; openPage('share'); }

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Visitas · Xolo Run</title>
+<link rel="icon" href="/marca/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+  /* Panel del equipo: lee las sumas de site_stats (migración 0016) con la clave del equipo. Solo números: nada por persona. */
+  :root { --arena: #F3EFE7; --lago: #12383B; --lago-400: #4D6A6C; --jade: #1F6366; --arcilla: #C65A3D; --niebla: #B7C2BE; --n200: #E9EDEC; --white: #fff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--arena); color: var(--lago); font: 16px/1.45 Inter, system-ui, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 72px; }
+  .top { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; justify-content: space-between; }
+  .eyebrow { margin: 0 0 6px; font: 700 .75rem/1 "Space Grotesk", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #9E4831; }
+  h1 { margin: 0; font: 700 1.75rem/1.1 "Space Grotesk", sans-serif; letter-spacing: -.02em; }
+  h2 { margin: 0 0 10px; font: 700 1.125rem/1.2 "Space Grotesk", sans-serif; }
+  .muted { color: var(--lago-400); font-size: .9375rem; }
+  .seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--n200); }
+  .seg button { border: 0; border-radius: 999px; padding: 8px 14px; background: transparent; color: var(--lago-400); font: 600 .875rem/1 Inter, sans-serif; cursor: pointer; }
+  .seg button.on { background: var(--lago); color: var(--arena); }
+  .key { margin-top: 28px; padding: 22px; border-radius: 18px; background: var(--white); max-width: 420px; }
+  .key label { display: block; font-weight: 600; margin-bottom: 8px; }
+  .key input { width: 100%; padding: 12px 14px; border: 1.5px solid var(--niebla); border-radius: 12px; font: inherit; margin-bottom: 12px; }
+  .go { border: 0; border-radius: 999px; padding: 12px 22px; background: var(--lago); color: var(--arena); font: 700 1.0625rem/1 Inter, sans-serif; cursor: pointer; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 24px; }
+  .card { background: var(--white); border-radius: 16px; padding: 16px 18px; }
+  .card b { display: block; font: 700 2rem/1 "Space Grotesk", sans-serif; font-variant-numeric: tabular-nums; }
+  .card span { display: block; margin-top: 6px; font-size: .8125rem; color: var(--lago-400); }
+  section { margin-top: 30px; }
+  .bars { display: flex; align-items: flex-end; gap: 3px; height: 140px; background: var(--white); border-radius: 16px; padding: 14px 14px 10px; }
+  .bars i { flex: 1; display: block; position: relative; min-height: 2px; border-radius: 3px 3px 0 0; background: var(--jade); }
+  .bars i.enc { background: var(--niebla); }
+  .bars i[title]:hover::after { content: attr(title); position: absolute; left: 50%; bottom: 100%; transform: translateX(-50%); white-space: nowrap; background: var(--lago); color: var(--arena); font-size: .75rem; padding: 4px 8px; border-radius: 6px; margin-bottom: 4px; }
+  .legend { display: flex; gap: 16px; margin-top: 8px; font-size: .8125rem; color: var(--lago-400); }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; background: var(--jade); }
+  .legend i.enc { background: var(--niebla); }
+  table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: 14px; overflow: hidden; }
+  th, td { padding: 9px 12px; text-align: left; border-top: 1px solid var(--n200); font-size: .9rem; }
+  th { background: var(--n200); border-top: 0; font: 600 .7rem/1.2 "Space Grotesk", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--lago-400); }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .funnel { display: grid; gap: 6px; }
+  .funnel div { display: grid; grid-template-columns: 180px 1fr 70px 60px; gap: 10px; align-items: center; font-size: .9rem; }
+  .funnel i { display: block; height: 14px; border-radius: 7px; background: var(--jade); min-width: 2px; }
+  .funnel b { font-variant-numeric: tabular-nums; text-align: right; }
+  .funnel small { color: var(--lago-400); text-align: right; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .foot { margin-top: 40px; font-size: .8125rem; color: var(--lago-400); }
+  @media (max-width: 600px) { .funnel div { grid-template-columns: 120px 1fr 56px 48px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><p class="eyebrow">xolorun.com · solo números</p><h1>Visitas y embudo</h1></div>
+    <div class="seg" id="rango" hidden><button data-d="7">7 días</button><button data-d="30" class="on">30 días</button><button data-d="90">90 días</button></div>
+  </div>
+  <p class="muted" id="estado">Cargando…</p>
+
+  <form class="key" id="key" hidden>
+    <label for="k">Clave del equipo</label>
+    <input id="k" type="password" autocomplete="current-password" required>
+    <button class="go" type="submit">Entrar</button>
+  </form>
+
+  <div id="panel" hidden>
+    <div class="cards" id="cards"></div>
+    <section>
+      <h2>Visitas por día</h2>
+      <div class="bars" id="bars"></div>
+      <p class="legend"><span><i></i>Landing</span><span><i class="enc"></i>Encuesta</span></p>
+    </section>
+    <section class="cols">
+      <div><h2>Embudo de la lista de espera</h2><div class="funnel" id="f-lista"></div></div>
+      <div><h2>Embudo de la encuesta</h2><div class="funnel" id="f-enc"></div></div>
+    </section>
+    <section><h2>Por canal y campaña (landing)</h2><div id="t-canal"></div></section>
+    <section><h2>Por canal (encuesta)</h2><div id="t-canal-enc"></div></section>
+    <section class="cols">
+      <div><h2>Dispositivo y navegador</h2><div id="t-disp"></div></div>
+      <div><h2>País</h2><div id="t-pais"></div></div>
+    </section>
+    <p class="foot">Sumas por día guardadas en la base de Xolo Run (tabla <code>site_stats</code>). Sin cookies, sin direcciones IP ni identificadores: «personas por día» es la primera visita del día de cada navegador. Las visitas con <code>?c=prueba</code> y las de localhost no cuentan. Hora de Managua.</p>
+  </div>
+</div>
+<script>
+(() => {
+  const SUPABASE_URL = 'https://mwiroczcgigmapzkzeba.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI';
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fmt = (n) => new Intl.NumberFormat('es-NI').format(n || 0);
+  const pct = (a, b) => (b ? Math.round((a / b) * 100) + ' %' : '');
+  let days = 30, rows = [];
+
+  const keyStore = { get: () => { try { return localStorage.getItem('xr-tablero-clave') || ''; } catch (e) { return ''; } }, set: (v) => { try { v ? localStorage.setItem('xr-tablero-clave', v) : localStorage.removeItem('xr-tablero-clave'); } catch (e) {} } };
+
+  async function load() {
+    const key = keyStore.get();
+    if (!key) { askKey(''); return; }
+    $('#estado').textContent = 'Cargando…';
+    let r;
+    try {
+      r = await fetch(SUPABASE_URL + '/rest/v1/rpc/site_stats_report', { method: 'POST', headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_key: key, p_days: days }) });
+    } catch (e) { $('#estado').textContent = 'Sin conexión con la base. Intentá de nuevo.'; return; }
+    if (!r.ok) {
+      if (r.status === 401 || r.status === 403 || r.status === 400) { keyStore.set(''); askKey('La clave no es la del equipo.'); return; }
+      $('#estado').textContent = 'La base respondió ' + r.status + '. Intentá de nuevo en un momento.'; return;
+    }
+    rows = await r.json();
+    $('#key').hidden = true; $('#panel').hidden = false; $('#rango').hidden = false;
+    $('#estado').textContent = rows.length ? 'Últimos ' + days + ' días, hasta hoy.' : 'Todavía no hay visitas contadas en este rango.';
+    render();
+  }
+  function askKey(msg) {
+    $('#panel').hidden = true; $('#rango').hidden = true; $('#key').hidden = false;
+    $('#estado').textContent = msg || 'Este panel es del equipo de Xolo Run.';
+    $('#k').focus();
+  }
+  $('#key').addEventListener('submit', (e) => { e.preventDefault(); keyStore.set($('#k').value.trim()); $('#k').value = ''; load(); });
+  $('#rango').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; days = +b.dataset.d; document.querySelectorAll('#rango button').forEach((x) => x.classList.toggle('on', x === b)); load(); });
+
+  const sum = (f) => rows.reduce((a, r) => a + (f(r) ? r.n : 0), 0);
+  const by = (f, keyOf) => { const m = new Map(); for (const r of rows) { if (!f(r)) continue; const k = keyOf(r); m.set(k, (m.get(k) || 0) + r.n); } return m; };
+  function table(el, head, lines) {
+    if (!lines.length) { el.innerHTML = '<p class="muted">Nada todavía.</p>'; return; }
+    el.innerHTML = '<table><thead><tr>' + head.map((h, i) => '<th' + (i ? ' class="n"' : '') + '>' + esc(h) + '</th>').join('') + '</tr></thead><tbody>' +
+      lines.map((l) => '<tr>' + l.map((c, i) => '<td' + (i ? ' class="n"' : '') + '>' + esc(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table>';
+  }
+  function funnel(el, steps) {
+    const base = steps[0][1] || 0;
+    el.innerHTML = steps.map(([name, n]) => '<div><span>' + esc(name) + '</span><i style="width:' + (base ? Math.max(1, Math.round((n / base) * 100)) : 0) + '%"></i><b>' + fmt(n) + '</b><small>' + pct(n, base) + '</small></div>').join('');
+  }
+  function render() {
+    const L = (r) => r.site === 'landing', E = (r) => r.site === 'encuesta';
+    const ev = (site, e) => (r) => r.site === site && r.event === e;
+    $('#cards').innerHTML = [
+      ['Visitas a la landing', sum(ev('landing', 'visita'))], ['Personas por día (landing)', sum(ev('landing', 'visita_dia'))],
+      ['Inscripciones a la lista', sum(ev('landing', 'inscripcion'))], ['Visitas a la encuesta', sum(ev('encuesta', 'visita'))],
+      ['Encuestas empezadas', sum(ev('encuesta', 'encuesta_inicio'))], ['Encuestas terminadas', sum(ev('encuesta', 'encuesta_fin'))]
+    ].map(([t, n]) => '<div class="card"><b>' + fmt(n) + '</b><span>' + esc(t) + '</span></div>').join('');
+
+    // barras por día
+    const today = new Date(); const dayKeys = [];
+    for (let i = days - 1; i >= 0; i--) { const d = new Date(today); d.setDate(today.getDate() - i); dayKeys.push(d.toISOString().slice(0, 10)); }
+    const vl = by(ev('landing', 'visita'), (r) => r.day), ve = by(ev('encuesta', 'visita'), (r) => r.day);
+    const max = Math.max(1, ...dayKeys.map((k) => (vl.get(k) || 0) + (ve.get(k) || 0)));
+    $('#bars').innerHTML = dayKeys.map((k) => { const a = vl.get(k) || 0, b = ve.get(k) || 0; return '<i title="' + k + ': ' + a + ' landing · ' + b + ' encuesta" style="height:' + Math.round(((a + b) / max) * 100) + '%;background:linear-gradient(to top, var(--jade) ' + (a + b ? Math.round((a / (a + b)) * 100) : 0) + '%, var(--niebla) 0)"></i>'; }).join('');
+
+    funnel($('#f-lista'), [['Visitas', sum(ev('landing', 'visita'))], ['Abren la lista', sum(ev('landing', 'pestana_lista'))], ['Paso 1 · nombre', sum(ev('landing', 'paso_1'))], ['Paso 2 · zona', sum(ev('landing', 'paso_2'))], ['Paso 3 · perfil', sum(ev('landing', 'paso_3'))], ['Paso 4 · contacto', sum(ev('landing', 'paso_4'))], ['Inscripción', sum(ev('landing', 'inscripcion'))]]);
+    funnel($('#f-enc'), [['Visitas', sum(ev('encuesta', 'visita'))], ['Empiezan', sum(ev('encuesta', 'encuesta_inicio'))], ['Terminan', sum(ev('encuesta', 'encuesta_fin'))], ['Guardan la medalla', sum(ev('encuesta', 'medalla_guardada'))]]);
+
+    const chan = (r) => (r.channel || '(directo)') + (r.campaign ? ' · ' + r.campaign : '');
+    const cv = by(ev('landing', 'visita'), chan), cl = by(ev('landing', 'pestana_lista'), chan), ci = by(ev('landing', 'inscripcion'), chan);
+    table($('#t-canal'), ['Canal · campaña', 'Visitas', 'Abren la lista', 'Inscripciones', 'Conversión'],
+      [...cv.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, fmt(v), fmt(cl.get(k) || 0), fmt(ci.get(k) || 0), pct(ci.get(k) || 0, v)]));
+    const ev2 = by(ev('encuesta', 'visita'), (r) => r.channel || '(directo)'), ef = by(ev('encuesta', 'encuesta_fin'), (r) => r.channel || '(directo)');
+    table($('#t-canal-enc'), ['Canal', 'Visitas', 'Terminadas', 'Conversión'],
+      [...ev2.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, fmt(v), fmt(ef.get(k) || 0), pct(ef.get(k) || 0, v)]));
+    const dv = by((r) => r.event === 'visita', (r) => (r.device || 'sin dato') + (r.in_app ? ' · dentro de ' + r.in_app : ''));
+    table($('#t-disp'), ['Dispositivo', 'Visitas'], [...dv.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, fmt(v)]));
+    const pv = by((r) => r.event === 'visita', (r) => r.country || 'sin dato');
+    table($('#t-pais'), ['País', 'Visitas'], [...pv.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => [k, fmt(v)]));
+  }
+  load();
+})();
+</script>
+</body>
+</html>

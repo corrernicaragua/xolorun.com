@@ -367,6 +367,7 @@ img { max-width: 100%; height: auto; }
 .badge.sm .lg { width: 20px; height: 20px; }
 .badge.sm small { margin-bottom: 2px; font-size: .6875rem; letter-spacing: .06em; }
 @media (max-width: 760px) { .tiendas-box { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; } .badge { flex: 1 1 auto; } .hero .badge.sm { flex: 1 1 calc(50% - 5px); min-width: 0; } }
+@media (max-width: 380px) { .hero .badge.sm { flex-basis: 100%; } }   /* en 360 y menos no caben dos por fila sin partir «Próximamente en» */
 @media (max-width: 760px) { .caminos { grid-template-columns: minmax(0, 1fr); } }
 
 /* ───────── pie ───────── */
@@ -435,7 +436,8 @@ img { max-width: 100%; height: auto; }
 .neb .pre { display: none; padding: 20px 0 2px 18px; font: 500 1.125rem/1 "Inter", sans-serif; color: var(--lago-400); }
 .neb.tel:not(.intl) .pre { display: block; }
 .neb.tel:not(.intl) input { padding-left: 6px; }
-.neb.tel:not(.intl) label { left: 18px; }
+.neb.tel:not(.intl) label { left: 66px; }   /* en reposo, después del +505 (antes se montaba encima); al flotar vuelve al borde */
+.neb.tel:not(.intl) input:focus ~ label, .neb.tel:not(.intl) input:not(:placeholder-shown) ~ label { left: 18px; }
 .err { margin: 8px 0 0; min-height: 1.2em; font-size: .875rem; font-weight: 500; color: var(--arcilla-600); }
 .err:empty { display: none; }
 .hint { margin: 8px 0 0; font-size: .875rem; color: var(--lago-400); }
