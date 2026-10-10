@@ -14,7 +14,8 @@
   const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   const STORE = 'xolo-dorsal-v1', QUEUE = 'xolo-fila-pendiente-v1', ORIGIN = 'xolo-origen-v1';
   // los enlaces de invitación y los QR siempre con la dirección oficial (https, sin www), aunque se haya entrado por http o por www
-  const PUBLIC_URL = /(^|\.)xolorun\.com$/.test(location.hostname) ? 'https://xolorun.com/' : location.origin + location.pathname;
+  // (con el protocolo de la visita: http solo mientras GitHub emite el certificado; con HTTPS forzado todos llegan por https)
+  const PUBLIC_URL = /(^|\.)xolorun\.com$/.test(location.hostname) ? location.protocol + '//xolorun.com/' : location.origin + location.pathname;
   const MIN_FILA = 25;   // la cantidad de personas en la fila se muestra solo a partir de aquí
 
   const ZONES = [['managua', 'Managua'], ['carazo', 'Carazo'], ['masaya', 'Masaya'], ['granada', 'Granada'], ['leon', 'León o Chinandega'],

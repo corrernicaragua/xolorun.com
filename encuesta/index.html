@@ -288,7 +288,7 @@
   'use strict';
 
   // Dirección pública y destino de las respuestas
-  const PUBLIC_URL = 'https://xolorun.com/encuesta/';
+  const PUBLIC_URL = (location.protocol === 'http:' && /xolorun\.com$/.test(location.hostname) ? 'http' : 'https') + '://xolorun.com/encuesta/';   // http solo mientras no hay certificado
   const SUPABASE_URL = 'https://mwiroczcgigmapzkzeba.supabase.co';
   // Clave publicable de Supabase: es pública a propósito. Con ella solo se puede ENVIAR una respuesta (RLS, migración 0010).
   const SUPABASE_KEY = 'sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI';
