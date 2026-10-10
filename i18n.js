@@ -8,15 +8,15 @@
 (() => {
   const EN = {
     // ─── cabecera, pestañas y pie ───
-    'Xolo Run · Todas las carreras de Nicaragua, en un solo lugar': "Xolo Run · All of Nicaragua's races, in one place",
+    'Xolo Run · Todas las carreras de running de Nicaragua, en un solo lugar': "Xolo Run · All of Nicaragua's races, in one place",
     'Ir al contenido': 'Skip to content', 'Nosotros': 'About us', 'Preguntas': 'FAQ', 'Aviso de privacidad': 'Privacy notice',
     'Inicio': 'Home', 'Encuesta': 'Survey', 'Lista de espera': 'Waitlist',
     'Xolo Run · Nicaragua. Hecho por gente que corre.': 'Xolo Run · Nicaragua. Made by people who run.',
     'Mismas rutas. Más gente.': 'Same routes. More people.', 'Xolo Run · Nicaragua': 'Xolo Run · Nicaragua',
     // ─── portada ───
     'Running en Nicaragua': 'Running in Nicaragua',
-    'Inscribirte no debería ser una carrera.': "Signing up shouldn't be a race.",
-    'Xolo Run es la app para las carreras de Nicaragua: las encontrás, te inscribís, pagás y llevás tu dorsal en el teléfono, todo en un solo lugar. Todavía no sale. Anotate y te avisamos primero.':
+    'Inscribirte para correr no debería ser una carrera.': "Signing up shouldn't be a race.",
+    'Xolo Run es la app del running en Nicaragua: encontrás las carreras, te inscribís, pagás y llevás tu dorsal en el teléfono, todo en un solo lugar. Todavía no sale. Anotate y te avisamos primero.':
       "Xolo Run is the app for Nicaragua's races: find them, sign up, pay and carry your bib on your phone, all in one place. It isn't out yet. Join the list and we'll tell you first.",
     'Quiero mi dorsal': 'I want my bib', 'Ver cómo funciona': 'See how it works', 'Próximamente en': 'Coming soon on',
     'personas ya tienen su dorsal': 'people already have their bib',
@@ -38,14 +38,14 @@
     'Tu comprobante': 'Your receipt', 'Subido desde la app': 'Uploaded from the app', 'Comprobante enviado': 'Receipt sent', 'Revisado por el equipo del evento': 'Reviewed by the event team',
     'Tu dorsal ya está en la app.': 'Your bib is already in the app.', 'Salida': 'Start', 'Meta': 'Finish',
     // ─── lo que nos contaron ───
-    'Hoy, inscribirse a una carrera': 'Signing up for a race today',
+    'Hoy, inscribirse a una carrera de running': 'Signing up for a race today',
     'Lo que nos contaron 179 personas que corren en Nicaragua': 'What 179 people who run in Nicaragua told us',
     'Antes de construir, preguntamos. Estas son sus respuestas, con su base. Son el mapa de lo que Xolo Run tiene que resolver.':
       'Before building, we asked. These are their answers, with their base. They map what Xolo Run has to solve.',
     'Encuesta «Running en Nicaragua», respuestas completas del 6 al 8 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta.':
       '«Running in Nicaragua» survey, complete responses from 6 to 8 October 2026, excluding team tests. Percentages are of those who answered each question.',
     'Sumate a la encuesta': 'Take the survey',
-    'quiso inscribirse a una carrera en el último año y al final no lo hizo.': "wanted to sign up for a race in the last year and in the end didn't.",
+    'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.': "wanted to sign up for a race in the last year and in the end didn't.",
     'Qué pasó': 'What happened', 'La fecha no le quedaba': "The date didn't work", 'Se enteró tarde': 'Found out too late', 'No tenía con quién ir': 'Had nobody to go with',
     'Base: 88 que ya corrieron una carrera; razones de las 63 que no se inscribieron.': "Base: 88 who have run a race; reasons from the 63 who didn't sign up.",
     'Ves cada carrera con tiempo y te inscribís en pocos pasos.': 'You see every race in time and sign up in a few steps.',
@@ -64,8 +64,8 @@
     // ─── la ruta ───
     'Así es con Xolo Run': 'This is how it goes with Xolo Run', 'Paso 1': 'Step 1', 'Paso 2': 'Step 2', 'Paso 3': 'Step 3', 'Paso 5': 'Step 5', 'Paso 6': 'Step 6',
     'Paso 4 · El tramo de encuentro': 'Step 4 · The meeting stretch', 'La meta': 'The finish',
-    'Encontrás tu carrera.': 'You find your race.',
-    'Todas las carreras de Nicaragua, en un solo lugar. Las de tu zona, primero, y con tiempo para decidir.': "All of Nicaragua's races in one place. The ones near you first, with time to decide.",
+    'Encontrás tu próxima carrera.': 'You find your next race.',
+    'Todas las carreras de running de Nicaragua, en un solo lugar. Las de tu zona, primero, y con tiempo para decidir.': "All of Nicaragua's races in one place. The ones near you first, with time to decide.",
     'Te inscribís desde el teléfono.': 'You sign up from your phone.',
     'Distancia, talla y contacto de emergencia en pocos pasos. Tus datos quedan guardados para la próxima.': 'Distance, shirt size and emergency contact in a few steps. Your details are saved for next time.',
     'Pagás. Confirmado.': 'You pay. Confirmed.',
@@ -147,12 +147,12 @@
     'Dorsal reclamado': 'Bib claimed', 'Tu dorsal está en camino': 'Your bib is on its way', 'Tu dorsal ya es tuyo': 'Your bib is yours', 'En la fila': 'In line',
     'Preparando tu dorsal…': 'Preparing your bib…', 'Tu dorsal para historias': 'Your bib for Stories',
     'Mantené presionada la imagen y elegí «Guardar imagen». Después subila a tu historia.': 'Press and hold the image and choose «Save image». Then post it to your story.',
-    'Me anoté en Xolo Run, la app para las carreras de Nicaragua': "I joined Xolo Run, the app for Nicaragua's races", ', y tengo el #': ", and I'm #", ' en la fila': ' in line', '. Sacá tu dorsal: ': '. Get your bib: ',
+    'Me anoté en Xolo Run, la app del running en Nicaragua': "I joined Xolo Run, the app for Nicaragua's races", ', y tengo el #': ", and I'm #", ' en la fila': ' in line', '. Sacá tu dorsal: ': '. Get your bib: ',
     'Ya tengo': "I've got", 'mi dorsal': 'my bib', 'LISTA DE ESPERA': 'WAITLIST', 'Nº EN LA FILA': 'NO. IN LINE', 'QR · ESCANEALO Y ANOTATE': 'QR · SCAN IT AND JOIN', 'Sacá tu dorsal aquí': 'Get your bib here',
     'Encuesta · Xolo Run': 'Survey · Xolo Run', 'Lista de espera · Xolo Run': 'Waitlist · Xolo Run', 'en confirmación': 'pending',
     // ─── preguntas y aviso ───
     '¿Qué es Xolo Run?': 'What is Xolo Run?',
-    'Una app para las carreras de Nicaragua: ver todas en un solo calendario, inscribirte y pagar desde el teléfono, llevar tu dorsal con QR y recoger tu kit con un escaneo. También crews por zona y un reto cada semana.':
+    'Una app para las carreras de running de Nicaragua: ver todas en un solo calendario, inscribirte y pagar desde el teléfono, llevar tu dorsal con QR y recoger tu kit con un escaneo. También crews por zona y un reto cada semana.':
       "An app for Nicaragua's races: see them all in one calendar, sign up and pay from your phone, carry your QR bib and pick up your kit with one scan. Plus crews by area and a weekly challenge.",
     '¿Cuándo sale?': 'When does it launch?',
     'Todavía no tiene fecha. Quienes están en la lista se enteran primero, y no vamos a anunciar una fecha hasta que sea segura.': "No date yet. People on the list hear first, and we won't announce a date until it's certain.",
@@ -183,14 +183,14 @@
     // fuera del DOM (landing.js los pide con XR_T)
     'Mi dorsal de Xolo Run': 'My Xolo Run bib', 'Tu dorsal de Xolo Run con tu número y tu QR': 'Your Xolo Run bib with your number and your QR',
     // atributos de la landing (meta, og, aria-label)
-    'Xolo Run es la app para las carreras de Nicaragua: las encontrás, te inscribís, pagás y llevás tu dorsal en el teléfono. Todavía no sale: anotate en la lista de espera o contanos cómo corrés.':
+    'Xolo Run es la app del running en Nicaragua: encontrás las carreras, te inscribís, pagás y llevás tu dorsal en el teléfono. Todavía no sale: anotate en la lista de espera o contanos cómo corrés.':
       "Xolo Run is the app for Nicaragua's races: find them, sign up, pay and carry your bib on your phone. It isn't out yet: join the waitlist or tell us how you run.",
     'Xolo Run · Mismas rutas. Más gente.': 'Xolo Run · Same routes. More people.',
-    'La app para las carreras de Nicaragua. Todavía no sale: anotate y te avisamos primero.': "The app for Nicaragua's races. Not out yet: join the list and we'll tell you first.",
+    'La app del running en Nicaragua. Todavía no sale: anotate y te avisamos primero.': "The app for Nicaragua's races. Not out yet: join the list and we'll tell you first.",
     'Xolo Run, inicio': 'Xolo Run, home', 'Secciones': 'Sections', 'Cifras de la encuesta': 'Survey figures', 'Dónde va a estar la app': 'Where the app will be',
     // ─── página Nosotros (nosotros/index.html) ───
     'Nosotros · Xolo Run': 'About us · Xolo Run',
-    'Misión, visión, valores y el equipo detrás de Xolo Run, la app nicaragüense que reúne las carreras del país en un solo lugar.': "Mission, vision, values and the team behind Xolo Run, the Nicaraguan app that brings the country's races together in one place.",
+    'Misión, visión, valores y el equipo detrás de Xolo Run, la app nicaragüense que reúne las carreras de running del país en un solo lugar.': "Mission, vision, values and the team behind Xolo Run, the Nicaraguan app that brings the country's races together in one place.",
     'Misión, visión, valores y el equipo detrás de Xolo Run.': 'Mission, vision, values and the team behind Xolo Run.',
     'Xolo Run, ir al inicio': 'Xolo Run, go to home', 'Especialidades': 'Specialties',
     'Por qué hacemos Xolo Run': 'Why we make Xolo Run',
@@ -211,7 +211,7 @@
     'Orgullo nicaragüense': 'Nicaraguan pride', 'Lo de aquí es nuestra fortaleza: rutas, lugares y gente.': "What's from here is our strength: routes, places and people.", 'Folclor de postal.': 'Postcard folklore.',
     'Cuidadosos en el detalle': 'Careful with the details', 'Pocas cosas, bien hechas. La calidad se nota.': 'Few things, done well. Quality shows.', 'Hacer por cumplir.': 'Doing it just to tick the box.',
     'El equipo': 'The team', 'Tres personas de aquí, una misma ruta': 'Three people from here, one shared route',
-    'Los tres estudiamos ingeniería industrial: lo nuestro es ordenar procesos y quitar los pasos que sobran. Venimos de años en operaciones, pagos y atención al cliente en fintech, software como servicio, logística y el mundo corporativo, y ahora lo ponemos al servicio de las carreras de Nicaragua.':
+    'Los tres estudiamos ingeniería industrial: lo nuestro es ordenar procesos y quitar los pasos que sobran. Venimos de años en operaciones, pagos y atención al cliente en fintech, software como servicio, logística y el mundo corporativo, y ahora lo ponemos al servicio de las carreras de running de Nicaragua.':
       "All three of us studied industrial engineering: our thing is putting processes in order and removing the steps that get in the way. We come from years in operations, payments and customer service in fintech, software as a service, logistics and the corporate world, and now we put that to work for Nicaragua's races.",
     'Producto': 'Product', 'Operaciones': 'Operations', 'Comercial': 'Sales', 'En Xolo Run': 'At Xolo Run', 'De dónde viene': 'Background',
     'Cofundador · Producto y tecnología': 'Co-founder · Product and technology', 'Cofundador · Operaciones y cumplimiento': 'Co-founder · Operations and compliance', 'Cofundador · Comercial y alianzas': 'Co-founder · Sales and partnerships',
@@ -223,7 +223,7 @@
     'Más de seis años en fintech, servicios legales y el mundo corporativo. En fintech pasó de investigador de fraude a gerente de un equipo internacional y luego a gerente asociado de programas.':
       'Over six years in fintech, legal services and the corporate world. In fintech, went from fraud investigator to manager of an international team and then to associate program manager.',
     'Riesgo y fraude': 'Risk and fraud', 'Procesos': 'Processes',
-    'Trabaja con organizadores y marcas para que las carreras de Nicaragua lleguen a la app.': "Works with organizers and brands so that Nicaragua's races make it into the app.",
+    'Trabaja con organizadores y marcas para que las carreras de running de Nicaragua lleguen a la app.': "Works with organizers and brands so that Nicaragua's races make it into the app.",
     'Viene de la logística de última milla, el comercio minorista y la venta automotriz: atendió cuentas clave, resolvió envíos y reclamos con las bodegas y trabajó en ventas y servicio al cliente.':
       'Comes from last-mile logistics, retail and car sales: handled key accounts, sorted out shipments and claims with the warehouses, and worked in sales and customer service.',
     'Cuentas clave': 'Key accounts', 'Ventas': 'Sales', 'Logística': 'Logistics',

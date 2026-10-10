@@ -26,7 +26,7 @@
     ['organizo', 'Organizo carreras o un crew'], ['acompano', 'Acompaño a alguien que corre']];
   // Cifras de la encuesta «Running en Nicaragua» (179 respuestas completas, 6 al 8 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
   const STATS = [
-    { n: 72, u: '%', say: 'quiso inscribirse a una carrera en el último año y al final no lo hizo.', cap: 'Qué pasó',
+    { n: 72, u: '%', say: 'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.', cap: 'Qué pasó',
       bars: [['La fecha no le quedaba', 33], ['Se acabaron los cupos', 27], ['Se enteró tarde', 25], ['No tenía con quién ir', 25]],
       base: 'Base: 88 que ya corrieron una carrera; razones de las 63 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribís en pocos pasos.' },
     { n: 71, u: '%', say: 'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.', cap: 'Cómo pagó su última carrera',
@@ -208,7 +208,7 @@
     tab = name;
     for (const t of TABS) { tabBtns[t].setAttribute('aria-selected', t === name ? 'true' : 'false'); tabBtns[t].tabIndex = t === name ? 0 : -1; }
     if (push) history.pushState({ tab: name }, '', '#' + name);
-    document.title = T(name === 'encuesta' ? 'Encuesta · Xolo Run' : name === 'lista' ? 'Lista de espera · Xolo Run' : 'Xolo Run · Todas las carreras de Nicaragua, en un solo lugar');
+    document.title = T(name === 'encuesta' ? 'Encuesta · Xolo Run' : name === 'lista' ? 'Lista de espera · Xolo Run' : 'Xolo Run · Todas las carreras de running de Nicaragua, en un solo lugar');
     const show = () => {
       panels[old].hidden = true; panels[name].hidden = false;
       window.scrollTo({ top: name === 'inicio' ? scrollPos.inicio : 0, behavior: 'instant' });
@@ -926,7 +926,7 @@
     else if (n === null) html = '<h3>Prueba guardada</h3><p>Las pruebas del equipo no reciben número en la fila.</p>';
     else html = '<h3>Listo. Nos vemos en la ruta.</h3><p>Tenés el #' + n + ' en la fila. Te escribimos ' + who + ' cuando abramos. El QR de tu dorsal es tu enlace: quien lo escanee se anota con vos.</p>';
     if (!r.queued && r.code) {
-      const text = T('Me anoté en Xolo Run, la app para las carreras de Nicaragua') + (n ? T(', y tengo el #') + n + T(' en la fila') : '') + T('. Sacá tu dorsal: ') + link;
+      const text = T('Me anoté en Xolo Run, la app del running en Nicaragua') + (n ? T(', y tengo el #') + n + T(' en la fila') : '') + T('. Sacá tu dorsal: ') + link;
       html += '<div class="share">' +
         '<a class="go" href="https://wa.me/?text=' + encodeURIComponent(text) + '" target="_blank" rel="noopener">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.7 9.7 0 0 0-8.3 14.8L2.4 21.6l4.7-1.2A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>' +
