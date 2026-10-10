@@ -417,7 +417,7 @@ html:not(.js) .mv-line .base, html:not(.js) .mv-line .seg { transform: none; }
 .mb-band svg { width: 34px; height: auto; color: var(--arena); }   /* el símbolo en negativo: arena con su tramo arcilla */
 .mb-body { display: flex; flex-direction: column; flex: 1; padding: 26px 40px 34px; }
 .mb-who { display: flex; align-items: center; gap: 14px; }
-.mb-av { flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--jade-100); color: var(--lago); font: 700 1.125rem/1 "Space Grotesk", sans-serif; letter-spacing: .02em; }
+.mb-av { flex: none; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--jade-100); color: var(--lago); font: 700 1.25rem/1 "Space Grotesk", sans-serif; letter-spacing: .02em; }
 .mb-av { position: relative; overflow: hidden; }
 .mb-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }   /* la foto tapa las iniciales; si no carga, quedan las iniciales */
 .miembro h3 { margin: 0; font: 700 1.375rem/1.1 "Space Grotesk", sans-serif; letter-spacing: -.02em; }
@@ -437,6 +437,7 @@ html:not(.js) .mv-line .base, html:not(.js) .mv-line .seg { transform: none; }
 .miembro .hole.a { left: 14px; top: 68px; } .miembro .hole.b { right: 14px; top: 68px; } .miembro .hole.c { left: 14px; bottom: 14px; } .miembro .hole.d { right: 14px; bottom: 14px; }
 /* en tableta y celular, una tarjeta debajo de otra: en su propia página se leen completas, sin deslizar */
 @media (max-width: 1000px) { .equipo { grid-template-columns: minmax(0, 1fr); max-width: 600px; gap: 16px; } }
+@media (max-width: 640px) { .mb-body { padding: 26px 32px 32px; } .mb-av { width: 64px; height: 64px; } .miembro h3 { font-size: 1.25rem; } }   /* en celular el nombre cabe en una línea junto a la foto */
 @media (max-width: 380px) { .mb-body { padding: 24px 32px 32px; } .miembro .hole.a, .miembro .hole.c { left: 10px; } .miembro .hole.b, .miembro .hole.d { right: 10px; } }
 @media (prefers-reduced-motion: reduce) { .mv-line .base, .mv-line .seg, .miembro { transition: none; } }
 
