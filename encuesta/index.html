@@ -972,7 +972,7 @@
     const x = cv.getContext('2d');
     x.fillStyle = '#F3EFE7'; x.fillRect(0, 0, W, H);
     x.textBaseline = 'alphabetic';
-    x.letterSpacing = '6px'; x.font = '500 36px "Space Grotesk"'; x.fillStyle = '#9E4831'; x.fillText('CORRER EN NICARAGUA', L, 300);
+    x.letterSpacing = '6px'; x.font = '500 36px "Space Grotesk"'; x.fillStyle = '#9E4831'; x.fillText('RUNNING EN NICARAGUA', L, 300);
     // titular: Space Grotesk y la palabra «meta» en la voz editorial
     x.letterSpacing = '-5px'; x.font = '700 168px "Space Grotesk"'; x.fillStyle = '#12383B';
     const l1 = kids ? 'Llegamos' : 'Llegué'; x.fillText(l1, L - 6, 470); x.fillText('a la', L - 6, 630);
@@ -1006,7 +1006,7 @@
     try {
       const cv = await makeStoryCanvas(state.finisherNo, state.view === 'doneKids');
       const blob = await new Promise((ok) => cv.toBlob(ok, 'image/png'));
-      const file = new File([blob], 'medalla-correr-en-nicaragua.png', { type: 'image/png' });
+      const file = new File([blob], 'medalla-running-en-nicaragua.png', { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file], title: 'Mi medalla de finalista', text: inviteText() }).catch(() => {});
       } else {
@@ -1028,7 +1028,7 @@
   const app = document.getElementById('app');
 
   function topbar(withBack) {
-    const mark = '<span class="brand"><span class="wordmark">Correr en <b>Nicaragua</b></span><span class="byline">Una encuesta de <b>' + BRAND + '</b></span></span>';
+    const mark = '<span class="brand"><span class="wordmark">Running en <b>Nicaragua</b></span><span class="byline">Una encuesta de <b>' + BRAND + '</b></span></span>';
     return '<div class="topbar wrap">' +
       (withBack ? '<button type="button" class="tool" data-act="back" aria-label="Pregunta anterior">' + BACK + '</button>' + mark : mark) +
       '<button type="button" class="tool" data-act="big" aria-pressed="' + state.big + '" aria-label="Letra grande">Aa</button></div>';
@@ -1349,7 +1349,7 @@
     // marca y autoría: el logo maestro (el nombre nunca se escribe con una fuente) y el nombre de la encuesta
     const top = story ? 210 : 130;
     try { const lg = await logoImg(); x.drawImage(lg, L, top - 52, 340, 340 * 190 / 1167.83); } catch (e) {}
-    x.letterSpacing = '6px'; x.font = '500 30px ' + DISPLAY; x.fillStyle = '#9E4831'; x.fillText('CORRER EN NICARAGUA · ENCUESTA', L, top + 54);
+    x.letterSpacing = '6px'; x.font = '500 30px ' + DISPLAY; x.fillStyle = '#9E4831'; x.fillText('RUNNING EN NICARAGUA · ENCUESTA', L, top + 54);
     // titular
     x.letterSpacing = '-4px';
     const size = Math.min(fitFont(x, 'Contanos', '700', DISPLAY, story ? 200 : 150, W - 2 * L), story ? 200 : 150);
@@ -1550,7 +1550,7 @@
     else if (act === 'kit') { if (!sh.mode) sh.mode = 'persona'; openPage('share'); }
     else if (act === 'kit-g') { sh.mode = 'grupo'; openPage('share'); }
     else if (act === 'home') closePage();
-    else if (act === 'ssave') { if (shCanvas) saveCanvas(shCanvas, 'encuesta-correr-en-nicaragua-' + (sh.where === 'historia' ? 'historia' : 'publicacion') + '.png', shText(), b); }
+    else if (act === 'ssave') { if (shCanvas) saveCanvas(shCanvas, 'encuesta-running-en-nicaragua-' + (sh.where === 'historia' ? 'historia' : 'publicacion') + '.png', shText(), b); }
     else if (act === 'scopy') {
       const ta = document.getElementById('stext');
       const ok = () => { b.lastChild.textContent = 'Texto copiado'; announce('Texto copiado. Pegalo en tu publicación.'); };
