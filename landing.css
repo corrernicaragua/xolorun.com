@@ -79,18 +79,25 @@ img { max-width: 100%; height: auto; }
 .toplinks a:hover, .toplinks button:hover, .toplinks [aria-current="page"] { color: var(--lago); }
 .toplinks a:hover::after, .toplinks button:hover::after, .toplinks [aria-current="page"]::after { transform: scaleX(1); }
 @media (max-width: 360px) { .toplinks a, .toplinks button { padding: 0 6px; font-size: .78125rem; } .toplinks a::after, .toplinks button::after { left: 6px; right: 6px; } }
+@media (max-width: 400px) { .pg-nos .toplinks [aria-current="page"] { display: none; } }   /* en Nosotros caben el logo, «Inicio» y «Preguntas»; el enlace a la propia página sobra en pantallas chicas */
+.toplinks .back svg { width: 16px; height: 16px; margin-right: 4px; }
+@media (max-width: 360px) { .toplinks .back svg { display: none; } }
 @media (prefers-reduced-motion: reduce) { .toplinks a::after, .toplinks button::after { transition: none; } }
 /* la barra de pestañas vive fuera de la cabecera (el desenfoque de la cabecera atraparía un elemento fijo): arriba en escritorio, abajo en celular */
 .tabs { position: fixed; top: calc((var(--top-h) - 48px) / 2); left: 50%; z-index: 31; transform: translateX(-50%); display: flex; justify-content: center; gap: 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--lago) 7%, transparent); }
-.tab { position: relative; z-index: 1; min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: none; color: #46625F; font: 600 .9375rem/1 "Inter", sans-serif; cursor: pointer; white-space: nowrap; transition: color var(--t1) var(--ease); }
+.tab { position: relative; z-index: 1; min-height: 40px; padding: 0 18px 0 26px; border: 0; border-radius: 999px; background: none; color: #46625F; font: 600 .9375rem/1 "Inter", sans-serif; cursor: pointer; white-space: nowrap; transition: color var(--t1) var(--ease); }
 .tab[aria-selected="true"] { color: var(--lago); }
 .tab:hover { color: var(--lago); }
 /* el indicador es la línea de ruta: un trazo con su único tramo encendido, que corre de una pestaña a otra */
 .tabs .ind { position: absolute; left: 4px; top: 4px; height: 40px; width: 90px; border-radius: 999px; background: var(--white); box-shadow: 0 1px 2px rgba(18, 56, 59, .12), 0 0 0 1px rgba(18, 56, 59, .06); pointer-events: none; transition: transform var(--t2) var(--ease), width var(--t2) var(--ease); }
 .tabs .trk { display: none; }   /* la línea gris entre pestañas chocaba con las letras (Saymond, 10 oct); queda solo el tramo arcilla bajo la pestaña activa */
-.tabs .seg { position: absolute; left: 0; bottom: 5px; width: 26px; height: 6px; border-radius: 3px; background: var(--arcilla); pointer-events: none; transform-origin: 50% 50%; }
-.tabs .seg::after { content: ""; position: absolute; right: -6px; top: -1px; width: 8px; height: 8px; border-radius: 50%; background: var(--lago); opacity: 0; transition: opacity var(--t1) var(--ease); }
-.tabs.running .seg::after { opacity: 1; }
+/* el corredor: un punto lago delante de la pestaña activa («estás aquí»); al cambiar de pestaña corre hasta la nueva y, solo
+   mientras corre, deja una estela arcilla detrás (Saymond, 10 oct: el tramo naranja fijo bajo la palabra no le gustaba) */
+.tabs .seg { position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--lago); pointer-events: none; transform-origin: 50% 50%; }
+.tabs .seg::before { content: ""; position: absolute; top: 50%; width: 18px; height: 3px; margin-top: -1.5px; border-radius: 2px; background: var(--arcilla); opacity: 0; transform: scaleX(0); transition: transform .25s var(--ease), opacity .25s var(--ease); }
+.tabs[data-dir="r"] .seg::before { right: 100%; margin-right: 3px; transform-origin: 100% 50%; }
+.tabs[data-dir="l"] .seg::before { left: 100%; margin-left: 3px; transform-origin: 0 50%; }
+.tabs.running .seg::before { transform: scaleX(1); opacity: 1; }
 .tab .n { display: inline-block; min-width: 1.4em; margin-left: 8px; padding: 2px 6px; border-radius: 999px; background: var(--arcilla); color: var(--white); font: 700 .6875rem/1.1 "Space Grotesk", sans-serif; vertical-align: 2px; }
 .tab .n:empty { display: none; }
 @media (max-width: 760px) {

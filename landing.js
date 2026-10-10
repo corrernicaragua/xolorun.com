@@ -165,15 +165,18 @@
     const t = tabX(name), a = tabX('inicio'), z = tabX('lista');
     ind.style.width = t.w + 'px'; ind.style.transform = 'translateX(' + (t.l - 4) + 'px)';
     trk.style.setProperty('--x0', a.c + 'px'); trk.style.setProperty('--x1', (z.c - a.c) + 'px');
-    if (!keepSeg) { if (G) G.set(seg, { x: t.c - 13, scaleX: 1 }); else seg.style.transform = 'translateX(' + (t.c - 13) + 'px)'; }
+    // el punto va delante de la etiqueta, en el relleno izquierdo de la pestaña (padding-left 26 px)
+    if (!keepSeg) { if (G) G.set(seg, { x: t.l + 12, scale: 1 }); else seg.style.transform = 'translateX(' + (t.l + 12) + 'px)'; }
   }
-  function runSeg(from, to) {   // el tramo corre por la línea hasta la pestaña nueva, estirándose, con un punto al frente
-    const a = tabX(from).c - 13, b = tabX(to).c - 13;
+  function runSeg(from, to) {   // el corredor: el punto corre hasta la pestaña nueva dejando una estela arcilla detrás, y llega con un latido
+    const a = tabX(from).l + 12, b = tabX(to).l + 12;
+    tabsEl.dataset.dir = b > a ? 'r' : 'l';
     tabsEl.classList.add('running');
     G.timeline({ onComplete: () => tabsEl.classList.remove('running') })
       .fromTo(seg, { x: a }, { x: b, duration: .55, ease: 'power3.inOut' }, 0)
-      .to(seg, { scaleX: 2.1, duration: .25, ease: 'power2.in' }, 0)
-      .to(seg, { scaleX: 1, duration: .3, ease: 'power2.out' }, .25);
+      .add(() => tabsEl.classList.remove('running'), .3)   // la estela se apaga antes de llegar: así nunca queda sobre la etiqueta de destino
+      .to(seg, { scale: 1.6, duration: .16, ease: 'power2.out' }, .5)
+      .to(seg, { scale: 1, duration: .28, ease: 'back.out(2)' }, .66);
   }
   // el aparato de cada pestaña, si está a la vista: el teléfono de la portada o el de la ruta, el teléfono con la encuesta, el dorsal
   const onScreen = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); return r.width > 40 && r.bottom > 70 && r.top < innerHeight - 70 ? r : null; };
