@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Correr en Nicaragua · Encuesta de Xolo Run</title>
+<title>Running en Nicaragua · Encuesta de Xolo Run</title>
 <!-- La vista previa del enlace (WhatsApp, Messenger, Instagram) es lo primero que ve la gente del grupo que la comparte: dice de quién es. -->
 <meta name="description" content="Encuesta anónima de Xolo Run, un proyecto nicaragüense que está creando una app para carreras. Contanos cómo corrés, caminás o acompañás: 3 a 8 minutos.">
 <meta name="theme-color" content="#F3EFE7">
@@ -13,11 +13,11 @@
 <link rel="canonical" href="https://xolorun.com/encuesta/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_NI">
-<meta property="og:site_name" content="Correr en Nicaragua · Xolo Run">
+<meta property="og:site_name" content="Running en Nicaragua · Xolo Run">
 <meta property="og:title" content="Contanos cómo corrés · Encuesta de Xolo Run">
 <meta property="og:description" content="Encuesta anónima de Xolo Run, un proyecto nicaragüense que está creando una app para carreras. 3 a 8 minutos, sirve aunque no corrás.">
 <meta property="og:url" content="https://xolorun.com/encuesta/">
-<meta property="og:image" content="https://xolorun.com/encuesta/og.jpg">
+<meta property="og:image" content="https://xolorun.com/encuesta/og.jpg?v=20261010">
 <meta property="og:image:alt" content="Logo de Xolo Run y el texto Contanos cómo corrés, con una línea de ruta que cruza la imagen">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -305,7 +305,7 @@
   const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   const DRY = LOCAL && !PARAMS.has('enviar');
 
-  // ───────── Preguntas (fuente: documento «Encuesta: cómo se vive el correr en Nicaragua») ─────────
+  // ───────── Preguntas (fuente: documento «Encuesta: cómo se vive el running en Nicaragua») ─────────
   const BLOCK = { '0': 'Sobre vos', A: 'Cómo te movés', B: 'Por qué', C: 'Lo que te frena', D: 'Con quién', E: 'Tu última carrera', F: 'Cuando acompañás', N: 'Niñas y niños', T: 'Tu teléfono', Z: 'Para cerrar' };
   const o = (v, t, extra) => Object.assign({ v, t }, extra || {});
   const NOSE = o('nose', 'No me acuerdo');
@@ -1124,7 +1124,7 @@
     return { version: VERSION, path: end === 'END_KIDS' ? 'ninez' : 'general', channel: state.channel, answers: out, client_id: state.clientId || uuid() };
   }
   const shareURL = () => PUBLIC_URL + '?c=compartido';
-  const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corrás: ' + shareURL();
+  const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el running en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corrás: ' + shareURL();
 
   const MEGA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l6 4V6L7 10H4zM16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
   const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
@@ -1253,14 +1253,14 @@
     const link = shLink(), n = shName(), done = !!state.final;
     if (sh.mode === 'grupo') {
       const who = n || 'nuestra comunidad';
-      if (sh.where === 'historia') return 'Encuesta anónima de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. No es de ' + who + ': solo ayudamos a difundirla.\n' + link;
-      if (sh.where === 'post') return '¿Cómo se vive el correr en Nicaragua? ' + BRAND + ', un proyecto nicaragüense independiente, está haciendo una encuesta anónima para entenderlo y nos pidió ayuda para difundirla.\n\n' +
+      if (sh.where === 'historia') return 'Encuesta anónima de ' + BRAND + ' sobre cómo se vive el running en Nicaragua. No es de ' + who + ': solo ayudamos a difundirla.\n' + link;
+      if (sh.where === 'post') return '¿Cómo se vive el running en Nicaragua? ' + BRAND + ', un proyecto nicaragüense independiente, está haciendo una encuesta anónima para entenderlo y nos pidió ayuda para difundirla.\n\n' +
         'La encuesta no es de ' + who + ' y no vemos las respuestas. Toma de 3 a 8 minutos, no pide nombre ni teléfono y sirve aunque no corrás carreras: también si caminás o acompañás a alguien.\n\nContestala aquí: ' + link;
-      return '¡Hola a todos! Les paso una encuesta anónima de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. No es de ' + who + ': solo ayudamos a difundirla. Son de 3 a 8 minutos y sirve aunque no corran carreras.\n' + link;
+      return '¡Hola a todos! Les paso una encuesta anónima de ' + BRAND + ' sobre cómo se vive el running en Nicaragua. No es de ' + who + ': solo ayudamos a difundirla. Son de 3 a 8 minutos y sirve aunque no corran carreras.\n' + link;
     }
-    if (sh.where === 'historia') return (done ? 'Ya conté cómo corro. ¿Y vos?' : '¿Cómo corrés vos?') + ' Encuesta anónima sobre el correr en Nicaragua, de ' + BRAND + '.\n' + link;
-    if (sh.where === 'post') return (done ? 'Acabo de contestar' : 'Les comparto') + ' una encuesta anónima sobre cómo se vive el correr en Nicaragua. La hace ' + BRAND + ', un proyecto nicaragüense. Son de 3 a 8 minutos y sirve aunque no corrás carreras: también si caminás o acompañás a alguien.\n' + link;
-    return 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el correr en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corrás:\n' + link;
+    if (sh.where === 'historia') return (done ? 'Ya conté cómo corro. ¿Y vos?' : '¿Cómo corrés vos?') + ' Encuesta anónima sobre el running en Nicaragua, de ' + BRAND + '.\n' + link;
+    if (sh.where === 'post') return (done ? 'Acabo de contestar' : 'Les comparto') + ' una encuesta anónima sobre cómo se vive el running en Nicaragua. La hace ' + BRAND + ', un proyecto nicaragüense. Son de 3 a 8 minutos y sirve aunque no corrás carreras: también si caminás o acompañás a alguien.\n' + link;
+    return 'Te paso esta encuesta de ' + BRAND + ' sobre cómo se vive el running en Nicaragua. Es anónima, toma unos minutos y tu historia cuenta aunque no corrás:\n' + link;
   }
   const TIPS = {
     historia: 'Subí la imagen a tu historia y poné el sticker de enlace sobre el recuadro punteado, con tu enlace.',

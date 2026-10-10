@@ -14,7 +14,7 @@
     'Xolo Run · Nicaragua. Hecho por gente que corre.': 'Xolo Run · Nicaragua. Made by people who run.',
     'Mismas rutas. Más gente.': 'Same routes. More people.', 'Xolo Run · Nicaragua': 'Xolo Run · Nicaragua',
     // ─── portada ───
-    'Correr en Nicaragua': 'Running in Nicaragua',
+    'Running en Nicaragua': 'Running in Nicaragua',
     'Inscribirte no debería ser una carrera.': "Signing up shouldn't be a race.",
     'Xolo Run es la app para las carreras de Nicaragua: las encontrás, te inscribís, pagás y llevás tu dorsal en el teléfono, todo en un solo lugar. Todavía no sale. Anotate y te avisamos primero.':
       "Xolo Run is the app for Nicaragua's races: find them, sign up, pay and carry your bib on your phone, all in one place. It isn't out yet. Join the list and we'll tell you first.",
@@ -42,7 +42,7 @@
     'Lo que nos contaron 179 personas que corren en Nicaragua': 'What 179 people who run in Nicaragua told us',
     'Antes de construir, preguntamos. Estas son sus respuestas, con su base. Son el mapa de lo que Xolo Run tiene que resolver.':
       'Before building, we asked. These are their answers, with their base. They map what Xolo Run has to solve.',
-    'Encuesta «Correr en Nicaragua», respuestas completas del 6 al 8 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta.':
+    'Encuesta «Running en Nicaragua», respuestas completas del 6 al 8 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta.':
       '«Running in Nicaragua» survey, complete responses from 6 to 8 October 2026, excluding team tests. Percentages are of those who answered each question.',
     'Sumate a la encuesta': 'Take the survey',
     'quiso inscribirse a una carrera en el último año y al final no lo hizo.': "wanted to sign up for a race in the last year and in the end didn't.",
@@ -99,7 +99,7 @@
     // ─── dos caminos y tiendas ───
     'Dos caminos, los dos cortos': 'Two paths, both short', 'Elegí por dónde empezar': 'Choose where to start', 'Reclamá tu dorsal': 'Claim your bib',
     'Tu número en la fila, el aviso cuando abramos y tu enlace para invitar a tu crew.': 'Your number in line, the heads-up when we open and your link to invite your crew.',
-    'Encuesta «Correr en Nicaragua»': '«Running in Nicaragua» survey', 'Contanos cómo corrés': 'Tell us how you run',
+    'Encuesta «Running en Nicaragua»': '«Running in Nicaragua» survey', 'Contanos cómo corrés': 'Tell us how you run',
     'Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. 179 personas ya respondieron.': "Anonymous, 3 to 8 minutes, in Spanish. Useful even if you don't race. 179 people have already answered.",
     'Responder la encuesta': 'Take the survey', 'La app': 'The app',
     'Próximamente en App Store y Google Play.': 'Coming soon on the App Store and Google Play.',
@@ -143,7 +143,7 @@
     'Ya estabas en la fila': 'You were already in line', 'Prueba guardada': 'Test saved', 'Las pruebas del equipo no reciben número en la fila.': "Team tests don't get a number in line.",
     'Listo. Nos vemos en la ruta.': 'Done. See you on the route.', 'Invitar a mi crew': 'Invite my crew', 'Guardar mi dorsal para historias': 'Save my bib for Stories',
     'Copiar mi enlace': 'Copy my link', 'Enlace copiado': 'Link copied', '¿Nos ayudás con unos minutos?': 'Can you spare a few minutes?',
-    'Respondé la encuesta «Correr en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.': "Take the «Running in Nicaragua» survey (in Spanish). It's anonymous and helps us design the app around what really happens.",
+    'Respondé la encuesta «Running en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.': "Take the «Running in Nicaragua» survey (in Spanish). It's anonymous and helps us design the app around what really happens.",
     'Dorsal reclamado': 'Bib claimed', 'Tu dorsal está en camino': 'Your bib is on its way', 'Tu dorsal ya es tuyo': 'Your bib is yours', 'En la fila': 'In line',
     'Preparando tu dorsal…': 'Preparing your bib…', 'Tu dorsal para historias': 'Your bib for Stories',
     'Mantené presionada la imagen y elegí «Guardar imagen». Después subila a tu historia.': 'Press and hold the image and choose «Save image». Then post it to your story.',

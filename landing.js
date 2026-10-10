@@ -24,7 +24,7 @@
     ['rivas', 'Rivas'], ['norte', 'El Norte'], ['otra', 'Otra zona'], ['fuera', 'Fuera de Nicaragua']];
   const PROFILES = [['empiezo', 'Estoy empezando o quiero empezar'], ['gusto', 'Corro por salud o por gusto'], ['carreras', 'Entreno para carreras'],
     ['organizo', 'Organizo carreras o un crew'], ['acompano', 'Acompaño a alguien que corre']];
-  // Cifras de la encuesta «Correr en Nicaragua» (179 respuestas completas, 6 al 8 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
+  // Cifras de la encuesta «Running en Nicaragua» (179 respuestas completas, 6 al 8 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
   const STATS = [
     { n: 72, u: '%', say: 'quiso inscribirse a una carrera en el último año y al final no lo hizo.', cap: 'Qué pasó',
       bars: [['La fecha no le quedaba', 33], ['Se acabaron los cupos', 27], ['Se enteró tarde', 25], ['No tenía con quién ir', 25]],
@@ -935,7 +935,7 @@
         '<button class="textlink" type="button" data-copy><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>Copiar mi enlace</button>' +
         '</div><p class="linkline">Tu enlace: ' + esc(link.replace(/^https?:\/\//, '')) + '</p>';
     }
-    if (!r.queued) html += '<div class="enc-box"><p><b>¿Nos ayudás con unos minutos?</b></p><p>Respondé la encuesta «Correr en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.</p>' +
+    if (!r.queued) html += '<div class="enc-box"><p><b>¿Nos ayudás con unos minutos?</b></p><p>Respondé la encuesta «Running en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.</p>' +
       '<button class="textlink" type="button" data-tab-link="encuesta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Responder la encuesta</button></div>';
     if (testing && !r.queued) html += '<details class="raw"><summary>Lo que se guardó (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre></details>';
     steps.forEach((s) => { s.hidden = true; }); stepno.textContent = 'Dorsal reclamado'; $('#sub').hidden = true; paintProgress(4);
