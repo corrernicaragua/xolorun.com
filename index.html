@@ -20,11 +20,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="landing.css?v=202610100037">
+<link rel="stylesheet" href="landing.css?v=202610100059">
 <script>document.documentElement.className = 'js';</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
-<script src="landing.js?v=202610100037" defer></script>
+<script src="landing.js?v=202610100059" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Ir al contenido</a>
@@ -81,6 +81,7 @@
             <button class="cta" type="button" data-tab-link="lista"><span class="roll" data-roll>Quiero mi dorsal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></button>
             <a class="link2" href="#ruta" data-scroll>Ver cómo funciona<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M6 13l6 6 6-6"/></svg></a>
           </div>
+          <p class="soon-line" data-rise><span>Próximamente en</span><span class="st"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="3.2"/><path d="M10.5 18.5h3M9.6 13.8l2.4-5 2.4 5M10.4 12.2h3.2"/></svg>App Store</span><span class="st"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3M10.6 10.2l3.6 2.1-3.6 2.1z"/></svg>Google Play</span></p>
           <p class="fila" id="hero-fila" data-rise></p>
         </div>
 
@@ -295,6 +296,23 @@
             <span class="go-ln">Responder la encuesta<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             <svg class="mini" viewBox="0 0 211.08 132" aria-hidden="true"><g transform="translate(-24.918 -62)"><path pathLength="1" d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" stroke-width="24" stroke-linejoin="round"/></g></svg>
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- próximamente en las tiendas: íconos propios, sin fecha; las insignias oficiales solo cuando la app ya esté publicada -->
+    <section class="band tiendas" id="tiendas" aria-labelledby="t-tiendas" style="padding-top:0">
+      <div class="wrap">
+        <div class="tiendas-box" data-rise>
+          <div>
+            <p class="label">La app</p>
+            <h2 class="h3" id="t-tiendas">Próximamente en App Store y Google Play.</h2>
+            <p>Sin fecha todavía: no la anunciamos hasta que sea segura. Quienes están en la lista se enteran primero.</p>
+          </div>
+          <ul class="stores" aria-label="Dónde va a estar la app">
+            <li class="store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="3.2"/><path d="M10.5 18.5h3M9.6 13.8l2.4-5 2.4 5M10.4 12.2h3.2"/></svg><span><small>Pronto en</small>App Store</span></li>
+            <li class="store"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3M10.6 10.2l3.6 2.1-3.6 2.1z"/></svg><span><small>Pronto en</small>Google Play</span></li>
+          </ul>
         </div>
       </div>
     </section>

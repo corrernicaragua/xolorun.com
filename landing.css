@@ -352,6 +352,19 @@ img { max-width: 100%; height: auto; }
 .camino .mini path { stroke: currentColor; fill: none; stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s var(--ease); }
 .camino:hover .mini path, .camino:focus-visible .mini path { stroke-dashoffset: 0; }
 .camino .mini circle { fill: currentColor; }
+
+/* ───────── próximamente en las tiendas (íconos propios: las insignias oficiales solo cuando la app esté publicada) ───────── */
+.tiendas-box { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; padding: 30px 32px; border-radius: 24px; background: var(--white); box-shadow: 0 1px 2px rgba(18, 56, 59, .06); }
+.tiendas-box .h3 { margin-top: 10px; }
+.tiendas-box p:not(.label) { margin: 10px 0 0; max-width: 30rem; color: var(--lago-400); font-size: 1rem; }
+.stores { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.store { display: inline-flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 22px 10px 14px; border-radius: 14px; background: var(--lago); color: var(--arena); font: 700 1.0625rem/1.05 "Space Grotesk", sans-serif; letter-spacing: -.01em; }
+.store svg { width: 28px; height: 28px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.store small { display: block; margin-bottom: 3px; font: 500 .6875rem/1 "Inter", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--niebla); }
+.hero .soon-line { margin: 22px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-size: .9375rem; color: var(--lago-400); }
+.hero .soon-line .st { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px 7px 8px; border-radius: 999px; border: 1px solid var(--niebla); font: 600 .875rem/1 "Inter", sans-serif; color: var(--lago); }
+.hero .soon-line .st svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 760px) { .tiendas-box { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; } .store { flex: 1 1 auto; } }
 @media (max-width: 760px) { .caminos { grid-template-columns: minmax(0, 1fr); } }
 
 /* ───────── pie ───────── */
