@@ -261,6 +261,7 @@
   window.addEventListener('popstate', (e) => {
     showTab((e.state && e.state.tab) || tabFromHash(), { push: false });
     if (location.hash === '#privacidad') openSheet(() => { $('#privacidad').open = true; });   // un enlace a #privacidad dentro de la página
+    else if (location.hash === '#preguntas') openSheet();
   });
   // en celular la barra de pestañas flota abajo: se aparta mientras se escribe
   document.addEventListener('focusin', (e) => { if (e.target.matches('input, textarea')) tabsEl.classList.add('away'); });
@@ -1102,6 +1103,7 @@
     document.documentElement.classList.add('ready');
     watchReveals(document);
     if (location.hash === '#privacidad') openSheet(() => { $('#privacidad').open = true; });
+    if (location.hash === '#preguntas') openSheet();   // el enlace «Preguntas» de la página Nosotros
     onScrollTop();
     let rt = 0;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (!switching) placeInd(tab); route.resize(); if (tab === 'inicio' && heroPlayed) layoutHeroRoute(); }, 120); });

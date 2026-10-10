@@ -72,8 +72,14 @@ img { max-width: 100%; height: auto; }
 .top.scrolled::after { opacity: 1; }
 .brand { display: inline-flex; align-items: center; }
 .brand svg { height: 28px; width: auto; }
-.ask { justify-self: end; min-height: 40px; padding: 0 16px; border: 1.5px solid var(--lago); border-radius: 999px; background: none; font: 600 .875rem/1 "Inter", sans-serif; cursor: pointer; transition: background var(--t1) var(--ease), color var(--t1) var(--ease); }
-.ask:hover { background: var(--lago); color: var(--arena); }
+/* arriba a la derecha: enlaces pequeños (Nosotros, Preguntas); al pasar, una línea se dibuja debajo como la ruta */
+.toplinks { display: flex; align-items: center; gap: 2px; margin-right: -8px; }
+.toplinks a, .toplinks button { position: relative; display: inline-flex; align-items: center; min-height: 36px; padding: 0 8px; border: 0; border-radius: 6px; background: none; color: var(--lago-400); font: 500 .8125rem/1 "Inter", sans-serif; letter-spacing: .01em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: color var(--t1) var(--ease); }
+.toplinks a::after, .toplinks button::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: 8px; height: 1.5px; border-radius: 1px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--t1) var(--ease); }
+.toplinks a:hover, .toplinks button:hover, .toplinks [aria-current="page"] { color: var(--lago); }
+.toplinks a:hover::after, .toplinks button:hover::after, .toplinks [aria-current="page"]::after { transform: scaleX(1); }
+@media (max-width: 360px) { .toplinks a, .toplinks button { padding: 0 6px; font-size: .78125rem; } .toplinks a::after, .toplinks button::after { left: 6px; right: 6px; } }
+@media (prefers-reduced-motion: reduce) { .toplinks a::after, .toplinks button::after { transition: none; } }
 /* la barra de pestañas vive fuera de la cabecera (el desenfoque de la cabecera atraparía un elemento fijo): arriba en escritorio, abajo en celular */
 .tabs { position: fixed; top: calc((var(--top-h) - 48px) / 2); left: 50%; z-index: 31; transform: translateX(-50%); display: flex; justify-content: center; gap: 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--lago) 7%, transparent); }
 .tab { position: relative; z-index: 1; min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: none; color: #46625F; font: 600 .9375rem/1 "Inter", sans-serif; cursor: pointer; white-space: nowrap; transition: color var(--t1) var(--ease); }
@@ -369,6 +375,68 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 760px) { .tiendas-box { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; } .badge { flex: 1 1 auto; } .hero .badge.sm { flex: 1 1 calc(50% - 5px); min-width: 0; } }
 @media (max-width: 380px) { .hero .badge.sm { flex-basis: 100%; } }   /* en 360 y menos no caben dos por fila sin partir «Próximamente en» */
 @media (max-width: 760px) { .caminos { grid-template-columns: minmax(0, 1fr); } }
+
+/* ───────── nosotros: misión y visión sobre lago, valores en filas, equipo con forma de dorsal ───────── */
+.band.nos { background: var(--lago); color: var(--arena); }
+.band.nos .label { color: var(--jade-300); }
+.band.nos .lede { color: var(--niebla); }   /* niebla sobre lago: 6,9:1 */
+/* la línea de ruta: se dibuja desde la salida y al final se enciende su único tramo, el puente entre misión y visión */
+.mv { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px clamp(32px, 6vw, 88px); margin-top: clamp(40px, 6vw, 64px); padding-top: 44px; }
+.mv-line { position: absolute; left: 0; right: 0; top: 0; height: 12px; }
+.mv-line .dot { position: absolute; left: 0; top: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--arena); }
+.mv-line .base { position: absolute; left: 6px; right: 0; top: 3px; height: 6px; border-radius: 3px; background: rgba(243, 239, 231, .24); transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--t3) var(--ease); }
+.mv-line .seg { position: absolute; left: 45.5%; top: 3px; width: 9%; height: 6px; border-radius: 3px; background: var(--arcilla); transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--t2) var(--ease) 1.1s; }
+.mv.in .mv-line .base, .mv.in .mv-line .seg { transform: scaleX(1); }
+html:not(.js) .mv-line .base, html:not(.js) .mv-line .seg { transform: none; }
+.mv-col .label span { color: var(--niebla); }
+.mv-t { margin: 16px 0 0; font: 600 clamp(1.3rem, 2.5vw, 1.95rem)/1.24 "Space Grotesk", sans-serif; letter-spacing: -.015em; color: var(--arena); text-wrap: pretty; }
+@media (max-width: 760px) { .mv { grid-template-columns: minmax(0, 1fr); padding-top: 36px; } .mv-line .seg { left: 30%; width: 14%; } }
+
+.valores { margin: 40px 0 0; padding: 0; list-style: none; border-top: 2px solid var(--lago); }
+.valores li { display: grid; grid-template-columns: 52px minmax(0, 15rem) minmax(0, 1fr) minmax(0, 15rem); gap: 6px 28px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--niebla-300); }
+.valores .vn { font: 600 .875rem/1 "Space Grotesk", sans-serif; letter-spacing: .08em; color: var(--jade); font-variant-numeric: tabular-nums; }
+.valores h3 { margin: 0; font: 700 clamp(1.25rem, 2.1vw, 1.55rem)/1.12 "Space Grotesk", sans-serif; letter-spacing: -.02em; }
+.valores p { margin: 0; font-size: 1.0625rem; line-height: 1.5; }
+.valores .no { font-size: .9375rem; line-height: 1.45; color: var(--lago-400); }
+.valores .no span { display: block; margin-bottom: 4px; font: 600 .6875rem/1.2 "Space Grotesk", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+@media (max-width: 1000px) { .valores li { grid-template-columns: 44px minmax(0, 12rem) minmax(0, 1fr); } .valores .no { grid-column: 3; margin-top: 6px; } }
+@media (max-width: 640px) { .valores li { grid-template-columns: 36px minmax(0, 1fr); gap: 6px 10px; padding: 20px 0; } .valores li > :not(.vn) { grid-column: 2; } .valores .no { margin-top: 6px; } }
+
+.equipo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 40px 0 0; padding: 0; list-style: none; }
+.miembro { position: relative; display: flex; flex-direction: column; border-radius: 22px; background: var(--white); overflow: hidden; box-shadow: 0 1px 2px rgba(18, 56, 59, .06); transition: transform var(--t2) var(--ease), box-shadow var(--t2) var(--ease); }
+@media (hover: hover) { .miembro:hover { transform: translateY(-3px); box-shadow: 0 24px 40px -28px rgba(18, 56, 59, .5); } }
+.mb-band { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px; background: var(--lago); color: var(--arena); }
+.mb-band span { font: 600 .75rem/1 "Space Grotesk", sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.mb-band svg { width: 34px; height: auto; color: var(--arena); }   /* el símbolo en negativo: arena con su tramo arcilla */
+.mb-body { display: flex; flex-direction: column; flex: 1; padding: 26px 40px 34px; }
+.mb-who { display: flex; align-items: center; gap: 14px; }
+.mb-av { flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--jade-100); color: var(--lago); font: 700 1.125rem/1 "Space Grotesk", sans-serif; letter-spacing: .02em; }
+.miembro h3 { margin: 0; font: 700 1.375rem/1.1 "Space Grotesk", sans-serif; letter-spacing: -.02em; }
+.mb-role { margin: 5px 0 0; font-size: .875rem; font-weight: 600; line-height: 1.3; color: var(--jade); }
+.mb-k { margin: 20px 0 6px; font: 600 .6875rem/1.2 "Space Grotesk", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--lago-400); }
+.mb-do { margin: 0; font-size: 1rem; font-weight: 500; line-height: 1.45; }
+.mb-was { margin: 0; font-size: .9375rem; line-height: 1.5; color: var(--lago-400); }
+.mb-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0; padding: 0; list-style: none; }
+.mb-tags li { padding: 6px 11px; border-radius: 999px; border: 1px solid var(--niebla-300); font-size: .8125rem; font-weight: 500; line-height: 1.2; }
+.mb-edu { margin: auto 0 0; padding-top: 16px; border-top: 1px dashed var(--niebla-300); font: 500 .8125rem/1.3 "Space Grotesk", sans-serif; letter-spacing: .04em; color: var(--lago-400); }
+.miembro .hole { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--arena); box-shadow: inset 0 1px 2px rgba(18, 56, 59, .35); }
+.miembro .hole.a { left: 14px; top: 68px; } .miembro .hole.b { right: 14px; top: 68px; } .miembro .hole.c { left: 14px; bottom: 14px; } .miembro .hole.d { right: 14px; bottom: 14px; }
+/* en tableta y celular, una tarjeta debajo de otra: en su propia página se leen completas, sin deslizar */
+@media (max-width: 1000px) { .equipo { grid-template-columns: minmax(0, 1fr); max-width: 600px; gap: 16px; } }
+@media (max-width: 380px) { .mb-body { padding: 24px 32px 32px; } .miembro .hole.a, .miembro .hole.c { left: 10px; } .miembro .hole.b, .miembro .hole.d { right: 10px; } }
+@media (prefers-reduced-motion: reduce) { .mv-line .base, .mv-line .seg, .miembro { transition: none; } }
+
+/* la página Nosotros (nosotros/index.html): sin barra de pestañas; entra con un fundido corto al aparecer; cierra con la acción principal */
+.pg-nos { --dock-h: 0px; }
+.pg-nos .band.nos { padding-top: clamp(56px, 9vw, 104px); }
+html.js .pg-nos [data-rise] { opacity: 0; transform: translateY(18px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+html.js .pg-nos [data-rise].in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.js .pg-nos [data-rise] { opacity: 1; transform: none; transition: none; } }
+.nos-fin { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 22px 40px; align-items: center; padding: 30px 32px; border-radius: 24px; background: var(--white); box-shadow: 0 1px 2px rgba(18, 56, 59, .06); }
+.nos-fin .h3 { margin-top: 10px; }
+.nos-fin p:not(.label) { margin: 10px 0 0; max-width: 32rem; color: var(--lago-400); font-size: 1rem; }
+.nos-fin .acts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+@media (max-width: 760px) { .nos-fin { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; } }
 
 /* ───────── pie ───────── */
 .foot { padding: 40px 0 calc(40px + var(--dock-h)); border-top: 1px solid var(--niebla-300); color: var(--lago-400); font-size: .875rem; }
