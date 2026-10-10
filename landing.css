@@ -82,6 +82,13 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 400px) { .pg-nos .toplinks [aria-current="page"] { display: none; } }   /* en Nosotros caben el logo, «Inicio» y «Preguntas»; el enlace a la propia página sobra en pantallas chicas */
 .toplinks .back svg { width: 16px; height: 16px; margin-right: 4px; }
 @media (max-width: 360px) { .toplinks .back svg { display: none; } }
+/* el idioma: una pastilla «EN» / «ES» al final de los enlaces (i18n.js la crea; cambiar recarga la página en el otro idioma) */
+.toplinks .lang { margin-left: 6px; min-height: 28px; padding: 0 9px; border: 1.5px solid var(--niebla-300); border-radius: 999px; font: 600 .75rem/1 "Space Grotesk", sans-serif; letter-spacing: .08em; color: var(--lago); transition: border-color var(--t2) var(--ease), background-color var(--t2) var(--ease); }
+.toplinks .lang::after { display: none; }
+.toplinks .lang:hover { border-color: var(--lago); background: var(--white); }
+@media (max-width: 400px) { .toplinks .lang { margin-left: 2px; padding: 0 7px; } }
+/* a 320 px el logo, Nosotros, Preguntas y la pastilla caben solo con los enlaces más pegados */
+@media (max-width: 340px) { .toplinks { gap: 0; } .toplinks a, .toplinks button { padding: 0 5px; } .toplinks a::after, .toplinks button::after { left: 5px; right: 5px; } .toplinks .lang { margin-left: 0; padding: 0 6px; font-size: .6875rem; } }
 @media (prefers-reduced-motion: reduce) { .toplinks a::after, .toplinks button::after { transition: none; } }
 /* la barra de pestañas vive fuera de la cabecera (el desenfoque de la cabecera atraparía un elemento fijo): arriba en escritorio, abajo en celular */
 .tabs { position: fixed; top: calc((var(--top-h) - 48px) / 2); left: 50%; z-index: 31; transform: translateX(-50%); display: flex; justify-content: center; gap: 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--lago) 7%, transparent); }

@@ -17,6 +17,8 @@
   // (con el protocolo de la visita: http solo mientras GitHub emite el certificado; con HTTPS forzado todos llegan por https)
   const PUBLIC_URL = /(^|\.)xolorun\.com$/.test(location.hostname) ? location.protocol + '//xolorun.com/' : location.origin + location.pathname;
   const MIN_FILA = 25;   // la cantidad de personas en la fila se muestra solo a partir de aquí
+  // i18n.js (cargado antes) traduce al inglés lo que vive en el DOM; T() es para lo que no: el título, el texto de WhatsApp y la imagen para historias
+  const T = window.XR_T || ((s) => s);
 
   const ZONES = [['managua', 'Managua'], ['carazo', 'Carazo'], ['masaya', 'Masaya'], ['granada', 'Granada'], ['leon', 'León o Chinandega'],
     ['rivas', 'Rivas'], ['norte', 'El Norte'], ['otra', 'Otra zona'], ['fuera', 'Fuera de Nicaragua']];
@@ -95,6 +97,7 @@
     } catch (e) {}
   }
   hit('visita', true);
+  if (window.XR_LANG === 'en') hit('idioma_en', true);   // cuántas sesiones ven el sitio en inglés
   // una persona por día: una marca con la fecha en este navegador, sin enviar ningún identificador
   try { const d = new Date(), today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); if (store.get('xr-dia') !== today) { store.set('xr-dia', today); hit('visita_dia'); } } catch (e) {}
   document.addEventListener('click', (e) => {
@@ -205,7 +208,7 @@
     tab = name;
     for (const t of TABS) { tabBtns[t].setAttribute('aria-selected', t === name ? 'true' : 'false'); tabBtns[t].tabIndex = t === name ? 0 : -1; }
     if (push) history.pushState({ tab: name }, '', '#' + name);
-    document.title = name === 'encuesta' ? 'Encuesta · Xolo Run' : name === 'lista' ? 'Lista de espera · Xolo Run' : 'Xolo Run · Todas las carreras de Nicaragua, en un solo lugar';
+    document.title = T(name === 'encuesta' ? 'Encuesta · Xolo Run' : name === 'lista' ? 'Lista de espera · Xolo Run' : 'Xolo Run · Todas las carreras de Nicaragua, en un solo lugar');
     const show = () => {
       panels[old].hidden = true; panels[name].hidden = false;
       window.scrollTo({ top: name === 'inicio' ? scrollPos.inicio : 0, behavior: 'instant' });
@@ -923,7 +926,7 @@
     else if (n === null) html = '<h3>Prueba guardada</h3><p>Las pruebas del equipo no reciben número en la fila.</p>';
     else html = '<h3>Listo. Nos vemos en la ruta.</h3><p>Tenés el #' + n + ' en la fila. Te escribimos ' + who + ' cuando abramos. El QR de tu dorsal es tu enlace: quien lo escanee se anota con vos.</p>';
     if (!r.queued && r.code) {
-      const text = 'Me anoté en Xolo Run, la app para las carreras de Nicaragua' + (n ? ', y tengo el #' + n + ' en la fila' : '') + '. Sacá tu dorsal: ' + link;
+      const text = T('Me anoté en Xolo Run, la app para las carreras de Nicaragua') + (n ? T(', y tengo el #') + n + T(' en la fila') : '') + T('. Sacá tu dorsal: ') + link;
       html += '<div class="share">' +
         '<a class="go" href="https://wa.me/?text=' + encodeURIComponent(text) + '" target="_blank" rel="noopener">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.7 9.7 0 0 0-8.3 14.8L2.4 21.6l4.7-1.2A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>' +
@@ -1009,15 +1012,15 @@
     x.stroke();
     try { const lg = await logoImage('#12383B'); x.drawImage(lg, 96, 150, 480, 480 * 190 / 1167.83); } catch (e) {}
     x.fillStyle = '#12383B'; x.font = '700 120px "Space Grotesk"'; x.letterSpacing = '-3px'; x.textBaseline = 'alphabetic';
-    x.fillText('Ya tengo', 96, 470); x.fillText('mi dorsal', 96, 590);
-    x.letterSpacing = '0px'; x.fillStyle = '#1F6366'; x.font = 'italic 400 60px Newsreader'; x.fillText('Mismas rutas. Más gente.', 96, 680);
+    x.fillText(T('Ya tengo'), 96, 470); x.fillText(T('mi dorsal'), 96, 590);
+    x.letterSpacing = '0px'; x.fillStyle = '#1F6366'; x.font = 'italic 400 60px Newsreader'; x.fillText(T('Mismas rutas. Más gente.'), 96, 680);
     const bx = 96, by = 760, bw = 888, bh = 625, r = 30;
     x.save(); x.shadowColor = 'rgba(18,56,59,.25)'; x.shadowBlur = 40; x.shadowOffsetY = 18; x.fillStyle = '#fff'; x.beginPath(); x.roundRect(bx, by, bw, bh, r); x.fill(); x.restore();
     x.save(); x.beginPath(); x.roundRect(bx, by, bw, bh, r); x.clip(); x.fillStyle = '#12383B'; x.fillRect(bx, by, bw, 120); x.restore();
-    x.fillStyle = '#F3EFE7'; x.font = '500 30px "Space Grotesk"'; x.letterSpacing = '5px'; x.textAlign = 'right'; x.fillText('LISTA DE ESPERA', bx + bw - 48, by + 72);
+    x.fillStyle = '#F3EFE7'; x.font = '500 30px "Space Grotesk"'; x.letterSpacing = '5px'; x.textAlign = 'right'; x.fillText(T('LISTA DE ESPERA'), bx + bw - 48, by + 72);
     x.textAlign = 'left';
     try { const neg = await logoImage('#F3EFE7'); x.drawImage(neg, bx + 48, by + 38, 300, 300 * 190 / 1167.83); } catch (e) {}
-    x.fillStyle = '#4D6A6C'; x.font = '500 26px "Space Grotesk"'; x.fillText('Nº EN LA FILA', bx + 56, by + 190);
+    x.fillStyle = '#4D6A6C'; x.font = '500 26px "Space Grotesk"'; x.fillText(T('Nº EN LA FILA'), bx + 56, by + 190);
     x.letterSpacing = '-6px'; x.fillStyle = '#12383B'; let size = 210; x.font = '700 ' + size + 'px "Space Grotesk"';
     const label = '#' + n; while (x.measureText(label).width > 520 && size > 90) { size -= 10; x.font = '700 ' + size + 'px "Space Grotesk"'; }
     x.fillText(label, bx + 50, by + 390);
@@ -1029,12 +1032,12 @@
     x.fillStyle = '#12383B'; x.font = '600 52px "Space Grotesk"'; x.letterSpacing = '1px';
     const nm = (bName.classList.contains('empty') ? '' : bName.textContent).toUpperCase().slice(0, 18); if (nm) x.fillText(nm, bx + 56, by + 520);
     x.fillStyle = '#4D6A6C'; x.font = '500 28px Inter'; x.letterSpacing = '0px';
-    x.fillText((bZone.classList.contains('empty') ? '' : bZone.textContent + ' · ') + 'En la fila', bx + 56, by + 570);
-    x.textAlign = 'right'; x.font = '500 24px "Space Grotesk"'; x.letterSpacing = '4px'; x.fillText('QR · ESCANEALO Y ANOTATE', bx + bw - 56, by + 570); x.textAlign = 'left';
+    x.fillText((bZone.classList.contains('empty') ? '' : bZone.textContent + ' · ') + T('En la fila'), bx + 56, by + 570);
+    x.textAlign = 'right'; x.font = '500 24px "Space Grotesk"'; x.letterSpacing = '4px'; x.fillText(T('QR · ESCANEALO Y ANOTATE'), bx + bw - 56, by + 570); x.textAlign = 'left';
     for (const [hx, hy] of [[bx + 26, by + 150], [bx + bw - 26, by + 150], [bx + 26, by + bh - 26], [bx + bw - 26, by + bh - 26]]) { x.fillStyle = '#F3EFE7'; x.beginPath(); x.arc(hx, hy, 11, 0, 7); x.fill(); x.strokeStyle = '#B7C2BE'; x.lineWidth = 2; x.stroke(); }
     const sw = 820, sh = 116, sx = (W - sw) / 2, sy = 1690;
     x.setLineDash([16, 12]); x.lineWidth = 4; x.strokeStyle = '#12383B'; x.beginPath(); x.roundRect(sx, sy, sw, sh, 24); x.stroke(); x.setLineDash([]);
-    x.textAlign = 'center'; x.font = '600 40px Inter'; x.letterSpacing = '0px'; x.fillStyle = '#12383B'; x.fillText('Sacá tu dorsal aquí', W / 2, sy + sh / 2 + 14);
+    x.textAlign = 'center'; x.font = '600 40px Inter'; x.letterSpacing = '0px'; x.fillStyle = '#12383B'; x.fillText(T('Sacá tu dorsal aquí'), W / 2, sy + sh / 2 + 14);
     return cv;
   }
   async function saveStory(btn, n, code) {
@@ -1052,7 +1055,7 @@
       };
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         // si la persona cierra el menú de compartir no pasa nada; si el navegador no lo permite, se usa la otra vía
-        try { await navigator.share({ files: [file], title: 'Mi dorsal de Xolo Run' }); } catch (err) { if (err && err.name !== 'AbortError') fallback(); }
+        try { await navigator.share({ files: [file], title: T('Mi dorsal de Xolo Run') }); } catch (err) { if (err && err.name !== 'AbortError') fallback(); }
       } else fallback();
     } catch (e) {}
     label.textContent = old;
@@ -1060,8 +1063,8 @@
   function showStoryImage(url) {
     let d = $('#story-view');
     if (!d) {
-      d = document.createElement('dialog'); d.id = 'story-view'; d.className = 'story-view'; d.setAttribute('aria-label', 'Tu dorsal para historias');
-      d.innerHTML = '<p>Mantené presionada la imagen y elegí «Guardar imagen». Después subila a tu historia.</p><img alt="Tu dorsal de Xolo Run con tu número y tu QR"><button class="go" type="button" data-close-story>Listo</button>';
+      d = document.createElement('dialog'); d.id = 'story-view'; d.className = 'story-view'; d.setAttribute('aria-label', T('Tu dorsal para historias'));
+      d.innerHTML = '<p>Mantené presionada la imagen y elegí «Guardar imagen». Después subila a tu historia.</p><img alt="' + T('Tu dorsal de Xolo Run con tu número y tu QR') + '"><button class="go" type="button" data-close-story>Listo</button>';
       document.body.appendChild(d);
       d.addEventListener('click', (e) => { if (e.target === d || e.target.closest('[data-close-story]')) d.close(); });
     }
