@@ -7,10 +7,11 @@ cd "$(dirname "$0")"
 V=$(date +%Y%m%d%H%M)
 sed -i -E "s#(href=\"landing\.css)(\?v=[0-9]+)?\"#\1?v=$V\"#; s#(src=\"landing\.js)(\?v=[0-9]+)?\"#\1?v=$V\"#; s#(src=\"i18n\.js)(\?v=[0-9]+)?\"#\1?v=$V\"#" index.html
 grep -q "landing.css?v=$V" index.html && grep -q "landing.js?v=$V" index.html && grep -q "i18n.js?v=$V" index.html || { echo "no se pudo estampar la versión"; exit 1; }
-# la página Nosotros usa la misma hoja de estilos desde su carpeta
-sed -i -E "s#(href=\"\.\./landing\.css)(\?v=[0-9]+)?\"#\1?v=$V\"#" nosotros/index.html
-grep -q "landing.css?v=$V" nosotros/index.html || { echo "no se pudo estampar la versión en nosotros/"; exit 1; }
+# la página Nosotros usa la misma hoja de estilos y el mismo i18n.js desde su carpeta
+sed -i -E "s#(href=\"\.\./landing\.css)(\?v=[0-9]+)?\"#\1?v=$V\"#; s#(src=\"\.\./i18n\.js)(\?v=[0-9]+)?\"#\1?v=$V\"#" nosotros/index.html
+grep -q "landing.css?v=$V" nosotros/index.html && grep -q "i18n.js?v=$V" nosotros/index.html || { echo "no se pudo estampar la versión en nosotros/"; exit 1; }
 git add -A
-git commit -q -m "${1:-Publicación $V}" -m "Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
+# el coautor del commit: COAUTOR="Claude Opus 5.5" bash publicar.sh "…" si publica otra sesión
+git commit -q -m "${1:-Publicación $V}" -m "Co-Authored-By: ${COAUTOR:-Claude Fable 5.1} <noreply@anthropic.com>"
 git push -q origin main
 echo "publicado: $(git rev-parse --short HEAD) · versión de archivos $V"

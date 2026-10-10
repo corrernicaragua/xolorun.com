@@ -181,7 +181,54 @@
     'Podés pedir ver, corregir o borrar tus datos, o retirar tu permiso, en cualquier momento (Ley 787 de Protección de Datos Personales). Escribinos a': 'You can ask to see, correct or delete your data, or withdraw your permission, at any time (Law 787 on Personal Data Protection). Write to us at',
     'Versión': 'Version', 'Cerrar': 'Close',
     // fuera del DOM (landing.js los pide con XR_T)
-    'Mi dorsal de Xolo Run': 'My Xolo Run bib', 'Tu dorsal de Xolo Run con tu número y tu QR': 'Your Xolo Run bib with your number and your QR'
+    'Mi dorsal de Xolo Run': 'My Xolo Run bib', 'Tu dorsal de Xolo Run con tu número y tu QR': 'Your Xolo Run bib with your number and your QR',
+    // atributos de la landing (meta, og, aria-label)
+    'Xolo Run es la app para las carreras de Nicaragua: las encontrás, te inscribís, pagás y llevás tu dorsal en el teléfono. Todavía no sale: anotate en la lista de espera o contanos cómo corrés.':
+      "Xolo Run is the app for Nicaragua's races: find them, sign up, pay and carry your bib on your phone. It isn't out yet: join the waitlist or tell us how you run.",
+    'Xolo Run · Mismas rutas. Más gente.': 'Xolo Run · Same routes. More people.',
+    'La app para las carreras de Nicaragua. Todavía no sale: anotate y te avisamos primero.': "The app for Nicaragua's races. Not out yet: join the list and we'll tell you first.",
+    'Xolo Run, inicio': 'Xolo Run, home', 'Secciones': 'Sections', 'Cifras de la encuesta': 'Survey figures', 'Dónde va a estar la app': 'Where the app will be',
+    // ─── página Nosotros (nosotros/index.html) ───
+    'Nosotros · Xolo Run': 'About us · Xolo Run',
+    'Misión, visión, valores y el equipo detrás de Xolo Run, la app nicaragüense que reúne las carreras del país en un solo lugar.': "Mission, vision, values and the team behind Xolo Run, the Nicaraguan app that brings the country's races together in one place.",
+    'Misión, visión, valores y el equipo detrás de Xolo Run.': 'Mission, vision, values and the team behind Xolo Run.',
+    'Xolo Run, ir al inicio': 'Xolo Run, go to home', 'Especialidades': 'Specialties',
+    'Por qué hacemos Xolo Run': 'Why we make Xolo Run',
+    'Somos una app nicaragüense para quienes corren y para quienes organizan las carreras. La construimos a partir de lo que nos cuenta la gente que corre aquí.':
+      "We're a Nicaraguan app for people who run and for people who organize races. We build it from what the people who run here tell us.",
+    'Misión': 'Mission', '· lo que hacemos': '· what we do', 'Visión': 'Vision', '· hacia dónde vamos': "· where we're going",
+    'Ayudar a corredores y organizadores de Nicaragua a encontrar, inscribirse y vivir las carreras en un solo lugar, de forma clara, sin trámites y junto a su gente.':
+      'To help runners and organizers in Nicaragua find, sign up for and live the races in one place, clearly, without paperwork and alongside their people.',
+    'Ser la casa del running en Nicaragua: donde se organizan, se inscriben y se consultan las carreras, y donde cada corredor lleva su historia.':
+      'To be the home of running in Nicaragua: where races are organized, signed up for and looked up, and where every runner carries their story.',
+    'Nuestros valores': 'Our values', 'Cómo queremos hacer las cosas': 'How we want to do things', 'Así no': 'Not like this',
+    'Claros': 'Clear', 'Decimos lo que hacemos y lo que cuesta, sin letra chica.': 'We say what we do and what it costs, no fine print.', 'Promesas vagas.': 'Vague promises.',
+    'Fieles a lo real': "True to what's real", 'Personas reales con su permiso, carreras confirmadas y cifras con su fuente.': 'Real people with their permission, confirmed races and figures with their source.',
+    'Testimonios, fechas o aliados inventados.': 'Made-up testimonials, dates or partners.',
+    'Juntos': 'Together', 'Correr es mejor acompañado. Cada ruta es un punto de encuentro entre personas, barrios y crews.': 'Running is better with company. Every route is a meeting point between people, neighbourhoods and crews.',
+    'Cada quien por su lado.': 'Everyone on their own.',
+    'Cercanos': 'Approachable', 'Hablamos como la gente, con lenguaje de corredor.': "We talk like people do, in runners' language.", 'Tono frío o de trámite.': 'A cold, bureaucratic tone.',
+    'Orgullo nicaragüense': 'Nicaraguan pride', 'Lo de aquí es nuestra fortaleza: rutas, lugares y gente.': "What's from here is our strength: routes, places and people.", 'Folclor de postal.': 'Postcard folklore.',
+    'Cuidadosos en el detalle': 'Careful with the details', 'Pocas cosas, bien hechas. La calidad se nota.': 'Few things, done well. Quality shows.', 'Hacer por cumplir.': 'Doing it just to tick the box.',
+    'El equipo': 'The team', 'Tres personas de aquí, una misma ruta': 'Three people from here, one shared route',
+    'Los tres estudiamos ingeniería industrial: lo nuestro es ordenar procesos y quitar los pasos que sobran. Venimos de años en operaciones, pagos y atención al cliente en fintech, software como servicio, logística y el mundo corporativo, y ahora lo ponemos al servicio de las carreras de Nicaragua.':
+      "All three of us studied industrial engineering: our thing is putting processes in order and removing the steps that get in the way. We come from years in operations, payments and customer service in fintech, software as a service, logistics and the corporate world, and now we put that to work for Nicaragua's races.",
+    'Producto': 'Product', 'Operaciones': 'Operations', 'Comercial': 'Sales', 'En Xolo Run': 'At Xolo Run', 'De dónde viene': 'Background',
+    'Cofundador · Producto y tecnología': 'Co-founder · Product and technology', 'Cofundador · Operaciones y cumplimiento': 'Co-founder · Operations and compliance', 'Cofundador · Comercial y alianzas': 'Co-founder · Sales and partnerships',
+    'Diseña y construye la app, para que encontrar una carrera, inscribirte y llevar tu dorsal sea simple.': 'Designs and builds the app, so that finding a race, signing up and carrying your bib is simple.',
+    'Más de cinco años en software como servicio (SaaS) y seguros: automatiza operaciones con datos e inteligencia artificial y coordina lanzamientos con equipos de desarrollo. Antes dio soporte técnico a clientes corporativos.':
+      'Over five years in software as a service (SaaS) and insurance: automates operations with data and artificial intelligence and coordinates launches with development teams. Before that, technical support for corporate clients.',
+    'Automatización e IA': 'Automation and AI', 'Datos': 'Data', 'Ingeniería industrial · UAM': 'Industrial engineering · UAM', 'Ingeniería industrial · UAC': 'Industrial engineering · UAC',
+    'Se encarga de la operación: pagos confiables, datos cuidados y una entrega de kits ordenada.': 'Runs the operation: reliable payments, well-kept data and an orderly kit pickup.',
+    'Más de seis años en fintech, servicios legales y el mundo corporativo. En fintech pasó de investigador de fraude a gerente de un equipo internacional y luego a gerente asociado de programas.':
+      'Over six years in fintech, legal services and the corporate world. In fintech, went from fraud investigator to manager of an international team and then to associate program manager.',
+    'Riesgo y fraude': 'Risk and fraud', 'Procesos': 'Processes',
+    'Trabaja con organizadores y marcas para que las carreras de Nicaragua lleguen a la app.': "Works with organizers and brands so that Nicaragua's races make it into the app.",
+    'Viene de la logística de última milla, el comercio minorista y la venta automotriz: atendió cuentas clave, resolvió envíos y reclamos con las bodegas y trabajó en ventas y servicio al cliente.':
+      'Comes from last-mile logistics, retail and car sales: handled key accounts, sorted out shipments and claims with the warehouses, and worked in sales and customer service.',
+    'Cuentas clave': 'Key accounts', 'Ventas': 'Sales', 'Logística': 'Logistics',
+    'Todavía no sale': 'Not out yet', 'Corré la ruta con nosotros desde el principio.': 'Run the route with us from the start.',
+    'Anotate en la lista de espera y te avisamos primero cuando Xolo Run abra.': "Join the waitlist and we'll tell you first when Xolo Run opens.", 'Volver al inicio': 'Back to home'
   };
   // textos con un número o una variante adentro
   const RULES = [
@@ -190,15 +237,8 @@
       (m) => "You're #" + m[1] + ' in line. We’ll message you ' + (m[2] === 'correo' ? 'by email' : 'on WhatsApp') + ' when we open. The QR on your bib is your link: whoever scans it joins the line with you.'],
     [/^Ese contacto ya se había anotado, así que conservás tu lugar\. Te escribimos por (WhatsApp|correo) cuando abramos\.$/,
       (m) => 'That contact was already on the list, so you keep your spot. We’ll message you ' + (m[1] === 'correo' ? 'by email' : 'on WhatsApp') + ' when we open.'],
-    [/^Tu enlace: (.+)$/, (m) => 'Your link: ' + m[1]]
-  ];
-  const ATTRS = [
-    ['meta[name="description"]', 'content', "Xolo Run is the app for Nicaragua's races: find them, sign up, pay and carry your bib on your phone. It isn't out yet: join the waitlist or tell us how you run."],
-    ['meta[property="og:title"]', 'content', 'Xolo Run · Same routes. More people.'],
-    ['meta[property="og:description"]', 'content', "The app for Nicaragua's races. Not out yet: join the list and we'll tell you first."],
-    ['a.brand', 'aria-label', 'Xolo Run, home'], ['nav[aria-label="Secciones"]', 'aria-label', 'Sections'], ['.tabs[aria-label="Secciones"]', 'aria-label', 'Sections'],
-    ['#stats', 'aria-label', 'Survey figures'], ['[aria-label="Dónde va a estar la app"]', 'aria-label', 'Where the app will be'],
-    ['#enc-frame', 'title', '«Running in Nicaragua» survey'], ['.sheet .x', 'aria-label', 'Close']
+    [/^Tu enlace: (.+)$/, (m) => 'Your link: ' + m[1]],
+    [/^LinkedIn de (.+) \(se abre en otra pestaña\)$/, (m) => m[1] + "'s LinkedIn (opens in a new tab)"]
   ];
 
   const params = new URLSearchParams(location.search);
@@ -232,10 +272,19 @@
     const list = []; while (it.nextNode()) list.push(it.currentNode);
     list.forEach(textNode);
   }
+  // atributos con texto (descripción y og de la cabecera, aria-label, title, alt, placeholder): el mismo diccionario y las mismas reglas
+  function attrs() {
+    const sel = 'meta[name="description"], meta[property="og:title"], meta[property="og:description"], [aria-label], [title], [alt], [placeholder]';
+    for (const e of document.querySelectorAll(sel)) for (const a of ['content', 'aria-label', 'title', 'alt', 'placeholder']) {
+      const v = e.getAttribute(a); if (!v) continue;
+      const en = toEn(v); if (en != null) e.setAttribute(a, en);
+    }
+    const loc = document.querySelector('meta[property="og:locale"]'); if (loc) loc.setAttribute('content', 'en_US');
+  }
   function translateAll() {
     document.documentElement.lang = 'en';
     document.title = XR_T(document.title);
-    for (const [sel, attr, val] of ATTRS) document.querySelectorAll(sel).forEach((e) => { if (e.getAttribute(attr) != null) e.setAttribute(attr, val); });
+    attrs();
     walk(document.body);
     new MutationObserver((muts) => {
       for (const m of muts) {

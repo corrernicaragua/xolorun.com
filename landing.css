@@ -87,8 +87,10 @@ img { max-width: 100%; height: auto; }
 .toplinks .lang::after { display: none; }
 .toplinks .lang:hover { border-color: var(--lago); background: var(--white); }
 @media (max-width: 400px) { .toplinks .lang { margin-left: 2px; padding: 0 7px; } }
-/* a 320 px el logo, Nosotros, Preguntas y la pastilla caben solo con los enlaces más pegados */
-@media (max-width: 340px) { .toplinks { gap: 0; } .toplinks a, .toplinks button { padding: 0 5px; } .toplinks a::after, .toplinks button::after { left: 5px; right: 5px; } .toplinks .lang { margin-left: 0; padding: 0 6px; font-size: .6875rem; } }
+/* hasta 360 px el logo, Nosotros, Preguntas y la pastilla caben solo con los enlaces más pegados (a 350 px, un ancho que existe, la pastilla se salía) */
+@media (max-width: 360px) { .toplinks { gap: 0; } .toplinks a, .toplinks button { padding: 0 5px; } .toplinks a::after, .toplinks button::after { left: 5px; right: 5px; } .toplinks .lang { margin-left: 0; padding: 0 6px; font-size: .6875rem; } }
+/* a 320 px (iPhone SE) en español hacen falta unos 30 px más: logo de 22 px, letra de 12 px y relleno de 4 px; los enlaces siguen midiendo ≥ 36 px de alto */
+@media (max-width: 340px) { .top { padding-left: 16px; padding-right: 16px; column-gap: 8px; } .top .brand svg { height: 21px; } .toplinks a, .toplinks button { padding: 0 3px; font-size: .75rem; } .toplinks a::after, .toplinks button::after { left: 3px; right: 3px; } .toplinks .lang { padding: 0 5px; min-height: 26px; } }
 @media (prefers-reduced-motion: reduce) { .toplinks a::after, .toplinks button::after { transition: none; } }
 /* la barra de pestañas vive fuera de la cabecera (el desenfoque de la cabecera atraparía un elemento fijo): arriba en escritorio, abajo en celular */
 .tabs { position: fixed; top: calc((var(--top-h) - 48px) / 2); left: 50%; z-index: 31; transform: translateX(-50%); display: flex; justify-content: center; gap: 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--lago) 7%, transparent); }
