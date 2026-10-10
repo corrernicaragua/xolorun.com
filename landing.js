@@ -13,7 +13,8 @@
   const SURVEY_URL = new URL('encuesta/', location.href).href;   // la encuesta vive en este mismo sitio (xolorun.com/encuesta/)
   const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   const STORE = 'xolo-dorsal-v1', QUEUE = 'xolo-fila-pendiente-v1', ORIGIN = 'xolo-origen-v1';
-  const PUBLIC_URL = location.origin + location.pathname;
+  // los enlaces de invitación y los QR siempre con la dirección oficial (https, sin www), aunque se haya entrado por http o por www
+  const PUBLIC_URL = /(^|\.)xolorun\.com$/.test(location.hostname) ? 'https://xolorun.com/' : location.origin + location.pathname;
   const MIN_FILA = 25;   // la cantidad de personas en la fila se muestra solo a partir de aquí
 
   const ZONES = [['managua', 'Managua'], ['carazo', 'Carazo'], ['masaya', 'Masaya'], ['granada', 'Granada'], ['leon', 'León o Chinandega'],
@@ -61,20 +62,24 @@
   // Instagram: el enlace de la bio lleva ?c=ig&campana=bio; las historias ?c=ig-historia&campana=…; la encuesta ?c=encuesta
   const params = new URLSearchParams(location.search);
   const slug = (v, max) => { v = (v || '').trim().toLowerCase(); return new RegExp('^[a-z0-9_-]{1,' + max + '}$').test(v) ? v : ''; };
+  // Instagram agrega solo ?utm_source=ig&utm_medium=social&utm_content=link_in_bio al enlace de la bio: eso es la bio, no un creador
+  const igBio = params.get('utm_content') === 'link_in_bio';
   const fresh = {
     channel: slug(params.get('c') || params.get('utm_source'), 40),
-    campaign: slug(params.get('campana') || params.get('utm_campaign'), 60),
-    creator: slug(params.get('creador') || params.get('utm_content'), 40),
+    campaign: slug(params.get('campana') || params.get('utm_campaign'), 60) || (igBio ? 'bio' : ''),
+    creator: slug(params.get('creador') || (igBio ? '' : params.get('utm_content')), 40),
     ref: slug(params.get('ref'), 24)
   };
+  // la visita que trae datos de origen reemplaza a la anterior (no se mezcla el canal de hoy con la campaña de ayer);
+  // solo el código de quien invitó se conserva si la visita nueva no trae otro
   const saved = store.get(ORIGIN) || {};
-  const origin = {};
-  for (const k of Object.keys(fresh)) origin[k] = fresh[k] || saved[k] || '';
-  if (Object.values(fresh).some(Boolean)) store.set(ORIGIN, origin);
+  const hasFresh = Object.values(fresh).some(Boolean);
+  const origin = hasFresh ? { ...fresh, ref: fresh.ref || saved.ref || '' } : { channel: saved.channel || '', campaign: saved.campaign || '', creator: saved.creator || '', ref: saved.ref || '' };
+  if (hasFresh) store.set(ORIGIN, origin);
   const testing = origin.channel === 'prueba';
 
   // ───────── Aviso de privacidad ─────────
-  const pend = '<span class="pending">por confirmar antes de publicar</span>';
+  const pend = '<span class="pending">en confirmación</span>';
   $('[data-controller]').innerHTML = CONTROLLER.name ? esc(CONTROLLER.name) : pend;
   $('[data-contact]').innerHTML = CONTROLLER.contact ? esc(CONTROLLER.contact) : pend;
   $('[data-retention]').innerHTML = CONTROLLER.retention ? esc(CONTROLLER.retention) : pend;
@@ -162,8 +167,9 @@
   function showTab(name, opts = {}) {
     if (!TABS.includes(name)) name = 'inicio';
     const { push = true, quiet = false } = opts;
+    // durante una transición no se pierde el toque ni el «atrás» del navegador: se aplica el último pedido apenas termine
+    if (switching) { pendingTab = [name, opts]; return; }
     if (name === tab && !quiet) { if (push) history.replaceState({ tab: name }, '', '#' + name); return; }
-    if (switching) return;
     const old = tab, dir = TABS.indexOf(name) > TABS.indexOf(old) ? 1 : -1;
     const animated = G && !reduced && !quiet && old !== name;
     const fromEl = animated ? deviceOf(old) : null, startR = fromEl ? fromEl.getBoundingClientRect() : null, fromRadius = fromEl ? radiusOf(fromEl) : 0;
@@ -192,7 +198,7 @@
       show();
       const toEl = deviceOf(name), endR = toEl ? toEl.getBoundingClientRect() : null;
       G.fromTo(panels[name], { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .45, ease: EASE, clearProps: 'transform' });
-      if (!endR) { G.to(ghost, { autoAlpha: 0, duration: .2 }); ghosting = false; switching = false; return; }
+      if (!endR) { G.to(ghost, { autoAlpha: 0, duration: .2 }); ghosting = false; endSwitch(); return; }
       if (!startR) {   // no había aparato a la vista: el tramo de la pestaña crece hasta ser el aparato
         const b = tabBtns[name].getBoundingClientRect();
         ghostAt({ left: b.left + b.width / 2 - 13, top: b.top + b.height - 10, width: 26, height: 6 }, 3); ghosting = true;
@@ -202,9 +208,18 @@
         toEl.style.visibility = '';
         toEl.classList.remove('land-pop'); void toEl.offsetWidth; toEl.classList.add('land-pop');
         G.to(ghost, { autoAlpha: 0, duration: .16, onComplete: () => { ghosting = false; } });
-        switching = false;
+        endSwitch();
       } });
     } });
+  }
+  let pendingTab = null;
+  function endSwitch() {
+    switching = false;
+    if (!pendingTab) return;
+    const [n, o] = pendingTab; pendingTab = null;
+    // el «atrás» ya cambió la dirección: se muestra la pestaña de la dirección; un toque agrega su propia entrada al historial
+    if (n !== tab) showTab(n, o);
+    else if (o.push === false && location.hash !== '#' + tab) history.replaceState({ tab }, '', '#' + tab);
   }
   document.addEventListener('click', (e) => {
     const a = e.target.closest('[data-tab-link]');
@@ -218,7 +233,10 @@
     const i = TABS.indexOf(tab);
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); const n = TABS[(i + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length]; showTab(n); tabBtns[n].focus(); }
   });
-  window.addEventListener('popstate', (e) => showTab((e.state && e.state.tab) || tabFromHash(), { push: false }));
+  window.addEventListener('popstate', (e) => {
+    showTab((e.state && e.state.tab) || tabFromHash(), { push: false });
+    if (location.hash === '#privacidad') openSheet(() => { $('#privacidad').open = true; });   // un enlace a #privacidad dentro de la página
+  });
   // en celular la barra de pestañas flota abajo: se aparta mientras se escribe
   document.addEventListener('focusin', (e) => { if (e.target.matches('input, textarea')) tabsEl.classList.add('away'); });
   document.addEventListener('focusout', (e) => { if (e.target.matches('input, textarea')) setTimeout(() => { if (!document.activeElement || !document.activeElement.matches('input, textarea')) tabsEl.classList.remove('away'); }, 80); });
@@ -381,6 +399,16 @@
     const guide = $('#w-guide'), trail = $('#w-trail'), tramo = $('#w-tramo'), capa = $('#w-capa'), capb = $('#w-capb'), stopsG = $('#w-stops'), nameG = $('#w-name');
     const tagS = $('#tag-salida'), tagM = $('#tag-meta'), tape = $('#tape'), carrier = $('#carrier'), phone = $('#route-phone'), remate = $('#remate'), firmaEnd = $('#firma-end');
     const steps = $$('.step', $('#steps'));
+    // con «reducir movimiento» la ruta no se anima: los siete pasos se leen como una lista, sin el escenario
+    const STATIC = reduced;
+    if (STATIC) sec.classList.add('static');
+    else {
+      // los lectores de pantalla leen los siete pasos de una vez, en una lista oculta; los pasos animados quedan solo a la vista
+      const ol = document.createElement('ol'); ol.className = 'vh';
+      ol.innerHTML = steps.map((s) => '<li>' + esc([...s.querySelectorAll('.label, .h2, p:not(.label)')].map((e) => e.textContent.trim()).join('. ').replace(/\.\./g, '.')) + '</li>').join('');
+      $('#t-ruta').after(ol);
+      steps.forEach((s) => s.querySelectorAll('.label, .h2, p').forEach((e) => e.setAttribute('aria-hidden', 'true')));
+    }
     const SYM = 'M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445';
     const SEG = 'M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642';
     const ANCH = [[36, 158], [94, 100], [126, 74], null, [198, 131], [226, 160]];   // dónde para el teléfono (null = en medio del tramo arcilla)
@@ -503,7 +531,7 @@
     const AUTO_MS = 4600, META_MS = 4200;
     function startAuto() {
       stopAuto();
-      if (SLOW) return;
+      if (STATIC) return;   // sin GSAP también avanza, con saltos en vez de recorrido
       auto = setTimeout(() => { auto = 0; if (document.hidden || tab !== 'inicio' || tl) { startAuto(); return; } goTo(cur < N ? cur + 1 : 0); }, cur >= N ? META_MS : AUTO_MS);
     }
     function stopAuto() { if (auto) clearTimeout(auto); auto = 0; }
@@ -694,7 +722,7 @@
     bName.innerHTML = [...v].map((ch) => '<span>' + (ch === ' ' ? '&nbsp;' : esc(ch)) + '</span>').join('');
   }
   nameIn.addEventListener('input', () => {
-    const v = nameIn.value.trim().slice(0, 20);
+    const v = Array.from(cleanName(nameIn.value)).slice(0, 20).join('');
     if (v.startsWith(printed) && v.length === printed.length + 1 && printed) {
       const sp = document.createElement('span'); sp.innerHTML = v.slice(-1) === ' ' ? '&nbsp;' : esc(v.slice(-1)); bName.appendChild(sp);
     } else printName(v);
@@ -721,12 +749,20 @@
   function normPhone(v) {
     let d = (v || '').replace(/[^\d+]/g, '');
     if (d.startsWith('00')) d = '+' + d.slice(2);
-    if (d.startsWith('+')) { const g = d.slice(1).replace(/\D/g, ''); return g.length >= 8 && g.length <= 15 && g[0] !== '0' ? '+' + g : null; }
+    if (d.startsWith('+')) {
+      const g = d.slice(1).replace(/\D/g, '');
+      if (g.startsWith('505')) return /^505[2578]\d{7}$/.test(g) ? '+' + g : null;     // Nicaragua: +505 y 8 dígitos
+      // otros países: código y número, al menos 10 dígitos (con 8 la base lo tomaría por un número de Nicaragua)
+      return g.length >= 10 && g.length <= 15 && g[0] !== '0' ? '+' + g : null;
+    }
     d = d.replace(/\D/g, '');
-    if (d.length === 8 && /^[2578]/.test(d)) return '+505' + d;
-    if (d.length === 11 && d.startsWith('505')) return '+' + d;
+    if (/^[2578]\d{7}$/.test(d)) return '+505' + d;
+    if (/^505[2578]\d{7}$/.test(d)) return '+' + d;
     return null;
   }
+  // el nombre sin caracteres invisibles y con al menos una letra o número; se corta por caracteres, no por mitades de emoji
+  const cleanName = (v) => (v || '').replace(/[­​-‏⁠-⁤﻿]/g, '').trim().replace(/\s+/g, ' ');
+  const nameOk = (v) => /[\p{L}\p{N}]/u.test(v);
   const normEmail = (v) => { v = (v || '').trim().toLowerCase(); return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(v) && v.length <= 254 ? v : null; };
   function readContact() {
     const v = contact.value.trim();
@@ -754,8 +790,8 @@
     e.preventDefault();
     if (busy) return;
     if (si === 0) {
-      const nm = nameIn.value.trim().replace(/\s+/g, ' ');
-      if (!nm) { setErr('#e-name', '¿Cómo te llamamos? Basta tu nombre.', nameField); shake(); nameIn.focus(); return; }
+      const nm = cleanName(nameIn.value);
+      if (!nm || !nameOk(nm)) { setErr('#e-name', '¿Cómo te llamamos? Basta tu nombre.', nameField); shake(); nameIn.focus(); return; }
       setErr('#e-name', '', nameField); showStep(1); return;
     }
     if (si === 1) {
@@ -772,7 +808,7 @@
     if (bad) { shake(); bad.focus(); return; }
     if ($('[name=sitio]', form).value) { showResult({ position: null, code: null, existing: true, via: 'wa' }); return; }
     const item = {
-      p_client_id: uuid(), p_name: nameIn.value.trim().replace(/\s+/g, ' ').slice(0, 60), p_whatsapp: mail ? null : c, p_email: mail ? c : null,
+      p_client_id: uuid(), p_name: Array.from(cleanName(nameIn.value)).slice(0, 60).join(''), p_whatsapp: mail ? null : c, p_email: mail ? c : null,
       p_zone: form.elements.zone.value, p_profile: form.elements.profile.value, p_wants_group: !mail && $('[name=group]', form).checked,
       p_consent_version: CONSENT_VERSION, p_channel: origin.channel || null, p_campaign: origin.campaign || null,
       p_creator: origin.creator || null, p_ref: origin.ref || null
@@ -784,7 +820,7 @@
     const r = await send(item);
     busy = false; btn.disabled = false; btn.classList.remove('busy'); gl.textContent = 'Recibir mi número'; if (btn.parentElement.classList.contains('sweep-w')) btn.parentElement.classList.remove('on');
     if (r.ok) { store.set(QUEUE, null); showResult({ ...r.data, via: mail ? 'mail' : 'wa' }); }
-    else if (r.retry) { showResult({ queued: true, via: mail ? 'mail' : 'wa' }); }
+    else if (r.retry) { showResult({ queued: true, via: mail ? 'mail' : 'wa' }); clearTimeout(retryT); retryT = setTimeout(flushQueue, 20000); }
     else { store.set(QUEUE, null); setErr('[data-send]', r.message); }
   });
   async function send(item) {
@@ -798,12 +834,22 @@
       return { message: 'No pudimos guardar tus datos. Revisa que estén bien escritos e intenta otra vez.' };
     } catch (e) { return { retry: true }; }
   }
+  // el lugar apartado se reenvía solo: al volver la señal, al abrir la pestaña y cada 20 s mientras la página esté abierta
+  // (si la base estaba caída no hay evento «online» que avise)
+  let retryT = 0, flushing = false;
   async function flushQueue() {
+    clearTimeout(retryT);
     const item = store.get(QUEUE);
-    if (!item) return;
+    if (!item || flushing) return;
+    flushing = true;
     const r = await send(item);
+    flushing = false;
     if (r.ok) { store.set(QUEUE, null); showResult({ ...r.data, via: item.p_email ? 'mail' : 'wa' }); }
-    else if (!r.retry) store.set(QUEUE, null);
+    else if (r.retry) retryT = setTimeout(flushQueue, 20000);
+    else {
+      store.set(QUEUE, null);
+      if (!res.hidden) res.innerHTML = '<h3>No pudimos guardar tu lugar</h3><p>Algo en los datos no pasó. Vuelve a llenar el formulario, toma un minuto.</p><button class="textlink" type="button" onclick="location.reload()">Volver a intentarlo</button>';
+    }
   }
   // cuántas personas hay en la fila: se muestra solo cuando ya son varias
   let filaCount = null;
@@ -875,7 +921,14 @@
     const copy = e.target.closest('[data-copy]'), story = e.target.closest('[data-story]');
     if (copy && state.result && state.result.code) {
       const link = inviteLink(state.result.code);
-      try { await navigator.clipboard.writeText(link); copy.lastChild.textContent = 'Enlace copiado'; } catch (err) { copy.lastChild.textContent = link; }
+      // el portapapeles moderno no existe en http ni en algunos navegadores dentro de apps: se copia a la antigua y, si tampoco, se muestra el enlace
+      let ok = false;
+      try { await navigator.clipboard.writeText(link); ok = true; } catch (err) {
+        const ta = document.createElement('textarea'); ta.value = link; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, link.length);
+        try { ok = document.execCommand('copy'); } catch (e2) {} ta.remove();
+      }
+      copy.lastChild.textContent = ok ? 'Enlace copiado' : link;
       setTimeout(() => { copy.lastChild.textContent = 'Copiar mi enlace'; }, 2400);
     }
     if (story && state.result && typeof state.result.position === 'number') saveStory(story, state.result.position, state.result.code);
@@ -889,14 +942,24 @@
       if (prev.zone) { bZone.textContent = prev.zone; bZone.classList.remove('empty'); }
       showResult(prev, true);
     } else {
+      // si quedó un lugar apartado sin enviar (sin señal o la base caída), se muestra como apartado, no el formulario vacío
+      const q = store.get(QUEUE);
+      if (q) {
+        printName(Array.from(q.p_name || '').slice(0, 20).join(''));
+        const z = ZONES.find(([v]) => v === q.p_zone); if (z) { bZone.textContent = z[1]; bZone.classList.remove('empty'); }
+        showResult({ queued: true, via: q.p_email ? 'mail' : 'wa' }, true);
+      }
       flushQueue();
-      if (!quiet && G && !reduced && !ghosting) G.fromTo(tilt, { rotationY: 24, y: 20, autoAlpha: 0 }, { rotationY: 0, y: 0, autoAlpha: 1, duration: .9, ease: EASE, delay: .15 });
+      if (!q && !quiet && G && !reduced && !ghosting) G.fromTo(tilt, { rotationY: 24, y: 20, autoAlpha: 0 }, { rotationY: 0, y: 0, autoAlpha: 1, duration: .9, ease: EASE, delay: .15 });
     }
   }
 
   // ───────── Imagen para historias: 1080 × 1920, el dorsal con tu QR ─────────
   async function logoImage(color) {
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1167.83 190">' + $('#logo-h').innerHTML.replace(/<use href="#sym-g"\/>/, $('#sym-g').innerHTML).replace(/<use href="#name-g"\/>/, $('#name-g').innerHTML).replace(/currentColor/g, color) + '</svg>';
+    // el navegador serializa <use …/> como <use …></use>: hay que aceptar las dos formas o el logo sale vacío en la imagen
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1167.83 190">' + $('#logo-h').innerHTML
+      .replace(/<use href="#sym-g"\s*(\/>|><\/use>)/, $('#sym-g').innerHTML).replace(/<use href="#name-g"\s*(\/>|><\/use>)/, '<g fill="currentColor">' + $('#name-g').innerHTML + '</g>')
+      .replace(/currentColor/g, color) + '</svg>';
     const img = new Image(); img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
     await img.decode(); return img;
   }
@@ -947,15 +1010,29 @@
       const cv = await makeStory(n, code);
       const blob = await new Promise((ok) => cv.toBlob(ok, 'image/png'));
       const file = new File([blob], 'dorsal-xolo-run.png', { type: 'image/png' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: 'Mi dorsal de Xolo Run' }).catch(() => {});
-      } else {
+      const inApp = /Instagram|FBAN|FBAV|FB_IAB|Line\/|TikTok|musical_ly/i.test(navigator.userAgent);
+      const fallback = () => {
+        if (inApp) { showStoryImage(URL.createObjectURL(blob)); return; }   // el navegador de Instagram o Facebook no descarga: se muestra para guardarla con un toque largo
         const url = URL.createObjectURL(blob), a = document.createElement('a');
         a.href = url; a.download = file.name; document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 4000);
-      }
+      };
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        // si la persona cierra el menú de compartir no pasa nada; si el navegador no lo permite, se usa la otra vía
+        try { await navigator.share({ files: [file], title: 'Mi dorsal de Xolo Run' }); } catch (err) { if (err && err.name !== 'AbortError') fallback(); }
+      } else fallback();
     } catch (e) {}
     label.textContent = old;
+  }
+  function showStoryImage(url) {
+    let d = $('#story-view');
+    if (!d) {
+      d = document.createElement('dialog'); d.id = 'story-view'; d.className = 'story-view'; d.setAttribute('aria-label', 'Tu dorsal para historias');
+      d.innerHTML = '<p>Mantén presionada la imagen y elige «Guardar imagen». Después súbela a tu historia.</p><img alt="Tu dorsal de Xolo Run con tu número y tu QR"><button class="go" type="button" data-close-story>Listo</button>';
+      document.body.appendChild(d);
+      d.addEventListener('click', (e) => { if (e.target === d || e.target.closest('[data-close-story]')) d.close(); });
+    }
+    $('img', d).src = url; d.showModal();
   }
 
   // ───────── Preguntas y aviso de privacidad ─────────

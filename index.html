@@ -20,11 +20,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="landing.css?v=202610091615">
+<link rel="stylesheet" href="landing.css?v=202610091806">
 <script>document.documentElement.className = 'js';</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
-<script src="landing.js?v=202610091615" defer></script>
+<script src="landing.js?v=202610091806" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Ir al contenido</a>
@@ -56,12 +56,12 @@
   <a class="brand" href="#inicio" data-tab-link="inicio" aria-label="Xolo Run, inicio"><svg viewBox="0 0 1167.83 190" role="img" aria-label="Xolo Run" style="color:#12383B"><use href="#logo-h"/></svg></a>
   <button class="ask" type="button" data-sheet>Preguntas</button>
 </header>
-<nav class="tabs" id="tabs" role="tablist" aria-label="Secciones">
+<nav aria-label="Secciones"><div class="tabs" id="tabs" role="tablist" aria-label="Secciones">
     <i class="ind" aria-hidden="true"></i><i class="trk" aria-hidden="true"></i><i class="seg" aria-hidden="true"></i>
     <button class="tab" role="tab" id="tab-inicio" aria-controls="inicio" aria-selected="true" data-tab="inicio">Inicio</button>
     <button class="tab" role="tab" id="tab-encuesta" aria-controls="encuesta" aria-selected="false" tabindex="-1" data-tab="encuesta">Encuesta</button>
     <button class="tab" role="tab" id="tab-lista" aria-controls="lista" aria-selected="false" tabindex="-1" data-tab="lista">Lista de espera<span class="n" data-tab-n></span></button>
-  </nav>
+  </div></nav>
 <div class="speed" id="speed" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
 <div id="ghost" aria-hidden="true"><i class="gband"></i><i class="gseg"></i><svg class="gsym" viewBox="0 0 211.08 132"><use href="#sym"/></svg></div>
 
@@ -145,7 +145,7 @@
         <p class="label" data-rise>Hoy, inscribirse a una carrera</p>
         <h2 class="h2" id="t-hoy" data-words>Lo que nos contaron 179 personas que corren en Nicaragua</h2>
         <p class="lede" data-rise>Antes de construir, preguntamos. Estas son sus respuestas, con su base. Son el mapa de lo que Xolo Run tiene que resolver.</p>
-        <div class="stats" id="stats"></div>
+        <div class="stats" id="stats" role="region" aria-label="Cifras de la encuesta" tabindex="0"></div>
         <p class="src">Encuesta «Correr en Nicaragua», respuestas completas del 6 al 8 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta. <button class="textlink" type="button" data-tab-link="encuesta" style="min-height:auto;color:inherit">Súmate a la encuesta</button>.</p>
       </div>
     </section>
@@ -316,7 +316,7 @@
     <div class="wrap enc-grid">
       <div class="enc-copy">
         <p class="label">Encuesta «Correr en Nicaragua»</p>
-        <h2 class="h2 enc-h2">Cuéntanos cómo corres.</h2>
+        <h1 class="h2 enc-h2">Cuéntanos cómo corres.</h1>
         <p class="lede enc-lede">Anónima, de 3 a 8 minutos. Sirve aunque no corras carreras. Con lo que nos cuentes decidimos qué construir primero.</p>
         <ul class="facts enc-facts">
           <li><i></i><span>179 personas ya respondieron</span></li>
@@ -345,7 +345,7 @@
               <div class="band"><svg viewBox="0 0 1167.83 190" aria-hidden="true" style="color:#F3EFE7"><use href="#logo-h"/></svg><span>Lista de espera</span></div>
               <div class="stripes" id="stripes"><i></i><i></i><i></i><i></i></div>
               <div class="body">
-                <div><p class="k">Nº en la fila</p><div class="num" data-bib-num><span class="ph">0000</span></div></div>
+                <div><p class="k">Nº en la fila</p><div class="num" data-bib-num><span class="ph" aria-hidden="true">0000</span><span class="vh">Sin número todavía</span></div></div>
                 <div class="qr" data-bib-qr><svg viewBox="0 0 211.08 132" class="sym" style="color:#12383B"><use href="#sym"/></svg></div>
               </div>
               <div class="foot">
@@ -359,7 +359,7 @@
         <div class="panel-w" id="panel-w">
           <p class="fila-n" id="fila-n" hidden><i></i><span>Ya hay <b data-fila-n>0</b> personas en la fila</span></p>
           <p class="label stepno" id="stepno"><span data-stepno>Paso 1 de 4</span><span class="pg" id="pg" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i></span></p>
-          <h2 class="h2" id="t-lista" tabindex="-1" style="font-size:clamp(1.9rem,4.2vw,3rem)">Tu dorsal te espera</h2>
+          <h1 class="h2" id="t-lista" tabindex="-1" style="font-size:clamp(1.9rem,4.2vw,3rem)">Tu dorsal te espera</h1>
           <p class="sub" id="sub">Cada respuesta se imprime en tu dorsal. Al final te damos tu número en la fila y te avisamos primero cuando abramos.</p>
           <form class="wiz" id="wiz" novalidate>
             <div class="step" data-step="0">

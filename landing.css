@@ -43,7 +43,8 @@ img { max-width: 100%; height: auto; }
 
 /* ───────── botones ───────── */
 .cta, .go { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 56px; padding: 0 10px 0 24px; border: 0; border-radius: 999px;
-  background: var(--arcilla); color: var(--white); font: 700 1.0625rem/1 "Inter", sans-serif; text-decoration: none; cursor: pointer; white-space: nowrap;
+  background: var(--arcilla); color: var(--white); font: 700 1.1875rem/1 "Inter", sans-serif;   /* 19 px en negrita = texto grande: blanco sobre arcilla (4,26:1) cumple AA */
+  text-decoration: none; cursor: pointer; white-space: nowrap;
   transition: transform var(--t1) var(--ease), background var(--t1) var(--ease), box-shadow var(--t1) var(--ease); box-shadow: 0 10px 24px -14px rgba(198, 90, 61, .9); }
 .cta svg, .go svg { width: 36px; height: 36px; padding: 8px; border-radius: 50%; background: rgba(255, 255, 255, .16); transition: transform var(--t1) var(--ease), background var(--t1) var(--ease), color var(--t1) var(--ease); }
 .cta:hover svg, .go:hover svg { background: var(--white); color: var(--arcilla-600); }
@@ -75,7 +76,7 @@ img { max-width: 100%; height: auto; }
 .ask:hover { background: var(--lago); color: var(--arena); }
 /* la barra de pestañas vive fuera de la cabecera (el desenfoque de la cabecera atraparía un elemento fijo): arriba en escritorio, abajo en celular */
 .tabs { position: fixed; top: calc((var(--top-h) - 48px) / 2); left: 50%; z-index: 31; transform: translateX(-50%); display: flex; justify-content: center; gap: 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--lago) 7%, transparent); }
-.tab { position: relative; z-index: 1; min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: none; color: var(--lago-400); font: 600 .9375rem/1 "Inter", sans-serif; cursor: pointer; white-space: nowrap; transition: color var(--t1) var(--ease); }
+.tab { position: relative; z-index: 1; min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: none; color: #46625F; font: 600 .9375rem/1 "Inter", sans-serif; cursor: pointer; white-space: nowrap; transition: color var(--t1) var(--ease); }
 .tab[aria-selected="true"] { color: var(--lago); }
 .tab:hover { color: var(--lago); }
 /* el indicador es la línea de ruta: un trazo con su único tramo encendido, que corre de una pestaña a otra */
@@ -257,7 +258,7 @@ img { max-width: 100%; height: auto; }
 .stat .bars li:first-child .tr i { background: var(--arcilla); }
 .stat .base { margin: 8px 0 0; font-size: .75rem; line-height: 1.4; color: var(--niebla); opacity: .75; }
 .stat .xo { margin: 6px 0 0; padding-top: 12px; border-top: 1px solid rgba(243, 239, 231, .1); font-size: .875rem; line-height: 1.4; color: var(--arena); }
-.stat .xo span { display: block; margin-bottom: 4px; font: 600 .6875rem/1.2 "Space Grotesk", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--arcilla); }
+.stat .xo span { display: block; margin-bottom: 4px; font: 600 .6875rem/1.2 "Space Grotesk", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #E08A72; }   /* arcilla aclarada sobre el fondo oscuro: 6:1 (la arcilla daba 3,7) */
 @media (max-width: 980px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) {
   .stats { display: flex; gap: 12px; margin: 32px calc(-1 * var(--gut)) 0; padding: 0 var(--gut) 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -385,7 +386,8 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 760px) {
   .enc-grid { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0; min-height: 0; width: 100%; }
   .enc-copy { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; padding: 10px var(--gut); border-bottom: 1px solid var(--niebla-300); }
-  .enc-copy .label, .enc-h2, .enc-lede, .enc-facts { display: none; }
+  .enc-copy .label, .enc-lede, .enc-facts { display: none; }
+  .enc-h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }   /* el título sigue para lectores de pantalla */
   .enc-mini { display: block; }
   .enc-copy .textlink { margin: 0; min-height: 36px; }
   /* en celular el aparato es el teléfono de la persona: la encuesta va a pantalla completa, sin marco */
@@ -514,7 +516,7 @@ img { max-width: 100%; height: auto; }
 .bcard .qr svg { width: 100%; height: 100%; }
 .bcard .qr .sym { width: 56%; opacity: .5; }
 .bcard .qr .code { background: #fff; border-radius: 6px; }
-.bcard .foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 10px 26px 24px; border-top: 1px dashed var(--niebla-300); margin-top: 10px; }
+.bcard .foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 10px 40px 24px; border-top: 1px dashed var(--niebla-300); margin-top: 10px; }
 .bcard .name { margin: 0; font: 700 1.25rem/1.15 "Space Grotesk", sans-serif; letter-spacing: .01em; text-transform: uppercase; min-height: 1.3em; }
 .bcard .name span { display: inline-block; animation: pr .35s var(--ease) both; }
 @keyframes pr { from { opacity: 0; transform: translateY(6px) scale(1.2); } }
@@ -533,7 +535,7 @@ img { max-width: 100%; height: auto; }
   .bib { width: min(100%, 380px); margin: 0 auto; }
   .bcard .band { padding: 14px 20px; } .bcard .band svg { height: 22px; }
   .bcard .body { padding: 18px 20px 6px; } .bcard .qr { width: 78px; height: 78px; }
-  .bcard .foot { padding: 8px 20px 18px; } .bcard .name { font-size: 1.0625rem; }
+  .bcard .foot { padding: 8px 34px 18px; } .bcard .name { font-size: 1.0625rem; }
   .bcard .hole.a, .bcard .hole.b { top: 66px; }
 }
 
@@ -574,3 +576,28 @@ html.js:not(.ready) .hero .copy > *, html.js:not(.ready) .hero .scene { opacity:
   .bcard .name span, .bcard .meta .print { animation: none; }
   .enc .wait .run { animation: none; }
 }
+
+/* ───────── QA (9 oct): estados que faltaban ───────── */
+/* el carrusel de cifras se puede recorrer con el teclado */
+.stats:focus-visible { outline: 2px solid var(--arena); outline-offset: 6px; border-radius: 8px; }
+/* pantallas angostas (320–380 px): las pestañas toman el ancho que necesita su texto y «Lista de espera» ya no se corta */
+@media (max-width: 380px) {
+  .tab { flex: 1 1 auto; padding: 0 9px; font-size: .8125rem; }
+  .bcard .fr { letter-spacing: .08em; }
+  .bcard .band { padding: 14px 16px; } .bcard .band svg { height: 19px; }
+  .bcard .band span { letter-spacing: .1em; white-space: nowrap; }
+  .bcard .meta { font-size: .8125rem; white-space: nowrap; }
+  .bcard .foot { padding-left: 40px; padding-right: 40px; gap: 8px; }
+  .bcard .fr { font-size: .625rem; }
+}
+/* con «reducir movimiento» la ruta es una lista de siete pasos, sin escenario animado */
+.ruta.static .pin { height: auto; min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; overflow: visible; }
+.ruta.static .stage { display: none; }
+.ruta.static .steps { display: grid; gap: 34px; padding: clamp(48px, 8vw, 96px) var(--gut); pointer-events: auto; }
+.ruta.static .step { grid-area: auto; opacity: 1; visibility: visible; max-width: 40rem; }
+/* la imagen para historias, cuando el navegador de una app no deja descargarla */
+.story-view { width: min(100% - 32px, 420px); max-height: 92dvh; padding: 18px; border: 0; border-radius: 22px; background: var(--arena); color: var(--lago); text-align: center; }
+.story-view::backdrop { background: rgba(23, 25, 27, .6); }
+.story-view p { margin: 0 0 12px; font-size: .9375rem; }
+.story-view img { display: block; width: 100%; max-height: 62dvh; object-fit: contain; border-radius: 12px; -webkit-touch-callout: default; user-select: auto; }
+.story-view .go { margin-top: 14px; padding: 0 24px; }

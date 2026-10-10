@@ -1154,7 +1154,7 @@
 
   // Lista de espera de Xolo Run: la landing en xolorun.com (pestaña #lista). Vacío = no se muestra.
   // La invitación lleva solo el canal por el que llegó la persona a la encuesta, nunca sus respuestas: la encuesta sigue siendo anónima.
-  const WAITLIST_URL = 'https://xolorun.com/';
+  const WAITLIST_URL = new URL('../', location.href).href;   // la landing, en este mismo sitio (en local también)
   // Incrustada en la landing (lista-espera/landing, ?embed=1): el botón no navega, le pide a la landing que abra su pestaña «Lista de espera»
   const EMBED = new URLSearchParams(location.search).get('embed') === '1' && window.parent !== window;
   document.addEventListener('click', (e) => { const a = e.target.closest('[data-embed-lista]'); if (a) { e.preventDefault(); window.parent.postMessage({ xolo: 'lista' }, '*'); } });

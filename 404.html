@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página no encontrada · Xolo Run</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/marca/favicon.svg" type="image/svg+xml">
+<script>
+  // Direcciones que la gente escribe de memoria: se llevan a su pestaña, conservando ?c=… y la campaña
+  (function () {
+    var p = location.pathname.toLowerCase().replace(/\/+$/, '');
+    var q = location.search;
+    var map = {
+      '/lista': '/#lista', '/lista-de-espera': '/#lista', '/listadeespera': '/#lista', '/espera': '/#lista', '/waitlist': '/#lista',
+      '/dorsal': '/#lista', '/fila': '/#lista', '/registro': '/#lista', '/inscribirme': '/#lista',
+      '/opiniones': '/encuesta/', '/survey': '/encuesta/', '/formulario': '/encuesta/',
+      '/privacidad': '/#privacidad', '/aviso-de-privacidad': '/#privacidad',
+      '/inicio': '/', '/index': '/', '/home': '/'
+    };
+    var to = map[p];
+    if (to) { var i = to.indexOf('#'); location.replace(i < 0 ? to + q : to.slice(0, i) + q + to.slice(i)); }
+  })();
+</script>
+<style>
+  :root { --arena: #F3EFE7; --lago: #12383B; --lago-400: #4D6A6C; --arcilla: #C65A3D; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; background: var(--arena); color: var(--lago); font: 400 1.0625rem/1.55 Inter, system-ui, sans-serif; }
+  main { max-width: 30rem; }
+  img { width: 72px; height: auto; display: block; }
+  h1 { margin: 22px 0 8px; font: 700 clamp(1.8rem, 6vw, 2.4rem)/1.1 "Space Grotesk", system-ui, sans-serif; letter-spacing: -.02em; }
+  p { margin: 0 0 22px; color: var(--lago-400); }
+  a.go { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; background: var(--arcilla); color: #fff; font: 700 1.1875rem/1 Inter, system-ui, sans-serif; text-decoration: none; }
+  a.go:focus-visible { outline: 3px solid var(--lago); outline-offset: 3px; }
+  .alt { display: block; margin-top: 16px; color: var(--lago); }
+</style>
+</head>
+<body>
+<main>
+  <img src="/marca/favicon.svg" alt="" width="72" height="72">
+  <h1>Esta ruta no existe.</h1>
+  <p>Puede que el enlace esté incompleto. Desde el inicio encuentras la lista de espera y la encuesta.</p>
+  <a class="go" href="/">Ir al inicio</a>
+  <a class="alt" href="/#lista">Reclamar mi dorsal</a>
+</main>
+</body>
+</html>
