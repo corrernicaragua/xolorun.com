@@ -76,6 +76,7 @@
     <section class="cols">
       <div><h2>Embudo de la lista de espera</h2><div class="funnel" id="f-lista"></div></div>
       <div><h2>Embudo de la encuesta</h2><div class="funnel" id="f-enc"></div></div>
+      <div><h2>Embudo de organizadores</h2><div class="funnel" id="f-org"></div></div>
     </section>
     <section><h2>Por canal y campaña (landing)</h2><div id="t-canal"></div></section>
     <section><h2>Por canal (encuesta)</h2><div id="t-canal-enc"></div></section>
@@ -140,7 +141,8 @@
     $('#cards').innerHTML = [
       ['Visitas a la landing', sum(ev('landing', 'visita'))], ['Personas por día (landing)', sum(ev('landing', 'visita_dia'))],
       ['Inscripciones a la lista', sum(ev('landing', 'inscripcion'))], ['Visitas a la encuesta', sum(ev('encuesta', 'visita'))],
-      ['Encuestas empezadas', sum(ev('encuesta', 'encuesta_inicio'))], ['Encuestas terminadas', sum(ev('encuesta', 'encuesta_fin'))]
+      ['Encuestas empezadas', sum(ev('encuesta', 'encuesta_inicio'))], ['Encuestas terminadas', sum(ev('encuesta', 'encuesta_fin'))],
+      ['Organizadores: visitas', sum(ev('organizadores', 'visita'))], ['Organizadores: terminadas', sum(ev('organizadores', 'encuesta_fin'))]
     ].map(([t, n]) => '<div class="card"><b>' + fmt(n) + '</b><span>' + esc(t) + '</span></div>').join('');
 
     // barras por día
@@ -151,6 +153,7 @@
     $('#bars').innerHTML = dayKeys.map((k) => { const a = vl.get(k) || 0, b = ve.get(k) || 0; return '<i title="' + k + ': ' + a + ' landing · ' + b + ' encuesta" style="height:' + Math.round(((a + b) / max) * 100) + '%;background:linear-gradient(to top, var(--jade) ' + (a + b ? Math.round((a / (a + b)) * 100) : 0) + '%, var(--niebla) 0)"></i>'; }).join('');
 
     funnel($('#f-lista'), [['Visitas', sum(ev('landing', 'visita'))], ['Abren la lista', sum(ev('landing', 'pestana_lista'))], ['Paso 1 · nombre', sum(ev('landing', 'paso_1'))], ['Paso 2 · zona', sum(ev('landing', 'paso_2'))], ['Paso 3 · perfil', sum(ev('landing', 'paso_3'))], ['Paso 4 · contacto', sum(ev('landing', 'paso_4'))], ['Inscripción', sum(ev('landing', 'inscripcion'))]]);
+    funnel($('#f-org'), [['Visitas', sum(ev('organizadores', 'visita'))], ['Empiezan', sum(ev('organizadores', 'encuesta_inicio'))], ['Terminan', sum(ev('organizadores', 'encuesta_fin'))], ['Dejan su contacto', sum(ev('organizadores', 'contacto'))]]);
     funnel($('#f-enc'), [['Visitas', sum(ev('encuesta', 'visita'))], ['Empiezan', sum(ev('encuesta', 'encuesta_inicio'))], ['Terminan', sum(ev('encuesta', 'encuesta_fin'))], ['Guardan la medalla', sum(ev('encuesta', 'medalla_guardada'))]]);
 
     const chan = (r) => (r.channel || '(directo)') + (r.campaign ? ' · ' + r.campaign : '');
