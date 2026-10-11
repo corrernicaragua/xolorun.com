@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Organizadores · Encuesta de Xolo Run</title>
+<!-- La vista previa del enlace es lo primero que ve el organizador en WhatsApp: dice de quién es y para quién. -->
+<meta name="description" content="Encuesta para organizadores de carreras en Nicaragua. Contanos cómo organizás hoy: unos 10 minutos, anónima. Al final podés postularte como Organizador Fundador de Xolo Run.">
+<meta name="theme-color" content="#F3EFE7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_NI">
+<meta property="og:site_name" content="Xolo Run · Organizadores">
+<meta property="og:title" content="¿Organizás carreras? Contanos cómo · Xolo Run">
+<meta property="og:description" content="Encuesta para organizadores de carreras en Nicaragua. Unos 10 minutos, anónima. Al final, cupos para Organizadores Fundadores.">
+<meta property="og:image" content="og.jpg">
+<meta property="og:image:alt" content="Logo de Xolo Run y el texto Contanos cómo organizás, con una línea de ruta y sus puestos de control">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Xolo Run · Ruta Común (manual de marca v1.0), la misma piel que xolorun.com/encuesta:
+     arena de fondo, lago para el texto, jade de acento, arcilla solo para la acción principal y para el único tramo encendido de la ruta.
+     El recorrido de la encuesta se dibuja como una ruta con puestos de control: perfil, último evento, negocio, lo que viene, meta. */
+  :root {
+    --arena: #F3EFE7; --blanco: #FFFFFF;
+    --lago: #12383B;       /* texto principal: 11:1 sobre arena */
+    --lago-400: #4D6A6C;   /* texto secundario: 5:1 sobre arena */
+    --lago-300: #889C9D; --lago-100: #DBE1E2;
+    --niebla: #B7C2BE; --niebla-300: #DBE0DE; --niebla-200: #E9EDEC;
+    --jade: #1F6366; --jade-100: #DDE8E8; --jade-200: #BCD0D1;
+    --arcilla: #C65A3D;    /* acción principal (texto blanco en negrita de 19 px) */
+    --arcilla-600: #9E4831;/* arcilla para texto pequeño: 5.7:1 */
+    --arcilla-100: #F6E6E2;
+    --display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --voz: "Newsreader", Georgia, serif;
+    /* movimiento: llegar desacelerando, salir más rápido de lo que se entra */
+    --out: cubic-bezier(.22, 1, .36, 1); --in: cubic-bezier(.55, 0, .75, .2);
+    --t-fast: 160ms; --t-mid: 320ms; --t-slow: 700ms;
+    --r: 14px; --gut: 20px;
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { height: 100%; background: var(--arena); accent-color: var(--lago); scrollbar-color: var(--niebla) var(--arena); -webkit-text-size-adjust: 100%; }
+  html.big { font-size: 118.75%; }
+  body { margin: 0; min-height: 100%; min-height: 100dvh; background: var(--arena); color: var(--lago); font: 400 1.0625rem/1.5 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--lago); color: var(--arena); }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  :focus-visible { outline: 3px solid var(--lago); outline-offset: 3px; border-radius: 6px; }
+  [tabindex="-1"]:focus { outline: none; }
+  h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  a { color: var(--jade); text-underline-offset: 3px; }
+  svg { display: block; }
+  .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip { position: absolute; left: 16px; top: -80px; z-index: 50; padding: 10px 14px; background: var(--lago); color: var(--arena); border-radius: 10px; }
+  .skip:focus { top: 12px; }
+
+  /* ───────── Marco: una columna en el teléfono; ruta lateral + tarjeta en escritorio ───────── */
+  .shell { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); }
+  .rail { display: none; }
+  .main { min-width: 0; display: flex; flex-direction: column; min-height: 100dvh; }
+  .wrap { width: 100%; max-width: 36rem; margin-inline: auto; padding-inline: var(--gut); }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--lago); min-width: 0; }
+  .brand svg { height: 22px; width: auto; flex: none; }
+  .brand span { font: 500 .75rem/1.1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--jade); white-space: nowrap; }
+  .tools { display: flex; gap: 8px; }
+  .tool { min-width: 44px; min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--lago-300); background: transparent; color: var(--lago); font: 600 .95rem/1 var(--display); display: inline-grid; place-items: center; transition: background var(--t-fast) var(--out), color var(--t-fast) var(--out), border-color var(--t-fast) var(--out); }
+  .tool[aria-pressed="true"] { background: var(--lago); color: var(--arena); border-color: var(--lago); }
+  .tool svg { width: 22px; height: 22px; }
+  @media (hover: hover) { .tool:hover { border-color: var(--lago); } }
+
+  /* ───────── Botones ───────── */
+  .go { position: relative; overflow: hidden; width: 100%; min-height: 3.6rem; border: 0; border-radius: var(--r); display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    background: var(--arcilla); color: var(--blanco); font: 700 1.1875rem/1 var(--body); text-decoration: none;
+    box-shadow: 0 12px 26px -16px rgba(198, 90, 61, .95); transition: transform var(--t-fast) var(--out), background-color var(--t-fast) var(--out), box-shadow var(--t-fast) var(--out); }
+  .go svg { width: 22px; height: 22px; transition: transform var(--t-mid) var(--out); }
+  .go:active { transform: scale(.985); }
+  @media (hover: hover) { .go:hover { background: var(--arcilla-600); } .go:hover svg { transform: translateX(4px); } }
+  .go[aria-disabled="true"] { background: var(--niebla-300); color: var(--lago-400); box-shadow: none; cursor: not-allowed; }
+  .go[aria-busy="true"] { cursor: progress; }
+  .go[aria-busy="true"]::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .22) 50%, transparent 70%); animation: sweep 1.1s linear infinite; }
+  @keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+  .ghost { width: 100%; min-height: 3.3rem; border-radius: var(--r); border: 1.5px solid var(--lago); background: transparent; color: var(--lago); font: 600 1.05rem/1 var(--body); display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; transition: background var(--t-fast) var(--out), transform var(--t-fast) var(--out); }
+  .ghost:active { transform: scale(.985); }
+  @media (hover: hover) { .ghost:hover { background: var(--lago-100); } }
+  .ghost svg { width: 20px; height: 20px; }
+  .link { background: none; border: 0; padding: 10px 2px; min-height: 44px; color: var(--lago); font-weight: 600; text-decoration: underline; text-decoration-color: var(--lago-300); text-underline-offset: 4px; justify-self: start; text-align: left; }
+  @media (hover: hover) { .link:hover { text-decoration-color: var(--lago); } }
+
+  /* ───────── Tipografía ───────── */
+  .eyebrow { font: 500 .75rem/1.2 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--arcilla-600); }
+  .headline { font: 700 clamp(2.6rem, 12.4vw, 4.6rem)/1.0 var(--display); letter-spacing: -.035em; text-wrap: balance; max-inline-size: 12ch; }
+  .headline em { font: italic 400 1.04em/1 var(--voz); letter-spacing: -.01em; color: var(--jade); }
+  .lede { font-size: 1.125rem; line-height: 1.5; color: var(--lago-400); max-width: 38ch; }
+  .lede b { color: var(--lago); font-weight: 600; }
+  .muted { color: var(--lago-400); }
+  .h2 { font: 700 clamp(1.8rem, 7vw, 2.4rem)/1.05 var(--display); letter-spacing: -.025em; text-wrap: balance; }
+  .h3 { font: 600 1.25rem/1.2 var(--display); letter-spacing: -.01em; text-wrap: balance; }
+
+  /* ───────── Bienvenida ───────── */
+  .welcome { flex: 1; display: grid; gap: 22px; padding-block: 8px 28px; align-content: start; }
+  .hero-route { position: relative; margin-inline: calc(var(--gut) * -1); height: clamp(150px, 30svh, 230px); }
+  .hero-route svg { width: 100%; height: 100%; overflow: visible; }
+  .hero-route .base { fill: none; stroke: var(--niebla-300); stroke-width: 10; stroke-linecap: round; }
+  .hero-route .draw { fill: none; stroke: var(--lago); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn 1.6s var(--out) .15s forwards; }
+  .hero-route .lit { fill: none; stroke: var(--arcilla); stroke-width: 10; stroke-linecap: round; stroke-dasharray: .09 .91; stroke-dashoffset: .09; opacity: 0; animation: litIn .4s var(--out) 1.5s forwards, run 7s linear 1.9s infinite; }
+  .hero-route .cp circle { fill: var(--arena); stroke: var(--lago); stroke-width: 3.5; }
+  .hero-route .cp text { font: 600 13px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; fill: var(--lago-400); }
+  .hero-route .cp { opacity: 0; transform: translateY(6px); transform-box: fill-box; animation: rise .5s var(--out) forwards; }
+  @keyframes drawIn { to { stroke-dashoffset: 0; } }
+  @keyframes litIn { to { opacity: 1; } }
+  @keyframes run { to { stroke-dashoffset: -.91; } }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .facts li { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 12px; border-radius: 999px; background: var(--blanco); border: 1px solid var(--niebla-300); font-weight: 600; font-size: .95rem; }
+  .facts li svg { width: 18px; height: 18px; color: var(--jade); }
+  .note { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 14px 16px; border-radius: var(--r); background: var(--jade-100); border: 1px solid var(--jade-200); }
+  .note svg { width: 22px; height: 22px; color: var(--jade); margin-top: 1px; }
+  .note p { font-size: 1rem; line-height: 1.45; }
+  .note b { color: var(--jade); }
+  .actions { display: grid; gap: 4px; position: sticky; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 2; }
+  .resume { display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--r); background: var(--blanco); border: 1px solid var(--niebla-300); }
+
+  /* ───────── Pregunta ───────── */
+  .band { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--arena) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .band::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--niebla-300); }
+  .meter { position: relative; margin-inline: -4px; padding-top: 2px; }
+  .meter svg { width: 100%; height: auto; overflow: visible; }
+  .meter .trk { fill: none; stroke: var(--niebla-300); stroke-width: 5; stroke-linecap: round; }
+  .meter .fill { fill: none; stroke: var(--lago); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset var(--t-slow) var(--out); }
+  .meter .tick { fill: var(--arena); stroke: var(--lago-300); stroke-width: 2.5; transition: fill var(--t-mid) var(--out), stroke var(--t-mid) var(--out); }
+  .meter .tick.on { fill: var(--lago); stroke: var(--lago); }
+  .meter .dot { fill: var(--arcilla); stroke: var(--arena); stroke-width: 3; transition: transform var(--t-slow) var(--out); }
+  .cap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-block: 2px 12px; font-size: .95rem; color: var(--lago-400); }
+  .cap b { color: var(--lago); font: 600 .95rem/1.3 var(--display); }
+  .cap span { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .stage { position: relative; flex: 1; display: flex; flex-direction: column; }
+  .qbody { display: grid; gap: 14px; padding-block: 26px 12px; }
+  .q-title { font: 600 clamp(1.5rem, 6.2vw, 2rem)/1.2 var(--display); letter-spacing: -.02em; text-wrap: balance; }
+  .q-help { color: var(--lago-400); max-width: 44ch; }
+  .opts { display: grid; gap: 10px; margin-top: 6px; }
+  .opt { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; min-height: 3.6rem; padding: 13px 16px; text-align: left; font-size: 1.0625rem; line-height: 1.3; font-weight: 500;
+    background: var(--blanco); color: var(--lago); border: 1.5px solid var(--lago-300); border-radius: var(--r);
+    transition: background-color var(--t-fast) var(--out), border-color var(--t-fast) var(--out), color var(--t-fast) var(--out), transform var(--t-fast) var(--out); }
+  .opt:active { transform: scale(.99); }
+  .opt .lbl { min-width: 0; flex: 1; }
+  .opt .key { flex: none; display: none; min-width: 26px; height: 26px; padding: 0 6px; border-radius: 7px; border: 1px solid var(--niebla); color: var(--lago-400); font: 600 .8rem/24px var(--display); text-align: center; }
+  .opt .ind { flex: none; width: 24px; height: 24px; border: 2px solid var(--lago-400); display: grid; place-items: center; transition: inherit; }
+  .opt[role="radio"] .ind { border-radius: 50%; }
+  .opt[role="checkbox"] .ind { border-radius: 7px; }
+  .opt .ind svg { width: 16px; height: 16px; color: var(--lago); }
+  .opt .ind path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset var(--t-mid) var(--out); }
+  .opt[aria-checked="true"] { background: var(--lago); border-color: var(--lago); color: var(--arena); font-weight: 600; }
+  .opt[aria-checked="true"] .ind { border-color: var(--arena); background: var(--arena); }
+  .opt[aria-checked="true"] .ind path { stroke-dashoffset: 0; }
+  .opt[role="radio"][aria-checked="true"] .ind { box-shadow: inset 0 0 0 5px var(--arena); background: var(--lago); }
+  .opt[role="radio"] .ind svg { display: none; }
+  .opt[aria-checked="true"] .key { border-color: rgba(243, 239, 231, .4); color: var(--arena); }
+  .opt[aria-disabled="true"] { opacity: .42; }
+  @media (hover: hover) { .opt:not([aria-checked="true"]):not([aria-disabled="true"]):hover, .chip:not([aria-checked="true"]):hover { border-color: var(--lago); } }
+  @media (hover: hover) and (pointer: fine) { .opt .key { display: inline-block; } }
+  .textarea, .input { width: 100%; border-radius: var(--r); border: 1.5px solid var(--lago-400); background: var(--blanco); color: var(--lago); font-size: 1.0625rem; line-height: 1.45; transition: border-color var(--t-fast) var(--out), box-shadow var(--t-fast) var(--out); }
+  .textarea { min-height: 9rem; padding: 14px 16px; resize: vertical; }
+  .input { min-height: 3.25rem; padding: 10px 14px; }
+  .textarea::placeholder, .input::placeholder { color: var(--lago-300); }
+  .textarea:focus, .input:focus { border-color: var(--lago); outline: none; box-shadow: 0 0 0 4px var(--lago-100); }
+  .input[aria-invalid="true"] { border-color: var(--arcilla-600); }
+  .count { justify-self: end; font-size: .95rem; color: var(--lago-400); font-variant-numeric: tabular-nums; }
+  .hint { color: var(--arcilla-600); min-height: 1.4em; font-weight: 600; }
+  .dock { position: sticky; bottom: 0; margin-top: auto; z-index: 3; padding-block: 18px calc(14px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to bottom, rgba(243, 239, 231, 0), var(--arena) 30%); }
+  .dock .row { display: flex; gap: 10px; }
+  .back { flex: none; width: 3.6rem; min-height: 3.6rem; border-radius: var(--r); border: 1.5px solid var(--lago-300); background: var(--arena); color: var(--lago); display: grid; place-items: center; transition: border-color var(--t-fast) var(--out), transform var(--t-fast) var(--out); }
+  .back:active { transform: scale(.97); }
+  .back svg { width: 22px; height: 22px; }
+  @media (hover: hover) { .back:hover { border-color: var(--lago); } }
+  .info-card { display: grid; gap: 14px; padding: 22px 20px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .info-card svg { width: 40px; height: 40px; color: var(--jade); }
+
+  /* aviso de bloque terminado: aparece y se va solo, sin robar el foco */
+  .toast { position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); z-index: 40; display: flex; align-items: center; gap: 10px; max-width: calc(100vw - 32px); padding: 10px 16px 10px 12px; border-radius: 999px;
+    background: var(--lago); color: var(--arena); font-weight: 600; font-size: .95rem; box-shadow: 0 16px 34px -18px rgba(18, 56, 59, .8);
+    transform: translate(-50%, 16px); opacity: 0; pointer-events: none; transition: transform var(--t-mid) var(--out), opacity var(--t-mid) var(--out); }
+  .toast.show { transform: translate(-50%, 0); opacity: 1; }
+  .toast svg { width: 22px; height: 22px; flex: none; padding: 3px; border-radius: 50%; background: var(--arcilla); color: var(--blanco); }
+
+  /* ───────── Meta y conexión ───────── */
+  .after { display: grid; gap: 30px; padding-block: 18px 40px; }
+  .finish { display: grid; gap: 16px; justify-items: start; }
+  .tape { width: 100%; height: 86px; }
+  .tape svg { width: 100%; height: 100%; overflow: visible; }
+  .tape .ln { fill: none; stroke: var(--lago); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn 1.1s var(--out) .1s forwards; }
+  .tape .lt { fill: none; stroke: var(--arcilla); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawIn .7s var(--out) .9s forwards; }
+  .tape .flag { opacity: 0; transform: scale(.6); transform-box: fill-box; transform-origin: center bottom; animation: pop .5s var(--out) 1.3s forwards; }
+  @keyframes pop { to { opacity: 1; transform: none; } }
+  .send { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--r); background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .send .dot { flex: none; width: 12px; height: 12px; margin-top: 6px; border-radius: 50%; background: var(--lago-300); }
+  .send[data-s="ok"] .dot { background: var(--jade); }
+  .send[data-s="sending"] .dot { background: var(--lago); animation: blink 1s ease-in-out infinite; }
+  .send[data-s="offline"] .dot, .send[data-s="error"] .dot { background: var(--arcilla-600); }
+  .send .msg { display: grid; gap: 4px; }
+  @keyframes blink { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+  .build { display: grid; gap: 12px; }
+  .build ol { display: grid; gap: 10px; counter-reset: b; }
+  .build li { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; padding: 14px 16px; border-radius: var(--r); background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .build li svg { width: 26px; height: 26px; color: var(--jade); }
+  .build li b { display: block; font: 600 1.05rem/1.3 var(--display); }
+  .build li span { color: var(--lago-400); font-size: .98rem; }
+  .tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--niebla-200); color: var(--lago-400); font: 500 .72rem/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; justify-self: start; }
+  .tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--arcilla); }
+  .founder { position: relative; overflow: hidden; display: grid; gap: 16px; padding: 24px 20px 22px; border-radius: 22px; background: var(--lago); color: var(--arena); isolation: isolate; }
+  .founder::before { content: ""; position: absolute; inset: -40% -30% auto auto; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(198, 90, 61, .35), transparent 65%); z-index: -1; }
+  .founder .eyebrow { color: #E8B3A4; padding-right: 84px; }
+  .founder .h2 { color: var(--arena); }
+  .founder .h2 em { font: italic 400 1.04em/1 var(--voz); color: #E8B3A4; }
+  .founder p { color: var(--jade-200); max-width: 42ch; }
+  .seal { position: absolute; right: 16px; top: 18px; width: 76px; height: 76px; opacity: .95; }
+  .seal svg { width: 100%; height: 100%; animation: spin 26s linear infinite; }
+  .seal text { font: 600 9.4px/1 var(--display); letter-spacing: .22em; fill: #E8B3A4; text-transform: uppercase; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .perks { display: grid; gap: 12px; }
+  .perks li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; opacity: 0; transform: translateY(8px); animation: rise .5s var(--out) forwards; }
+  .perks svg { width: 24px; height: 24px; color: #E8B3A4; margin-top: 1px; }
+  .perks b { display: block; color: var(--arena); font-weight: 600; }
+  .perks span { color: var(--jade-200); font-size: .97rem; }
+  .fine { padding-top: 14px; border-top: 1px solid rgba(188, 208, 209, .25); color: var(--jade-200); font-size: .9rem; line-height: 1.45; }
+  .fine b { color: var(--arena); font-weight: 600; }
+
+  .form { display: grid; gap: 18px; padding: 22px 20px; border-radius: 22px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+  legend { padding: 0; margin-bottom: 10px; font: 600 1.02rem/1.3 var(--body); }
+  legend small, .lab small { font-weight: 400; color: var(--lago-400); }
+  .lab { display: grid; gap: 6px; font-weight: 600; }
+  .grid2 { display: grid; gap: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--lago-300); background: var(--blanco); color: var(--lago); font-weight: 500; font-size: .98rem; transition: background var(--t-fast) var(--out), color var(--t-fast) var(--out), border-color var(--t-fast) var(--out), transform var(--t-fast) var(--out); }
+  .chip:active { transform: scale(.97); }
+  .chip[aria-checked="true"] { background: var(--lago); border-color: var(--lago); color: var(--arena); font-weight: 600; }
+  .pick { display: grid; gap: 10px; }
+  .pick .opt { min-height: 3.4rem; }
+  .pick .opt small { display: block; margin-top: 3px; font-size: .9rem; font-weight: 400; color: var(--lago-400); }
+  .pick .opt[aria-checked="true"] small { color: var(--arena); opacity: .8; }
+  .reveal { display: grid; gap: 14px; overflow: hidden; }
+  .reveal[hidden] { display: none; }
+  .reveal.in { animation: settle var(--t-mid) var(--out) both; }
+  .check { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; cursor: pointer; font-size: .97rem; line-height: 1.45; color: var(--lago-400); }
+  .check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .check .box { width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--lago-400); display: grid; place-items: center; background: var(--blanco); transition: background var(--t-fast) var(--out), border-color var(--t-fast) var(--out); margin-top: 1px; }
+  .check .box svg { width: 16px; height: 16px; color: var(--arena); }
+  .check .box path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset var(--t-mid) var(--out); }
+  .check input:checked + .box { background: var(--lago); border-color: var(--lago); }
+  .check input:checked + .box path { stroke-dashoffset: 0; }
+  .check input:focus-visible + .box { outline: 3px solid var(--lago); outline-offset: 3px; }
+  .err { color: var(--arcilla-600); font-weight: 600; font-size: .95rem; }
+  .err:empty { display: none; }
+  .errbox { padding: 12px 14px; border-radius: 12px; background: var(--arcilla-100); color: var(--arcilla-600); font-weight: 600; }
+  .steps { display: grid; gap: 0; }
+  .steps li { position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 14px; padding-bottom: 20px; }
+  .steps li::before { content: ""; position: absolute; left: 13px; top: 28px; bottom: 0; width: 2px; background: var(--niebla-300); }
+  .steps li:last-child::before { display: none; }
+  .steps li i { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--lago); background: var(--arena); display: grid; place-items: center; font: 600 .85rem/1 var(--display); font-style: normal; }
+  .steps li.done i { background: var(--lago); color: var(--arena); }
+  .steps b { display: block; font-weight: 600; }
+  .steps span { color: var(--lago-400); font-size: .98rem; }
+  .sharebox { display: grid; gap: 12px; padding: 20px 18px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .page { display: grid; gap: 22px; padding-block: 10px 44px; }
+  .page section { display: grid; gap: 10px; }
+  .page dl { display: grid; gap: 14px; }
+  .page dt { font: 600 1rem/1.3 var(--display); color: var(--jade); }
+  .page dd { color: var(--lago-400); max-width: 50ch; }
+  .preview-flag { padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--arcilla-600); color: var(--arcilla-600); font-weight: 600; font-size: .95rem; }
+  .foot { display: flex; flex-wrap: wrap; gap: 4px 16px; padding-block: 8px 24px; color: var(--lago-400); font-size: .9rem; }
+
+  /* entrada de cada pantalla: el movimiento dice hacia dónde vas (adelante sube, atrás baja) */
+  .enter { animation: settle var(--t-mid) var(--out) both; }
+  @keyframes settle { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* ───────── Escritorio: la ruta vive a la izquierda y se llena mientras avanzás ───────── */
+  @media (min-width: 980px) {
+    :root { --gut: 32px; }
+    .shell { grid-template-columns: minmax(340px, 34%) minmax(0, 1fr); }
+    .rail { position: sticky; top: 0; height: 100dvh; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; padding: 28px 36px 32px; background: var(--lago); color: var(--arena); overflow: hidden; isolation: isolate; }
+    .rail::after { content: ""; position: absolute; left: -30%; bottom: -25%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(31, 99, 102, .65), transparent 62%); z-index: -1; }
+    .rail .brand { color: var(--arena); }
+    .rail .brand span { color: var(--jade-200); }
+    .rail h2 { font: 700 2.1rem/1.04 var(--display); letter-spacing: -.03em; max-width: 13ch; text-wrap: balance; }
+    .rail h2 em { font: italic 400 1.05em/1 var(--voz); color: #E8B3A4; }
+    .rail p { color: var(--jade-200); max-width: 34ch; }
+    .cps { position: relative; display: grid; gap: 22px; padding-left: 4px; }
+    .cps::before, .cps .fillv { content: ""; position: absolute; left: 15px; top: 14px; bottom: 14px; width: 3px; border-radius: 3px; background: rgba(188, 208, 209, .22); }
+    .cps .fillv { background: #E8B3A4; transform-origin: top; transform: scaleY(var(--p, 0)); transition: transform var(--t-slow) var(--out); }
+    .cps li { position: relative; display: grid; grid-template-columns: 26px 1fr; gap: 16px; align-items: center; color: var(--jade-200); transition: color var(--t-mid) var(--out); }
+    .cps li i { width: 26px; height: 26px; border-radius: 50%; border: 3px solid rgba(188, 208, 209, .45); background: var(--lago); transition: background var(--t-mid) var(--out), border-color var(--t-mid) var(--out), box-shadow var(--t-mid) var(--out); }
+    .cps li b { display: block; font: 600 1.05rem/1.2 var(--display); }
+    .cps li small { display: block; font-size: .88rem; opacity: .8; }
+    .cps li.done { color: var(--arena); }
+    .cps li.done i { background: #E8B3A4; border-color: #E8B3A4; }
+    .cps li.now { color: var(--arena); }
+    .cps li.now i { border-color: var(--arcilla); background: var(--arcilla); box-shadow: 0 0 0 6px rgba(198, 90, 61, .25); }
+    .rail .mini { display: grid; gap: 6px; padding: 14px 16px; border-radius: 16px; background: rgba(243, 239, 231, .07); border: 1px solid rgba(188, 208, 209, .2); font-size: .95rem; color: var(--jade-200); }
+    .rail .mini b { color: var(--arena); }
+    .main .topbar .brand { visibility: hidden; }
+    .main .wrap { max-width: 40rem; }
+    .welcome { padding-top: 4vh; }
+    .hero-route { margin-inline: 0; }
+    .band .meter { display: none; }
+    .cap { padding-top: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .hero-route .lit { animation: litIn .01ms forwards !important; }
+    .seal svg { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Ir al contenido</a>
+<div class="shell">
+  <aside class="rail" aria-hidden="true" id="rail"></aside>
+  <main class="main" id="main" tabindex="-1"></main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<p class="sr" id="announce" aria-live="polite"></p>
+<noscript><p class="wrap" style="padding-block:40px">Para contestar la encuesta necesitás activar JavaScript en tu navegador.</p></noscript>
+<script>
+(() => {
+  'use strict';
+
+  // ───────── Configuración ─────────
+  // Proyecto de Supabase de Kenneth. La clave publicable es pública a propósito: con ella solo se puede ENVIAR
+  // (RLS y funciones de supabase/migrations/0001). Sin clave la página funciona en vista previa y no envía nada.
+  const SUPABASE_URL = 'https://cjiptfwzqttvitipkreq.supabase.co';
+  const SUPABASE_KEY = '';
+  const VERSION = '2026-10-11-org';
+  const CONSENT_VERSION = '2026-10-11';
+  // Aviso de privacidad (Ley 787). Kenneth confirma estos datos antes de difundir.
+  const PRIVACY = {
+    controller: 'Xolo Run, proyecto nicaragüense en formación',
+    contact: { label: 'Instagram @xolorun', href: 'https://www.instagram.com/xolorun/' },
+    retention: 'Hasta 24 meses desde que lo dejaste, o antes si nos pedís borrarlo.'
+  };
+
+  const PARAMS = (() => { try { return new URLSearchParams(location.search); } catch (e) { return new URLSearchParams(''); } })();
+  const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  // Vista previa: en local (salvo ?enviar=1) o mientras falte la clave. Nunca se pierde una respuesta en silencio.
+  const DRY = !SUPABASE_KEY || (LOCAL && !PARAMS.has('enviar'));
+  const clean = (v, n) => { const s = String(v || '').toLowerCase().trim(); return new RegExp('^[a-z0-9_-]{1,' + n + '}$').test(s) ? s : null; };
+  const CHANNEL = clean(PARAMS.get('c'), 40);
+  const REF = clean(PARAMS.get('ref'), 24);
+  const PUBLIC_URL = location.origin + location.pathname;
+
+  // ───────── Preguntas: siempre sobre lo que pasó, no sobre lo que te gustaría ─────────
+  // Bloques = puestos de control de la ruta. Las claves (O1, L4…) son las columnas del análisis.
+  const BLOCKS = [
+    { id: '0', name: 'Vos y tu organización', short: 'Perfil' },
+    { id: 'L', name: 'Tu último evento', short: 'Último evento' },
+    { id: 'N', name: 'Tu negocio', short: 'Negocio' },
+    { id: 'H', name: 'Lo que viene', short: 'Lo que viene' },
+    { id: 'Z', name: 'Para cerrar', short: 'Cierre' }
+  ];
+  const o = (v, t, extra) => Object.assign({ v, t }, extra || {});
+  const NOSE = o('nose', 'No sé o no me acuerdo');
+  const OTRO = o('otro', 'Otro');
+  const TASKS = [
+    o('difusion', 'Difundir y llenar los cupos'), o('inscripcion', 'Inscripciones y datos de cada persona'), o('pagos', 'Cobrar y confirmar pagos'),
+    o('patrocinio', 'Conseguir patrocinios'), o('permisos', 'Permisos (alcaldía, Policía u otros)'), o('ruta', 'Ruta, seguridad y atención médica'),
+    o('kits', 'Entrega de kits'), o('voluntarios', 'Coordinar voluntarios'), o('tiempos', 'Cronometraje y resultados'),
+    o('mensajes', 'Responder las dudas de los corredores'), OTRO];
+  const SIZES = [o('menos100', 'Menos de 100'), o('100-300', '100 a 300'), o('301-700', '301 a 700'), o('701-1500', '701 a 1,500'), o('mas1500', 'Más de 1,500'), NOSE];
+  const KINDS = [o('calle', '5K o 10K de calle'), o('larga', 'Media maratón o maratón'), o('trail', 'Trail o montaña'), o('caminata', 'Caminata o carrera familiar'),
+    o('ninos', 'Carrera infantil'), o('tematica', 'Temática, nocturna o con causa'), OTRO];
+
+  const Q = {
+    O1: { b: '0', type: 'single', title: '¿Qué te describe mejor?', help: 'No hay respuestas que nos convengan: si hoy todo te funciona bien, eso también nos sirve.', next: 'O2', options: [
+      o('independiente', 'Organizo eventos por mi cuenta'), o('club', 'Soy parte de un club o grupo de running que organiza eventos'),
+      o('productora', 'Tengo una empresa o productora de eventos'), o('marca', 'Trabajo en una marca o empresa que organiza su propia carrera'),
+      o('institucion', 'Represento a una institución (alcaldía, colegio, universidad, ONG o iglesia)'),
+      o('equipo', 'Soy parte del equipo de un organizador (logística, inscripciones, redes)'), OTRO] },
+    O2: { b: '0', type: 'single', title: '¿Cuántos eventos con inscripción organizaste en los últimos 12 meses?', help: 'Carreras, caminatas o retos con número o con lista de inscritos.', def: '2-3', options: [
+      o('0', 'Ninguno todavía: estoy por organizar el primero', { next: 'PL1' }), o('1', '1', { next: 'O3' }), o('2-3', '2 o 3', { next: 'O3' }),
+      o('4-6', '4 a 6', { next: 'O3' }), o('7+', '7 o más', { next: 'O3' })] },
+    O3: { b: '0', type: 'multi', title: '¿En qué departamentos fueron?', help: 'Podés elegir varios.', next: 'O4', options: [
+      o('managua', 'Managua'), o('carazo', 'Carazo'), o('masaya', 'Masaya'), o('granada', 'Granada'), o('leon', 'León o Chinandega'), o('rivas', 'Rivas'),
+      o('norte', 'Norte (Estelí, Matagalpa, Jinotega, Nueva Segovia, Madriz)'), o('caribe', 'Caribe, Boaco, Chontales o Río San Juan'), o('fuera', 'Fuera de Nicaragua')] },
+    O4: { b: '0', type: 'single', title: 'El día del evento, ¿cuántas personas trabajan con vos, contando voluntarios?', next: 'LI', options: [
+      o('1-5', '1 a 5'), o('6-15', '6 a 15'), o('16-40', '16 a 40'), o('41-100', '41 a 100'), o('mas100', 'Más de 100'), NOSE] },
+
+    LI: { b: 'L', type: 'info', title: 'Pensá en el último evento que organizaste.', help: 'Las próximas preguntas son sobre ese evento, no sobre lo que hacés normalmente. Si no te acordás de algo, está bien.', cta: 'Ya lo tengo', next: 'L1' },
+    L1: { b: 'L', type: 'single', title: '¿Qué tipo de evento fue?', help: 'Si tuvo varias distancias, elegí la principal.', next: 'L2', options: KINDS },
+    L2: { b: 'L', type: 'single', title: '¿Cuántas personas se inscribieron?', next: 'L3', options: SIZES },
+    L3: { b: 'L', type: 'single', title: '¿Cuánto costaba la inscripción más común?', help: 'Córdobas aproximados a C$36.6 por dólar.', next: 'L4', options: [
+      o('gratis', 'Fue gratis'), o('menos10', 'Menos de US$10 (menos de C$370)'), o('10-20', 'US$10 a 20 (C$370 a 730)'), o('20-35', 'US$20 a 35 (C$730 a 1,280)'),
+      o('35-60', 'US$35 a 60 (C$1,280 a 2,200)'), o('mas60', 'Más de US$60'), NOSE] },
+    L4: { b: 'L', type: 'multi', title: '¿Por dónde se inscribió la gente?', help: 'Podés elegir varias.', next: 'L5', options: [
+      o('form', 'Un formulario en línea (Google Forms u otro)'), o('whatsapp', 'Por WhatsApp, escribiéndome a mí o al equipo'), o('web', 'Una página web propia'),
+      o('plataforma', 'Una plataforma de inscripción de otra empresa'), o('fisico', 'En una tienda o un punto físico'), o('redes', 'Por mensaje en Instagram o Facebook'), OTRO] },
+    L5: { b: 'L', type: 'multi', title: '¿Cómo te pagaron?', help: 'Podés elegir varias.', next: 'L6', options: [
+      o('transferencia', 'Transferencia bancaria'), o('efectivo', 'Efectivo'), o('tarjeta', 'Tarjeta, en línea'), o('billetera', 'Billetera digital o pago con el teléfono'),
+      o('patrocinio', 'Lo cubrió un patrocinador o una empresa'), o('gratis', 'Fue gratis', { ex: true })] },
+    L6: { b: 'L', type: 'single', title: '¿Cómo confirmabas que un pago había entrado?', next: 'L7', options: [
+      o('comprobante', 'Revisando comprobantes por WhatsApp o correo, uno por uno'), o('estado', 'Comparando contra el estado de cuenta del banco'),
+      o('plataforma', 'La plataforma lo confirmaba sola'), o('otra', 'Lo hacía otra persona del equipo'), o('no', 'No llegamos a confirmar todos'), o('nopago', 'No hubo pagos')] },
+    L7: { b: 'L', type: 'single', title: 'En la semana antes del evento, ¿cuántas horas al día se iban en mensajes de inscripción, pagos y kits?', help: 'Sumando a todo el equipo. Un aproximado basta.', next: 'L8', options: [
+      o('menos1', 'Menos de 1 hora'), o('1-2', '1 a 2 horas'), o('3-5', '3 a 5 horas'), o('mas5', 'Más de 5 horas'), NOSE] },
+    L8: { b: 'L', type: 'single', title: 'De los inscritos, ¿cuántos no llegaron el día del evento?', next: 'L9', options: [
+      o('menos5', 'Casi ninguno (menos del 5 %)'), o('5-10', 'Entre 5 y 10 %'), o('10-20', 'Entre 10 y 20 %'), o('mas20', 'Más del 20 %'), o('nomedimos', 'No lo medimos')] },
+    L9: { b: 'L', type: 'multi', title: '¿Qué pasó en la entrega de kits?', help: 'Camiseta, número y lo que incluía. Podés elegir varias.', next: 'L10', options: [
+      o('filas', 'Hubo filas largas'), o('lista', 'Buscábamos a cada persona en una lista impresa o en Excel'), o('comprobante', 'Llegó gente sin poder mostrar su pago'),
+      o('tallas', 'Se acabaron tallas de camiseta'), o('terceros', 'Muchos retiraron kits de otras personas'), o('cambios', 'Pidieron cambios de distancia o de talla'),
+      o('bien', 'Salió bien, sin problemas', { ex: true }), o('nokit', 'No hubo kit', { ex: true })] },
+    L10: { b: 'L', type: 'single', title: '¿Cómo tomaron los tiempos?', next: 'L11', options: [
+      o('chip', 'Con chip, contratando a una empresa'), o('manual', 'A mano, con cronómetro y lista'), o('app', 'Con una app'), o('no', 'No se tomaron tiempos')] },
+    L11: { b: 'L', type: 'multi', max: 3, title: '¿Qué te consumió más tiempo o te dio más dolores de cabeza?', help: 'Elegí hasta 3.', next: 'L12', options: TASKS },
+    L12: { b: 'L', type: 'text', optional: true, title: 'Contanos el peor momento de ese evento.', help: 'El que todavía recordás. Si no hubo ninguno, podés saltarla.', ph: 'Por ejemplo: la noche antes, revisando comprobantes…', next: 'N1' },
+
+    N1: { b: 'N', type: 'multi', title: '¿Por dónde promocionaste ese evento?', help: 'Podés elegir varias.', next: 'N2', options: [
+      o('instagram', 'Instagram'), o('facebook', 'Facebook'), o('tiktok', 'TikTok'), o('whatsapp', 'Grupos de WhatsApp'), o('clubes', 'Clubes y grupos de running'),
+      o('creadores', 'Creadores de contenido'), o('pauta', 'Publicidad pagada en redes'), o('medios', 'Radio, TV o prensa'), o('afiches', 'Afiches o tiendas'), OTRO] },
+    N2: { b: 'N', type: 'single', title: '¿Tuvo patrocinadores?', def: 'especie', options: [
+      o('efectivo', 'Sí, con dinero', { next: 'N3' }), o('especie', 'Sí, con producto o servicios', { next: 'N3' }), o('ambos', 'Sí, de las dos formas', { next: 'N3' }), o('no', 'No', { next: 'N4' })] },
+    N3: { b: 'N', type: 'multi', title: '¿Qué te pidieron los patrocinadores a cambio?', help: 'Podés elegir varias.', next: 'N4', options: [
+      o('logo', 'Su logo en camisetas, números o la meta'), o('stand', 'Un espacio o un stand el día del evento'), o('redes', 'Menciones en redes'),
+      o('datos', 'Datos de cuántos corrieron, de dónde y de qué edades'), o('informe', 'Un informe después del evento'), o('nada', 'Nada en particular', { ex: true }), OTRO] },
+    N4: { b: 'N', type: 'single', title: '¿Pagaste por alguna plataforma o servicio para las inscripciones?', def: 'no', options: [
+      o('no', 'No', { next: 'N6' }), o('comision', 'Sí, una comisión por cada inscripción', { next: 'N5' }), o('fija', 'Sí, una tarifa fija', { next: 'N5' }),
+      o('agencia', 'Una agencia lo manejó todo', { next: 'N5' })] },
+    N5: { b: 'N', type: 'single', title: 'Más o menos, ¿cuánto te costó, en proporción a lo que cobraste?', next: 'N6', options: [
+      o('menos5', 'Menos del 5 %'), o('5-8', 'Entre 5 y 8 %'), o('9-12', 'Entre 9 y 12 %'), o('mas12', 'Más del 12 %'), NOSE] },
+    N6: { b: 'N', type: 'single', title: 'Entre un evento y el siguiente, ¿sabés cuántos corredores repiten?', next: 'N7', options: [
+      o('medido', 'Sí, lo tengo medido'), o('aprox', 'Más o menos: los reconozco'), o('no', 'No lo sé')] },
+    N7: { b: 'N', type: 'single', title: 'Después del evento, ¿qué hiciste con los datos de los inscritos?', next: 'N8', options: [
+      o('aviso', 'Los usé para avisarles del siguiente evento'), o('guardo', 'Los guardé, pero no los he usado'), o('patrocinador', 'Se los compartí a patrocinadores, sin datos personales'),
+      o('plataforma', 'Se quedaron en la plataforma que usé'), o('borro', 'Los borré'), OTRO] },
+    N8: { b: 'N', type: 'single', title: 'Cuando hay que elegir una herramienta o un proveedor, ¿quién decide?', next: 'H1', options: [
+      o('yo', 'Yo'), o('socios', 'Lo decidimos entre socios'), o('comite', 'Un comité o una junta'), o('tercero', 'El patrocinador o la institución'), OTRO] },
+
+    PL1: { b: 'L', type: 'single', title: '¿Qué tipo de evento estás preparando?', next: 'PL2', options: KINDS },
+    PL2: { b: 'L', type: 'single', title: '¿Cuántas personas esperás?', next: 'PL3', options: SIZES },
+    PL3: { b: 'L', type: 'multi', max: 3, title: '¿Qué es lo que más te preocupa de organizarlo?', help: 'Elegí hasta 3.', next: 'PL4', options: TASKS },
+    PL4: { b: 'L', type: 'single', title: '¿Cómo pensás manejar las inscripciones y los pagos?', next: 'H2', options: [
+      o('form', 'Un formulario y transferencias'), o('whatsapp', 'Por WhatsApp'), o('plataforma', 'Con una plataforma de inscripción'), o('nose', 'Todavía no lo sé')] },
+
+    H1: { b: 'H', type: 'single', title: 'Si pudieras sacarte una sola tarea de encima en tu próximo evento, ¿cuál sería?', next: 'H2', options: TASKS },
+    H2: { b: 'H', type: 'single', title: '¿Tenés un evento planeado en los próximos 6 meses?', next: 'Z1', options: [
+      o('fecha', 'Sí, ya con fecha'), o('sinfecha', 'Sí, pero todavía sin fecha'), o('talvez', 'Tal vez'), o('no', 'No por ahora')] },
+
+    Z1: { b: 'Z', type: 'text', optional: true, title: '¿Qué es algo que nadie le pregunta a los organizadores y deberíamos saber?', help: 'Con tus palabras. Si no se te ocurre nada, podés saltarla.', next: 'Z2' },
+    Z2: { b: 'Z', type: 'single', title: '¿Cómo te llegó esta encuesta?', next: 'END', options: [
+      o('equipo', 'Alguien de Xolo Run me escribió'), o('reunion', 'La estoy llenando en una llamada o reunión con Xolo Run'), o('organizador', 'Me la pasó otro organizador'),
+      o('instagram', 'Instagram'), o('whatsapp', 'Un grupo de WhatsApp'), OTRO] }
+  };
+
+  // ───────── Íconos (trazo de 1.8, sin emojis) ─────────
+  const I = {
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    lock: '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+    save: '<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/>',
+    hand: '<path d="M7 11V6.5a1.5 1.5 0 0 1 3 0V11M10 10V5a1.5 1.5 0 0 1 3 0v5M13 10V6a1.5 1.5 0 0 1 3 0v6M16 11.5V9a1.5 1.5 0 0 1 3 0v4.5c0 4-2.8 7-6.5 7-2.6 0-4.3-1.3-5.6-3.3L4.3 13a1.5 1.5 0 0 1 2.4-1.8L8 13"/>',
+    flag: '<path d="M6 21V4M6 4h11.5l-2.6 4 2.6 4H6"/>',
+    profile: '<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.6-3.6 3.4-6 7-6s6.4 2.4 7 6"/>',
+    wallet: '<rect x="3.5" y="6" width="17" height="13" rx="2.5"/><path d="M3.5 10h17M15 14.5h2"/>',
+    qr: '<path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 14h2M14 18h2v2M18 18h2v2"/>',
+    hands: '<path d="M7 12l3-3 3 1 3-3 4 4-6 6-3-1-2 2-4-4z"/><path d="M3 9l4 3M21 9l-4-1"/>',
+    star: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+    spot: '<path d="M4 18h16M6 18V9l6-4 6 4v9"/><path d="M10 18v-4h4v4"/>',
+    chat: '<path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19L4 20z"/>',
+    report: '<path d="M6 3.5h9l3 3V20.5H6z"/><path d="M9 16v-3M12 16v-6M15 16v-4"/>',
+    seal: '<circle cx="12" cy="10" r="6"/><path d="M9 15.2L7.5 21l4.5-2 4.5 2-1.5-5.8M9.6 10l1.6 1.6 3.2-3.2"/>',
+    link: '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>',
+    arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    back: '<path d="M15 5l-7 7 7 7"/>',
+    check: '<path d="M5 12.5l4.2 4.2L19 7"/>',
+    text: '<path d="M4 7V5h16v2M12 5v14M9 19h6"/>'
+  };
+  const ic = (k, w) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 1.8) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[k] + '</svg>';
+  const TICK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>';
+  // Símbolo y wordmark de Ruta Común (mismos trazos que xolorun.com)
+  const SYM_PATH = 'M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445';
+  const LOGO = (c) => '<svg viewBox="0 0 1167.83 190" role="img" aria-label="Xolo Run"><g transform="scale(1.43940) translate(-24.918 -62.000)"><path d="' + SYM_PATH + '" stroke="' + c + '" fill="none" stroke-width="24"/><circle cx="64.055" cy="181.954" r="12" fill="' + c + '"/><circle cx="104.874" cy="169.445" r="12" fill="' + c + '"/><path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" stroke="#C65A3D" fill="none" stroke-width="24"/></g><g transform="translate(365.829 45)" fill="' + c + '"><path d="M0 0h22.506L86 100H63.494zM63.494 0H86L22.506 100H0z"/><path fill-rule="evenodd" d="M120 50a52 52 0 1 0 104 0a52 52 0 1 0-104 0zM139 50a33 33 0 1 0 66 0a33 33 0 1 0-66 0z"/><path d="M254 0h19v81h43v19h-62z"/><path fill-rule="evenodd" d="M338 50a52 52 0 1 0 104 0a52 52 0 1 0-104 0zM357 50a33 33 0 1 0 66 0a33 33 0 1 0-66 0z"/><path d="M516 0h9.5v100H516zM542.4 44.5h10.71L582 100h-10.71z"/><path fill-rule="evenodd" d="M520.75 0H553a27 27 0 0 1 0 54h-32.25zM520.75 9.5H553a17.5 17.5 0 0 1 0 35h-32.25z"/><path d="M614 0v62a38 38 0 0 0 76 0V0h-9.5v62a28.5 28.5 0 0 1-57 0V0z"/><path d="M722 0h9.5v100H722zM792.5 0h9.5v100h-9.5zM722 0h11.514L802 100h-11.514z"/></g></svg>';
+
+  // ───────── Estado ─────────
+  const STORE = 'xolo-org-encuesta-v1', QUEUE = 'xolo-org-pendientes-v1';
+  const DRAFT_TTL = 12 * 60 * 60 * 1000;
+  const state = { view: 'welcome', current: 'O1', answers: {}, history: [], big: false, hint: '', send: 'idle', lead: null, leadSend: 'idle', clientId: null, finished: false, dir: 'fwd', form: { interests: [], meet: null, slot: null } };
+  const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, () => Math.floor(Math.random() * 16).toString(16));
+  const reduce = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  function save() {
+    try {
+      localStorage.setItem(STORE, JSON.stringify({ ts: Date.now(), current: state.current, answers: state.answers, history: state.history, big: state.big, clientId: state.clientId, finished: state.finished, lead: state.lead, form: state.form }));
+    } catch (e) {}
+  }
+  function load() {
+    try {
+      const s = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (!s || !s.ts || Date.now() - s.ts > DRAFT_TTL) { localStorage.removeItem(STORE); return; }
+      if (s.answers && Q[s.current]) Object.assign(state, { current: s.current, answers: s.answers, history: s.history || [], big: !!s.big, clientId: s.clientId || null, finished: !!s.finished, lead: s.lead || null });
+      if (s.form && Array.isArray(s.form.interests)) state.form = s.form;
+    } catch (e) {}
+  }
+  const hasDraft = () => !state.finished && (state.history.length > 0 || Object.keys(state.answers).length > 0);
+  const isAnswered = (q, a) => q.type === 'multi' ? Array.isArray(a) && a.length > 0 : q.type === 'text' ? !!(a && String(a).trim().length >= 2) : a != null;
+
+  // ───────── Recorrido ─────────
+  function nextOf(id, a) {
+    const q = Q[id];
+    if (q.type === 'single') {
+      const op = q.options.find((x) => x.v === (a != null ? a : q.def));
+      if (op && op.next) return op.next;
+    }
+    return q.next;
+  }
+  function walk() {
+    const path = []; let id = 'O1'; let guard = 0;
+    while (id && Q[id] && guard++ < 80) { path.push(id); id = nextOf(id, state.answers[id]); }
+    return path;
+  }
+  const pathKind = () => state.answers.O2 === '0' ? 'planea' : 'activo';
+  function progress() {
+    const path = walk().filter((id) => Q[id].type !== 'info');
+    const i = Math.max(0, path.indexOf(state.current));
+    return { i, n: path.length, p: state.view === 'q' ? i / path.length : state.finished ? 1 : 0, left: path.length - i };
+  }
+  const blockIndex = (b) => BLOCKS.findIndex((x) => x.id === b);
+  // Avance por puestos de control: cada bloque ocupa el mismo tramo de la ruta (5 bloques + la meta),
+  // y dentro del bloque avanza pregunta por pregunta. Así la línea siempre coincide con los puntos.
+  function routeProgress() {
+    if (state.finished) return 1;
+    if (state.view !== 'q' || !Q[state.current]) return 0;
+    const b = Q[state.current].b, cur = blockIndex(b);
+    const inBlock = walk().filter((id) => Q[id].b === b);
+    const within = inBlock.length > 1 ? Math.max(0, inBlock.indexOf(state.current)) / inBlock.length : 0;
+    return (cur + within) / BLOCKS.length;
+  }
+
+  // ───────── Envío (con cola si no hay señal) ─────────
+  const readQueue = () => { try { return JSON.parse(localStorage.getItem(QUEUE) || '[]'); } catch (e) { return []; } };
+  const writeQueue = (q) => { try { localStorage.setItem(QUEUE, JSON.stringify(q)); } catch (e) {} };
+  const api = (path, body, keepalive) => fetch(SUPABASE_URL + path, { method: 'POST', keepalive: !!keepalive, headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' }, body: JSON.stringify(body) });
+  function track(event) {
+    if (DRY || CHANNEL === 'prueba') return;
+    try { api('/rest/v1/rpc/track_organizer', { p_event: event, p_channel: CHANNEL || 'directo' }, true).catch(() => {}); } catch (e) {}
+  }
+  let flushing = false;
+  async function flush() {
+    if (flushing) return;
+    const q = readQueue();
+    if (!q.length) return;
+    flushing = true;
+    const done = new Set(); const outcome = {};
+    for (const item of q) {
+      let r = 'keep';
+      if (DRY) r = 'ok';
+      else {
+        try {
+          const res = item.kind === 'lead' ? await api('/rest/v1/rpc/submit_organizer_lead', item.body) : await api('/rest/v1/organizer_responses', item.body);
+          if (res.ok || res.status === 409) r = 'ok';               // 409: ya estaba guardada (reintento)
+          else if (res.status >= 400 && res.status < 500) r = 'drop'; // rechazada por la base: no reintentar
+        } catch (e) { r = 'keep'; }
+      }
+      if (r !== 'keep') done.add(item.key);
+      if (item.body.client_id === state.clientId || item.body.p_client_id === state.clientId) outcome[item.kind] = r;
+    }
+    writeQueue(readQueue().filter((i) => !done.has(i.key)));
+    flushing = false;
+    const map = (r) => r === 'ok' ? 'ok' : r === 'drop' ? 'error' : 'offline';
+    if (outcome.resp) setSend('send', map(outcome.resp));
+    if (outcome.lead) setSend('leadSend', map(outcome.lead));
+  }
+  function enqueue(kind, body) {
+    const key = kind + ':' + state.clientId;
+    writeQueue(readQueue().filter((i) => i.key !== key).concat([{ kind, key, body }]));
+    flush();
+  }
+  function submitResponse() {
+    const answers = {};
+    walk().forEach((id) => {
+      const q = Q[id], a = state.answers[id];
+      if (q.type === 'info' || a == null) return;
+      if (q.type === 'text') { const t = String(a).trim(); if (t) answers[id] = t.slice(0, 600); }
+      else if (isAnswered(q, a)) answers[id] = a;
+    });
+    state.send = 'sending';
+    enqueue('resp', { client_id: state.clientId, version: VERSION, path: pathKind(), channel: CHANNEL, ref: REF, answers });
+  }
+  const SEND_TEXT = {
+    sending: ['Enviando tus respuestas…', ''],
+    ok: DRY ? ['Vista previa: no se envió nada.', 'En el sitio publicado aquí se confirma que tus respuestas llegaron.'] : ['Tus respuestas llegaron.', 'Gracias por tomarte el tiempo.'],
+    offline: ['Sin señal por ahora.', 'Quedaron guardadas en este teléfono y se envían solas cuando vuelva la conexión.'],
+    error: ['No pudimos guardar tus respuestas.', 'Intentá de nuevo en un momento.']
+  };
+  function sendBox() {
+    if (state.send === 'idle') return '';
+    const t = SEND_TEXT[state.send];
+    return '<div class="send" id="send" data-s="' + state.send + '" role="status"><span class="dot" aria-hidden="true"></span><div class="msg"><b>' + t[0] + '</b>' +
+      (t[1] ? '<span class="muted">' + t[1] + '</span>' : '') + (state.send === 'offline' || state.send === 'error' ? '<button type="button" class="link" data-act="retry">Intentar de nuevo</button>' : '') + '</div></div>';
+  }
+  function setSend(which, s) {
+    state[which] = s;
+    if (which === 'send') { const el = $('#send'); if (el) el.outerHTML = sendBox(); if (s === 'ok') announce(DRY ? 'Vista previa: no se envió nada.' : 'Tus respuestas llegaron.'); }
+    if (which === 'leadSend') { if (s === 'ok' && state.view === 'contact') { state.view = 'sent'; render(); } else if (s !== 'ok') { const b = $('#lead-go'); if (b) b.removeAttribute('aria-busy'); const e = $('#form-err'); if (e) e.textContent = s === 'offline' ? 'Sin señal: tus datos quedaron guardados en este teléfono y se envían solos cuando vuelva la conexión.' : 'No pudimos guardar tus datos. Revisá el número o el correo e intentá de nuevo.'; if (s === 'offline') { state.view = 'sent'; render(); } } }
+  }
+  addEventListener('online', flush);
+
+  // ───────── Avisos ─────────
+  const announce = (t) => { const el = $('#announce'); el.textContent = ''; setTimeout(() => { el.textContent = t; }, 40); };
+  let toastT = 0;
+  function toast(msg) {
+    const el = $('#toast');
+    el.innerHTML = ic('check', 2.6) + '<span>' + esc(msg) + '</span>';
+    el.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2400);
+  }
+
+  // ───────── Piezas visuales ─────────
+  // Ruta de la portada: el símbolo de Xolo Run estirado, con los cuatro puestos de control de un evento
+  function heroRoute() {
+    const d = 'M24 150 C70 150 80 70 150 70 S230 150 300 150 S380 60 450 70 S520 140 576 120';
+    const cps = [[24, 150, 'Inscripción', 34, 'start'], [150, 70, 'Pagos', -22, 'middle'], [300, 150, 'Kits', 36, 'middle'], [450, 70, 'Salida', -22, 'middle'], [576, 120, 'Meta', -22, 'end']];
+    return '<div class="hero-route" aria-hidden="true"><svg viewBox="0 0 600 190" preserveAspectRatio="xMidYMid meet">' +
+      '<path class="base" d="' + d + '"/><path class="draw" pathLength="1" d="' + d + '"/><path class="lit" pathLength="1" d="' + d + '"/>' +
+      cps.map((c, i) => '<g class="cp" style="animation-delay:' + (0.35 + i * 0.22) + 's"><circle cx="' + c[0] + '" cy="' + c[1] + '" r="9"/><text x="' + c[0] + '" y="' + (c[1] + c[3]) + '" text-anchor="' + c[4] + '">' + c[2] + '</text></g>').join('') +
+      '</svg></div>';
+  }
+  // Medidor de avance (teléfono): una ruta corta que se llena, con un puesto por bloque
+  const METER_D = 'M6 17 C60 6 110 28 170 17 S280 6 340 17 S450 28 514 17';
+  function meter() {
+    const ticks = BLOCKS.concat([{}]).map((b, i) => { const x = 6 + (508 * i) / BLOCKS.length; return '<circle class="tick" data-b="' + i + '" cx="' + x + '" cy="17" r="5.5"/>'; }).join('');
+    return '<div class="meter" aria-hidden="true"><svg viewBox="0 0 520 34"><path class="trk" d="' + METER_D + '"/><path class="fill" id="m-fill" pathLength="1" d="' + METER_D + '"/>' + ticks + '<circle class="dot" id="m-dot" cx="0" cy="0" r="7"/></svg></div>';
+  }
+  let lastP = 0;
+  function paintProgress() {
+    const p = routeProgress();
+    const fill = $('#m-fill'), dot = $('#m-dot');
+    const cur = state.finished ? BLOCKS.length : state.view === 'q' ? blockIndex(Q[state.current].b) : -1;
+    if (fill) {
+      // arranca desde donde iba para que la línea avance, no que salte
+      fill.style.transition = 'none'; fill.style.strokeDashoffset = String(1 - lastP); fill.getBoundingClientRect(); fill.style.transition = '';
+      requestAnimationFrame(() => { fill.style.strokeDashoffset = String(1 - p); });
+      const L = fill.getTotalLength(); const from = fill.getPointAtLength(L * lastP), to = fill.getPointAtLength(L * p);
+      dot.style.transition = 'none'; dot.style.transform = 'translate(' + from.x + 'px,' + from.y + 'px)'; dot.getBoundingClientRect(); dot.style.transition = '';
+      requestAnimationFrame(() => { dot.style.transform = 'translate(' + to.x + 'px,' + to.y + 'px)'; });
+      $$('.meter .tick').forEach((t) => t.classList.toggle('on', +t.dataset.b <= cur));
+    }
+    lastP = p;
+    paintRail(cur, p);
+  }
+  function paintRail(cur, v) {
+    const rail = $('#rail');
+    if (!rail) return;
+    const rows = BLOCKS.map((b, i) => '<li class="' + (state.finished || i < cur ? 'done' : i === cur && state.view === 'q' ? 'now' : '') + '"><i></i><div><b>' + b.short + '</b><small>' + b.name + '</small></div></li>').join('');
+    if (!rail.dataset.built) {
+      rail.dataset.built = '1';
+      rail.innerHTML = '<a class="brand" href="./">' + LOGO('#F3EFE7') + '<span>Organizadores</span></a>' +
+        '<div style="display:grid;gap:14px"><h2>La parte de los organizadores, <em>la construimos con vos.</em></h2><p>Lo que nos contés define qué hace Xolo Run por quienes organizan carreras en Nicaragua.</p></div>' +
+        '<ol class="cps" id="cps"><span class="fillv" id="fillv"></span>' + rows + '<li class="' + (state.finished ? 'done' : '') + '"><i></i><div><b>Meta</b><small>Organizadores Fundadores</small></div></li></ol>' +
+        '<div class="mini"><b>Organizadores Fundadores</b><span>Al final, podés postularte a los primeros cupos para publicar tu carrera con nosotros.</span></div>';
+    } else {
+      const ol = $('#cps');
+      $$('li', ol).forEach((li, i) => { li.className = i < BLOCKS.length ? (state.finished || i < cur ? 'done' : i === cur && state.view === 'q' ? 'now' : '') : (state.finished ? 'done' : ''); });
+    }
+    $('#fillv').style.setProperty('--p', String(v));
+  }
+
+  // ───────── Pantallas ─────────
+  const topbar = () => '<div class="wrap"><div class="topbar"><a class="brand" href="./">' + LOGO('#12383B') + '<span>Organizadores</span></a><div class="tools">' +
+    '<button type="button" class="tool" data-act="big" aria-pressed="' + state.big + '" aria-label="Letra grande">Aa</button></div></div></div>';
+
+  function viewWelcome() {
+    const resume = hasDraft();
+    return topbar() + '<div class="wrap welcome enter">' +
+      (DRY ? '<p class="preview-flag">Vista previa: esta página todavía no envía respuestas.</p>' : '') +
+      '<p class="eyebrow">Encuesta para organizadores de carreras</p>' +
+      '<h1 class="headline" tabindex="-1" id="focus">Contanos cómo <em>organizás.</em></h1>' +
+      '<p class="lede">Estamos creando <b>Xolo Run</b>, una app donde los corredores tendrán su perfil y los organizadores el suyo, para publicar sus carreras e inscribir a su gente. Antes de construir la parte de organizadores, queremos entender cómo lo hacés hoy.</p>' +
+      heroRoute() +
+      '<ul class="facts"><li>' + ic('clock') + 'Unos 10 minutos</li><li>' + ic('lock') + 'Anónima</li><li>' + ic('save') + 'Se guarda sola</li></ul>' +
+      '<div class="note">' + ic('hand') + '<p>Tus respuestas no llevan tu nombre. Al final, <b>si querés</b>, podés dejar tu contacto para conversar con nosotros o postularte como <b>Organizador Fundador</b>.</p></div>' +
+      (resume ? '<div class="resume"><b>Tenés una encuesta a medias en este teléfono.</b><span class="muted">Seguí donde te quedaste o empezá de nuevo.</span></div>' : '') +
+      '<div class="actions"><button type="button" class="go" data-act="start">' + (resume ? 'Seguir donde iba' : 'Empezar') + ic('arrow', 2.2) + '</button>' +
+      (resume ? '<button type="button" class="link" data-act="restart" style="justify-self:center">Empezar de nuevo</button>' : '') + '</div>' +
+      '<div class="foot"><button type="button" class="link" data-act="privacy">Cómo cuidamos tus datos</button><span>Xolo Run · Nicaragua</span></div>' +
+      '</div>';
+  }
+
+  function viewQuestion() {
+    const id = state.current, q = Q[id], a = state.answers[id];
+    const b = BLOCKS[blockIndex(q.b)], { i, n, left } = progress();
+    const mins = Math.max(1, Math.round(left * 0.3));
+    const cap = '<div class="wrap"><div class="cap"><b>' + esc(b.name) + '</b><span>' + (q.type === 'info' ? 'Bloque ' + (blockIndex(q.b) + 1) + ' de ' + BLOCKS.length : (i + 1) + ' de ' + n + ' · ~' + mins + ' min') + '</span></div></div>';
+    let body = '';
+    if (q.type === 'info') {
+      body = '<div class="info-card">' + ic('flag') + '<h1 class="q-title" tabindex="-1" id="focus">' + esc(q.title) + '</h1><p class="q-help">' + esc(q.help) + '</p></div>';
+    } else {
+      body = '<h1 class="q-title" tabindex="-1" id="focus">' + esc(q.title) + '</h1>' + (q.help ? '<p class="q-help" id="qh">' + esc(q.help) + '</p>' : '');
+      if (q.type === 'text') {
+        body += '<label class="sr" for="ta">' + esc(q.title) + '</label><textarea class="textarea" id="ta" maxlength="600" placeholder="' + esc(q.ph || 'Escribí aquí') + '"' + (q.help ? ' aria-describedby="qh"' : '') + '>' + esc(a || '') + '</textarea><span class="count" id="cnt">' + String(a || '').length + ' / 600</span>';
+      } else {
+        const multi = q.type === 'multi', role = multi ? 'checkbox' : 'radio';
+        const full = multi && q.max && Array.isArray(a) && a.length >= q.max;
+        body += '<div class="opts" role="' + (multi ? 'group' : 'radiogroup') + '" aria-labelledby="focus">' + q.options.map((op, k) => {
+          const on = multi ? Array.isArray(a) && a.includes(op.v) : a === op.v;
+          const dis = full && !on;
+          return '<button type="button" class="opt" role="' + role + '" aria-checked="' + on + '"' + (dis ? ' aria-disabled="true"' : '') + ' data-v="' + esc(op.v) + '" tabindex="' + (multi || on || (a == null && k === 0) ? 0 : -1) + '">' +
+            '<span class="ind">' + TICK + '</span><span class="lbl">' + esc(op.t) + '</span>' + (k < 9 ? '<span class="key" aria-hidden="true">' + (k + 1) + '</span>' : '') + '</button>';
+        }).join('') + '</div>';
+      }
+      body += '<p class="hint" id="hint" aria-live="polite">' + esc(state.hint) + '</p>';
+    }
+    const ok = q.type === 'info' || q.optional || isAnswered(q, a);
+    const label = q.type === 'info' ? q.cta : q.type === 'text' && q.optional && !isAnswered(q, a) ? 'Saltar' : nextOf(id, a) === 'END' ? 'Terminar' : 'Siguiente';
+    return '<div class="band">' + topbar() + '<div class="wrap">' + meter() + '</div>' + cap + '</div>' +
+      '<div class="stage"><div class="wrap qbody" id="qbody">' + body + '</div>' +
+      '<div class="dock"><div class="wrap row"><button type="button" class="back" data-act="back" aria-label="Volver">' + ic('back', 2.4) + '</button>' +
+      '<button type="button" class="go" id="next" data-act="next"' + (ok ? '' : ' aria-disabled="true"') + '>' + label + ic('arrow', 2.2) + '</button></div></div></div>';
+  }
+
+  function viewDone() {
+    const builds = [
+      ['profile', 'Tu perfil de organizador', 'Tus carreras publicadas en un solo lugar, junto al perfil de cada corredor.'],
+      ['wallet', 'Inscripciones y pagos ordenados', 'Cada inscrito con sus datos completos y su pago revisado, sin perseguir comprobantes por WhatsApp.'],
+      ['qr', 'Kits y llegada con QR', 'Cada corredor con su dorsal en el teléfono y tu equipo escaneando en la entrega de kits.']
+    ];
+    return topbar() + '<div class="wrap after enter">' +
+      '<div class="finish"><div class="tape" aria-hidden="true"><svg viewBox="0 0 520 86"><path class="ln" pathLength="1" d="M8 64 C120 40 200 76 300 56 S430 40 470 60"/><path class="lt" pathLength="1" d="M470 60 L500 58"/><g class="flag"><path d="M502 70V22" stroke="#12383B" stroke-width="4" stroke-linecap="round"/><path d="M502 22h14l-4 6 4 6h-14z" fill="#C65A3D"/></g></svg></div>' +
+      '<p class="eyebrow">Llegaste a la meta</p><h1 class="h2" tabindex="-1" id="focus">Gracias. Esto nos sirve más de lo que creés.</h1>' + sendBox() + '</div>' +
+      '<section class="build"><span class="tag"><i></i>En construcción</span><h2 class="h3">Lo que estamos construyendo para organizadores</h2><ol>' +
+      builds.map((x) => '<li>' + ic(x[0]) + '<div><b>' + x[1] + '</b><span>' + x[2] + '</span></div></li>').join('') +
+      '</ol><p class="muted" style="font-size:.95rem">Todavía no está disponible. Lo que nos contaste decide qué llega primero.</p></section>' +
+      founderCard() +
+      '<div class="actions" style="position:static"><button type="button" class="go" data-act="contact">Quiero seguir en contacto' + ic('arrow', 2.2) + '</button>' +
+      '<button type="button" class="link" data-act="share" style="justify-self:center">Terminar sin dejar contacto</button></div>' +
+      '</div>';
+  }
+
+  function founderCard() {
+    const perks = [
+      ['hands', 'Te acompañamos a montar tu carrera', 'Una persona del equipo la publica con vos, paso a paso.'],
+      ['spot', 'Tu carrera en la vitrina del lanzamiento', 'Entre las primeras que verán los corredores en la app y en nuestras redes.'],
+      ['seal', 'Sello de Organizador Fundador', 'Queda en tu perfil para siempre, como uno de los primeros.'],
+      ['chat', 'Tu voz en lo que construimos', 'Probás las funciones antes que nadie y nos decís qué cambiar.'],
+      ['report', 'El informe del sector, primero', 'Los resultados de esta encuesta, resumidos, antes de que se publiquen.']
+    ];
+    const ring = 'ORGANIZADOR FUNDADOR · XOLO RUN · ';
+    return '<section class="founder" aria-labelledby="fh"><div class="seal" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><path id="ring" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0"/></defs><text><textPath href="#ring">' + ring + ring.slice(0, 6) + '</textPath></text><circle cx="50" cy="50" r="20" fill="#C65A3D"/><path d="M41 50l6 6 12-12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      '<p class="eyebrow">Primera ronda · cupos limitados</p><h2 class="h2" id="fh" style="max-width:12ch">Organizadores <em>Fundadores</em></h2>' +
+      '<p>Buscamos a los primeros organizadores para publicar sus carreras en Xolo Run y construir con ellos la herramienta.</p>' +
+      '<ul class="perks">' + perks.map((x, i) => '<li style="animation-delay:' + (0.15 + i * 0.07) + 's">' + ic(x[0]) + '<div><b>' + x[1] + '</b><span>' + x[2] + '</span></div></li>').join('') + '</ul>' +
+      '<p class="fine"><b>Cómo elegimos.</b> Revisamos cada postulación según las fechas, el tipo de evento y la zona, para empezar con un grupo variado. No todas entran en la primera ronda; las demás quedan para las siguientes. Postularte no tiene costo ni te compromete a nada.</p></section>';
+  }
+
+  function viewContact() {
+    const f = state.form, L = state.lead || {};
+    const pick = (name, v, t, small, on) => '<button type="button" class="opt" role="checkbox" aria-checked="' + on + '" data-int="' + v + '"><span class="ind">' + TICK + '</span><span class="lbl">' + t + (small ? '<small>' + small + '</small>' : '') + '</span></button>';
+    const chip = (grp, v, t) => '<button type="button" class="chip" role="radio" aria-checked="' + (f[grp] === v) + '" data-' + grp + '="' + v + '">' + t + '</button>';
+    const wantsTalk = f.interests.includes('fundador') || f.interests.includes('llamada');
+    return topbar() + '<div class="wrap after enter" style="gap:22px">' +
+      '<div style="display:grid;gap:10px"><p class="eyebrow">Sigamos en contacto</p><h1 class="h2" tabindex="-1" id="focus">¿Cómo seguimos?</h1>' +
+      '<p class="muted">Solo si querés. Con estos datos te escribimos para coordinar. Tus respuestas quedan unidas a tu contacto para preparar la conversación.</p></div>' +
+      '<form class="form" id="lead" novalidate>' +
+      '<div class="errbox" id="err-sum" role="alert" tabindex="-1" hidden></div>' +
+      '<fieldset><legend>¿Qué te interesa? <small>Podés elegir varias.</small></legend><div class="pick" role="group" aria-label="Qué te interesa">' +
+      pick('i', 'fundador', 'Postularme como Organizador Fundador', 'Primera ronda, cupos limitados', f.interests.includes('fundador')) +
+      pick('i', 'llamada', 'Conversar en una llamada o reunión', '20 a 30 minutos, cuando te quede bien', f.interests.includes('llamada')) +
+      pick('i', 'informe', 'Recibir el informe de resultados', 'Un resumen, sin datos de nadie', f.interests.includes('informe')) +
+      '</div><p class="err" id="e-int"></p></fieldset>' +
+      '<div class="grid2">' +
+      '<label class="lab" for="f-name">Tu nombre<input class="input" id="f-name" name="name" autocomplete="name" maxlength="80" value="' + esc(L.name || '') + '" aria-describedby="e-name"></label><p class="err" id="e-name"></p>' +
+      '<label class="lab" for="f-org">Tu organización o tu evento <small>(opcional)</small><input class="input" id="f-org" name="org" autocomplete="organization" maxlength="100" value="' + esc(L.org || '') + '"></label>' +
+      '<label class="lab" for="f-wa">WhatsApp<input class="input" id="f-wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="8888 8888" value="' + esc(L.wa || '') + '" aria-describedby="e-contact"></label>' +
+      '<label class="lab" for="f-mail">Correo <small>(si preferís)</small><input class="input" id="f-mail" name="mail" type="email" inputmode="email" autocomplete="email" maxlength="254" value="' + esc(L.mail || '') + '" aria-describedby="e-contact"></label><p class="err" id="e-contact"></p>' +
+      '</div>' +
+      '<div class="reveal" id="talk"' + (wantsTalk ? '' : ' hidden') + '>' +
+      '<fieldset><legend>¿Cómo preferís conversar?</legend><div class="chips" role="radiogroup" aria-label="Cómo preferís conversar">' + chip('meet', 'videollamada', 'Videollamada (Meet)') + chip('meet', 'llamada', 'Llamada por WhatsApp') + chip('meet', 'persona', 'En persona, en Managua') + chip('meet', 'escribir', 'Mejor escríbanme') + '</div></fieldset>' +
+      '<fieldset><legend>¿A qué hora te queda mejor?</legend><div class="chips" role="radiogroup" aria-label="Horario">' + chip('slot', 'manana', 'Mañana') + chip('slot', 'mediodia', 'Mediodía') + chip('slot', 'tarde', 'Tarde') + chip('slot', 'noche', 'Noche') + chip('slot', 'cualquiera', 'Cualquiera') + '</div></fieldset>' +
+      '<label class="lab" for="f-next">Tu próximo evento <small>(opcional: nombre y mes)</small><input class="input" id="f-next" maxlength="80" placeholder="Por ejemplo: 10K de la colonia, marzo" value="' + esc(L.next || '') + '"></label>' +
+      '</div>' +
+      '<label class="check"><input type="checkbox" id="f-ok"' + (L.ok ? ' checked' : '') + ' aria-describedby="e-ok"><span class="box">' + TICK + '</span><span>Acepto que Xolo Run guarde estos datos para contactarme sobre lo que marqué. Puedo pedir que los borren cuando quiera. <button type="button" class="link" data-act="privacy" style="min-height:auto;padding:0;display:inline">Aviso de privacidad</button></span></label><p class="err" id="e-ok"></p>' +
+      '<p class="err" id="form-err" role="status"></p>' +
+      '<button type="submit" class="go" id="lead-go">Enviar' + ic('arrow', 2.2) + '</button>' +
+      '</form><button type="button" class="link" data-act="share" style="justify-self:center">Mejor no, gracias</button></div>';
+  }
+
+  function viewSent() {
+    const L = state.lead || {}, f = state.form;
+    const first = String(L.name || '').trim().split(/\s+/)[0];
+    const founder = f.interests.includes('fundador');
+    const steps = founder
+      ? [['Recibimos tu postulación', 'Queda guardada con tus respuestas.'], ['Te escribimos para conversar', 'En los próximos días, por ' + (L.wa ? 'WhatsApp' : 'correo') + '.'], ['Te contamos si entrás en la primera ronda', 'Si no, quedás para la siguiente.']]
+      : [['Recibimos tus datos', 'Quedan guardados con tus respuestas.'], [f.interests.includes('llamada') ? 'Te escribimos para coordinar' : 'Te escribimos cuando haya novedades', f.interests.includes('informe') ? 'Y te mandamos el informe cuando esté listo.' : 'Sin mensajes de más.']];
+    return topbar() + '<div class="wrap after enter">' +
+      '<div class="finish"><p class="eyebrow">' + (DRY ? 'Vista previa: no se envió nada' : 'Listo') + '</p><h1 class="h2" tabindex="-1" id="focus">' + (first ? esc(first) + ', ' : '') + (founder ? 'ya estás en la fila de fundadores.' : 'quedamos en contacto.') + '</h1>' +
+      (state.leadSend === 'offline' ? '<div class="send" data-s="offline"><span class="dot"></span><div class="msg"><b>Sin señal por ahora.</b><span class="muted">Tus datos se envían solos cuando vuelva la conexión.</span></div></div>' : '') + '</div>' +
+      '<ol class="steps">' + steps.map((s, i) => '<li class="' + (i === 0 ? 'done' : '') + '"><i>' + (i === 0 ? ic('check', 3) : i + 1) + '</i><div><b>' + s[0] + '</b><span>' + s[1] + '</span></div></li>').join('') + '</ol>' +
+      shareBox() + anotherOne() + '</div>';
+  }
+  // en llamadas o visitas el equipo llena varias encuestas en el mismo aparato: cada una sale con su propio id
+  const anotherOne = () => '<button type="button" class="link" data-act="another" style="justify-self:center">Llenar otra encuesta (otro organizador)</button>';
+  function viewShare() {
+    return topbar() + '<div class="wrap after enter"><div class="finish"><p class="eyebrow">Gracias</p><h1 class="h2" tabindex="-1" id="focus">Tus respuestas ya cuentan.</h1>' + sendBox() +
+      '<p class="muted">Si más adelante querés conversar o postularte, volvé a esta página desde este teléfono.</p></div>' + shareBox() +
+      '<button type="button" class="link" data-act="contact" style="justify-self:center">Cambié de idea: quiero dejar mi contacto</button>' + anotherOne() + '</div>';
+  }
+  function shareBox() {
+    const url = PUBLIC_URL + '?c=referido';
+    const text = 'Te paso esta encuesta para organizadores de carreras en Nicaragua. Es de Xolo Run, son unos 10 minutos y es anónima: ' + url;
+    return '<section class="sharebox"><h2 class="h3">¿Conocés a otro organizador?</h2><p class="muted">Mientras más organizadores respondan, mejor sale el informe para todos.</p>' +
+      '<a class="go" href="https://wa.me/?text=' + encodeURIComponent(text) + '" target="_blank" rel="noopener" data-act="wa">Pasarla por WhatsApp' + ic('chat', 2) + '</a>' +
+      '<button type="button" class="ghost" data-act="copy" data-url="' + esc(url) + '">' + ic('link', 2) + '<span>Copiar el enlace</span></button></section>';
+  }
+  function viewPrivacy() {
+    return topbar() + '<div class="wrap page enter"><button type="button" class="link" data-act="close">' + '← Volver' + '</button>' +
+      '<h1 class="h2" tabindex="-1" id="focus">Cómo cuidamos tus datos</h1>' +
+      '<section><h2 class="h3">La encuesta es anónima</h2><p class="muted">No pide tu nombre ni tu contacto. Guardamos tus respuestas, la versión de la encuesta y el enlace por el que llegaste.</p></section>' +
+      '<section><h2 class="h3">Si dejás tu contacto</h2><dl>' +
+      '<div><dt>Responsable</dt><dd>' + esc(PRIVACY.controller) + '</dd></div>' +
+      '<div><dt>Qué guardamos</dt><dd>Tu nombre, tu WhatsApp o tu correo, tu organización y tu próximo evento si los escribiste, lo que marcaste que te interesa y cómo preferís conversar. Tus respuestas de la encuesta quedan unidas a ese contacto.</dd></div>' +
+      '<div><dt>Para qué</dt><dd>Para escribirte sobre lo que marcaste: la postulación a Organizador Fundador, una conversación o el informe de resultados. No vendemos ni compartimos tus datos.</dd></div>' +
+      '<div><dt>Dónde</dt><dd>En una base de datos de Supabase, en servidores de Estados Unidos, con acceso solo del equipo de Xolo Run.</dd></div>' +
+      '<div><dt>Cuánto tiempo</dt><dd>' + esc(PRIVACY.retention) + '</dd></div>' +
+      '<div><dt>Tus derechos</dt><dd>Podés pedir ver, corregir o borrar tus datos, o retirar tu permiso, cuando quieras (Ley 787 de Protección de Datos Personales). Escribinos a <a href="' + esc(PRIVACY.contact.href) + '" target="_blank" rel="noopener">' + esc(PRIVACY.contact.label) + '</a>.</dd></div>' +
+      '<div><dt>Visitas</dt><dd>Contamos visitas y respuestas terminadas solo como sumas por día y por enlace. Sin cookies, sin dirección IP ni nada que identifique a una persona.</dd></div>' +
+      '<div><dt>Versión</dt><dd>' + CONSENT_VERSION + '</dd></div>' +
+      '</dl></section></div>';
+  }
+
+  // ───────── Render con transición direccional ─────────
+  let prevView = null;
+  function render() {
+    const main = $('#main');
+    const V = { welcome: viewWelcome, q: viewQuestion, done: viewDone, contact: viewContact, sent: viewSent, share: viewShare, privacy: viewPrivacy };
+    const sameQ = prevView === 'q' && state.view === 'q';
+    if (sameQ && !reduce()) {
+      // entre preguntas: la anterior sale rápido y la nueva entra desde la dirección del avance
+      const old = $('#qbody');
+      // la salida nunca bloquea: si la animación no termina (pestaña oculta, ahorro de batería), el temporizador sigue igual
+      let gone = false;
+      const go = () => { if (gone) return; gone = true; main.innerHTML = V.q(); after(true); };
+      if (old) {
+        const a = old.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(' + (state.dir === 'fwd' ? -12 : 12) + 'px)' }], { duration: 140, easing: 'cubic-bezier(.55,0,.75,.2)', fill: 'forwards' });
+        a.onfinish = go; a.oncancel = go; setTimeout(go, 180);
+        return;
+      }
+    }
+    main.innerHTML = V[state.view]();
+    after(sameQ);
+  }
+  function after(sameQ) {
+    document.documentElement.classList.toggle('big', state.big);
+    const qb = $('#qbody');
+    if (sameQ && qb && !reduce()) qb.animate([{ opacity: 0, transform: 'translateY(' + (state.dir === 'fwd' ? 18 : -18) + 'px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.22,1,.36,1)' });
+    if (state.view !== 'q' || prevView !== 'q') window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    else window.scrollTo(0, 0);
+    prevView = state.view;
+    paintProgress();
+    const f = $('#focus'); if (f) f.focus({ preventScroll: true });
+    const ta = $('#ta'); if (ta) ta.addEventListener('input', onText);
+    save();
+  }
+
+  // ───────── Acciones ─────────
+  function start() {
+    if (!state.clientId) state.clientId = uuid();
+    if (!hasDraft()) { state.current = 'O1'; track('inicio'); }
+    state.view = 'q'; state.dir = 'fwd'; render();
+  }
+  function restart() {
+    Object.assign(state, { current: 'O1', answers: {}, history: [], clientId: uuid(), finished: false, lead: null, send: 'idle', leadSend: 'idle', form: { interests: [], meet: null, slot: null } });
+    lastP = 0; track('inicio'); state.view = 'q'; state.dir = 'fwd'; render();
+  }
+  function goNext() {
+    if (state.view !== 'q') return;
+    const q = Q[state.current], a = state.answers[state.current];
+    if (q.type !== 'info' && !q.optional && !isAnswered(q, a)) { state.hint = q.type === 'multi' ? 'Elegí al menos una opción para seguir.' : 'Elegí una opción para seguir.'; hintOnly(); return; }
+    const nx = nextOf(state.current, a);
+    state.hint = '';
+    if (nx === 'END') { state.history.push(state.current); finish(); return; }
+    const fromB = q.b, toB = Q[nx].b;
+    state.history.push(state.current); state.current = nx; state.dir = 'fwd';
+    if (fromB !== toB) toast('Listo: ' + BLOCKS[blockIndex(fromB)].short);
+    render();
+  }
+  function hintOnly() { const h = $('#hint'); if (h) { h.textContent = state.hint; } announce(state.hint); }
+  function goBack() {
+    clearTimeout(autoT);
+    if (!state.history.length) { state.view = 'welcome'; render(); return; }
+    state.current = state.history.pop(); state.hint = ''; state.dir = 'back'; render();
+  }
+  function finish() {
+    state.finished = true; state.view = 'done';
+    submitResponse(); track('fin'); render();
+  }
+  let autoT = 0;
+  function pick(v) {
+    const id = state.current, q = Q[id];
+    clearTimeout(autoT);
+    if (q.type === 'single') {
+      state.answers[id] = v; state.hint = '';
+      paintOpts();
+      // una sola opción: avanza sola tras un respiro, para que se vea la selección
+      autoT = setTimeout(goNext, reduce() ? 120 : 340);
+    } else {
+      const op = q.options.find((x) => x.v === v);
+      let cur = Array.isArray(state.answers[id]) ? state.answers[id].slice() : [];
+      if (cur.includes(v)) cur = cur.filter((x) => x !== v);
+      else if (op.ex) cur = [v];
+      else {
+        cur = cur.filter((x) => !(q.options.find((y) => y.v === x) || {}).ex);
+        if (q.max && cur.length >= q.max) { state.hint = 'Podés elegir hasta ' + q.max + '. Quitá una para cambiarla.'; hintOnly(); return; }
+        cur.push(v);
+      }
+      state.answers[id] = cur; state.hint = '';
+      paintOpts();
+    }
+    save();
+  }
+  // actualiza las opciones en su lugar (sin volver a pintar la pantalla): la marca se dibuja y nada salta
+  function paintOpts() {
+    const q = Q[state.current], a = state.answers[state.current];
+    const full = q.type === 'multi' && q.max && Array.isArray(a) && a.length >= q.max;
+    $$('.opts .opt').forEach((b) => {
+      const on = q.type === 'multi' ? Array.isArray(a) && a.includes(b.dataset.v) : a === b.dataset.v;
+      b.setAttribute('aria-checked', on);
+      if (full && !on) b.setAttribute('aria-disabled', 'true'); else b.removeAttribute('aria-disabled');
+      if (q.type === 'single') b.tabIndex = on ? 0 : -1;
+    });
+    const h = $('#hint'); if (h) h.textContent = state.hint;
+    const nx = $('#next'); if (nx) { if (isAnswered(q, a)) nx.removeAttribute('aria-disabled'); else nx.setAttribute('aria-disabled', 'true'); }
+  }
+  function onText(e) {
+    const q = Q[state.current];
+    state.answers[state.current] = e.target.value;
+    $('#cnt').textContent = e.target.value.length + ' / 600';
+    const nx = $('#next'), ok = isAnswered(q, e.target.value);
+    nx.firstChild.nodeValue = q.optional && !ok ? 'Saltar' : 'Siguiente';
+    save();
+  }
+
+  // ───────── Formulario de contacto ─────────
+  function readForm() {
+    return { name: ($('#f-name') || {}).value || '', org: ($('#f-org') || {}).value || '', wa: ($('#f-wa') || {}).value || '', mail: ($('#f-mail') || {}).value || '', next: ($('#f-next') || {}).value || '', ok: !!($('#f-ok') || {}).checked };
+  }
+  function setErr(id, msg, field) {
+    const e = $('#' + id); if (e) e.textContent = msg || '';
+    if (field) { if (msg) field.setAttribute('aria-invalid', 'true'); else field.removeAttribute('aria-invalid'); }
+  }
+  function validate(L) {
+    const errs = [];
+    const digits = L.wa.replace(/[^0-9]/g, '');
+    const waOk = !L.wa.trim() || digits.length === 8 || (digits.length >= 10 && digits.length <= 15);
+    const mailOk = !L.mail.trim() || /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(L.mail.trim());
+    setErr('e-int', state.form.interests.length ? '' : 'Elegí al menos una opción.'); if (!state.form.interests.length) errs.push(['e-int', 'Qué te interesa']);
+    const nOk = L.name.trim().length >= 2; setErr('e-name', nOk ? '' : 'Escribí tu nombre.', $('#f-name')); if (!nOk) errs.push(['f-name', 'Tu nombre']);
+    let cMsg = '';
+    if (!L.wa.trim() && !L.mail.trim()) cMsg = 'Dejanos tu WhatsApp o tu correo.';
+    else if (!waOk) cMsg = 'El WhatsApp debe tener 8 dígitos (Nicaragua) o el código de país.';
+    else if (!mailOk) cMsg = 'Revisá el correo: falta la @ o el dominio.';
+    setErr('e-contact', cMsg, cMsg && !waOk ? $('#f-wa') : null); if (cMsg) errs.push([!waOk || !L.wa.trim() ? 'f-wa' : 'f-mail', 'WhatsApp o correo']);
+    setErr('e-ok', L.ok ? '' : 'Necesitamos tu permiso para guardar tus datos.'); if (!L.ok) errs.push(['f-ok', 'Permiso para guardar tus datos']);
+    const sum = $('#err-sum');
+    if (errs.length > 1) { sum.hidden = false; sum.innerHTML = 'Revisá ' + errs.length + ' cosas: ' + errs.map((x) => esc(x[1])).join(', ') + '.'; sum.focus(); }
+    else { sum.hidden = true; if (errs.length) { const el = $('#' + errs[0][0]); if (el && el.focus) el.focus(); } }
+    return !errs.length;
+  }
+  function submitLead(ev) {
+    ev.preventDefault();
+    const L = readForm();
+    if (!validate(L)) return;
+    state.lead = L; save();
+    const b = $('#lead-go'); b.setAttribute('aria-busy', 'true');
+    state.leadSend = 'sending';
+    track('contacto');
+    const f = state.form;
+    const talk = f.interests.includes('fundador') || f.interests.includes('llamada');
+    enqueue('lead', { p_client_id: state.clientId, p_name: L.name.trim(), p_organization: L.org.trim() || null, p_whatsapp: L.wa.trim() || null, p_email: L.mail.trim().toLowerCase() || null,
+      p_interests: f.interests, p_meet: talk ? f.meet : null, p_slot: talk ? f.slot : null, p_next_event: talk ? (L.next.trim() || null) : null, p_consent_version: CONSENT_VERSION, p_channel: CHANNEL, p_ref: REF });
+  }
+
+  // ───────── Eventos ─────────
+  document.addEventListener('click', (e) => {
+    const opt = e.target.closest('.opts .opt');
+    if (opt) { if (opt.getAttribute('aria-disabled') !== 'true') pick(opt.dataset.v); else { state.hint = 'Podés elegir hasta ' + Q[state.current].max + '. Quitá una para cambiarla.'; hintOnly(); } return; }
+    const it = e.target.closest('[data-int]');
+    if (it) {
+      const v = it.dataset.int, arr = state.form.interests;
+      state.form.interests = arr.includes(v) ? arr.filter((x) => x !== v) : arr.concat([v]);
+      it.setAttribute('aria-checked', state.form.interests.includes(v));
+      setErr('e-int', '');
+      const talk = $('#talk'), want = state.form.interests.includes('fundador') || state.form.interests.includes('llamada');
+      if (want && talk.hidden) { talk.hidden = false; talk.classList.add('in'); } else if (!want) talk.hidden = true;
+      return;
+    }
+    const ch = e.target.closest('[data-meet],[data-slot]');
+    if (ch) {
+      const grp = ch.dataset.meet ? 'meet' : 'slot';
+      state.form[grp] = ch.dataset[grp];
+      $$('[data-' + grp + ']').forEach((x) => x.setAttribute('aria-checked', x === ch));
+      return;
+    }
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    const act = btn.dataset.act;
+    if (act === 'start') start();
+    else if (act === 'restart') restart();
+    else if (act === 'another') { restart(); state.view = 'welcome'; render(); }
+    else if (act === 'next') { clearTimeout(autoT); goNext(); }   // deshabilitado igual explica qué falta
+    else if (act === 'back') goBack();
+    else if (act === 'big') { state.big = !state.big; btn.setAttribute('aria-pressed', state.big); document.documentElement.classList.toggle('big', state.big); save(); }
+    else if (act === 'contact') { state.view = 'contact'; render(); }
+    else if (act === 'share') { state.view = 'share'; render(); }
+    else if (act === 'privacy') { state.back = state.view; if (state.view === 'contact') state.lead = Object.assign({}, state.lead, readForm()); state.view = 'privacy'; render(); }
+    else if (act === 'close') { state.view = state.back || 'welcome'; render(); }
+    else if (act === 'retry') { setSend('send', 'sending'); flush(); }
+    else if (act === 'wa') track('compartir');
+    else if (act === 'copy') {
+      const url = btn.dataset.url, span = btn.querySelector('span');
+      const ok = () => { span.textContent = 'Enlace copiado'; announce('Enlace copiado'); setTimeout(() => { span.textContent = 'Copiar el enlace'; }, 2000); };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, () => prompt('Copiá el enlace:', url)); else prompt('Copiá el enlace:', url);
+      track('compartir');
+    }
+  });
+  document.addEventListener('submit', (e) => { if (e.target.id === 'lead') submitLead(e); });
+  document.addEventListener('keydown', (e) => {
+    if (state.view !== 'q' || e.altKey || e.ctrlKey || e.metaKey) return;
+    const q = Q[state.current];
+    if (e.target.tagName === 'TEXTAREA') return;
+    // números 1–9 eligen, Enter sigue, flechas se mueven entre opciones de una sola respuesta
+    if (/^[1-9]$/.test(e.key) && q.options) { const op = q.options[+e.key - 1]; if (op) { e.preventDefault(); const b = $('.opts .opt[data-v="' + op.v + '"]'); if (b && b.getAttribute('aria-disabled') !== 'true') pick(op.v); } return; }
+    if (e.key === 'Enter' && !e.target.closest('.opt, button, a')) { e.preventDefault(); goNext(); return; }
+    if (q.type === 'single' && /^Arrow(Up|Down|Left|Right)$/.test(e.key) && e.target.closest('.opt')) {
+      e.preventDefault();
+      const all = $$('.opts .opt'), i = all.indexOf(e.target.closest('.opt'));
+      const n = all[(i + (/Up|Left/.test(e.key) ? -1 : 1) + all.length) % all.length];
+      n.focus();
+    }
+  });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(); });
+
+  // ───────── Arranque ─────────
+  load();
+  try { if (!sessionStorage.getItem('xolo-org-visita')) { sessionStorage.setItem('xolo-org-visita', '1'); track('visita'); } } catch (e) {}
+  if (state.finished) state.view = state.lead ? 'sent' : 'share';
+  if (state.lead && state.lead.ok) state.leadSend = 'ok';
+  render();
+  flush();
+})();
+</script>
+</body>
+</html>
