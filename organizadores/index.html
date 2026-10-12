@@ -109,6 +109,9 @@
   }
   .tool[aria-pressed="true"] { background: var(--lago); color: var(--arena); border-color: var(--lago); }
   .tool svg { width: 22px; height: 22px; }
+  .tools { display: inline-flex; gap: 8px; flex: none; }
+  a.tool { text-decoration: none; }
+  @media (hover: hover) { a.tool.ig:hover { color: var(--arcilla-600); border-color: var(--arcilla-600); } }
   .headline { font: 700 min(13.4vw, 80px)/1.02 var(--display); letter-spacing: -.035em; text-wrap: balance; margin-top: 8px; }
   .headline em { font: italic 400 1.04em/1 var(--voz); letter-spacing: -.01em; color: var(--jade); }
   .headline.small { font-size: min(11vw, 60px); line-height: 1.04; }
@@ -269,6 +272,13 @@
 
   /* ───────── La lista de espera y lo que viene (al final) ───────── */
   .wl .go { margin-top: 4px; }
+  .igcard { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 20px; background: var(--blanco); border: 1.5px solid var(--niebla-300); color: var(--lago); text-decoration: none; transition: border-color .25s var(--ease); }
+  @media (hover: hover) { .igcard:hover { border-color: var(--lago); } }
+  .igcard > svg:first-child { flex: none; width: 28px; height: 28px; color: var(--arcilla-600); }
+  .igcard > span { display: grid; gap: 2px; flex: 1; min-width: 0; }
+  .igcard b { font: 600 1.05rem/1.25 var(--display); }
+  .igcard > span > span { color: var(--lago-400); font-size: .95rem; line-height: 1.4; }
+  .igcard .out { flex: none; width: 18px; height: 18px; color: var(--lago-400); }
   .soon { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 24px 14px 22px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
   .soon .name { display: block; }
   .soon .name svg { display: block; height: 30px; width: auto; }
@@ -305,6 +315,8 @@
   // Quién hace la encuesta y el aviso de privacidad (Ley 787). Kenneth confirma estos datos antes de difundir.
   const BRAND = 'Xolo Run';
   const CONTACT = { label: 'Instagram @xolorun', href: 'https://www.instagram.com/xolorun/' };
+  // Instagram en la salida y en la meta, no en las preguntas (para no sacar a nadie a medio camino)
+  const IG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg>';
   const PRIVACY = {
     controller: 'Xolo Run, proyecto nicaragüense en formación',
     retention: 'Hasta 24 meses desde que lo dejaste, o antes si nos pedís borrarlo.'
@@ -809,17 +821,18 @@
   let lastProgress = 0;
   const app = document.getElementById('app');
 
-  function topbar(withBack) {
+  function topbar(withBack, ig) {
     const mark = '<span class="brand"><span class="wordmark">Encuesta para <b>organizadores</b></span><span class="byline">Una encuesta de <b>' + BRAND + '</b></span></span>';
+    const big = '<button type="button" class="tool" data-act="big" aria-pressed="' + state.big + '" aria-label="Letra grande">Aa</button>';
     return '<div class="topbar wrap">' +
       (withBack ? '<button type="button" class="tool" data-act="back" aria-label="Pregunta anterior">' + BACK + '</button>' + mark : mark) +
-      '<button type="button" class="tool" data-act="big" aria-pressed="' + state.big + '" aria-label="Letra grande">Aa</button></div>';
+      (ig ? '<span class="tools"><a class="tool ig" href="' + CONTACT.href + '" target="_blank" rel="noopener" aria-label="Instagram de ' + BRAND + ', @xolorun (se abre en otra pestaña)" title="@xolorun en Instagram">' + IG_ICON + '</a>' + big + '</span>' : big) + '</div>';
   }
 
   function viewWelcome() {
     const resume = hasDraft();
     return '<section class="field enter" data-scene="track"><canvas class="scene" aria-hidden="true"></canvas>' +
-      '<div class="field-inner">' + topbar(false) +
+      '<div class="field-inner">' + topbar(false, true) +
       '<div class="wrap stack"><h1 class="headline">Contanos cómo <em>organizás</em></h1>' +
       '<p class="lede">Tu último evento, tal como salió.</p>' +
         '<div class="who"><h2>Una encuesta de <b>' + BRAND + '</b></h2>' +
@@ -923,7 +936,7 @@
 
   function viewDone() {
     const hero = '<section class="field enter" data-scene="finish"><canvas class="scene" aria-hidden="true"></canvas>' +
-      '<div class="field-inner">' + topbar(false) +
+      '<div class="field-inner">' + topbar(false, true) +
       '<div class="wrap stack"><h1 class="headline" tabindex="-1" id="qt">Llegaste a la <em>meta</em></h1>' +
       '<p class="lede">Gracias. Lo que nos contaste decide qué construimos primero para quienes organizan.</p></div>' +
       '<div class="track-space" aria-hidden="true"></div></div></section>';
@@ -948,7 +961,7 @@
     const raw = state.channel === 'prueba'
       ? '<details class="raw"><summary>Lo que se envió (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(state.final, null, 2)) + '</pre></details>'
       : '';
-    return hero + '<div class="wrap after">' + founderBox() + sendBox() + reveal + share + soonBox() + again + raw + '</div>';
+    return hero + '<div class="wrap after">' + founderBox() + sendBox() + reveal + igBox() + share + soonBox() + again + raw + '</div>';
   }
 
   // Cierre discreto: la app que viene
@@ -1012,8 +1025,13 @@
       '<section><p class="eyebrow">' + (DRY ? 'Vista local: no se envió nada' : 'Listo') + '</p><h1 tabindex="-1" id="qt">' + (first ? esc(first) + ', ' : '') + (founder ? 'ya estás en la fila de fundadores.' : 'quedamos en contacto.') + '</h1>' +
         (state.leadSend === 'offline' ? '<div class="send" data-s="offline"><span class="dot" aria-hidden="true"></span><div class="msg"><b>Sin señal por ahora.</b><span class="muted">Tus datos se envían solos cuando vuelva la conexión.</span></div></div>' : '') +
         '<ul class="ticks">' + steps.map((s) => '<li>' + CHECK + '<span>' + s + '</span></li>').join('') + '</ul></section>' +
-      '<div class="stack"><button type="button" class="go" data-act="home">Volver</button></div>');
+      igBox() + '<div class="stack"><button type="button" class="go" data-act="home">Volver</button></div>');
   }
+
+  // Instagram en la meta: para seguir el proyecto mientras sale la app
+  const igBox = () => '<a class="igcard" href="' + CONTACT.href + '" target="_blank" rel="noopener">' + IG_ICON +
+    '<span><b>Seguinos en Instagram</b><span>Avances de la app y de la parte para organizadores en @xolorun.</span></span>' +
+    '<svg class="out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>';
 
   // ───────── Transparencia: quiénes somos ─────────
   const contactHTML = () => CONTACT.href
