@@ -102,6 +102,7 @@
   try { const d = new Date(), today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); if (store.get('xr-dia') !== today) { store.set('xr-dia', today); hit('visita_dia'); } } catch (e) {}
   document.addEventListener('click', (e) => {
     if (e.target.closest('a[href^="https://wa.me"]')) hit('compartir_whatsapp');
+    if (e.target.closest('a[href^="https://www.instagram.com/"]')) hit('instagram');
     const tl = e.target.closest('[data-tab-link]'); if (tl) hit('cta_' + tl.dataset.tabLink);
   });
 
@@ -935,6 +936,11 @@
         '<button class="textlink" type="button" data-copy><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>Copiar mi enlace</button>' +
         '</div><p class="linkline">Tu enlace: ' + esc(link.replace(/^https?:\/\//, '')) + '</p>';
     }
+    // Instagram, justo después de anotarse: es cuando más ganas hay de seguir el proyecto mientras sale la app
+    if (!r.queued) html += '<a class="ig-box" href="https://www.instagram.com/xolorun/" target="_blank" rel="noopener">' +
+      '<svg class="ig-i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg>' +
+      '<span><b>Seguinos en Instagram</b><span>Rutas, fechas y avances de la app en @xolorun.</span></span>' +
+      '<svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>';
     if (!r.queued) html += '<div class="enc-box"><p><b>¿Nos ayudás con unos minutos?</b></p><p>Respondé la encuesta «Running en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.</p>' +
       '<button class="textlink" type="button" data-tab-link="encuesta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Responder la encuesta</button></div>';
     if (testing && !r.queued) html += '<details class="raw"><summary>Lo que se guardó (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre></details>';

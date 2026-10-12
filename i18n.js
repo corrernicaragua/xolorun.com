@@ -11,6 +11,8 @@
     'Xolo Run · Todas las carreras de running de Nicaragua, en un solo lugar': "Xolo Run · All of Nicaragua's races, in one place",
     'Ir al contenido': 'Skip to content', 'Nosotros': 'About us', 'Preguntas': 'FAQ', 'Aviso de privacidad': 'Privacy notice',
     'Inicio': 'Home', 'Encuesta': 'Survey', 'Lista de espera': 'Waitlist',
+    'Instagram de Xolo Run, @xolorun (se abre en otra pestaña)': 'Xolo Run on Instagram, @xolorun (opens in a new tab)', '@xolorun en Instagram': '@xolorun on Instagram',
+    'Seguinos en Instagram': 'Follow us on Instagram', 'Rutas, fechas y avances de la app en @xolorun.': 'Routes, dates and app updates at @xolorun.',
     'Xolo Run · Nicaragua. Hecho por gente que corre.': 'Xolo Run · Nicaragua. Made by people who run.',
     'Mismas rutas. Más gente.': 'Same routes. More people.', 'Xolo Run · Nicaragua': 'Xolo Run · Nicaragua',
     // ─── portada ───
