@@ -312,6 +312,9 @@
   .igcard > span { display: grid; gap: 2px; flex: 1; min-width: 0; }
   .igcard b { font: 600 1.05rem/1.25 var(--display); }
   .igcard > span > span { color: var(--lago-400); font-size: .95rem; line-height: 1.4; }
+  a.nudge { text-decoration: none; }
+  .nudge .sym, .igcard.site > svg:first-child { color: var(--lago); }
+  .nudge .sym { width: 26px; height: 18px; }
   .igcard .out { flex: none; width: 18px; height: 18px; color: var(--lago-400); }
   .soon { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 24px 14px 22px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
   .soon .name { display: block; }
@@ -876,7 +879,7 @@
       '<div class="wrap stack">' +
         (DRY ? '<p class="local">Vista local de evaluación: las respuestas no se envían.</p>' : '') +
         '<ul class="facts"><li>Unos 10 minutos</li><li>Anónima</li><li>Sin nombre ni teléfono</li></ul>' +
-        '<p class="promise">Al final de la ruta hay algo pensado <b>para quienes organizan.</b></p></div>' +
+        '<p class="promise">Al final de la ruta hay algo pensado <b>para quienes organizan.</b></p>' + siteRow() + '</div>' +
       '<div class="wrap actions">' +
         (resume
           ? '<button type="button" class="go" data-act="resume">Seguir donde quedaste</button><button type="button" class="quiet" data-act="restart">Empezar de nuevo</button>'
@@ -1012,7 +1015,7 @@
     const raw = state.channel === 'prueba'
       ? '<details class="raw"><summary>Lo que se envió (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(state.final, null, 2)) + '</pre></details>'
       : '';
-    return hero + '<div class="wrap after">' + founderBox() + sendBox() + reveal + igBox() + share + soonBox() + again + raw + '</div>';
+    return hero + '<div class="wrap after">' + founderBox() + sendBox() + reveal + igBox() + siteBox() + share + soonBox() + again + raw + '</div>';
   }
 
   // Cierre discreto: la app que viene
@@ -1076,8 +1079,17 @@
       '<section><p class="eyebrow">' + (DRY ? 'Vista local: no se envió nada' : 'Listo') + '</p><h1 tabindex="-1" id="qt">' + (first ? esc(first) + ', ' : '') + (founder ? 'ya estás en la fila de fundadores.' : 'quedamos en contacto.') + '</h1>' +
         (state.leadSend === 'offline' ? '<div class="send" data-s="offline"><span class="dot" aria-hidden="true"></span><div class="msg"><b>Sin señal por ahora.</b><span class="muted">Tus datos se envían solos cuando vuelva la conexión.</span></div></div>' : '') +
         '<ul class="ticks">' + steps.map((s) => '<li>' + CHECK + '<span>' + s + '</span></li>').join('') + '</ul></section>' +
-      igBox() + '<div class="stack"><button type="button" class="go" data-act="home">Volver</button></div>');
+      igBox() + siteBox() + '<div class="stack"><button type="button" class="go" data-act="home">Volver</button></div>');
   }
+
+  // La landing (xolorun.com), para quien quiera conocer el proyecto. Lleva el canal por el que llegó, nunca sus respuestas.
+  const SITE_ICON = '<svg class="sym" viewBox="0 0 211.08 132" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="round" aria-hidden="true"><path transform="translate(-24.918 -62)" d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445"/></svg>';
+  const SITE_CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+  const siteHref = () => new URL('../', location.href).href + '?' + (state.channel === 'prueba' ? 'c=prueba' : 'c=organizadores' + (state.channel ? '&campana=' + encodeURIComponent(state.channel) : '')) + '#inicio';
+  const siteRow = () => '<a class="nudge" href="' + esc(siteHref()) + '">' + SITE_ICON + '<span>¿Querés conocer el proyecto? <b>Ir a xolorun.com</b></span>' + SITE_CHEV + '</a>';
+  const siteBox = () => '<a class="igcard site" href="' + esc(siteHref()) + '">' + SITE_ICON +
+    '<span><b>Conocé ' + BRAND + '</b><span>Qué estamos construyendo para corredores y organizadores, y quiénes somos, en xolorun.com.</span></span>' +
+    '<svg class="out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>';
 
   // Instagram en la meta: para seguir el proyecto mientras sale la app
   const igBox = () => '<a class="igcard" href="' + CONTACT.href + '" target="_blank" rel="noopener">' + IG_ICON +
@@ -1130,6 +1142,7 @@
         '<li><b>Versión del aviso:</b> ' + CONSENT_VERSION + '.</li></ul></section>' +
       '<section><h2>Quién ve las respuestas</h2>' +
         '<p>Solo el equipo de ' + BRAND + '. Si publicamos resultados, serán cifras generales, nunca respuestas de una persona ni de un evento con nombre.</p></section>' +
+      '<section>' + siteRow() + '</section>' +
       '<div class="stack"><button type="button" class="go" data-act="home">Volver a la encuesta</button></div>');
   }
 

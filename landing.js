@@ -9,7 +9,7 @@
   const SUPABASE_KEY = 'sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI';
   const CONSENT_VERSION = '2026-10-06';
   // Pendiente antes de publicar (ticket 86aktb1qp): quién responde por los datos, su contacto y el plazo
-  const CONTROLLER = { name: '', contact: '', retention: '' };
+  const CONTROLLER = { name: '', contact: 'team@xolorun.com', retention: '' };
   const SURVEY_URL = new URL('encuesta/', location.href).href;   // la encuesta vive en este mismo sitio (xolorun.com/encuesta/)
   const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   const STORE = 'xolo-dorsal-v1', QUEUE = 'xolo-fila-pendiente-v1', ORIGIN = 'xolo-origen-v1';
