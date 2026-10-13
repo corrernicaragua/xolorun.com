@@ -1,0 +1,1393 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encuesta para organizadores · Xolo Run</title>
+<!-- La vista previa del enlace (WhatsApp, Messenger, Instagram) es lo primero que ve el organizador: dice de quién es y para quién. No adelanta lo que hay al final. -->
+<meta name="description" content="Encuesta anónima de Xolo Run para quienes organizan carreras de running en Nicaragua. Contanos cómo organizás: unos 10 minutos.">
+<meta name="theme-color" content="#F3EFE7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<link rel="canonical" href="https://xolorun.com/organizadores/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_NI">
+<meta property="og:site_name" content="Organizadores · Xolo Run">
+<meta property="og:title" content="Contanos cómo organizás · Encuesta de Xolo Run">
+<meta property="og:description" content="Encuesta anónima de Xolo Run para quienes organizan carreras de running en Nicaragua. Unos 10 minutos.">
+<meta property="og:url" content="https://xolorun.com/organizadores/">
+<meta property="og:image" content="https://xolorun.com/organizadores/og.jpg?v=20261012">
+<meta property="og:image:alt" content="Logo de Xolo Run y el texto Contanos cómo organizás, con una línea de ruta que cruza la imagen">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Xolo Run · Ruta Común (manual de marca v1.0): fondo arena, texto lago profundo, arcilla solo para la acción principal.
+     Una columna de teléfono. La pista de corredores vive en la salida, los relevos y la meta; tu corredor es el único tramo en arcilla. */
+  :root {
+    --arena: #F3EFE7;      /* fondo */
+    --blanco: #FFFFFF;     /* superficies: opciones, tarjetas, franja de progreso */
+    --lago: #12383B;       /* texto principal: 11:1 sobre arena */
+    --lago-400: #4D6A6C;   /* texto secundario y borde de controles: 5:1 sobre arena */
+    --lago-300: #889C9D;
+    --lago-100: #DBE1E2;
+    --niebla: #B7C2BE;     /* solo bordes y divisores decorativos */
+    --niebla-300: #DBE0DE;
+    --niebla-200: #E9EDEC;
+    --jade: #1F6366;       /* acento secundario: 6:1 sobre arena */
+    --jade-100: #DDE8E8;
+    --jade-200: #BCD0D1;
+    --arcilla: #C65A3D;    /* acción principal (texto blanco en negrita de 19 px) y tu corredor */
+    --arcilla-600: #9E4831;/* arcilla para texto pequeño: 5.7:1 */
+    --display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --voz: "Newsreader", Georgia, serif;
+    --ease: cubic-bezier(.33, 1, .68, 1);
+    --r: 14px;
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { height: 100%; font-size: 100%; background: var(--arena); accent-color: var(--lago); scrollbar-color: var(--niebla) var(--arena); }
+  html.big { font-size: 125%; }
+  body {
+    margin: 0; min-height: 100%; display: flex; flex-direction: column;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--arena); color: var(--lago); caret-color: var(--lago);
+    font: 400 1.0625rem/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--lago); color: var(--arena); }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid var(--lago); outline-offset: 3px; }
+  h1[tabindex="-1"]:focus { outline: none; }
+  h1, h2, h3, p, ul, ol { margin: 0; }
+  ul { padding: 0; list-style: none; }
+  a { color: var(--jade); text-underline-offset: 3px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  #app { flex: 1; display: flex; flex-direction: column; }
+  .wrap { width: 100%; max-width: 34rem; margin-inline: auto; padding-inline: 20px; }
+  .stack { display: grid; gap: 12px; }
+
+  /* ───────── Pantallas con pista (salida, relevos, meta) ───────── */
+  .field { position: relative; flex: 1; display: flex; flex-direction: column; isolation: isolate; }
+  .scene { position: absolute; left: 0; top: 0; width: 100%; height: 0; z-index: -1; display: block; pointer-events: none; }
+  .field-inner { flex: 1; display: flex; flex-direction: column; gap: 18px; padding-block: 14px 22px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+  .wordmark { font: 600 .8125rem/1.1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--lago); }
+  .wordmark b { color: var(--jade); font-weight: 600; }
+  /* Autoría siempre visible, también en capturas de pantalla que circulen sin contexto */
+  .brand { display: grid; gap: 4px; min-width: 0; }
+  .byline { font: 500 .8125rem/1.1 var(--body); color: var(--lago-400); }
+  .byline b { color: var(--lago); font-weight: 600; }
+  .who { display: grid; gap: 8px; padding: 16px 18px; border-radius: var(--r); background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .who h2 { font: 600 1.1rem/1.25 var(--display); }
+  .who h2 b { color: var(--jade); font-weight: 600; }
+  .who p { color: var(--lago-400); max-width: 46ch; }
+  .who .link { padding: 4px 0; text-align: left; }
+  .local { padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--arcilla-600); color: var(--arcilla-600); font-weight: 600; font-size: .95rem; }
+  .page { display: grid; gap: 28px; padding-block: 18px 44px; }
+  .page section { display: grid; gap: 10px; }
+  .page h1 { font: 700 2.1rem/1.05 var(--display); letter-spacing: -.02em; text-wrap: balance; }
+  .page h2 { font: 600 1.25rem/1.25 var(--display); }
+  .page p, .page li { max-width: 46ch; }
+  .plain { display: grid; gap: 8px; padding-left: 1.2em !important; list-style: disc !important; }
+  .plain li::marker { color: var(--jade); }
+  .qlist { display: grid; gap: 4px; margin-top: 10px; }
+  .qlist h3 { font: 600 1rem/1.3 var(--display); color: var(--jade); margin-top: 12px; }
+  .qlist li { color: var(--lago-400); font-size: .97rem; }
+  .field-row { display: grid; gap: 6px; }
+  .field-row label { font-weight: 600; }
+  .input { width: 100%; min-height: 3.2rem; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--lago-400); background: var(--blanco); color: var(--lago); font-size: 1.0625rem; }
+  .input:focus { border-color: var(--lago); outline: none; box-shadow: 0 0 0 3px var(--lago-100); }
+  .mono { font: .95rem/1.4 ui-monospace, Menlo, Consolas, monospace; color: var(--jade); word-break: break-all; }
+  .tool {
+    min-width: 48px; min-height: 44px; padding: 0 12px; border-radius: 12px;
+    border: 1.5px solid var(--lago-400); background: transparent; color: var(--lago);
+    font: 600 1rem/1 var(--display); display: inline-grid; place-items: center; transition: background .25s var(--ease), color .25s var(--ease);
+  }
+  .tool[aria-pressed="true"] { background: var(--lago); color: var(--arena); border-color: var(--lago); }
+  .tool svg { width: 22px; height: 22px; }
+  .tools { display: inline-flex; gap: 8px; flex: none; }
+  a.tool { text-decoration: none; }
+  @media (hover: hover) { a.tool.ig:hover { color: var(--arcilla-600); border-color: var(--arcilla-600); } }
+  .headline { font: 700 min(13.4vw, 80px)/1.02 var(--display); letter-spacing: -.035em; text-wrap: balance; margin-top: 8px; }
+  .headline em { font: italic 400 1.04em/1 var(--voz); letter-spacing: -.01em; color: var(--jade); }
+  .headline.small { font-size: min(11vw, 60px); line-height: 1.04; }
+  .lede { font-size: 1.15rem; line-height: 1.45; color: var(--lago-400); max-width: 34ch; }
+  .track-space { flex: 1 0 clamp(120px, 24svh, 330px); }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 20px; font-weight: 600; }
+  .facts li { display: flex; align-items: center; gap: 8px; }
+  .facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--jade); }
+  .kidnote { color: var(--lago-400); max-width: 40ch; }
+  .go {
+    width: 100%; min-height: 3.6rem; border: 0; border-radius: var(--r);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--arcilla); color: var(--blanco);
+    font: 700 1.1875rem/1 var(--body);
+    transition: transform .25s var(--ease), background-color .25s var(--ease);
+  }
+  .go:active { transform: translateY(1px) scale(.99); }
+  @media (hover: hover) { .go:hover { background: var(--arcilla-600); } }
+  .quiet { background: none; border: 0; color: var(--lago); font-weight: 600; padding: 12px 4px; text-decoration: underline; text-decoration-color: var(--lago-300); text-underline-offset: 4px; }
+  .actions { display: grid; gap: 4px; position: sticky; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 1; }
+
+  /* ───────── Pantalla de pregunta ───────── */
+  .q { flex: 1; display: flex; flex-direction: column; }
+  .band { background: var(--blanco); border-bottom: 1px solid var(--niebla-300); }
+  .band .topbar { padding-top: 8px; }
+  .band-track { position: relative; height: 46px; }
+  .band-track canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .band-cap { display: flex; justify-content: space-between; gap: 12px; padding-block: 2px 12px; font-size: 1rem; color: var(--lago-400); }
+  .band-cap b { color: var(--lago); font: 600 1rem/1.3 var(--display); }
+  .qbody { display: grid; gap: 14px; padding-block: 28px 12px; }
+  .q-title { font: 600 clamp(1.5rem, 6.2vw, 2rem)/1.2 var(--display); letter-spacing: -.02em; text-wrap: balance; outline: none; }
+  .q-help { color: var(--lago-400); max-width: 42ch; }
+  .opts { display: grid; gap: 10px; margin-top: 8px; }
+  .opt {
+    display: flex; align-items: center; gap: 14px; width: 100%; min-height: 3.75rem; padding: 14px 16px;
+    text-align: left; font-size: 1.0625rem; line-height: 1.3; font-weight: 500;
+    background: var(--blanco); color: var(--lago); border: 1.5px solid var(--lago-300); border-radius: var(--r);
+    transition: background-color .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+  }
+  .opt .lbl { min-width: 0; flex: 1; }
+  .opt .ind { flex: none; width: 24px; height: 24px; border: 2px solid var(--lago-400); display: grid; place-items: center; transition: inherit; }
+  .opt[role="radio"] .ind { border-radius: 50%; }
+  .opt[role="checkbox"] .ind { border-radius: 7px; }
+  .opt .ind svg { width: 16px; height: 16px; opacity: 0; color: var(--lago); }
+  .opt[aria-checked="true"] { background: var(--lago); border-color: var(--lago); color: var(--arena); font-weight: 600; }
+  .opt[aria-checked="true"] .ind { border-color: var(--arena); background: var(--arena); }
+  .opt[role="radio"][aria-checked="true"] .ind { box-shadow: inset 0 0 0 5px var(--arena); background: var(--lago); }
+  .opt[role="checkbox"][aria-checked="true"] .ind svg { opacity: 1; }
+  .opt[aria-disabled="true"] { opacity: .42; }
+  .opt .lbl small { display: block; margin-top: 3px; font-size: .92rem; font-weight: 400; color: var(--lago-400); }
+  .opt[aria-checked="true"] .lbl small { color: var(--arena); opacity: .8; }
+  @media (hover: hover) { .opt:not([aria-checked="true"]):not([aria-disabled="true"]):hover, .tile:not([aria-checked="true"]):not([aria-disabled="true"]):hover, .chip:not([aria-checked="true"]):hover { border-color: var(--lago); } }
+
+  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+  .tiles > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    min-height: 8.5rem; padding: 16px 10px; text-align: center;
+    background: var(--blanco); color: var(--lago); border: 1.5px solid var(--lago-300); border-radius: 18px;
+    font: 600 1.0625rem/1.2 var(--display);
+    transition: background-color .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+  }
+  .tile svg { width: 44px; height: 44px; color: var(--jade); transition: color .25s var(--ease); }
+  .tile[aria-checked="true"] { background: var(--lago); border-color: var(--lago); color: var(--arena); }
+  .tile[aria-checked="true"] svg { color: var(--arena); }
+  .tile[aria-disabled="true"] { opacity: .42; }
+
+  .textarea {
+    width: 100%; min-height: 9rem; padding: 14px 16px; border-radius: var(--r);
+    border: 1.5px solid var(--lago-400); background: var(--blanco); color: var(--lago);
+    font-size: 1.0625rem; line-height: 1.45; resize: vertical;
+  }
+  .textarea::placeholder { color: var(--lago-400); opacity: .85; }
+  .textarea:focus { border-color: var(--lago); outline: none; box-shadow: 0 0 0 3px var(--lago-100); }
+  .count { justify-self: end; font-size: 1rem; color: var(--lago-400); font-variant-numeric: tabular-nums; }
+  .hint { color: var(--arcilla-600); min-height: 1.4em; font-weight: 600; }
+
+  .dock {
+    position: sticky; bottom: 0; margin-top: auto;
+    padding-block: 18px calc(16px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to bottom, rgba(243, 239, 231, 0), var(--arena) 28%);
+  }
+  .next {
+    width: 100%; min-height: 3.6rem; border-radius: var(--r); border: 0;
+    background: var(--arcilla); color: var(--blanco);
+    font: 700 1.1875rem/1 var(--body); transition: background-color .25s var(--ease);
+  }
+  @media (hover: hover) { .next:not([aria-disabled="true"]):hover { background: var(--arcilla-600); } }
+  .next[aria-disabled="true"] { background: var(--niebla-300); color: var(--lago-400); cursor: not-allowed; }
+
+  /* ───────── Después de la meta ───────── */
+  .after { display: grid; gap: 30px; padding-block: 30px 44px; }
+  .after h2 { font: 700 2rem/1.05 var(--display); letter-spacing: -.02em; text-wrap: balance; }
+  .after h3 { font: 600 1.3rem/1.2 var(--display); letter-spacing: -.01em; text-wrap: balance; }
+  .after p { max-width: 42ch; }
+  .muted { color: var(--lago-400); }
+  .send { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: var(--r); background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .send .dot { flex: none; width: 12px; height: 12px; margin-top: 6px; border-radius: 50%; background: var(--lago-300); }
+  .send[data-s="ok"] .dot { background: var(--jade); }
+  .send[data-s="sending"] .dot { background: var(--lago); animation: blink 1s ease-in-out infinite; }
+  .send[data-s="offline"] .dot, .send[data-s="error"] .dot { background: var(--arcilla-600); }
+  .send .msg { display: grid; gap: 8px; }
+  .ticks { display: grid; gap: 12px; }
+  .ticks li { display: flex; gap: 12px; align-items: flex-start; }
+  .ticks svg { flex: none; width: 22px; height: 22px; color: var(--jade); margin-top: 2px; }
+  .share-row { display: grid; gap: 10px; }
+  .ghost {
+    width: 100%; min-height: 3.3rem; border-radius: var(--r); border: 1.5px solid var(--lago);
+    background: transparent; color: var(--lago); font: 600 1.05rem/1 var(--body);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; transition: background .25s var(--ease);
+  }
+  @media (hover: hover) { .ghost:hover { background: var(--lago-100); } }
+  .ghost svg { width: 20px; height: 20px; }
+  .go.as-link { text-decoration: none; }
+  .go svg { width: 22px; height: 22px; }
+  .share-text { width: 100%; min-height: 6rem; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--lago-400); background: var(--blanco); color: var(--lago); font-size: 1rem; line-height: 1.4; resize: none; }
+  details.raw { border-top: 1px solid var(--niebla); padding-top: 16px; }
+  details.raw summary { cursor: pointer; font-weight: 600; color: var(--lago-400); }
+  details.raw pre { margin: 12px 0 0; padding: 14px; border-radius: 12px; background: var(--blanco); border: 1px solid var(--niebla-300); overflow-x: auto; font: .8rem/1.5 ui-monospace, Menlo, Consolas, monospace; }
+  .link { background: none; border: 0; padding: 10px 0; color: var(--lago); font-weight: 600; text-decoration: underline; text-decoration-color: var(--lago-300); text-underline-offset: 4px; justify-self: start; }
+
+  .promise { font-weight: 600; color: var(--lago); max-width: 40ch; }
+  .promise b { color: var(--jade); font-weight: 600; }
+  .cheer { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--jade-100); border: 1px solid var(--jade-200); animation: cheerIn .5s var(--ease) both; }
+  .cheer svg { flex: none; width: 26px; height: 26px; color: var(--jade); }
+  .cheer b { color: var(--jade); }
+  .medal { display: grid; gap: 14px; justify-items: center; text-align: center; padding: 24px 20px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .medal svg { width: 150px; height: auto; display: block; }
+  .medal .stack { justify-items: center; }
+  .medal p { margin-inline: auto; }
+  .medal h2 { font-size: 1.7rem; }
+  .shine { position: relative; }
+  @keyframes cheerIn { from { opacity: .4; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .enter { animation: settle .5s var(--ease) both; }
+  @keyframes settle { from { opacity: .35; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes blink { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .enter, .send .dot, .cheer { animation: none !important; } .go, .opt, .tile { transition: none; } }
+  @media (min-width: 720px) { .wrap { max-width: 38rem; } }
+
+  /* ───────── Invitación a compartir: visible, sin estorbar ───────── */
+  .nudge {
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 2px; text-align: left;
+    background: none; border: 0; border-top: 1px solid var(--niebla-300); color: var(--lago-400); font-size: .98rem; line-height: 1.35;
+  }
+  .nudge b { color: var(--lago); font-weight: 600; }
+  .nudge svg { flex: none; width: 22px; height: 22px; color: var(--jade); }
+  .nudge .chev { width: 18px; height: 18px; margin-left: auto; color: var(--lago-300); }
+  @media (hover: hover) { .nudge:hover b { text-decoration: underline; text-underline-offset: 3px; } }
+  .spread { display: grid; gap: 12px; padding: 20px 18px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .eyebrow { font: 500 .75rem/1.1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--arcilla-600); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { min-height: 44px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--lago-300); background: var(--blanco); color: var(--lago); font-weight: 500; font-size: .98rem; }
+  .chip[aria-checked="true"] { background: var(--lago); border-color: var(--lago); color: var(--arena); font-weight: 600; }
+  .kit { display: grid; gap: 14px; }
+  .preview { display: grid; place-items: center; padding: 18px; border-radius: 20px; background: var(--niebla-200); border: 1px solid var(--niebla-300); min-height: 220px; }
+  .preview img { display: block; width: 100%; max-width: 250px; height: auto; border-radius: 14px; box-shadow: 0 22px 40px -24px rgba(18, 56, 59, .45), 0 0 0 1px rgba(18, 56, 59, .08); }
+  .preview[data-f="post"] img { max-width: 290px; }
+
+  /* ───────── La lista de espera y lo que viene (al final) ───────── */
+  .wl .go { margin-top: 4px; }
+  /* muestra del sello: etiqueta con la ruta y filo dorado; una sola pasada de brillo, nada se mueve con movimiento reducido */
+  .badge-demo { margin: 4px 0 0; display: grid; gap: 12px; padding: 14px; border-radius: 16px; background: var(--arena); border: 1px dashed var(--lago-300); }
+  .badge-demo figcaption { display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 600 .95rem/1.2 var(--display); color: var(--lago); }
+  .badge-demo .tag { padding: 3px 9px; border-radius: 999px; background: var(--niebla-200); color: var(--lago-400); font: 500 .7rem/1.3 var(--display); letter-spacing: .14em; text-transform: uppercase; }
+  .fb-show { display: grid; place-items: center; padding: 14px 0 10px; }
+  .fb-show .fb-tag { justify-self: center; }
+  /* placa: fondo lago y filo de metal dorado con reflejos (degradado en el borde), como una placa iluminada */
+  .fb-tag { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 7px; justify-self: start; padding: 4px 11px 4px 7px; border-radius: 999px;
+    border: 1.5px solid transparent;
+    background: linear-gradient(180deg, #194A50 0%, #12383B 55%, #0E2E31 100%) padding-box,
+      linear-gradient(120deg, #7E5E33 0%, #E8CF9C 18%, #A9844F 36%, #F6E7C6 50%, #9A7543 66%, #D9BC8C 84%, #7E5E33 100%) border-box;
+    background-size: 100% 100%, 220% 100%; background-position: 0 0, 0% 0;
+    color: var(--arena); font: 600 .72rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase;
+    box-shadow: inset 0 1px 0 rgba(246, 231, 198, .22), 0 1px 0 rgba(18, 56, 59, .12); }
+  .fb-tag svg { flex: none; height: auto; }
+  .fb-tag.big { gap: 10px; padding: 9px 20px 9px 12px; border-width: 2px; font-size: .9rem; letter-spacing: .2em;
+    box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75);
+    animation: settle .5s var(--ease) both; }
+  /* encendida: la luz recorre el filo de ida y vuelta, el halo dorado respira y cada tanto pasa un destello */
+  .fb-tag.lit { animation: fbFlow 3.6s ease-in-out infinite alternate; }
+  .fb-tag.big.lit { animation: settle .5s var(--ease) both, fbFlow 3.6s ease-in-out infinite alternate, fbGlow 3.6s ease-in-out infinite; }
+  @keyframes fbFlow { from { background-position: 0 0, 0% 0; } to { background-position: 0 0, 100% 0; } }
+  @keyframes fbGlow {
+    0%, 100% { box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75), 0 0 0 0 rgba(217, 188, 140, 0); }
+    50% { box-shadow: inset 0 1px 0 rgba(246, 231, 198, .4), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75), 0 0 14px 1px rgba(217, 188, 140, .42); }
+  }
+  .fb-tag::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(105deg, transparent 40%, rgba(246, 231, 198, .28) 50%, transparent 60%); transform: translateX(-140%); pointer-events: none; }
+  .fb-tag.lit::after { animation: fbSheen 4.8s var(--ease) .3s infinite; }
+  @keyframes fbSheen { 0% { transform: translateX(-140%); } 34%, 100% { transform: translateX(140%); } }
+  .bd-card { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .bd-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--niebla-200); color: var(--lago); font: 600 .95rem/1 var(--display); }
+  .bd-who { display: grid; gap: 5px; min-width: 0; justify-items: start; }
+  .bd-who b { font: 600 1.02rem/1.2 var(--display); color: var(--lago); }
+  @media (prefers-reduced-motion: reduce) { .fb-tag, .fb-tag::after { animation: none !important; } .fb-tag { background-position: 0 0, 60% 0; } .fb-tag::after { display: none; } }
+  .igcard { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 20px; background: var(--blanco); border: 1.5px solid var(--niebla-300); color: var(--lago); text-decoration: none; transition: border-color .25s var(--ease); }
+  @media (hover: hover) { .igcard:hover { border-color: var(--lago); } }
+  .igcard > svg:first-child { flex: none; width: 28px; height: 28px; color: var(--arcilla-600); }
+  .igcard > span { display: grid; gap: 2px; flex: 1; min-width: 0; }
+  .igcard b { font: 600 1.05rem/1.25 var(--display); }
+  .igcard > span > span { color: var(--lago-400); font-size: .95rem; line-height: 1.4; }
+  .igcard .out { flex: none; width: 18px; height: 18px; color: var(--lago-400); }
+  .soon { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 24px 14px 22px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
+  .soon .name { display: block; }
+  .soon .name svg { display: block; height: 30px; width: auto; }
+  .stores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 330px; margin-top: 4px; }
+  .store { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 10px; border-radius: 12px; text-align: left; background: var(--lago); color: var(--arena); }
+  .store svg { flex: none; width: 22px; height: 22px; color: var(--arena); }
+  .store small { display: block; font: 500 .62rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--jade-200); margin-bottom: 4px; }
+  .store span { font: 600 .95rem/1 var(--display); white-space: nowrap; color: var(--arena); }
+
+  /* ───────── Encuesta para organizadores: lo único que no estaba en la encuesta ───────── */
+  [hidden] { display: none !important; }
+  .input::placeholder { color: var(--lago-400); opacity: .85; }
+  /* iPhone: con el teclado abierto la barra de «Siguiente» deja de flotar y no tapa el campo */
+  html.kb .dock, html.kb .actions { position: static; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<p class="sr" id="announce" aria-live="polite"></p>
+<noscript><p class="wrap" style="padding-block:40px">Para contestar la encuesta necesitás activar JavaScript en tu navegador.</p></noscript>
+<script>
+(() => {
+  'use strict';
+
+  // La misma encuesta que xolorun.com/encuesta, con las preguntas para quienes organizan carreras de running.
+  // Dirección pública y destino de las respuestas
+  const PUBLIC_URL = 'https://xolorun.com/organizadores/';
+  const SUPABASE_URL = 'https://mwiroczcgigmapzkzeba.supabase.co';
+  // Clave publicable de Supabase: es pública a propósito. Con ella solo se puede ENVIAR una respuesta o un contacto (RLS, migración 0017).
+  const SUPABASE_KEY = 'sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI';
+  const VERSION = '2026-10-12-org';
+  const CONSENT_VERSION = '2026-10-11';
+
+  // Quién hace la encuesta y el aviso de privacidad (Ley 787). Kenneth confirma estos datos antes de difundir.
+  const BRAND = 'Xolo Run';
+  const CONTACT = { label: 'Instagram @xolorun', href: 'https://www.instagram.com/xolorun/' };
+  // Instagram en la salida y en la meta, no en las preguntas (para no sacar a nadie a medio camino)
+  const IG_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg>';
+  const PRIVACY = {
+    controller: 'Xolo Run, proyecto nicaragüense en formación',
+    retention: 'Hasta 24 meses desde que lo dejaste, o antes si nos pedís borrarlo.'
+  };
+
+  // Vista local de evaluación: en localhost no se envía nada a la base real.
+  // Para probar el envío real desde local: ?enviar=1 (y ?c=prueba para que no cuente).
+  const PARAMS = (() => { try { return new URLSearchParams(location.search); } catch (e) { return new URLSearchParams(''); } })();
+  const LOCAL = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  const DRY = !SUPABASE_KEY || (LOCAL && !PARAMS.has('enviar'));
+
+  // ───────── Preguntas: siempre sobre el último evento real, no sobre lo que le gustaría ─────────
+  const BLOCK = { '0': 'Vos y tu organización', L: 'Tu último evento', P: 'Tu primer evento', N: 'Tu negocio', H: 'Lo que viene', Z: 'Para cerrar' };
+  const o = (v, t, extra) => Object.assign({ v, t }, extra || {});
+  const NOSE = o('nose', 'No sé o no me acuerdo');
+  const OTRO = o('otro', 'Otro');
+  const TASKS = [
+    o('difusion', 'Difundir y llenar los cupos'), o('inscripcion', 'Inscripciones y datos de cada persona'), o('pagos', 'Cobrar y confirmar pagos'),
+    o('patrocinio', 'Conseguir patrocinios'), o('permisos', 'Permisos (alcaldía, Policía u otros)'), o('ruta', 'Ruta, seguridad y atención médica'),
+    o('kits', 'Entrega de kits'), o('voluntarios', 'Coordinar voluntarios'), o('tiempos', 'Cronometraje y resultados'),
+    o('mensajes', 'Responder las dudas de los corredores'), OTRO];
+  const SIZES = [o('menos100', 'Menos de 100'), o('100-300', '100 a 300'), o('301-700', '301 a 700'), o('701-1500', '701 a 1,500'), o('mas1500', 'Más de 1,500'), NOSE];
+  const KINDS = [o('calle', '5K o 10K de calle'), o('larga', 'Media maratón o maratón'), o('trail', 'Trail o montaña'), o('caminata', 'Caminata o carrera familiar'),
+    o('ninos', 'Carrera infantil'), o('tematica', 'Temática, nocturna o con causa'), OTRO];
+
+  const Q = {
+    O1: { b: '0', type: 'single', title: '¿Qué te describe mejor?', help: 'No hay respuestas correctas ni respuestas que nos convengan: si hoy todo te funciona bien, eso también nos sirve.', next: 'O2', options: [
+      o('independiente', 'Organizo eventos por mi cuenta'), o('club', 'Soy parte de un club o grupo de running que organiza eventos'),
+      o('productora', 'Tengo una empresa o productora de eventos'), o('marca', 'Trabajo en una marca o empresa que organiza su propia carrera'),
+      o('institucion', 'Represento a una institución (alcaldía, colegio, universidad, ONG o iglesia)'),
+      o('equipo', 'Soy parte del equipo de un organizador (logística, inscripciones, redes)'), OTRO] },
+    O2: { b: '0', type: 'single', title: '¿Cuántos eventos con inscripción organizaste en los últimos 12 meses?', help: 'Carreras, caminatas o retos con número o con lista de inscritos.', def: '2-3', options: [
+      o('0', 'Ninguno todavía: estoy por organizar el primero', { next: 'PL1' }), o('1', '1', { next: 'O3' }), o('2-3', '2 o 3', { next: 'O3' }),
+      o('4-6', '4 a 6', { next: 'O3' }), o('7+', '7 o más', { next: 'O3' })] },
+    O3: { b: '0', type: 'multi', title: '¿En qué departamentos fueron?', help: 'Podés elegir varios.', next: 'O4', options: [
+      o('managua', 'Managua'), o('carazo', 'Carazo'), o('masaya', 'Masaya'), o('granada', 'Granada'), o('leon', 'León o Chinandega'), o('rivas', 'Rivas'),
+      o('norte', 'Norte (Estelí, Matagalpa, Jinotega, Nueva Segovia, Madriz)'), o('caribe', 'Caribe, Boaco, Chontales o Río San Juan'), o('fuera', 'Fuera de Nicaragua')] },
+    O4: { b: '0', type: 'single', title: 'El día del evento, ¿cuántas personas trabajan con vos, contando voluntarios?', next: 'LI', options: [
+      o('1-5', '1 a 5'), o('6-15', '6 a 15'), o('16-40', '16 a 40'), o('41-100', '41 a 100'), o('mas100', 'Más de 100'), NOSE] },
+
+    LI: { b: 'L', type: 'info', title: 'Pensá en el último evento que organizaste.', help: 'Las próximas preguntas son sobre ese evento, no sobre lo que hacés normalmente. Si no te acordás de algo, está bien.', cta: 'Ya lo tengo', next: 'L1' },
+    L1: { b: 'L', type: 'single', title: '¿Qué tipo de evento fue?', help: 'Si tuvo varias distancias, elegí la que tuvo más inscritos.', next: 'L2', options: KINDS },
+    L2: { b: 'L', type: 'single', title: '¿Cuántas personas se inscribieron?', next: 'L3', options: SIZES },
+    L3: { b: 'L', type: 'single', title: '¿Cuánto costaba la inscripción más común?', help: 'Córdobas aproximados a C$36.6 por dólar.', next: 'L4', options: [
+      o('gratis', 'Fue gratis'), o('menos10', 'Menos de US$10 (menos de C$370)'), o('10-20', 'US$10 a 20 (C$370 a 730)'), o('20-35', 'US$20 a 35 (C$730 a 1,280)'),
+      o('35-60', 'US$35 a 60 (C$1,280 a 2,200)'), o('mas60', 'Más de US$60'), NOSE] },
+    L4: { b: 'L', type: 'multi', title: '¿Por dónde se inscribió la gente?', help: 'Podés elegir varias.', next: 'L5', route: (a) => Array.isArray(a) && a.includes('plataforma') ? 'L4B' : null, options: [
+      o('form', 'Un formulario en línea (Google Forms u otro)'), o('whatsapp', 'Por WhatsApp, escribiéndome a mí o al equipo'), o('web', 'Una página web propia'),
+      o('plataforma', 'Una plataforma de inscripción de otra empresa'), o('fisico', 'En una tienda o un punto físico'), o('redes', 'Por mensaje en Instagram o Facebook'), OTRO] },
+    // solo si marcó una plataforma de otra empresa
+    L4B: { b: 'L', type: 'short', optional: true, title: '¿Te acordás cuál?', help: 'Si no te acordás, podés saltarla.', ph: 'Nombre de la plataforma', next: 'L5' },
+    L5: { b: 'L', type: 'multi', title: '¿Cómo te pagaron?', help: 'Podés elegir varias.', next: 'L6', options: [
+      o('transferencia', 'Transferencia bancaria'), o('efectivo', 'Efectivo'), o('tarjeta', 'Tarjeta, en línea'), o('billetera', 'Billetera digital o pago con el teléfono'),
+      o('patrocinio', 'Lo cubrió un patrocinador o una empresa'), o('gratis', 'Fue gratis', { ex: true })] },
+    L6: { b: 'L', type: 'single', title: '¿Cómo confirmabas que un pago había entrado?', next: 'L7', options: [
+      o('comprobante', 'Revisando comprobantes por WhatsApp o correo, uno por uno'), o('estado', 'Comparando contra el estado de cuenta del banco'),
+      o('plataforma', 'La plataforma lo confirmaba sola'), o('otra', 'Lo hacía otra persona del equipo'), o('no', 'No llegamos a confirmar todos'), o('nopago', 'No hubo pagos')] },
+    L7: { b: 'L', type: 'single', title: 'En la semana antes del evento, ¿cuántas horas al día se te iban respondiendo WhatsApp y mensajes de la gente?', help: 'Dudas de inscripción, pagos, tallas, kits… sumando a todo tu equipo. Un aproximado basta.', next: 'L8', options: [
+      o('menos1', 'Menos de 1 hora'), o('1-2', '1 a 2 horas'), o('3-5', '3 a 5 horas'), o('mas5', 'Más de 5 horas'), NOSE] },
+    L8: { b: 'L', type: 'single', title: 'De los inscritos, ¿cuántos no llegaron el día del evento?', next: 'L9', options: [
+      o('menos5', 'Casi ninguno (menos del 5 %)'), o('5-10', 'Entre 5 y 10 %'), o('10-20', 'Entre 10 y 20 %'), o('mas20', 'Más del 20 %'), o('nomedimos', 'No lo medimos')] },
+    L9: { b: 'L', type: 'multi', title: '¿Qué pasó en la entrega de kits?', help: 'Camiseta, número y lo que incluía. Podés elegir varias.', next: 'L10', route: (a) => Array.isArray(a) && a.includes('filas') ? 'L9B' : null, options: [
+      o('filas', 'Hubo filas largas'), o('lista', 'Buscábamos a cada persona en una lista impresa o en Excel'), o('comprobante', 'Llegó gente sin poder mostrar su pago'),
+      o('tallas', 'Se acabaron tallas de camiseta'), o('terceros', 'Muchos retiraron kits de otras personas'), o('cambios', 'Pidieron cambios de distancia o de talla'),
+      o('bien', 'Salió bien, sin problemas', { ex: true }), o('nokit', 'No hubo kit', { ex: true })] },
+    // solo si hubo filas largas
+    L9B: { b: 'L', type: 'single', title: '¿Cuánto duraba la fila, más o menos?', next: 'L10', options: [
+      o('menos15', 'Menos de 15 minutos'), o('15-30', '15 a 30 minutos'), o('30-60', '30 minutos a 1 hora'), o('mas60', 'Más de 1 hora'), NOSE] },
+    L10: { b: 'L', type: 'single', title: '¿Cómo tomaron los tiempos?', next: 'L11', options: [
+      o('chip', 'Con chip, contratando a una empresa', { next: 'L10B' }), o('manual', 'A mano, con cronómetro y lista'), o('app', 'Con una app'), o('no', 'No se tomaron tiempos')] },
+    // solo si contrató cronometraje con chip
+    L10B: { b: 'L', type: 'short', optional: true, title: '¿Con qué empresa?', help: 'Si no te acordás, podés saltarla.', ph: 'Nombre de la empresa', next: 'L11' },
+    L11: { b: 'L', type: 'multi', max: 3, title: '¿Qué te consumió más tiempo o te dio más dolores de cabeza?', help: 'Elegí hasta 3.', next: 'L12', options: TASKS },
+    L12: { b: 'L', type: 'text', optional: true, title: 'Contanos el peor momento de ese evento.', help: 'El que todavía recordás. Si no hubo ninguno, podés saltarla.', next: 'N1' },
+
+    N1: { b: 'N', type: 'multi', title: '¿Por dónde promocionaste ese evento?', help: 'Podés elegir varias.', next: 'N2', options: [
+      o('instagram', 'Instagram'), o('facebook', 'Facebook'), o('tiktok', 'TikTok'), o('whatsapp', 'Grupos de WhatsApp'), o('clubes', 'Clubes y grupos de running'),
+      o('creadores', 'Creadores de contenido'), o('pauta', 'Publicidad pagada en redes'), o('medios', 'Radio, TV o prensa'), o('afiches', 'Afiches o tiendas'), OTRO] },
+    N2: { b: 'N', type: 'single', title: '¿Tuvo patrocinadores?', def: 'especie', options: [
+      o('efectivo', 'Sí, con dinero', { next: 'N3' }), o('especie', 'Sí, con producto o servicios', { next: 'N3' }), o('ambos', 'Sí, de las dos formas', { next: 'N3' }), o('no', 'No', { next: 'N4' })] },
+    N3: { b: 'N', type: 'multi', title: '¿Qué te pidieron los patrocinadores a cambio?', help: 'Podés elegir varias.', next: 'N4', options: [
+      o('logo', 'Su logo en camisetas, números o la meta'), o('stand', 'Un espacio o un stand el día del evento'), o('redes', 'Menciones en redes'),
+      o('datos', 'Datos de cuántos corrieron, de dónde y de qué edades'), o('informe', 'Un informe después del evento'), o('nada', 'Nada en particular', { ex: true }), OTRO] },
+    // N4 es para quien no usó una plataforma; quien sí la usó (L4) ve N4B, para no preguntarle lo mismo dos veces
+    N4: { b: 'N', type: 'single', title: '¿Pagaste por alguna plataforma o servicio para las inscripciones?', def: 'no', options: [
+      o('no', 'No', { next: 'N6' }), o('comision', 'Sí, una comisión por cada inscripción', { next: 'N5' }), o('fija', 'Sí, una tarifa fija', { next: 'N5' }),
+      o('agencia', 'Una agencia lo manejó todo', { next: 'N5' })] },
+    N4B: { b: 'N', type: 'single', title: '¿Cómo te cobraba esa plataforma?', def: 'comision', options: [
+      o('comision', 'Una comisión por cada inscripción', { next: 'N5' }), o('fija', 'Una tarifa fija', { next: 'N5' }),
+      o('corredor', 'Se la cobraba al corredor, aparte de la inscripción', { next: 'N6' }), o('nocobro', 'No me cobraba', { next: 'N6' }), o('nose', 'No sé', { next: 'N6' })] },
+    N5: { b: 'N', type: 'single', title: 'Más o menos, ¿cuánto te costó, en proporción a lo que cobraste?', next: 'N6', options: [
+      o('menos5', 'Menos del 5 %'), o('5-8', 'Entre 5 y 8 %'), o('9-12', 'Entre 9 y 12 %'), o('mas12', 'Más del 12 %'), NOSE] },
+    N6: { b: 'N', type: 'single', title: 'Entre un evento y el siguiente, ¿sabés cuántos corredores repiten?', next: 'N7', options: [
+      o('medido', 'Sí, lo tengo medido'), o('aprox', 'Más o menos: los reconozco'), o('no', 'No lo sé')] },
+    N7: { b: 'N', type: 'single', title: 'Después del evento, ¿qué hiciste con los datos de los inscritos?', next: 'N8', options: [
+      o('aviso', 'Los usé para avisarles del siguiente evento'), o('guardo', 'Los guardé, pero no los he usado'), o('patrocinador', 'Se los compartí a patrocinadores, sin datos personales'),
+      o('plataforma', 'Se quedaron en la plataforma que usé'), o('borro', 'Los borré'), OTRO] },
+    N8: { b: 'N', type: 'single', title: 'Cuando hay que escoger con quién trabajar (inscripciones, cronometraje, camisetas…), ¿quién tiene la última palabra?', next: 'H1', options: [
+      o('yo', 'Yo'), o('socios', 'Lo decidimos entre socios'), o('comite', 'Un comité o una junta'), o('tercero', 'El patrocinador o la institución'), OTRO] },
+
+    PL1: { b: 'P', type: 'single', title: '¿Qué tipo de evento estás preparando?', next: 'PL2', options: KINDS },
+    PL2: { b: 'P', type: 'single', title: '¿Cuántas personas esperás?', next: 'PL3', options: SIZES },
+    PL3: { b: 'P', type: 'multi', max: 3, title: '¿Qué es lo que más te preocupa de organizarlo?', help: 'Elegí hasta 3.', next: 'PL4', options: TASKS },
+    PL4: { b: 'P', type: 'single', title: '¿Cómo pensás manejar las inscripciones y los pagos?', next: 'H2', options: [
+      o('form', 'Un formulario y transferencias'), o('whatsapp', 'Por WhatsApp'), o('plataforma', 'Con una plataforma de inscripción'), o('nose', 'Todavía no lo sé')] },
+
+    H1: { b: 'H', type: 'single', title: 'Si pudieras sacarte una sola tarea de encima en tu próximo evento, ¿cuál sería?', next: 'H2', options: TASKS },
+    H2: { b: 'H', type: 'single', title: '¿Tenés un evento planeado en los próximos 6 meses?', next: 'Z1', options: [
+      o('fecha', 'Sí, ya con fecha'), o('sinfecha', 'Sí, pero todavía sin fecha'), o('talvez', 'Tal vez'), o('no', 'No por ahora')] },
+
+    Z1: { b: 'Z', type: 'text', optional: true, title: '¿Qué es algo que nadie le pregunta a los organizadores y deberíamos saber?', help: 'Con tus palabras. Si no se te ocurre nada, podés saltarla.', next: 'Z2' },
+    Z2: { b: 'Z', type: 'single', title: '¿Cómo te llegó esta encuesta?', next: 'END', options: [
+      o('equipo', 'Alguien de Xolo Run me escribió'), o('reunion', 'La estoy llenando mientras hablo con alguien de Xolo Run'), o('organizador', 'Me la pasó otro organizador'),
+      o('instagram', 'Instagram'), o('whatsapp', 'Un grupo de WhatsApp'), OTRO] }
+  };
+
+  const CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8"/></svg>';
+  const BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+  const CHAT_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.6 19L4 20z"/></svg>';
+  const LINK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg>';
+
+  // ───────── Estado ─────────
+  const STORE = 'xolo-org-encuesta-v3', QUEUE = 'xolo-org-pendientes-v1';
+  const DRAFT_TTL = 12 * 60 * 60 * 1000; // la puede llenar en una llamada larga; después no debe quedar para otra persona
+  const channelFrom = () => {
+    try {
+      const p = new URLSearchParams(location.search);
+      let c = (p.get('c') || '').toLowerCase().trim(); const k = (p.get('campana') || '').toLowerCase().trim();
+      if (c && /^[a-z0-9_-]{1,60}$/.test(k)) c = (c + '-' + k).slice(0, 40);
+      return /^[a-z0-9_-]{1,40}$/.test(c) ? c : null;
+    } catch (e) { return null; }
+  };
+  // quién del equipo compartió el enlace (?ref=kenneth): el acercamiento es híbrido
+  const REF = (() => { const s = (PARAMS.get('ref') || '').toLowerCase().trim(); return /^[a-z0-9_-]{1,24}$/.test(s) ? s : null; })();
+  const freshForm = () => ({ interests: [], meet: null, slot: null });
+  const state = { view: 'welcome', current: 'O1', answers: {}, history: [], big: false, hint: '', final: null, send: 'idle', shareFallback: false, channel: channelFrom(), clientId: null, milestones: [], cheer: null,
+    form: freshForm(), lead: {}, leadSent: false, leadSend: 'idle' };
+
+  // ───────── Contador de visitas (sin datos personales): sumas por día y canal en nuestra base (track_hit), nada por persona ─────────
+  const inApp = /Instagram/i.test(navigator.userAgent) ? 'instagram' : /FBAN|FBAV|FB_IAB/i.test(navigator.userAgent) ? 'facebook' : /WhatsApp/i.test(navigator.userAgent) ? 'whatsapp' : '';
+  const hitSeen = (k) => { try { if (sessionStorage.getItem('xr-o-' + k)) return true; sessionStorage.setItem('xr-o-' + k, '1'); } catch (e) {} return false; };
+  function hit(event, once) {
+    if (!SUPABASE_KEY || ((LOCAL || state.channel === 'prueba') && !PARAMS.has('medir'))) return;   // ?medir=1 solo para el QA en local
+    if (once && hitSeen(event)) return;
+    try {
+      fetch(SUPABASE_URL + '/rest/v1/rpc/track_hit', { method: 'POST', keepalive: true, headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_site: 'organizadores', p_event: event, p_channel: state.channel || 'directo', p_campaign: REF || '', p_device: innerWidth < 760 ? 'movil' : 'escritorio', p_in_app: inApp }) }).catch(() => {});
+    } catch (e) {}
+  }
+  hit('visita', true);
+  try { const d = new Date(), today = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); if (localStorage.getItem('xr-o-dia') !== today) { localStorage.setItem('xr-o-dia', today); hit('visita_dia'); } } catch (e) {}
+  document.addEventListener('click', (e) => { if (e.target.closest('a[href^="https://wa.me"]')) hit('compartir_whatsapp'); });
+  function save() {
+    try {
+      if (state.view === 'done' || state.view === 'contact' || state.view === 'sent') { localStorage.removeItem(STORE); return; }
+      localStorage.setItem(STORE, JSON.stringify({ ts: Date.now(), current: state.current, answers: state.answers, history: state.history, big: state.big, channel: state.channel, clientId: state.clientId, milestones: state.milestones }));
+    } catch (e) {}
+  }
+  function load() {
+    try {
+      const s = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (!s) return;
+      if (!s.ts || Date.now() - s.ts > DRAFT_TTL) { localStorage.removeItem(STORE); return; }
+      if (s.answers && Q[s.current]) Object.assign(state, { current: s.current, answers: s.answers, history: s.history || [], big: !!s.big, channel: state.channel || s.channel || null, clientId: s.clientId || null, milestones: Array.isArray(s.milestones) ? s.milestones : [] });
+    } catch (e) {}
+  }
+  const hasDraft = () => state.history.length > 0 || Object.keys(state.answers).length > 0;
+  const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const isAnswered = (q, a) => q.type === 'multi' ? Array.isArray(a) && a.length > 0 : (q.type === 'text' || q.type === 'short') ? !!(a && String(a).trim().length >= 2) : a != null;
+
+  // quien marcó una plataforma en L4 ve N4B en lugar de N4
+  const resolve = (id) => id === 'N4' && Array.isArray(state.answers.L4) && state.answers.L4.includes('plataforma') ? 'N4B' : id;
+  function nextOf(id, a) {
+    const q = Q[id];
+    let nx = q.next;
+    if (q.type === 'single' && a != null) { const op = q.options.find((x) => x.v === a); if (op && op.next) nx = op.next; }
+    if (q.type === 'single' && a == null && q.def) { const op = q.options.find((x) => x.v === q.def); if (op && op.next) nx = op.next; }
+    if (q.route) nx = q.route(a) || nx;
+    return resolve(nx);
+  }
+  function walk() {
+    const path = []; let id = 'O1'; let guard = 0;
+    while (id && Q[id] && guard++ < 120) { path.push(id); id = nextOf(id, state.answers[id]); }
+    return { path, end: id };
+  }
+  function progress() {
+    const { path } = walk();
+    const i = path.indexOf(state.current);
+    return { p: path.length > 1 ? Math.max(0, i) / path.length : 0, path };
+  }
+  const announce = (t) => { const el = document.getElementById('announce'); el.textContent = ''; setTimeout(() => { el.textContent = t; }, 30); };
+  const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+    : 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, () => Math.floor(Math.random() * 16).toString(16));
+
+  // ───────── Envío a Supabase (con cola si no hay señal) ─────────
+  // Dos tipos en la cola: la respuesta anónima (organizer_responses) y, si la deja, el contacto (submit_organizer_lead)
+  function readQueue() { try { return JSON.parse(localStorage.getItem(QUEUE) || '[]'); } catch (e) { return []; } }
+  function writeQueue(q) { try { localStorage.setItem(QUEUE, JSON.stringify(q)); } catch (e) {} }
+  const SEND_TEXT = {
+    sending: ['Enviando tus respuestas…', ''],
+    ok: DRY ? ['Vista local: no se envió nada.', 'En el sitio publicado aquí se confirma que tus respuestas llegaron.'] : ['Tus respuestas llegaron.', 'Gracias por tomarte el tiempo.'],
+    offline: ['Sin señal por ahora.', 'Tus respuestas quedaron guardadas en este teléfono y se envían solas cuando vuelva la conexión.'],
+    error: ['No pudimos guardar tus respuestas.', 'Intentá de nuevo en un momento.']
+  };
+  function sendBox() {
+    if (state.send === 'idle') return '';
+    const t = SEND_TEXT[state.send];
+    return '<div class="send" id="send" data-s="' + state.send + '" role="status"><span class="dot" aria-hidden="true"></span><div class="msg"><b>' + t[0] + '</b>' +
+      (t[1] ? '<span class="muted">' + t[1] + '</span>' : '') +
+      (state.send === 'offline' || state.send === 'error' ? '<button type="button" class="link" data-act="retry">Intentar de nuevo</button>' : '') + '</div></div>';
+  }
+  function setSend(s) {
+    state.send = s;
+    const el = document.getElementById('send');
+    if (el) el.outerHTML = sendBox();
+    if (s === 'ok') announce('Tus respuestas llegaron.');
+    if (s === 'offline') announce('Sin señal. Tus respuestas quedaron guardadas y se envían solas.');
+  }
+  let flushing = false;
+  async function flush() {
+    if (flushing) return;
+    const q = readQueue();
+    if (!q.length) return;
+    flushing = true;
+    const done = new Set(); const mine = {};
+    for (const item of q) {
+      let outcome = 'keep';
+      if (DRY) outcome = 'ok';   // vista local: se da por enviada sin tocar la base
+      else {
+        try {
+          const res = await fetch(SUPABASE_URL + (item.kind === 'lead' ? '/rest/v1/rpc/submit_organizer_lead' : '/rest/v1/organizer_responses'), {
+            method: 'POST',
+            headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+            body: JSON.stringify(item.body)
+          });
+          if (res.ok || res.status === 409) outcome = 'ok';            // 409: ya estaba guardada (reintento)
+          else if (res.status >= 400 && res.status < 500) outcome = 'drop'; // rechazada por la base: no reintentar
+        } catch (e) { outcome = 'keep'; }
+      }
+      if (outcome !== 'keep') done.add(item.key);
+      if (state.final && item.id === state.final.client_id) mine[item.kind] = outcome;
+    }
+    writeQueue(readQueue().filter((i) => !done.has(i.key)));
+    flushing = false;
+    const map = (r) => r === 'ok' ? 'ok' : r === 'drop' ? 'error' : 'offline';
+    if (mine.resp) setSend(map(mine.resp));
+    if (mine.lead) leadOutcome(map(mine.lead));
+  }
+  function enqueue(kind, id, body) {
+    const key = kind + ':' + id;
+    writeQueue(readQueue().filter((i) => i.key !== key).concat([{ kind, key, id, body }]));
+    flush();
+  }
+
+  // ───────── Corredores (pictogramas en canvas) ─────────
+  const TAU = Math.PI * 2;
+  const NIEBLA = [219, 224, 222], LAGO = [18, 56, 59];
+  const GOLD = '#C65A3D';   // arcilla: tu corredor y la línea de meta, el único tramo encendido
+  // Mezcla de niebla (0) a lago profundo (1) sobre arena: carriles tenues, gente en tonos de lago
+  const tintOf = (m) => 'rgb(' + NIEBLA.map((c, i) => Math.round(c + (LAGO[i] - c) * m)).join(',') + ')';
+  const DISPLAY_FONT = '"Space Grotesk", system-ui, sans-serif';
+  const LOGO_H = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1167.83 190.00"><g transform="scale(1.43940) translate(-24.918 -62.000)"><path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" stroke="#12383B" fill="none" stroke-width="24" stroke-linecap="butt" stroke-linejoin="round"/><circle cx="64.055" cy="181.954" r="12.0" fill="#12383B"/><circle cx="104.874" cy="169.445" r="12.0" fill="#12383B"/><path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" stroke="#C65A3D" fill="none" stroke-width="24" stroke-linecap="butt" stroke-linejoin="round"/></g><g transform="translate(365.829 45.000)"><path d="M0.000 0.000 L22.506 0.000 L86.000 100.000 L63.494 100.000ZM63.494 0.000 L86.000 0.000 L22.506 100.000 L0.000 100.000Z" fill="#12383B" fill-rule="nonzero"/><path d="M120.000 50.0 A52.0 52.0 0 1 0 224.000 50.0 A52.0 52.0 0 1 0 120.000 50.0ZM139.000 50.0 A33.0 33.0 0 1 0 205.000 50.0 A33.0 33.0 0 1 0 139.000 50.0Z" fill="#12383B" fill-rule="evenodd"/><path d="M254.000 0.000 L273.000 0.000 L273.000 81.000 L316.000 81.000 L316.000 100.000 L254.000 100.000Z" fill="#12383B" fill-rule="nonzero"/><path d="M338.000 50.0 A52.0 52.0 0 1 0 442.000 50.0 A52.0 52.0 0 1 0 338.000 50.0ZM357.000 50.0 A33.0 33.0 0 1 0 423.000 50.0 A33.0 33.0 0 1 0 357.000 50.0Z" fill="#12383B" fill-rule="evenodd"/><path d="M516.000 0.000 L525.500 0.000 L525.500 100.000 L516.000 100.000ZM542.400 44.500 L553.110 44.500 L582.000 100.000 L571.290 100.000Z" fill="#12383B" fill-rule="nonzero"/><path d="M520.750 0 H553.000 A27.0 27.0 0 0 1 553.000 54 H520.750ZM520.750 9.5 H553.000 A17.5 17.5 0 0 1 553.000 44.5 H520.750Z" fill="#12383B" fill-rule="evenodd"/><path d="M614.0 0 V62.000 A38.0 38.0 0 0 0 690.000 62.000 V0 H680.500 V62.000 A28.5 28.5 0 0 1 623.500 62.000 V0Z" fill="#12383B" fill-rule="nonzero"/><path d="M722.000 0.000 L731.500 0.000 L731.500 100.000 L722.000 100.000ZM792.500 0.000 L802.000 0.000 L802.000 100.000 L792.500 100.000ZM722.000 0.000 L733.514 0.000 L802.000 100.000 L790.486 100.000Z" fill="#12383B" fill-rule="nonzero"/></g></svg>';
+  const reduceMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const POSE = {
+    run:    { legAmp: 0.72, flexB: 0.15, flexA: 1.3,  armAmp: 0.75, elbow: 1.5,  lean: 0.18, bob: 0.035, head: 0.105 },
+    kid:    { legAmp: 0.74, flexB: 0.15, flexA: 1.25, armAmp: 0.8,  elbow: 1.45, lean: 0.14, bob: 0.04,  head: 0.135 },
+    senior: { legAmp: 0.3,  flexB: 0.05, flexA: 0.25, armAmp: 0.12, elbow: 0.2,  lean: 0.3,  bob: 0.006, head: 0.105 }
+  };
+  function drawRunner(ctx, x, ground, h, p, kind, color) {
+    const cheer = kind === 'cheer', P = POSE[cheer ? 'run' : kind];
+    const T = h * 0.28, TH = h * 0.25, SH = h * 0.25, UA = h * 0.17, FA = h * 0.15, HR = h * P.head;
+    const lean = cheer ? 0.02 : P.lean;
+    const bob = cheer ? 0 : kind === 'senior' ? h * P.bob * Math.cos(2 * p) : h * P.bob * Math.abs(Math.sin(p));
+    const hx = x, hy = ground - (TH + SH) * 0.95 - bob;
+    const sx = hx + Math.sin(lean) * T, sy = hy - Math.cos(lean) * T;
+    const kx = sx + Math.sin(lean) * HR * 1.75, ky = sy - Math.cos(lean) * HR * 1.75;
+    const lw = h * 0.14;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    let hand = null;
+    const limb = (ax, ay, a1, l1, a2, l2) => {
+      const bx = ax + Math.sin(a1) * l1, by = ay + Math.cos(a1) * l1;
+      const cx = bx + Math.sin(a2) * l2, cy = by + Math.cos(a2) * l2;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.lineTo(cx, cy); ctx.stroke();
+      return [cx, cy];
+    };
+    if (cheer) {
+      limb(hx, hy, -0.13, TH, -0.1, SH); limb(hx, hy, 0.13, TH, 0.1, SH);
+      limb(sx, sy, Math.PI + 0.5, UA, Math.PI + 0.42, FA); limb(sx, sy, Math.PI - 0.5, UA, Math.PI - 0.42, FA);
+    } else {
+      for (const ph of [p + Math.PI, p]) {
+        const a = P.legAmp * Math.sin(ph), flex = P.flexB + P.flexA * Math.max(0, Math.cos(ph));
+        limb(hx, hy, a, TH, a - flex, SH);
+        if (kind === 'senior' && ph === p) hand = limb(sx, sy, 0.42, UA, 0.55, FA);
+        else { const ua = -P.armAmp * Math.sin(ph); limb(sx, sy, ua, UA, ua + P.elbow, FA); }
+      }
+    }
+    ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(sx, sy); ctx.stroke();
+    ctx.beginPath(); ctx.arc(kx, ky, HR, 0, TAU); ctx.fill();
+    if (hand) { ctx.lineWidth = lw * 0.5; ctx.beginPath(); ctx.moveTo(hand[0], hand[1]); ctx.lineTo(hand[0] + h * 0.05, ground); ctx.stroke(); }
+  }
+
+  function rng(seed) { return () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+  const LANES = [
+    ['run', 'senior'],
+    ['kid', 'run'],
+    ['run', 'kid'],
+    ['senior', 'kid', 'run'],
+    ['you', 'run']
+  ];
+  const KIND = {
+    run: { speed: 0.95, stride: 1.15, scale: 1 },
+    you: { speed: 1.0, stride: 1.15, scale: 1.05 },
+    kid: { speed: 0.8, stride: 1.0, scale: 0.64 },
+    senior: { speed: 0.3, stride: 0.6, scale: 0.97 }
+  };
+  const FRAME_MS = 33;
+
+  class TrackScene {
+    constructor(section, opts) {
+      this.section = section; this.opts = opts || {};
+      this.canvas = section.querySelector('canvas.scene'); this.ctx = this.canvas.getContext('2d');
+      this.spacer = section.querySelector('.track-space');
+      this.runners = null; this.lastDraw = 0; this.raf = 0; this.visible = true; this.pulse = 0;
+      this.still = reduceMotion();
+      this.ro = new ResizeObserver(() => { this.layout(); this.draw(); });
+      this.ro.observe(section);
+      this.io = new IntersectionObserver((es) => { this.visible = es[0].isIntersecting; if (this.visible) this.play(); else this.pause(); });
+      this.io.observe(this.canvas);
+      this.layout(); this.draw(); this.play();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.draw());
+    }
+    play() { if (!this.still && !this.raf) this.raf = requestAnimationFrame((t) => this.tick(t)); }
+    pause() { cancelAnimationFrame(this.raf); this.raf = 0; this.lastDraw = 0; }
+    layout() {
+      const W = this.section.clientWidth, pad = 34;
+      const top = this.spacer.offsetTop - pad, hgt = this.spacer.offsetHeight + pad + 6;
+      const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      const prevW = this.W;
+      this.W = W; this.H = hgt;
+      this.canvas.style.top = top + 'px'; this.canvas.style.height = hgt + 'px';
+      this.canvas.width = Math.round(W * dpr); this.canvas.height = Math.round(hgt * dpr);
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      this.gap = this.spacer.offsetHeight / LANES.length;
+      this.base = LANES.map((_, i) => pad + this.gap * (i + 1) - 2);
+      this.unit = Math.max(26, Math.min(this.gap * 1.3, 96));
+      this.fx = Math.round(W * 0.72);
+      if (!this.runners) this.seed();
+      else if (prevW && prevW !== W) this.runners.forEach((m) => { m.x *= W / prevW; if (m.stopAt) m.stopAt = W * 0.86; });
+    }
+    seed() {
+      const rand = rng(11);
+      const reps = Math.max(1, Math.round(this.W / 440));
+      this.runners = [];
+      LANES.forEach((kinds, li) => {
+        const depth = 0.7 + li * 0.08, list = [];
+        for (let r = 0; r < reps; r++) kinds.forEach((k) => { if (k !== 'you' || r === 0) list.push(k); });
+        list.forEach((k, j) => {
+          const K = KIND[k], h = this.unit * depth * K.scale, v = K.speed * h * 0.95;
+          const m = { lane: li, kind: k, h, x: (j + 0.15 + rand() * 0.55) * (this.W / list.length), p: rand() * TAU, v, cad: v / (K.stride * h) * TAU };
+          if (k === 'you') {
+            if (this.opts.finish) {
+              m.x = this.still ? this.W * 0.86 : this.W * 0.38;
+              m.stopAt = this.W * 0.86; m.done = this.still; m.vmax = Math.max(60, (this.fx - m.x) / 1.4);
+            } else m.x = this.W * 0.3;
+          }
+          this.runners.push(m);
+        });
+      });
+    }
+    tick(t) {
+      this.raf = 0;
+      if (!this.visible) return;
+      if (t - this.lastDraw >= FRAME_MS) {
+        const dt = this.lastDraw ? Math.min(0.1, (t - this.lastDraw) / 1000) : 0;
+        this.lastDraw = t;
+        if (!document.hidden) { this.step(dt); this.draw(); }
+      }
+      this.raf = requestAnimationFrame((n) => this.tick(n));
+    }
+    step(dt) {
+      if (this.pulse > 0) this.pulse = Math.max(0, this.pulse - dt);
+      for (const m of this.runners) {
+        if (m.stopAt) {
+          if (m.done) continue;
+          const left = m.stopAt - m.x, speed = Math.min(m.vmax, Math.max(10, left * 2.6)), before = m.x;
+          m.x = Math.min(m.stopAt, m.x + speed * dt);
+          m.p += (speed / (1.15 * m.h)) * TAU * dt;
+          if (before < this.fx && m.x >= this.fx) this.pulse = 0.6;
+          if (m.stopAt - m.x < 0.8) m.done = true;
+          continue;
+        }
+        m.x += m.v * dt; m.p += m.cad * dt;
+        if (m.x - m.h > this.W) m.x = -m.h * 1.2;
+      }
+    }
+    draw() {
+      const c = this.ctx, W = this.W, H = this.H;
+      c.clearRect(0, 0, W, H);
+      const size = Math.round(Math.max(18, this.gap * 0.62));
+      c.font = '600 ' + size + 'px ' + DISPLAY_FONT;
+      this.base.forEach((y, i) => {
+        c.fillStyle = tintOf(0.12 + i * 0.03);
+        c.fillText(String(LANES.length - i), 12, y - 5);
+        c.strokeStyle = tintOf(0.1 + i * 0.03); c.lineWidth = 1.5;
+        c.beginPath(); c.moveTo(0, y + 0.5); c.lineTo(W, y + 0.5); c.stroke();
+      });
+      if (this.opts.finish) {
+        const y0 = this.base[0] - this.gap * 0.95, y1 = this.base[this.base.length - 1] + 3;
+        c.strokeStyle = GOLD; c.lineWidth = 3 + 6 * (this.pulse / 0.6);
+        c.beginPath(); c.moveTo(this.fx, y0); c.lineTo(this.fx, y1); c.stroke();
+        c.fillStyle = GOLD; c.font = '600 15px ' + DISPLAY_FONT;
+        c.textAlign = 'center'; c.fillText('META', this.fx, y0 - 8); c.textAlign = 'start';
+      }
+      for (const m of this.runners) {
+        const you = m.kind === 'you';
+        drawRunner(c, m.x, this.base[m.lane], m.h, m.p, you ? (m.done ? 'cheer' : 'run') : m.kind, you ? GOLD : tintOf(0.22 + m.lane * 0.07));
+      }
+    }
+    destroy() { this.pause(); this.ro.disconnect(); this.io.disconnect(); }
+  }
+
+  class BandScene {
+    constructor(holder, target, from, marks) {
+      this.holder = holder; this.canvas = holder.querySelector('canvas'); this.ctx = this.canvas.getContext('2d');
+      this.target = target; this.pos = reduceMotion() ? target : from; this.marks = marks; this.p = 0.9; this.last = 0; this.raf = 0;
+      this.ro = new ResizeObserver(() => { this.layout(); this.draw(); });
+      this.ro.observe(holder);
+      this.layout(); this.draw();
+      if (Math.abs(this.target - this.pos) > 0.002) this.raf = requestAnimationFrame((t) => this.tick(t));
+    }
+    layout() {
+      const r = this.holder.getBoundingClientRect(), dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      this.W = r.width; this.H = r.height;
+      this.canvas.width = Math.round(r.width * dpr); this.canvas.height = Math.round(r.height * dpr);
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    tick(t) {
+      const dt = this.last ? Math.min(0.05, (t - this.last) / 1000) : 0; this.last = t;
+      this.pos += (this.target - this.pos) * (1 - Math.exp(-dt * 3.2));
+      this.p += dt * 11;
+      if (Math.abs(this.target - this.pos) <= 0.002) { this.pos = this.target; this.p = 0.9; this.raf = 0; this.draw(); return; }
+      this.draw();
+      this.raf = requestAnimationFrame((n) => this.tick(n));
+    }
+    draw() {
+      const c = this.ctx, W = this.W, y = this.H - 9, x0 = 4, x1 = W - 6, span = x1 - x0;
+      c.clearRect(0, 0, W, this.H);
+      c.lineCap = 'round'; c.lineWidth = 3;
+      c.strokeStyle = tintOf(0.12);
+      c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke();
+      const xr = x0 + span * this.pos;
+      c.strokeStyle = tintOf(0.85);
+      c.beginPath(); c.moveTo(x0, y); c.lineTo(Math.max(x0, xr), y); c.stroke();
+      c.fillStyle = tintOf(0.45);
+      this.marks.forEach((m) => { if (m > 0.01) { c.beginPath(); c.arc(x0 + span * m, y, 2.6, 0, TAU); c.fill(); } });
+      c.strokeStyle = GOLD;
+      c.beginPath(); c.moveTo(x1, y - 16); c.lineTo(x1, y + 5); c.stroke();
+      drawRunner(c, Math.max(x0 + 8, Math.min(x1 - 12, xr)), y - 1.5, 30, this.p, 'run', GOLD);
+    }
+    destroy() { cancelAnimationFrame(this.raf); this.ro.disconnect(); }
+  }
+
+  // ───────── Motivación: tiempo que falta y puestos de abastecimiento; lo que hay al final no se adelanta ─────────
+  const SECS_PER_Q = 16;
+  function timeLeft() {
+    const { path } = walk();
+    const left = path.length - Math.max(0, path.indexOf(state.current));
+    if (left <= 1) return 'Última pregunta';
+    return 'Faltan ~' + Math.max(1, Math.round((left * SECS_PER_Q) / 60)) + ' min';
+  }
+  const CHEERS = {
+    quarter: ['Buen ritmo.', 'Ya llevás un cuarto del recorrido.'],
+    half: ['Vas por la mitad.', 'Lo mejor está en la meta.'],
+    last: ['Último tramo.', 'Ya casi llegás a la meta.']
+  };
+  // Se llama al llegar a una pregunta nueva: deja un mensaje si cruzó un hito que aún no había visto
+  function checkMilestone() {
+    state.cheer = null;
+    if (Q[state.current].type === 'info') return;
+    const { path } = walk();
+    const i = Math.max(0, path.indexOf(state.current)), left = path.length - i, p = i / path.length;
+    const seen = (k) => state.milestones.includes(k);
+    let k = null;
+    if (left <= 3 && path.length > 8 && !seen('last')) k = 'last';
+    else if (p >= 0.5 && !seen('half')) k = 'half';
+    else if (p >= 0.25 && p < 0.5 && !seen('quarter')) k = 'quarter';
+    if (!k) return;
+    state.milestones.push(k);
+    state.cheer = k;
+    setTimeout(() => announce(CHEERS[k].join(' ')), 400);
+  }
+  function cheerBox() {
+    if (!state.cheer) return '';
+    const c = CHEERS[state.cheer];
+    return '<div class="cheer"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="15" cy="4.5" r="2.3" fill="currentColor"/><path d="M13 8.5l-3 4.5 3.5 2.5-1.5 5.5M10 13l-4 1M13.5 9.5l4 2 2-2.5M16 15.5l3 1.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><p><b>' + c[0] + '</b> ' + c[1] + '</p></div>';
+  }
+
+  // ───────── Vistas ─────────
+  let scenes = [];
+  let lastProgress = 0;
+  const app = document.getElementById('app');
+
+  function topbar(withBack, ig) {
+    const mark = '<span class="brand"><span class="wordmark">Encuesta para <b>organizadores</b></span><span class="byline">Una encuesta de <b>' + BRAND + '</b></span></span>';
+    const big = '<button type="button" class="tool" data-act="big" aria-pressed="' + state.big + '" aria-label="Letra grande">Aa</button>';
+    return '<div class="topbar wrap">' +
+      (withBack ? '<button type="button" class="tool" data-act="back" aria-label="Pregunta anterior">' + BACK + '</button>' + mark : mark) +
+      (ig ? '<span class="tools"><a class="tool ig" href="' + CONTACT.href + '" target="_blank" rel="noopener" aria-label="Instagram de ' + BRAND + ', @xolorun (se abre en otra pestaña)" title="@xolorun en Instagram">' + IG_ICON + '</a>' + big + '</span>' : big) + '</div>';
+  }
+
+  function viewWelcome() {
+    const resume = hasDraft();
+    return '<section class="field enter" data-scene="track"><canvas class="scene" aria-hidden="true"></canvas>' +
+      '<div class="field-inner">' + topbar(false, true) +
+      '<div class="wrap stack"><h1 class="headline">Contanos cómo <em>organizás</em></h1>' +
+      '<p class="lede">Tu último evento, tal como salió.</p>' +
+        '<div class="who"><h2>Una encuesta de <b>' + BRAND + '</b></h2>' +
+          '<p>Estamos creando una app donde los corredores tendrán su perfil y los organizadores el suyo. Antes de construir la parte de organizadores, queremos entender cómo lo hacés hoy.</p>' +
+          '<button type="button" class="link" data-act="about">Quiénes somos y qué hacemos con tus respuestas</button></div></div>' +
+      '<div class="track-space" aria-hidden="true"></div>' +
+      '<div class="wrap stack">' +
+        (DRY ? '<p class="local">Vista local de evaluación: las respuestas no se envían.</p>' : '') +
+        '<ul class="facts"><li>Unos 10 minutos</li><li>Anónima</li><li>Sin nombre ni teléfono</li></ul>' +
+        '<p class="promise">Al final de la ruta hay algo pensado <b>para quienes organizan.</b></p></div>' +
+      '<div class="wrap actions">' +
+        (resume
+          ? '<button type="button" class="go" data-act="resume">Seguir donde quedaste</button><button type="button" class="quiet" data-act="restart">Empezar de nuevo</button>'
+          : '<button type="button" class="go" data-act="start">Empezar</button>') +
+      '</div>' +
+      '</div></section>';
+  }
+
+  function viewInfo(id) {
+    const q = Q[id];
+    return '<section class="field enter" data-scene="track"><canvas class="scene" aria-hidden="true"></canvas>' +
+      '<div class="field-inner">' + topbar(true) +
+      '<div class="wrap stack">' + cheerBox() + '<h1 class="headline small" tabindex="-1" id="qt">' + q.title + '</h1>' +
+      '<p class="lede">' + q.help + '</p></div>' +
+      '<div class="track-space" aria-hidden="true"></div>' +
+      '<div class="wrap actions"><button type="button" class="go" data-act="next">' + (q.cta || 'Seguir') + '</button></div>' +
+      '</div></section>';
+  }
+
+  function optionsHTML(q, a) {
+    const multi = q.type === 'multi';
+    const sel = multi ? (a || []) : [a];
+    const full = multi && q.max && sel.length >= q.max;
+    const role = multi ? 'checkbox' : 'radio';
+    const group = multi ? 'role="group"' : 'role="radiogroup"';
+    return '<div class="opts" ' + group + ' aria-labelledby="qt">' + q.options.map((op) => {
+      const on = sel.includes(op.v), off = full && !on && !op.ex;
+      return '<button type="button" class="opt" role="' + role + '" aria-checked="' + on + '"' + (off ? ' aria-disabled="true"' : '') + ' data-v="' + op.v + '">' +
+        '<span class="ind">' + (multi ? CHECK : '') + '</span><span class="lbl">' + op.t + '</span></button>';
+    }).join('') + '</div>';
+  }
+
+  function nextLabel(id) {
+    const q = Q[id], nx = nextOf(id, state.answers[id]);
+    if (nx === 'END') return 'Terminar';
+    return q.optional && !isAnswered(q, state.answers[id]) ? 'Saltar' : 'Siguiente';
+  }
+
+  function viewQuestion(id) {
+    const q = Q[id], a = state.answers[id];
+    const answered = isAnswered(q, a) || !!q.optional;
+    const body = q.type === 'text'
+      ? '<label class="sr" for="ta">' + esc(q.title) + '</label><textarea class="textarea" id="ta" maxlength="600" placeholder="Escribí aquí…">' + esc(a || '') + '</textarea><span class="count" id="count">' + String((a || '').length) + ' de 600</span>'
+      : q.type === 'short'
+        ? '<label class="sr" for="ta">' + esc(q.title) + '</label><input class="input" id="ta" type="text" maxlength="80" autocomplete="off" enterkeyhint="next" placeholder="' + esc(q.ph || 'Escribí aquí…') + '" value="' + esc(a || '') + '">'
+        : optionsHTML(q, a);
+    return '<section class="q enter">' +
+      '<header class="band">' + topbar(true) +
+        '<div class="wrap"><div class="band-track"><canvas aria-hidden="true"></canvas></div>' +
+        '<div class="band-cap"><b>' + BLOCK[q.b] + '</b><span>' + timeLeft() + '</span></div></div>' +
+      '</header>' +
+      '<div class="wrap qbody">' +
+        cheerBox() +
+        '<h1 class="q-title" tabindex="-1" id="qt">' + q.title + '</h1>' +
+        (q.help ? '<p class="q-help">' + q.help + '</p>' : '') +
+        body +
+        '<p class="hint" id="hint">' + esc(state.hint) + '</p>' +
+      '</div>' +
+      '<div class="dock"><div class="wrap"><button type="button" class="next" id="next" data-act="next"' + (answered ? '' : ' aria-disabled="true"') + '>' + nextLabel(id) + '</button></div></div>' +
+      '</section>';
+  }
+
+  function finalAnswers() {
+    const { path } = walk();
+    const out = {};
+    path.forEach((id) => { const q = Q[id]; if (q.type !== 'info' && isAnswered(q, state.answers[id])) out[id] = (q.type === 'text' || q.type === 'short') ? String(state.answers[id]).trim().slice(0, 600) : state.answers[id]; });
+    return { version: VERSION, path: state.answers.O2 === '0' ? 'planea' : 'activo', channel: state.channel, ref: REF, answers: out, client_id: state.clientId || uuid() };
+  }
+  const shareURL = () => PUBLIC_URL + '?c=referido';
+  const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' para quienes organizan carreras de running en Nicaragua. Es anónima y toma unos 10 minutos: ' + shareURL();
+
+  // Muestra del sello en un perfil de organizador: solo en la meta, marcada como ejemplo (manual de marca: contenido de muestra = «Ejemplo»)
+  // Sello de Organizador Fundador (opción C elegida por Kenneth): etiqueta corta con la ruta de la marca y detalles dorados finos.
+  // El dorado (#B08D57, de la paleta de medalla anterior) es una excepción pedida por Kenneth, solo para este sello.
+  const ROUTE_MARK = (w) => '<svg viewBox="0 0 211.08 132" width="' + w + '" aria-hidden="true"><g transform="translate(-24.918 -62)"><path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" fill="none" stroke="#F3EFE7" stroke-width="24"/><circle cx="64.055" cy="181.954" r="12" fill="#F3EFE7"/><circle cx="104.874" cy="169.445" r="12" fill="#F3EFE7"/><path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" fill="none" stroke="#C65A3D" stroke-width="24"/></g></svg>';
+  const founderTag = (big) => '<span class="fb-tag' + (big ? ' big' : '') + '">' + ROUTE_MARK(big ? 30 : 20) + '<span>Fundador</span></span>';
+  function badgeDemo() {
+    return '<figure class="badge-demo" aria-label="Ejemplo de cómo se verá el sello de Organizador Fundador en tu perfil">' +
+      '<figcaption><span>Así se verá en tu perfil</span><span class="tag">Ejemplo</span></figcaption>' +
+      '<div class="fb-show" aria-hidden="true">' + founderTag(true) + '</div>' +
+      '<div class="bd-card" aria-hidden="true">' +
+        '<span class="bd-avatar">TO</span>' +
+        '<span class="bd-who"><b>Tu organización</b>' + founderTag(false) + '</span>' +
+      '</div>' +
+      '</figure>';
+  }
+
+  // Lo que hay al final: la invitación a Organizadores Fundadores, con el mismo estilo de tarjeta que la lista de espera de la encuesta
+  function founderBox() {
+    const perks = [
+      ['Te acompañamos a montar tu carrera', 'Una persona del equipo la publica con vos, paso a paso.'],
+      ['Tu carrera en la vitrina del lanzamiento', 'Entre las primeras que verán los corredores en la app y, si lo acordamos juntos, también en nuestras redes.'],
+      ['Sello de Organizador Fundador', 'Queda en tu perfil para siempre, como uno de los primeros.'],
+      ['Tu voz en lo que construimos', 'Probás las funciones antes que nadie y nos decís qué cambiar.'],
+      ['El resumen del sector, primero', 'Lo que respondieron los organizadores, en cifras y sin nombres de nadie.']
+    ];
+    return '<div class="spread wl" id="fundadores"><p class="eyebrow">Primera ronda · cupos limitados</p>' +
+      '<h3>Organizadores Fundadores</h3>' +
+      '<p class="muted">Buscamos a los primeros organizadores para publicar sus carreras en ' + BRAND + ' y construir con ellos la herramienta.</p>' +
+      '<ul class="ticks">' + perks.map((x) => '<li>' + CHECK + '<span><b>' + x[0] + '.</b> ' + x[1] + '</span></li>').join('') + '</ul>' +
+      badgeDemo() +
+      '<p class="muted">Revisamos cada postulación según las fechas, el tipo de evento y la zona, para empezar con un grupo variado. No todas entran en la primera ronda; las demás quedan para las siguientes. Postularte no tiene costo ni te compromete a nada.</p>' +
+      (state.leadSent
+        ? '<p class="promise">Ya dejaste tu contacto. Te escribimos pronto.</p>'
+        : '<button type="button" class="go" data-act="contact">Quiero seguir en contacto</button>') +
+      '</div>';
+  }
+
+  function viewDone() {
+    const hero = '<section class="field enter" data-scene="finish"><canvas class="scene" aria-hidden="true"></canvas>' +
+      '<div class="field-inner">' + topbar(false, true) +
+      '<div class="wrap stack"><h1 class="headline" tabindex="-1" id="qt">Llegaste a la <em>meta</em></h1>' +
+      '<p class="lede">Gracias. Lo que nos contaste decide qué construimos primero para quienes organizan.</p></div>' +
+      '<div class="track-space" aria-hidden="true"></div></div></section>';
+    const reveal = '<div class="stack"><h2>Lo que estamos construyendo</h2>' +
+      '<p>Esto es lo que queremos que haga ' + BRAND + ' por quienes organizan. Todavía no está disponible: lo que nos contaste decide qué llega primero.</p>' +
+      '<ul class="ticks">' +
+        '<li>' + CHECK + '<span>Tu perfil de organizador, con tus carreras publicadas en un solo lugar.</span></li>' +
+        '<li>' + CHECK + '<span>Inscripciones y pagos ordenados, sin perseguir comprobantes por WhatsApp.</span></li>' +
+        '<li>' + CHECK + '<span>Cada corredor con su dorsal en el teléfono y tu equipo escaneando en la entrega de kits.</span></li>' +
+      '</ul></div>';
+    const share = '<div class="spread"><p class="eyebrow">Llévala más lejos</p>' +
+      '<h3>¿Conocés a otro organizador?</h3>' +
+      '<p class="muted">Mientras más organizadores respondan, mejor sale el resumen para todos.</p>' +
+      '<div class="share-row">' +
+        '<a class="ghost" href="https://wa.me/?text=' + encodeURIComponent(inviteText()) + '" target="_blank" rel="noopener">' + CHAT_ICON + 'Enviar por WhatsApp</a>' +
+        '<button type="button" class="ghost" data-act="copy">' + LINK_ICON + 'Copiar enlace</button>' +
+      '</div>' +
+      (state.shareFallback ? '<label class="sr" for="share-text">Invitación para copiar</label><textarea class="share-text" id="share-text" readonly>' + esc(inviteText()) + '</textarea><p class="muted">Mantené presionado el texto para copiarlo.</p>' : '') +
+      '</div>';
+    // en llamadas o visitas el equipo llena varias encuestas en el mismo aparato: cada una sale con su propio id
+    const again = '<div class="stack"><button type="button" class="quiet" data-act="restart">Llenar otra encuesta (otro organizador)</button></div>';
+    const raw = state.channel === 'prueba'
+      ? '<details class="raw"><summary>Lo que se envió (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(state.final, null, 2)) + '</pre></details>'
+      : '';
+    return hero + '<div class="wrap after">' + founderBox() + sendBox() + reveal + igBox() + share + soonBox() + again + raw + '</div>';
+  }
+
+  // Cierre discreto: la app que viene
+  const PHONE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3M10.6 10.2l3.6 2.1-3.6 2.1z"/></svg>';
+  const PHONE2_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="3.2"/><path d="M10.5 18.5h3M9.6 13.8l2.4-5 2.4 5M10.4 12.2h3.2"/></svg>';
+  function soonBox() {
+    return '<section class="soon" aria-label="Próximamente">' +
+      '<p class="eyebrow">Próximamente</p>' +
+      '<p class="name" role="img" aria-label="' + BRAND + '">' + LOGO_H + '</p>' +
+      '<p class="muted">Las carreras de running de Nicaragua, en tu teléfono.</p>' +
+      '<div class="stores">' +
+        '<span class="store">' + PHONE_ICON + '<span><small>Pronto en</small>Google Play</span></span>' +
+        '<span class="store">' + PHONE2_ICON + '<span><small>Pronto en</small>App Store</span></span>' +
+      '</div></section>';
+  }
+
+  // ───────── Contacto (solo si quiere, después de la meta) ─────────
+  function viewContact() {
+    const f = state.form, L = state.lead || {};
+    const pick = (v, t, sub) => '<button type="button" class="opt" role="checkbox" aria-checked="' + f.interests.includes(v) + '" data-int="' + v + '"><span class="ind">' + CHECK + '</span><span class="lbl">' + t + '<small>' + sub + '</small></span></button>';
+    const chip = (grp, v, t) => '<button type="button" class="chip" role="radio" aria-checked="' + (f[grp] === v) + '" data-' + grp + '="' + v + '">' + t + '</button>';
+    const row = (id, label, attrs, value) => '<div class="field-row"><label for="f-' + id + '">' + label + '</label><input class="input" id="f-' + id + '" value="' + esc(value || '') + '" ' + attrs + '></div>';
+    const talk = f.interests.includes('fundador') || f.interests.includes('llamada');
+    return pageShell(
+      '<section><p class="eyebrow">Sigamos en contacto</p><h1 tabindex="-1" id="qt">¿Cómo seguimos?</h1>' +
+        '<p class="muted">Solo si querés. Con estos datos te escribimos para coordinar. Tus respuestas quedan unidas a tu contacto para preparar la conversación.</p></section>' +
+      '<form id="lead" class="page" style="padding:0" novalidate>' +
+        '<section><h2>¿Qué te interesa?</h2><p class="muted">Podés elegir varias.</p>' +
+          '<div class="opts" role="group" aria-label="Qué te interesa">' +
+            pick('fundador', 'Postularme como Organizador Fundador', 'Primera ronda, cupos limitados') +
+            pick('llamada', 'Conversar en una llamada o reunión', '20 a 30 minutos, cuando te quede bien') +
+            pick('informe', 'Recibir el resumen de lo que respondieron los organizadores', 'Cifras del sector, sin nombres de nadie') +
+          '</div><p class="hint" id="e-int"></p></section>' +
+        '<section><h2>Tus datos</h2>' +
+          row('name', 'Tu nombre', 'type="text" autocomplete="name" maxlength="80"', L.name) + '<p class="hint" id="e-name"></p>' +
+          row('org', 'Tu organización o tu evento (opcional)', 'type="text" autocomplete="organization" maxlength="100"', L.org) +
+          row('wa', 'Tu WhatsApp', 'type="tel" inputmode="tel" autocomplete="tel-national" maxlength="24" placeholder="8888 8888"', L.wa) +
+          row('mail', 'O tu correo', 'type="email" inputmode="email" autocomplete="email" maxlength="254"', L.mail) +
+          '<p class="muted">Basta uno de los dos.</p><p class="hint" id="e-contact"></p></section>' +
+        '<section id="talk"' + (talk ? '' : ' hidden') + '><h2>¿Cómo preferís conversar?</h2>' +
+          '<div class="chips" role="radiogroup" aria-label="Cómo preferís conversar">' + chip('meet', 'videollamada', 'Videollamada (Meet)') + chip('meet', 'llamada', 'Llamada por WhatsApp') + chip('meet', 'persona', 'En persona, en Managua') + chip('meet', 'escribir', 'Mejor escríbanme') + '</div>' +
+          '<h2>¿A qué hora te queda mejor?</h2>' +
+          '<div class="chips" role="radiogroup" aria-label="Horario">' + chip('slot', 'manana', 'Mañana') + chip('slot', 'mediodia', 'Mediodía') + chip('slot', 'tarde', 'Tarde') + chip('slot', 'noche', 'Noche') + chip('slot', 'cualquiera', 'Cualquiera') + '</div>' +
+          row('next', 'Tu próximo evento (opcional)', 'type="text" maxlength="80" placeholder="Por ejemplo: 10K de la colonia, marzo"', L.next) + '</section>' +
+        '<section><div class="opts" role="group" aria-label="Permiso">' +
+          '<button type="button" class="opt" role="checkbox" aria-checked="' + !!L.ok + '" id="f-ok" data-ok="1"><span class="ind">' + CHECK + '</span><span class="lbl">Acepto que ' + BRAND + ' guarde estos datos para contactarme sobre lo que marqué. Puedo pedir que los borren cuando quiera.</span></button>' +
+          '</div><button type="button" class="link" data-act="privacy">Aviso de privacidad</button><p class="hint" id="e-ok"></p></section>' +
+        '<div class="stack"><button type="submit" class="go" id="lead-go">Enviar</button><p class="hint" id="form-err" role="status"></p></div>' +
+      '</form>');
+  }
+
+  function viewSent() {
+    const L = state.lead || {}, f = state.form;
+    const first = String(L.name || '').trim().split(/\s+/)[0];
+    const founder = f.interests.includes('fundador');
+    const by = L.wa ? 'WhatsApp' : 'correo';
+    const steps = founder
+      ? ['Recibimos tu postulación, guardada con tus respuestas.', 'Te escribimos para conversar en los próximos días, por ' + by + '.', 'Te contamos si entrás en la primera ronda. Si no, quedás para la siguiente.']
+      : ['Recibimos tus datos, guardados con tus respuestas.', f.interests.includes('llamada') ? 'Te escribimos para coordinar, por ' + by + '.' : 'Te escribimos cuando haya novedades, sin mensajes de más.'].concat(f.interests.includes('informe') ? ['Te mandamos el resumen cuando esté listo.'] : []);
+    return pageShell(
+      '<section><p class="eyebrow">' + (DRY ? 'Vista local: no se envió nada' : 'Listo') + '</p><h1 tabindex="-1" id="qt">' + (first ? esc(first) + ', ' : '') + (founder ? 'ya estás en la fila de fundadores.' : 'quedamos en contacto.') + '</h1>' +
+        (state.leadSend === 'offline' ? '<div class="send" data-s="offline"><span class="dot" aria-hidden="true"></span><div class="msg"><b>Sin señal por ahora.</b><span class="muted">Tus datos se envían solos cuando vuelva la conexión.</span></div></div>' : '') +
+        '<ul class="ticks">' + steps.map((s) => '<li>' + CHECK + '<span>' + s + '</span></li>').join('') + '</ul></section>' +
+      igBox() + '<div class="stack"><button type="button" class="go" data-act="home">Volver</button></div>');
+  }
+
+  // Instagram en la meta: para seguir el proyecto mientras sale la app
+  const igBox = () => '<a class="igcard" href="' + CONTACT.href + '" target="_blank" rel="noopener">' + IG_ICON +
+    '<span><b>Seguinos en Instagram</b><span>Avances de la app y de la parte para organizadores en @xolorun.</span></span>' +
+    '<svg class="out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>';
+
+  // ───────── Transparencia: quiénes somos ─────────
+  const contactHTML = () => CONTACT.href
+    ? '<p>¿Dudas? Escribinos: <a href="' + esc(CONTACT.href) + '" target="_blank" rel="noopener">' + esc(CONTACT.label) + '</a></p>' : '';
+
+  // Todas las preguntas, por bloque, para que cualquiera las revise antes de contestar
+  function questionList() {
+    const byBlock = {};
+    Object.values(Q).forEach((q) => { if (q.type !== 'info') (byBlock[q.b] = byBlock[q.b] || []).push(q.title); });
+    return '<details><summary class="link">Ver todas las preguntas</summary><div class="qlist">' +
+      '<p class="muted">Nadie las ve todas: cada persona ve solo las que aplican a su caso.</p>' +
+      Object.keys(BLOCK).filter((b) => byBlock[b]).map((b) =>
+        '<h3>' + BLOCK[b] + (b === 'P' ? ' (solo si todavía no organizaste ninguno)' : '') + '</h3><ul class="plain">' +
+        byBlock[b].map((t) => '<li>' + t + '</li>').join('') + '</ul>').join('') +
+      '</div></details>';
+  }
+
+  function pageShell(inner) {
+    return '<section class="q enter"><header class="band">' + topbar(true) + '<div class="wrap" style="height:12px"></div></header>' +
+      '<div class="wrap page">' + inner + '</div></section>';
+  }
+
+  function viewAbout() {
+    return pageShell(
+      '<section><h1 tabindex="-1" id="qt">Quiénes somos</h1>' +
+        '<p>' + BRAND + ' es un proyecto nicaragüense e independiente. Estamos creando una app donde los corredores tendrán su perfil y los organizadores el suyo, para publicar sus carreras de running e inscribir a su gente.</p>' +
+        '<p>Antes de construir la parte de organizadores queremos escuchar a quienes organizan, para que responda a lo que de verdad pasa en un evento y no a lo que nosotros suponemos.</p>' +
+        contactHTML() + '</section>' +
+      '<section><h2>Para qué sirven tus respuestas</h2>' +
+        '<p>Para decidir qué construimos primero para quienes organizan. Si hoy todo te funciona bien, también nos sirve saberlo.</p>' +
+        '<p>No te vamos a vender nada.</p></section>' +
+      '<section><h2>Qué preguntamos y qué no</h2><ul class="plain">' +
+        '<li>Tus respuestas son anónimas: no pedimos nombre, cédula, teléfono ni correo.</li>' +
+        '<li>Preguntamos por tu último evento real (tamaño, precios, inscripciones, pagos, kits y patrocinios), siempre en rangos.</li>' +
+        '<li>Al final, solo si querés, podés dejar tu contacto. Si lo dejás, tus respuestas quedan unidas a ese contacto.</li>' +
+        '<li>Contamos las visitas al sitio solo como sumas por día y canal: sin cookies, sin dirección IP ni nada que te identifique.</li></ul>' +
+        questionList() + '</section>' +
+      '<section id="privacidad"><h2>Si dejás tu contacto</h2><ul class="plain">' +
+        '<li><b>Responsable:</b> ' + esc(PRIVACY.controller) + '.</li>' +
+        '<li><b>Qué guardamos:</b> tu nombre, tu WhatsApp o tu correo, tu organización y tu próximo evento si los escribiste, lo que marcaste que te interesa y cómo preferís conversar.</li>' +
+        '<li><b>Para qué:</b> para escribirte sobre lo que marcaste. No vendemos ni compartimos tus datos.</li>' +
+        '<li><b>Dónde:</b> en una base de datos de Supabase, en servidores de Estados Unidos, con acceso solo del equipo de ' + BRAND + '.</li>' +
+        '<li><b>Cuánto tiempo:</b> ' + esc(PRIVACY.retention) + '</li>' +
+        '<li><b>Tus derechos:</b> podés pedir ver, corregir o borrar tus datos, o retirar tu permiso, cuando quieras (Ley 787 de Protección de Datos Personales). Escribinos a <a href="' + esc(CONTACT.href) + '" target="_blank" rel="noopener">' + esc(CONTACT.label) + '</a>.</li>' +
+        '<li><b>Versión del aviso:</b> ' + CONSENT_VERSION + '.</li></ul></section>' +
+      '<section><h2>Quién ve las respuestas</h2>' +
+        '<p>Solo el equipo de ' + BRAND + '. Si publicamos resultados, serán cifras generales, nunca respuestas de una persona ni de un evento con nombre.</p></section>' +
+      '<div class="stack"><button type="button" class="go" data-act="home">Volver a la encuesta</button></div>');
+  }
+
+  function render(dir) {
+    if (state.view === 'done') hit('encuesta_fin', true);
+    scenes.forEach((s) => s.destroy()); scenes = [];
+    document.documentElement.classList.toggle('big', state.big);
+    let html;
+    if (state.view === 'welcome') html = viewWelcome();
+    else if (state.view === 'done') html = viewDone();
+    else if (state.view === 'about') html = viewAbout();
+    else if (state.view === 'contact') html = viewContact();
+    else if (state.view === 'sent') html = viewSent();
+    else html = Q[state.current].type === 'info' ? viewInfo(state.current) : viewQuestion(state.current);
+    app.innerHTML = html;
+    if (dir === 'same') app.querySelectorAll('.enter').forEach((el) => el.classList.remove('enter'));
+    app.querySelectorAll('[data-scene]').forEach((sec) => scenes.push(new TrackScene(sec, { finish: sec.dataset.scene === 'finish' })));
+    const band = app.querySelector('.band-track');
+    if (band && state.view === 'q') {
+      const { p, path } = progress();
+      const marks = []; let prevB = null;
+      path.forEach((id, i) => { if (Q[id].b !== prevB) { marks.push(i / path.length); prevB = Q[id].b; } });
+      scenes.push(new BandScene(band, p, dir === 'same' ? p : lastProgress, marks));
+      lastProgress = p;
+    } else if (state.view === 'welcome') lastProgress = 0;
+    lightBadges();
+    const title = app.querySelector('#qt');
+    if (title && dir !== 'same') title.focus({ preventScroll: true });
+    save();
+  }
+
+  // La placa de fundador reluce solo cuando entra en pantalla (y se apaga al salir, para no gastar batería)
+  let badgeIO = null;
+  function lightBadges() {
+    if (badgeIO) { badgeIO.disconnect(); badgeIO = null; }
+    const tags = app.querySelectorAll('.fb-tag');
+    if (!tags.length || !('IntersectionObserver' in window)) { tags.forEach((t) => t.classList.add('lit')); return; }
+    badgeIO = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('lit', e.isIntersecting)), { threshold: 0.6 });
+    tags.forEach((t) => badgeIO.observe(t));
+  }
+
+  // ───────── Acciones ─────────
+  function say(msg) { state.hint = msg; render('same'); announce(msg); }
+  function pushHistory(id) { if (state.history[state.history.length - 1] !== id) state.history.push(id); }
+  function goNext() {
+    if (state.view !== 'q') return;
+    const q = Q[state.current], a = state.answers[state.current];
+    if (q.optional && !isAnswered(q, a)) delete state.answers[state.current]; // saltada: no se guarda nada
+    else if (q.type !== 'info' && !isAnswered(q, a)) {
+      say(q.type === 'text' || q.type === 'short' ? 'Escribí al menos una palabra para seguir.' : 'Elegí una opción para seguir. Si no te acordás, elegí «No sé o no me acuerdo».');
+      return;
+    }
+    const nx = nextOf(state.current, a);
+    state.hint = '';
+    pushHistory(state.current);
+    if (nx === 'END') {
+      state.final = finalAnswers();
+      state.cheer = null;
+      state.send = 'sending';
+      state.view = 'done';
+      render(); window.scrollTo(0, 0); announce('Llegaste a la meta.');
+      enqueue('resp', state.final.client_id, state.final);
+      return;
+    }
+    // quien la llena hablando con el equipo (?c=reunion) ya trae marcada la respuesta, y la puede cambiar
+    if (nx === 'Z2' && state.channel === 'reunion' && state.answers.Z2 == null) state.answers.Z2 = 'reunion';
+    state.current = nx; checkMilestone(); render(); window.scrollTo(0, 0);
+  }
+  // Páginas de quiénes somos y de contacto: se abren encima de donde estabas y vuelven ahí
+  const isPage = () => state.view === 'about';
+  function openPage(v, hash) {
+    if (!isPage()) state.prevView = state.view;
+    state.view = v; render(); window.scrollTo(0, 0);
+    if (hash) { const el = document.getElementById(hash); if (el) el.scrollIntoView(); }
+  }
+  function closePage() {
+    state.view = state.prevView || 'welcome'; state.prevView = null;
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    render(); window.scrollTo(0, 0);
+  }
+  function goBack() {
+    state.hint = '';
+    if (isPage()) { closePage(); return; }
+    if (state.view === 'contact' || state.view === 'sent') { readLead(); state.view = 'done'; render(); window.scrollTo(0, 0); return; }
+    if (state.view === 'done') { state.view = 'welcome'; render(); return; }
+    if (state.history.length) { state.current = state.history.pop(); render(); window.scrollTo(0, 0); }
+    else { state.view = 'welcome'; render(); }
+  }
+  function restart() {
+    try { localStorage.removeItem(STORE); } catch (e) {}
+    Object.assign(state, { answers: {}, history: [], current: 'O1', hint: '', final: null, send: 'idle', shareFallback: false, view: 'q', clientId: uuid(), milestones: [], cheer: null,
+      form: freshForm(), lead: {}, leadSent: false, leadSend: 'idle' });
+    lastProgress = 0; render(); window.scrollTo(0, 0);
+  }
+  function pick(v) {
+    const id = state.current, q = Q[id];
+    if (q.type === 'single') { state.answers[id] = v; state.hint = ''; render('same'); return; }
+    const cur = (state.answers[id] || []).slice();
+    const op = q.options.find((x) => x.v === v);
+    let next;
+    if (cur.includes(v)) next = cur.filter((x) => x !== v);
+    else if (op.ex) next = [v];
+    else {
+      next = cur.filter((x) => !(q.options.find((y) => y.v === x) || {}).ex);
+      if (q.max && next.length >= q.max) { say('Podés elegir hasta ' + q.max + '. Quitá una para cambiarla.'); return; }
+      next.push(v);
+    }
+    state.hint = '';
+    if (next.length) state.answers[id] = next; else delete state.answers[id];
+    render('same');
+  }
+
+  // ───────── Contacto: validar y enviar ─────────
+  const val = (id) => { const el = document.getElementById('f-' + id); return el ? el.value : (state.lead[id] || ''); };
+  function readLead() {
+    if (state.view !== 'contact') return;
+    const ok = document.getElementById('f-ok');
+    state.lead = { name: val('name'), org: val('org'), wa: val('wa'), mail: val('mail'), next: val('next'), ok: !!ok && ok.getAttribute('aria-checked') === 'true' };
+  }
+  const cleanName = (v) => String(v || '').replace(/[­​-‏⁠-⁤﻿]/g, '').trim().replace(/\s+/g, ' ');
+  // el mismo criterio que la lista de espera: Nicaragua son 8 dígitos que empiezan con 2, 5, 7 u 8; otro país, + y el código
+  function normPhone(v) {
+    let d = String(v || '').replace(/[^\d+]/g, '');
+    if (d.startsWith('00')) d = '+' + d.slice(2);
+    if (d.startsWith('+')) {
+      const g = d.slice(1).replace(/\D/g, '');
+      if (g.startsWith('505')) return /^505[2578]\d{7}$/.test(g) ? '+' + g : null;
+      return g.length >= 10 && g.length <= 15 && g[0] !== '0' ? '+' + g : null;
+    }
+    d = d.replace(/\D/g, '');
+    if (/^[2578]\d{7}$/.test(d)) return '+505' + d;
+    if (/^505[2578]\d{7}$/.test(d)) return '+' + d;
+    return null;
+  }
+  const normEmail = (v) => { v = String(v || '').trim().toLowerCase(); return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(v) && v.length <= 254 ? v : null; };
+  function submitLead() {
+    readLead();
+    const L = state.lead, f = state.form;
+    const errs = [];
+    const set = (id, msg) => { const e = document.getElementById(id); if (e) e.textContent = msg; if (msg) errs.push(id); };
+    set('e-int', f.interests.length ? '' : 'Elegí al menos una opción.');
+    const name = cleanName(L.name);
+    set('e-name', name.length >= 2 && /[\p{L}\p{N}]/u.test(name) ? '' : 'Escribí tu nombre.');
+    const wa = L.wa.trim() ? normPhone(L.wa) : null, mail = L.mail.trim() ? normEmail(L.mail) : null;
+    set('e-contact', !L.wa.trim() && !L.mail.trim() ? 'Dejanos tu WhatsApp o tu correo.'
+      : L.wa.trim() && !wa ? 'Revisá el número: son 8 dígitos, como 8888 8888. Si no es de Nicaragua, empieza con + y el código del país.'
+      : L.mail.trim() && !mail ? 'Revisá el correo: falta algo, como la @ o el dominio.' : '');
+    set('e-ok', L.ok ? '' : 'Necesitamos tu permiso para guardar tus datos.');
+    if (errs.length) {
+      const first = { 'e-int': '[data-int]', 'e-name': '#f-name', 'e-contact': L.wa.trim() && !wa ? '#f-wa' : L.mail.trim() && !mail ? '#f-mail' : '#f-wa', 'e-ok': '#f-ok' }[errs[0]];
+      const el = app.querySelector(first); if (el) { el.focus(); el.scrollIntoView({ block: 'center' }); }
+      announce('Revisá ' + (errs.length === 1 ? 'un dato' : errs.length + ' datos') + ' del formulario.');
+      return;
+    }
+    const btn = document.getElementById('lead-go'); if (btn) { btn.disabled = true; btn.textContent = 'Enviando…'; }
+    const talk = f.interests.includes('fundador') || f.interests.includes('llamada');
+    state.leadSent = true; state.leadSend = 'sending';
+    hit('contacto');
+    enqueue('lead', state.final.client_id, { p_client_id: state.final.client_id, p_name: name.slice(0, 80), p_organization: L.org.trim().slice(0, 100) || null,
+      p_whatsapp: wa, p_email: mail, p_interests: f.interests, p_meet: talk ? f.meet : null, p_slot: talk ? f.slot : null, p_next_event: talk ? (L.next.trim().slice(0, 80) || null) : null,
+      p_consent_version: CONSENT_VERSION, p_channel: state.channel, p_ref: REF });
+  }
+  function leadOutcome(s) {
+    state.leadSend = s;
+    if (s === 'ok' || s === 'offline') { if (state.view === 'contact') { state.view = 'sent'; render(); window.scrollTo(0, 0); } return; }
+    state.leadSent = false;
+    const btn = document.getElementById('lead-go'); if (btn) { btn.disabled = false; btn.textContent = 'Enviar'; }
+    const e = document.getElementById('form-err'); if (e) e.textContent = 'No pudimos guardar tus datos. Revisá el número o el correo e intentá de nuevo.';
+  }
+
+  app.addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    const act = b.dataset.act;
+    if (b.dataset.int) {
+      const v = b.dataset.int, arr = state.form.interests;
+      state.form.interests = arr.includes(v) ? arr.filter((x) => x !== v) : arr.concat([v]);
+      b.setAttribute('aria-checked', state.form.interests.includes(v));
+      const t = document.getElementById('talk'); if (t) t.hidden = !(state.form.interests.includes('fundador') || state.form.interests.includes('llamada'));
+      const er = document.getElementById('e-int'); if (er) er.textContent = '';
+      return;
+    }
+    if (b.dataset.meet || b.dataset.slot) {
+      const grp = b.dataset.meet ? 'meet' : 'slot';
+      state.form[grp] = b.dataset[grp];
+      app.querySelectorAll('[data-' + grp + ']').forEach((x) => x.setAttribute('aria-checked', x === b));
+      return;
+    }
+    if (b.dataset.ok) {
+      const on = b.getAttribute('aria-checked') !== 'true';
+      b.setAttribute('aria-checked', on);
+      const er = document.getElementById('e-ok'); if (er) er.textContent = '';
+      return;
+    }
+    if (b.dataset.v) {
+      const v = b.dataset.v;
+      if (b.getAttribute('aria-disabled') === 'true') say('Podés elegir hasta ' + Q[state.current].max + '. Quitá una para cambiarla.');
+      else pick(v);
+      const again = app.querySelector('[data-v="' + v + '"]'); if (again) again.focus({ preventScroll: true });
+      return;
+    }
+    if (act === 'start') { hit('encuesta_inicio'); state.view = 'q'; state.current = 'O1'; state.clientId = uuid(); state.milestones = []; state.cheer = null; render(); window.scrollTo(0, 0); }
+    else if (act === 'resume') { hit('encuesta_reanudada'); state.view = 'q'; if (!state.clientId) state.clientId = uuid(); render(); }
+    else if (act === 'about') openPage('about');
+    else if (act === 'privacy') { readLead(); openPage('about', 'privacidad'); }
+    else if (act === 'home') { if (state.view === 'sent') { state.view = 'done'; render(); window.scrollTo(0, 0); } else closePage(); }
+    else if (act === 'contact') { state.view = 'contact'; render(); window.scrollTo(0, 0); }
+    else if (act === 'restart') restart();
+    else if (act === 'next') goNext();
+    else if (act === 'back') goBack();
+    else if (act === 'retry') { setSend('sending'); flush(); }
+    else if (act === 'big') { readLead(); state.big = !state.big; render('same'); const t = app.querySelector('[data-act="big"]'); if (t) t.focus({ preventScroll: true }); announce(state.big ? 'Letra grande activada.' : 'Letra normal.'); }
+    else if (act === 'copy') {
+      const ok = () => { b.lastChild.textContent = 'Enlace copiado'; announce('Enlace copiado. Pegalo en WhatsApp o donde querás.'); };
+      const fail = () => {
+        state.shareFallback = true; render('same');
+        const ta = document.getElementById('share-text');
+        if (ta) { ta.focus({ preventScroll: true }); ta.select(); ta.scrollIntoView({ block: 'center' }); }
+        announce('No se pudo copiar solo. El texto quedó seleccionado para que lo copies.');
+      };
+      hit('copiar_enlace');
+      try { navigator.clipboard.writeText(inviteText()).then(ok, fail); } catch (err) { fail(); }
+    }
+  });
+  app.addEventListener('submit', (e) => { if (e.target.id === 'lead') { e.preventDefault(); submitLead(); } });
+  app.addEventListener('input', (e) => {
+    if (/^f-(wa|mail)$/.test(e.target.id)) { const er = document.getElementById('e-contact'); if (er) er.textContent = ''; return; }
+    if (e.target.id === 'f-name') { const er = document.getElementById('e-name'); if (er) er.textContent = ''; return; }
+    if (e.target.id !== 'ta') return;
+    const v = e.target.value; if (v.trim()) state.answers[state.current] = v; else delete state.answers[state.current];
+    const c = document.getElementById('count'); if (c) c.textContent = v.length + ' de 600';
+    const btn = app.querySelector('.dock [data-act="next"]');
+    if (btn) {
+      if (isAnswered(Q[state.current], v) || Q[state.current].optional) btn.removeAttribute('aria-disabled'); else btn.setAttribute('aria-disabled', 'true');
+      btn.textContent = nextLabel(state.current);
+    }
+    save();
+  });
+  // Enter en el campo corto sigue a la siguiente pregunta
+  app.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.id === 'ta' && e.target.tagName === 'INPUT') { e.preventDefault(); goNext(); } });
+  // iPhone: con el teclado abierto la barra de «Siguiente» deja de flotar y no tapa el campo
+  const isField = (el) => !!el && /^(INPUT|TEXTAREA)$/.test(el.tagName);
+  function keyboardCheck() {
+    const vv = window.visualViewport, el = document.activeElement;
+    const open = isField(el) && (!vv || innerHeight - vv.height > 120 || matchMedia('(pointer: coarse)').matches);
+    document.documentElement.classList.toggle('kb', open);
+    if (open && vv && innerHeight - vv.height > 120) setTimeout(() => { if (document.activeElement === el) el.scrollIntoView({ block: 'center' }); }, 80);
+  }
+  if (window.visualViewport) visualViewport.addEventListener('resize', keyboardCheck);
+  document.addEventListener('focusin', (e) => { if (isField(e.target)) keyboardCheck(); });
+  document.addEventListener('focusout', () => setTimeout(keyboardCheck, 120));
+  window.addEventListener('online', () => flush());
+
+  load();
+  // Enlace directo: #quienes
+  if (location.hash === '#quienes') openPage('about'); else render();
+  if (state.channel === 'prueba') window.__org = { state, Q, walk, render, go: (id) => { state.view = 'q'; state.current = id; render(); } };
+  flush(); // envía respuestas que quedaron pendientes en este teléfono
+})();
+</script>
+</body>
+</html>
