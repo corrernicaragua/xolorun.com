@@ -14,6 +14,8 @@
     'Instagram de Xolo Run, @xolorun (se abre en otra pestaña)': 'Xolo Run on Instagram, @xolorun (opens in a new tab)', '@xolorun en Instagram': '@xolorun on Instagram',
     'Seguinos en Instagram': 'Follow us on Instagram', 'Rutas, fechas y avances de la app en @xolorun.': 'Routes, dates and app updates at @xolorun.',
     'Xolo Run · Nicaragua. Hecho por gente que corre.': 'Xolo Run · Nicaragua. Made by people who run.',
+    'Contacto': 'Contact', 'Organizadores': 'Organizers', 'Instagram de Xolo Run (se abre en otra pestaña)': 'Xolo Run on Instagram (opens in a new tab)',
+    '¿Organizás carreras de running? Con vos el trato es otro.': 'Do you organize running races? Our deal with you is a different one.', 'Contanos cómo organizás': 'Tell us how you organize',
     'Mismas rutas. Más gente.': 'Same routes. More people.', 'Xolo Run · Nicaragua': 'Xolo Run · Nicaragua',
     // ─── portada ───
     'Running en Nicaragua': 'Running in Nicaragua',
