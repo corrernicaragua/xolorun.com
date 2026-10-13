@@ -24,20 +24,21 @@
     ['rivas', 'Rivas'], ['norte', 'El Norte'], ['otra', 'Otra zona'], ['fuera', 'Fuera de Nicaragua']];
   const PROFILES = [['empiezo', 'Estoy empezando o quiero empezar'], ['gusto', 'Corro por salud o por gusto'], ['carreras', 'Entreno para carreras'],
     ['organizo', 'Organizo carreras o un crew'], ['acompano', 'Acompaño a alguien que corre']];
-  // Cifras de la encuesta «Running en Nicaragua» (179 respuestas completas, 6 al 8 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
+  // Cifras de la encuesta «Running en Nicaragua». Al cargar se piden al día a la base (survey_stats, migración 0019: solo conteos);
+  // estas son las de respaldo si esa llamada falla (208 respuestas completas, 6 al 12 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
   const STATS = [
-    { n: 72, u: '%', say: 'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.', cap: 'Qué pasó',
-      bars: [['La fecha no le quedaba', 33], ['Se acabaron los cupos', 27], ['Se enteró tarde', 25], ['No tenía con quién ir', 25]],
-      base: 'Base: 88 que ya corrieron una carrera; razones de las 63 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribís en pocos pasos.' },
-    { n: 71, u: '%', say: 'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.', cap: 'Cómo pagó su última carrera',
-      bars: [['Transferencia', 47], ['Fue gratis', 28], ['Tarjeta en línea', 10], ['Efectivo', 8]],
-      base: 'Base: 41 que pagaron por transferencia. El 46 % de quienes pagaron no quedó confirmado al instante.', xo: 'Subís tu comprobante en la app y ves el estado de tu pago.' },
-    { n: 62, u: '%', say: 'tuvo un problema la última vez que mostró algo en el teléfono en la calle.', cap: 'Qué le pasó',
-      bars: [['El sol no dejaba ver', 38], ['No había señal ni datos', 34], ['La batería estaba baja', 15]],
-      base: 'Base: 122 a quienes les tocó mostrar algo. El 21 % esperó más de 30 minutos por su kit.', xo: 'Tu dorsal con QR funciona sin conexión, y el kit se entrega con un escaneo.' },
-    { n: 73, u: '%', say: 'nunca ha estado en un grupo para salir a correr o caminar.', cap: 'Por qué no',
-      bars: [['No conoce ninguno cerca', 64], ['No lo había pensado', 25], ['Prefiere ir sin grupo', 20], ['Los horarios no le quedan', 18]],
-      base: 'Base: 179. El 55 % salió sin compañía la última vez.', xo: 'Crews por zona y un reto cada semana, para que nadie corra solo.' }
+    { n: 75, u: '%', say: 'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.', cap: 'Qué pasó',
+      bars: [['Se acabaron los cupos', 30], ['Se enteró tarde', 30], ['La fecha no le quedaba', 29], ['No tenía con quién ir', 21]],
+      base: 'Base: 107 que ya corrieron una carrera; razones de las 80 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribís en pocos pasos.' },
+    { n: 77, u: '%', say: 'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.', cap: 'Cómo pagó su última carrera',
+      bars: [['Transferencia', 49], ['Fue gratis', 27], ['Tarjeta en línea', 10], ['Efectivo', 7]],
+      base: 'Base: 52 que pagaron por transferencia. El 51 % de quienes pagaron no quedó confirmado al instante.', xo: 'Subís tu comprobante en la app y ves el estado de tu pago.' },
+    { n: 60, u: '%', say: 'tuvo un problema la última vez que mostró algo en el teléfono en la calle.', cap: 'Qué le pasó',
+      bars: [['El sol no dejaba ver', 34], ['No había señal ni datos', 32], ['La batería estaba baja', 15]],
+      base: 'Base: 144 a quienes les tocó mostrar algo. El 22 % esperó más de 30 minutos por su kit.', xo: 'Tu dorsal con QR funciona sin conexión, y el kit se entrega con un escaneo.' },
+    { n: 72, u: '%', say: 'nunca ha estado en un grupo para salir a correr o caminar.', cap: 'Por qué no',
+      bars: [['No conoce ninguno cerca', 64], ['No lo había pensado', 25], ['Prefiere ir sin grupo', 21], ['Los horarios no le quedan', 17]],
+      base: 'Base: 208. El 56 % salió sin compañía la última vez.', xo: 'Crews por zona y un reto cada semana, para que nadie corra solo.' }
   ];
 
   // ───────── Utilidades ─────────
@@ -401,29 +402,103 @@
 
   // ───────── Las cifras ─────────
   const statsEl = $('#stats');
-  statsEl.innerHTML = STATS.map((S, i) => '<article class="stat" style="--i:' + i + '"><p class="n"><span data-n="' + S.n + '">0</span><small>' + S.u + '</small></p><p class="say">' + esc(S.say) + '</p>' +
-    '<p class="cap">' + esc(S.cap) + '</p><ul class="bars">' + S.bars.map(([l, v]) => '<li><span>' + esc(l) + '</span><b>' + v + ' %</b><span class="tr"><i data-v="' + (v / 100).toFixed(2) + '"></i></span></li>').join('') + '</ul>' +
-    '<p class="base">' + esc(S.base) + '</p><p class="xo"><span>Con Xolo Run</span>' + esc(S.xo) + '</p></article>').join('');
+  let statsPlayed = false;
+  function renderStats(list) {
+    statsEl.innerHTML = list.map((S, i) => '<article class="stat" style="--i:' + i + '"><p class="n"><span data-n="' + S.n + '">' + (statsPlayed ? S.n : 0) + '</span><small>' + S.u + '</small></p><p class="say">' + esc(S.say) + '</p>' +
+      '<p class="cap">' + esc(S.cap) + '</p><ul class="bars">' + S.bars.map(([l, v]) => '<li><span>' + esc(l) + '</span><b>' + v + ' %</b><span class="tr"><i data-v="' + (v / 100).toFixed(2) + '"></i></span></li>').join('') + '</ul>' +
+      '<p class="base">' + esc(S.base) + '</p><p class="xo"><span>Con Xolo Run</span>' + esc(S.xo) + '</p></article>').join('');
+    // si ya se animaron (las cifras al día llegaron tarde), quedan en su valor final; si no, esperan a que la banda entre en pantalla
+    if (G && !reduced && !statsPlayed) G.set($$('.stat', statsEl), { autoAlpha: 0 });
+    else $$('[data-v]', statsEl).forEach((b) => b.style.setProperty('--v', b.dataset.v));
+    if (finePointer && G && !reduced) {
+      for (const card of $$('.stat', statsEl)) {
+        card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(); G.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 8, rotationX: ((e.clientY - r.top) / r.height - .5) * -8, transformPerspective: 900, duration: .4, ease: EASE }); });
+        card.addEventListener('pointerleave', () => G.to(card, { rotationY: 0, rotationX: 0, duration: .6, ease: EASE }));
+      }
+    }
+  }
+  renderStats(STATS);
   function countTo(el, to, dur = 1.1, delay = 0) {
     if (!G || reduced) { el.textContent = to; return; }
     const o = { v: 0 };
     G.to(o, { v: to, duration: dur, delay, ease: 'power3.out', onUpdate: () => { el.textContent = Math.round(o.v); } });
   }
   function playStats() {
+    statsPlayed = true;
     $$('.stat', statsEl).forEach((card, i) => {
       if (G && !reduced) G.fromTo(card, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, ease: EASE, delay: i * .1 });
       countTo($('[data-n]', card), +$('[data-n]', card).dataset.n, 1.2, i * .1 + .2);
       setTimeout(() => { $$('[data-v]', card).forEach((b, j) => { b.style.transitionDelay = (j * 90) + 'ms'; b.style.setProperty('--v', b.dataset.v); }); }, 300 + i * 100);
     });
   }
-  if (G && !reduced) G.set($$('.stat', statsEl), { autoAlpha: 0 });
-  else $$('[data-v]', statsEl).forEach((b) => b.style.setProperty('--v', b.dataset.v));
-  if (finePointer && G && !reduced) {
-    for (const card of $$('.stat', statsEl)) {
-      card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(); G.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 8, rotationX: ((e.clientY - r.top) / r.height - .5) * -8, transformPerspective: 900, duration: .4, ease: EASE }); });
-      card.addEventListener('pointerleave', () => G.to(card, { rotationY: 0, rotationX: 0, duration: .6, ease: EASE }));
-    }
+
+  // Las cifras al día: survey_stats devuelve conteos y aquí se sacan los porcentajes con las mismas definiciones que las de respaldo.
+  // Las barras muestran las razones más dichas (con empate, el orden de abajo). Si la respuesta no tiene forma, nada cambia.
+  const RAZONES = { cupos: 'Se acabaron los cupos', tarde: 'Se enteró tarde', fecha: 'La fecha no le quedaba', compania: 'No tenía con quién ir',
+    precio: 'El precio', lejos: 'Le quedaba lejos', complicado: 'Inscribirse era complicado', talla: 'No había su talla' };
+  const PAGOS = { transferencia: 'Transferencia', gratis: 'Fue gratis', tarjeta: 'Tarjeta en línea', efectivo: 'Efectivo', billetera: 'Billetera digital', otro_pago: 'Lo pagó otra persona' };
+  const PROBLEMAS = { sol: 'El sol no dejaba ver', senal: 'No había señal ni datos', bateria: 'La batería estaba baja' };
+  const SIN_GRUPO = { conozco: 'No conoce ninguno cerca', pensado: 'No lo había pensado', prefiero: 'Prefiere ir sin grupo', horarios: 'Los horarios no le quedan', pena: 'Le da pena su ritmo o su nivel' };
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const MIN_CIFRAS = 30;   // con menos respuestas (una base de prueba) se quedan las de respaldo
+  function liveStats(d) {
+    const int = (v) => Number.isInteger(v) && v >= 0;
+    const q = d && d.quiso, g = d && d.pago, t = d && d.telefono, gr = d && d.grupo;
+    const day = /^\d{4}-\d{2}-\d{2}$/;
+    if (!d || !int(d.total) || d.total < MIN_CIFRAS || !q || !g || !t || !gr || !day.test(d.desde) || !day.test(d.hasta)) return null;
+    const bases = [q.base, q.n, g.base, g.transferencia, g.pagaron, t.base, t.kit_base, gr.base, gr.n, gr.salida_base];
+    if (!bases.every((v) => int(v) && v > 0)) return null;
+    const pc = (a, b) => (int(a) && a <= b ? Math.round(100 * a / b) : NaN);
+    const top = (counts, labels, base, k) => Object.keys(labels).filter((key) => int(counts && counts[key]) && counts[key] > 0)
+      .sort((x, y) => counts[y] - counts[x]).slice(0, k).map((key) => [labels[key], pc(counts[key], base)]);
+    const list = [
+      { ...STATS[0], n: pc(q.n, q.base), bars: top(q.razones, RAZONES, q.n, 4),
+        base: 'Base: ' + q.base + ' que ya corrieron una carrera; razones de las ' + q.n + ' que no se inscribieron.' },
+      { ...STATS[1], n: pc(g.con_foto, g.transferencia), bars: top(g.como, PAGOS, g.base, 4),
+        base: 'Base: ' + g.transferencia + ' que pagaron por transferencia. El ' + pc(g.sin_confirmar, g.pagaron) + ' % de quienes pagaron no quedó confirmado al instante.' },
+      { ...STATS[2], n: pc(t.n, t.base), bars: top(t.que, PROBLEMAS, t.base, 3),
+        base: 'Base: ' + t.base + ' a quienes les tocó mostrar algo. El ' + pc(t.kit_30, t.kit_base) + ' % esperó más de 30 minutos por su kit.' },
+      { ...STATS[3], n: pc(gr.n, gr.base), bars: top(gr.razones, SIN_GRUPO, gr.n, 4),
+        base: 'Base: ' + gr.base + '. El ' + pc(gr.salida_sola, gr.salida_base) + ' % salió sin compañía la última vez.' }
+    ];
+    const ok = list.every((S) => Number.isFinite(S.n) && S.bars.length && S.bars.every(([, v]) => Number.isFinite(v)) && !/NaN/.test(S.base));
+    return ok ? list : null;
   }
+  // «del 6 al 12 de octubre de 2026», «del 28 de octubre al 3 de noviembre de 2026»; i18n.js lo pasa al inglés
+  function rangoFechas(desde, hasta) {
+    const [ya, ma, da] = desde.split('-').map(Number), [yb, mb, db] = hasta.split('-').map(Number);
+    if (ya !== yb) return 'del ' + da + ' de ' + MESES[ma - 1] + ' de ' + ya + ' al ' + db + ' de ' + MESES[mb - 1] + ' de ' + yb;
+    if (ma !== mb) return 'del ' + da + ' de ' + MESES[ma - 1] + ' al ' + db + ' de ' + MESES[mb - 1] + ' de ' + yb;
+    if (da === db) return 'del ' + da + ' de ' + MESES[mb - 1] + ' de ' + yb;
+    return 'del ' + da + ' al ' + db + ' de ' + MESES[mb - 1] + ' de ' + yb;
+  }
+  // un número dentro de un texto: en su <span data-cifra>, o en la palabra suelta si el título ya se partió para animarlo
+  function setCifra(name, value) {
+    value = String(value);
+    for (const el of $$('[data-cifra="' + name + '"]')) el.textContent = value;
+    const h = $('#t-hoy');
+    if (name !== 'total') return;
+    if (h.dataset.split) {
+      const old = h.dataset.total || (h.getAttribute('aria-label').match(/\d+/) || [''])[0];
+      const w = $$('.w', h).find((x) => x.textContent === old);
+      if (w) w.textContent = value;
+      if (old) h.setAttribute('aria-label', h.getAttribute('aria-label').replace(old, value));
+    }
+    h.dataset.total = value;
+  }
+  async function cifrasAlDia() {
+    try {
+      const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/survey_stats', { method: 'POST', headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' }, body: '{}' });
+      if (!resp.ok) return;
+      const d = await resp.json(), list = liveStats(d);
+      if (!list) return;
+      renderStats(list);
+      setCifra('total', d.total);
+      setCifra('mas', Math.floor((d.total - 1) / 10) * 10);   // «Más de 200» con 208: siempre cierto
+      setCifra('fechas', rangoFechas(d.desde, d.hasta));
+    } catch (e) { /* sin red o sin la función: quedan las de respaldo */ }
+  }
+  cifrasAlDia();
 
   // ───────── La ruta: el teléfono recorre el símbolo y la cámara lo sigue ─────────
   // El símbolo es la ruta (como en el video): salida en la tapa izquierda, cima, el tramo arcilla, el lazo derecho y la meta.
