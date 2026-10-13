@@ -9,7 +9,7 @@
   const EN = {
     // ─── cabecera, pestañas y pie ───
     'Xolo Run · Todas las carreras de running de Nicaragua, en un solo lugar': "Xolo Run · All of Nicaragua's races, in one place",
-    'Ir al contenido': 'Skip to content', 'Nosotros': 'About us', 'Preguntas': 'FAQ', 'Aviso de privacidad': 'Privacy notice',
+    'Ir al contenido': 'Skip to content', 'Nosotros': 'About us', 'Preguntas': 'FAQ', 'Aviso de privacidad': 'Privacy notice', '¿Organizás carreras de running? Contanos cómo': 'Do you organize running races? Tell us how',
     'Inicio': 'Home', 'Encuesta': 'Survey', 'Lista de espera': 'Waitlist',
     'Xolo Run · Nicaragua. Hecho por gente que corre.': 'Xolo Run · Nicaragua. Made by people who run.',
     'Mismas rutas. Más gente.': 'Same routes. More people.', 'Xolo Run · Nicaragua': 'Xolo Run · Nicaragua',
