@@ -24,20 +24,20 @@
     ['rivas', 'Rivas'], ['norte', 'El Norte'], ['otra', 'Otra zona'], ['fuera', 'Fuera de Nicaragua']];
   const PROFILES = [['empiezo', 'Estoy empezando o quiero empezar'], ['gusto', 'Corro por salud o por gusto'], ['carreras', 'Entreno para carreras'],
     ['organizo', 'Organizo carreras o un crew'], ['acompano', 'Acompaño a alguien que corre']];
-  // Cifras de la encuesta «Running en Nicaragua» (179 respuestas completas, 6 al 8 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
+  // Cifras de la encuesta «Running en Nicaragua» (208 respuestas completas, 6 al 12 de octubre de 2026). Consulta: lista-espera/herramientas/cifras-encuesta.sql
   const STATS = [
-    { n: 72, u: '%', say: 'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.', cap: 'Qué pasó',
-      bars: [['La fecha no le quedaba', 33], ['Se acabaron los cupos', 27], ['Se enteró tarde', 25], ['No tenía con quién ir', 25]],
-      base: 'Base: 88 que ya corrieron una carrera; razones de las 63 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribís en pocos pasos.' },
-    { n: 71, u: '%', say: 'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.', cap: 'Cómo pagó su última carrera',
-      bars: [['Transferencia', 47], ['Fue gratis', 28], ['Tarjeta en línea', 10], ['Efectivo', 8]],
-      base: 'Base: 41 que pagaron por transferencia. El 46 % de quienes pagaron no quedó confirmado al instante.', xo: 'Subís tu comprobante en la app y ves el estado de tu pago.' },
-    { n: 62, u: '%', say: 'tuvo un problema la última vez que mostró algo en el teléfono en la calle.', cap: 'Qué le pasó',
-      bars: [['El sol no dejaba ver', 38], ['No había señal ni datos', 34], ['La batería estaba baja', 15]],
-      base: 'Base: 122 a quienes les tocó mostrar algo. El 21 % esperó más de 30 minutos por su kit.', xo: 'Tu dorsal con QR funciona sin conexión, y el kit se entrega con un escaneo.' },
-    { n: 73, u: '%', say: 'nunca ha estado en un grupo para salir a correr o caminar.', cap: 'Por qué no',
-      bars: [['No conoce ninguno cerca', 64], ['No lo había pensado', 25], ['Prefiere ir sin grupo', 20], ['Los horarios no le quedan', 18]],
-      base: 'Base: 179. El 55 % salió sin compañía la última vez.', xo: 'Crews por zona y un reto cada semana, para que nadie corra solo.' }
+    { n: 75, u: '%', say: 'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.', cap: 'Qué pasó',
+      bars: [['Se acabaron los cupos', 30], ['Se enteró tarde', 30], ['La fecha no le quedaba', 29], ['No tenía con quién ir', 21]],
+      base: 'Base: 107 que ya corrieron una carrera; razones de las 80 que no se inscribieron.', xo: 'Ves cada carrera con tiempo y te inscribís en pocos pasos.' },
+    { n: 77, u: '%', say: 'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.', cap: 'Cómo pagó su última carrera',
+      bars: [['Transferencia', 49], ['Fue gratis', 27], ['Tarjeta en línea', 10], ['Efectivo', 7]],
+      base: 'Base: 52 que pagaron por transferencia. El 51 % de quienes pagaron no quedó confirmado al instante.', xo: 'Subís tu comprobante en la app y ves el estado de tu pago.' },
+    { n: 60, u: '%', say: 'tuvo un problema la última vez que mostró algo en el teléfono en la calle.', cap: 'Qué le pasó',
+      bars: [['El sol no dejaba ver', 34], ['No había señal ni datos', 32], ['La batería estaba baja', 15]],
+      base: 'Base: 144 a quienes les tocó mostrar algo. El 22 % esperó más de 30 minutos por su kit.', xo: 'Tu dorsal con QR funciona sin conexión, y el kit se entrega con un escaneo.' },
+    { n: 72, u: '%', say: 'nunca ha estado en un grupo para salir a correr o caminar.', cap: 'Por qué no',
+      bars: [['No conoce ninguno cerca', 64], ['No lo había pensado', 25], ['Prefiere ir sin grupo', 21], ['Los horarios no le quedan', 17]],
+      base: 'Base: 208. El 56 % salió sin compañía la última vez.', xo: 'Crews por zona y un reto cada semana, para que nadie corra solo.' }
   ];
 
   // ───────── Utilidades ─────────
