@@ -361,6 +361,12 @@ img { max-width: 100%; height: auto; }
 .trato li .ic svg { width: 20px; height: 20px; fill: none; stroke: var(--jade); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .trato li b { display: block; font: 700 1.0625rem/1.25 "Space Grotesk", sans-serif; letter-spacing: -.01em; }
 .trato li span { display: block; margin-top: 3px; font-size: .9375rem; color: var(--lago-400); }
+/* nota discreta para organizadores, alineada con el texto de la lista */
+.trato-org { display: grid; gap: 2px; justify-items: start; margin-top: 22px; padding: 14px 0 0 54px; border-top: 1px dashed var(--niebla-300); color: var(--lago-400); font-size: .875rem; line-height: 1.45; text-decoration: none; }
+.trato-org b { display: inline-flex; align-items: center; gap: 6px; color: var(--lago); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--niebla); }
+.trato-org b svg { width: 15px; height: 15px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
+.trato-org:hover b { color: var(--arcilla-600); text-decoration-color: currentColor; }
+.trato-org:hover b svg { transform: translateX(3px); }
 .honesto { margin-top: 44px; padding: 24px 26px; border-radius: 20px; background: var(--white); display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; box-shadow: 0 1px 2px rgba(18, 56, 59, .06); }
 .honesto .mark { width: 44px; height: 44px; border-radius: 50%; background: var(--lago); display: grid; place-items: center; }
 .honesto .mark svg { width: 22px; height: 22px; fill: none; stroke: var(--arena); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -479,9 +485,17 @@ html.js .pg-nos [data-rise].in { opacity: 1; transform: none; }
 .foot .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .foot .links button, .foot .links a { padding: 0; border: 0; background: none; color: var(--lago-400); font: 500 .875rem/1.6 "Inter", sans-serif; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--niebla); cursor: pointer; }
 .foot .links button:hover, .foot .links a:hover { color: var(--lago); }
-.foot .links .ig-foot { display: inline-flex; align-items: center; gap: 6px; color: var(--lago); font-weight: 600; text-decoration: none; }
-.foot .links .ig-foot svg { width: 18px; height: 18px; flex: none; }
-.foot .links .ig-foot:hover { color: var(--arcilla); }
+/* contacto y organizadores, aparte de los enlaces del sitio */
+.foot .fcols { display: flex; flex-wrap: wrap; gap: 22px 64px; margin-top: 26px; padding-top: 22px; border-top: 1px dashed var(--niebla-300); }
+.foot .fcol { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.foot .fcol .label { font-size: .6875rem; }
+.foot .contact { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; padding: 0; list-style: none; }
+.foot .contact a, .foot .org-link { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; color: var(--lago); font: 600 .9375rem/1.35 "Inter", sans-serif; text-decoration: none; overflow-wrap: anywhere; }
+.foot .contact svg { width: 18px; height: 18px; flex: none; }
+.foot .org-link { display: inline-block; }
+.foot .org-link svg { display: inline-block; vertical-align: -3px; margin-left: 8px; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s ease; }
+.foot .contact a:hover, .foot .org-link:hover { color: var(--arcilla); }
+.foot .org-link:hover svg { transform: translateX(3px); }
 .foot .firma { margin-top: 0; font-size: 1.35rem; }
 .foot .fine { margin: 18px 0 0; max-width: 48rem; font-size: .8125rem; line-height: 1.5; }
 
