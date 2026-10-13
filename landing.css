@@ -81,6 +81,12 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 360px) { .toplinks a, .toplinks button { padding: 0 6px; font-size: .78125rem; } .toplinks a::after, .toplinks button::after { left: 6px; right: 6px; } }
 @media (max-width: 400px) { .pg-nos .toplinks [aria-current="page"] { display: none; } }   /* en Nosotros caben el logo, «Inicio» y «Preguntas»; el enlace a la propia página sobra en pantallas chicas */
 .toplinks .back svg { width: 16px; height: 16px; margin-right: 4px; }
+/* Instagram: solo el ícono, con área táctil de 36 px; sin la línea de los enlaces de texto */
+.toplinks .ig { justify-content: center; min-width: 36px; padding: 0 6px; color: var(--lago); }
+.toplinks .ig::after { display: none; }
+.toplinks .ig svg { width: 20px; height: 20px; transition: transform var(--t1) var(--ease); }
+.toplinks .ig:hover { color: var(--arcilla); }
+.toplinks .ig:hover svg { transform: scale(1.08); }
 @media (max-width: 360px) { .toplinks .back svg { display: none; } }
 /* el idioma: una pastilla «EN» / «ES» al final de los enlaces (i18n.js la crea; cambiar recarga la página en el otro idioma) */
 .toplinks .lang { margin-left: 6px; min-height: 28px; padding: 0 9px; border: 1.5px solid var(--niebla-300); border-radius: 999px; font: 600 .75rem/1 "Space Grotesk", sans-serif; letter-spacing: .08em; color: var(--lago); transition: border-color var(--t2) var(--ease), background-color var(--t2) var(--ease); }
@@ -91,6 +97,10 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 360px) { .toplinks { gap: 0; } .toplinks a, .toplinks button { padding: 0 5px; } .toplinks a::after, .toplinks button::after { left: 5px; right: 5px; } .toplinks .lang { margin-left: 0; padding: 0 6px; font-size: .6875rem; } }
 /* a 320 px (iPhone SE) en español hacen falta unos 30 px más: logo de 22 px, letra de 12 px y relleno de 4 px; los enlaces siguen midiendo ≥ 36 px de alto */
 @media (max-width: 340px) { .top { padding-left: 16px; padding-right: 16px; column-gap: 8px; } .top .brand svg { height: 21px; } .toplinks a, .toplinks button { padding: 0 3px; font-size: .75rem; } .toplinks a::after, .toplinks button::after { left: 3px; right: 3px; } .toplinks .lang { padding: 0 5px; min-height: 26px; } }
+/* con Instagram en la cabecera: en teléfonos el logo baja un poco y los enlaces se aprietan para que todo quepa hasta 320 px */
+@media (max-width: 400px) { .top { column-gap: 8px; } .top .brand svg { height: 20px; } .toplinks .ig { min-width: 30px; padding: 0 4px; } .toplinks .ig svg { width: 18px; height: 18px; } }
+@media (min-width: 361px) and (max-width: 400px) { .toplinks a, .toplinks button { padding: 0 5px; } .toplinks a::after, .toplinks button::after { left: 5px; right: 5px; } }
+@media (max-width: 340px) { .top .brand svg { height: 18px; } .toplinks .ig { min-width: 26px; padding: 0 2px; } .toplinks .ig svg { width: 17px; height: 17px; } }
 @media (prefers-reduced-motion: reduce) { .toplinks a::after, .toplinks button::after { transition: none; } }
 /* la barra de pestañas vive fuera de la cabecera (el desenfoque de la cabecera atraparía un elemento fijo): arriba en escritorio, abajo en celular */
 .tabs { position: fixed; top: calc((var(--top-h) - 48px) / 2); left: 50%; z-index: 31; transform: translateX(-50%); display: flex; justify-content: center; gap: 4px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--lago) 7%, transparent); }
@@ -469,6 +479,9 @@ html.js .pg-nos [data-rise].in { opacity: 1; transform: none; }
 .foot .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .foot .links button, .foot .links a { padding: 0; border: 0; background: none; color: var(--lago-400); font: 500 .875rem/1.6 "Inter", sans-serif; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--niebla); cursor: pointer; }
 .foot .links button:hover, .foot .links a:hover { color: var(--lago); }
+.foot .links .ig-foot { display: inline-flex; align-items: center; gap: 6px; color: var(--lago); font-weight: 600; text-decoration: none; }
+.foot .links .ig-foot svg { width: 18px; height: 18px; flex: none; }
+.foot .links .ig-foot:hover { color: var(--arcilla); }
 .foot .firma { margin-top: 0; font-size: 1.35rem; }
 .foot .fine { margin: 18px 0 0; max-width: 48rem; font-size: .8125rem; line-height: 1.5; }
 
@@ -586,7 +599,15 @@ html.js .pg-nos [data-rise].in { opacity: 1; transform: none; }
 .res .share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 20px; }
 .res .go svg { fill: currentColor; }
 .res .linkline { margin-top: 10px; font-size: .875rem; color: var(--lago-400); word-break: break-all; }
-.res .enc-box { margin-top: 26px; padding: 20px 22px; border-radius: 18px; background: var(--white); }
+.res .ig-box { display: flex; align-items: center; gap: 14px; margin-top: 22px; padding: 16px 18px; border: 1.5px solid var(--niebla-300); border-radius: 18px; background: var(--white); color: var(--lago); text-decoration: none; transition: border-color var(--t1) var(--ease), transform var(--t1) var(--ease); }
+.res .ig-box:hover { border-color: var(--lago); transform: translateY(-1px); }
+.res .ig-box .ig-i { width: 28px; height: 28px; flex: none; color: var(--arcilla); }
+.res .ig-box > span { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.res .ig-box b { font: 700 1rem/1.25 "Space Grotesk", sans-serif; }
+.res .ig-box > span > span { color: var(--lago-400); font-size: .875rem; line-height: 1.4; }
+.res .ig-box .arw { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-reduced-motion: reduce) { .res .ig-box { transition: none; } .res .ig-box:hover { transform: none; } }
+.res .enc-box { margin-top: 14px; padding: 20px 22px; border-radius: 18px; background: var(--white); }
 .res .enc-box p { font-size: .9375rem; }
 .res .enc-box b { color: var(--lago); }
 .res .raw { margin-top: 16px; font-size: .8125rem; }
