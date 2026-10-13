@@ -41,28 +41,28 @@
     'Tu dorsal ya está en la app.': 'Your bib is already in the app.', 'Salida': 'Start', 'Meta': 'Finish',
     // ─── lo que nos contaron ───
     'Hoy, inscribirse a una carrera de running': 'Signing up for a race today',
-    'Lo que nos contaron 208 personas que corren en Nicaragua': 'What 208 people who run in Nicaragua told us',
+    'Lo que nos contaron': 'What', 'personas que corren en Nicaragua': 'people who run in Nicaragua told us',
     'Antes de construir, preguntamos. Estas son sus respuestas, con su base. Son el mapa de lo que Xolo Run tiene que resolver.':
       'Before building, we asked. These are their answers, with their base. They map what Xolo Run has to solve.',
-    'Encuesta «Running en Nicaragua», respuestas completas del 6 al 12 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta.':
-      '«Running in Nicaragua» survey, complete responses from 6 to 12 October 2026, excluding team tests. Percentages are of those who answered each question.',
+    'Encuesta «Running en Nicaragua», respuestas completas': '«Running in Nicaragua» survey, complete responses',
+    ', sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta.': ', excluding team tests. Percentages are of those who answered each question.',
     'Sumate a la encuesta': 'Take the survey',
     'quiso inscribirse a una carrera de running en el último año y al final no lo hizo.': "wanted to sign up for a race in the last year and in the end didn't.",
     'Qué pasó': 'What happened', 'La fecha no le quedaba': "The date didn't work", 'Se enteró tarde': 'Found out too late', 'No tenía con quién ir': 'Had nobody to go with',
-    'Base: 107 que ya corrieron una carrera; razones de las 80 que no se inscribieron.': "Base: 107 who have run a race; reasons from the 80 who didn't sign up.",
     'Ves cada carrera con tiempo y te inscribís en pocos pasos.': 'You see every race in time and sign up in a few steps.',
     'de quienes pagaron por transferencia tuvo que mandar foto del comprobante para que le confirmaran.': 'of those who paid by bank transfer had to send a photo of the receipt to get confirmed.',
     'Cómo pagó su última carrera': 'How they paid for their last race', 'Transferencia': 'Bank transfer', 'Fue gratis': 'It was free', 'Tarjeta en línea': 'Card online', 'Efectivo': 'Cash',
-    'Base: 52 que pagaron por transferencia. El 51 % de quienes pagaron no quedó confirmado al instante.': "Base: 52 who paid by transfer. 51 % of those who paid weren't confirmed right away.",
     'Subís tu comprobante en la app y ves el estado de tu pago.': 'You upload your receipt in the app and see your payment status.',
     'tuvo un problema la última vez que mostró algo en el teléfono en la calle.': 'had a problem the last time they showed something on their phone outdoors.',
     'Qué le pasó': 'What happened', 'El sol no dejaba ver': "Couldn't see in the sun", 'No había señal ni datos': 'No signal or data', 'La batería estaba baja': 'Battery was low',
-    'Base: 144 a quienes les tocó mostrar algo. El 22 % esperó más de 30 minutos por su kit.': 'Base: 144 who had to show something. 22 % waited over 30 minutes for their kit.',
     'Tu dorsal con QR funciona sin conexión, y el kit se entrega con un escaneo.': 'Your QR bib works offline, and kits are handed out with one scan.',
     'nunca ha estado en un grupo para salir a correr o caminar.': 'have never been in a group to go running or walking.',
     'Por qué no': 'Why not', 'No conoce ninguno cerca': "Don't know one nearby", 'No lo había pensado': "Hadn't thought about it", 'Prefiere ir sin grupo': 'Prefer going without a group',
-    'Los horarios no le quedan': "The schedules don't work", 'Base: 208. El 56 % salió sin compañía la última vez.': 'Base: 208. 56 % went out alone last time.',
+    'Los horarios no le quedan': "The schedules don't work",
     'Crews por zona y un reto cada semana, para que nadie corra solo.': 'Crews by area and a weekly challenge, so nobody runs alone.',
+    // barras que entran cuando las cifras al día cambian el orden de las razones
+    'El precio': 'The price', 'Le quedaba lejos': 'It was too far', 'Inscribirse era complicado': 'Signing up was complicated', 'No había su talla': 'Their size had run out',
+    'Billetera digital': 'Digital wallet', 'Lo pagó otra persona': 'Someone else paid', 'Le da pena su ritmo o su nivel': 'Self-conscious about their pace or level',
     // ─── la ruta ───
     'Así es con Xolo Run': 'This is how it goes with Xolo Run', 'Paso 1': 'Step 1', 'Paso 2': 'Step 2', 'Paso 3': 'Step 3', 'Paso 5': 'Step 5', 'Paso 6': 'Step 6',
     'Paso 4 · El tramo de encuentro': 'Step 4 · The meeting stretch', 'La meta': 'The finish',
@@ -102,14 +102,15 @@
     'Dos caminos, los dos cortos': 'Two paths, both short', 'Elegí por dónde empezar': 'Choose where to start', 'Reclamá tu dorsal': 'Claim your bib',
     'Tu número en la fila, el aviso cuando abramos y tu enlace para invitar a tu crew.': 'Your number in line, the heads-up when we open and your link to invite your crew.',
     'Encuesta «Running en Nicaragua»': '«Running in Nicaragua» survey', 'Contanos cómo corrés': 'Tell us how you run',
-    'Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Más de 200 personas ya respondieron.': "Anonymous, 3 to 8 minutes, in Spanish. Useful even if you don't race. Over 200 people have already answered.",
+    'Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Más de': "Anonymous, 3 to 8 minutes, in Spanish. Useful even if you don't race. Over",
+    'personas ya respondieron.': 'people have already answered.',
     'Responder la encuesta': 'Take the survey', 'La app': 'The app',
     'Próximamente en App Store y Google Play.': 'Coming soon on the App Store and Google Play.',
     'Sin fecha todavía: no la anunciamos hasta que sea segura. Quienes están en la lista se enteran primero.': "No date yet: we won't announce one until it's certain. People on the list hear first.",
     // ─── pestaña encuesta ───
     'Contanos cómo corrés.': 'Tell us how you run.',
     'Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Con lo que nos contés decidimos qué construir primero.': "Anonymous, 3 to 8 minutes, in Spanish for now. Useful even if you don't race. What you tell us decides what we build first.",
-    'Más de 200 personas ya respondieron': 'Over 200 people have already answered', 'No pedimos tu nombre ni tu contacto': "We don't ask for your name or contact",
+    'Más de': 'Over', 'personas ya respondieron': 'people have already answered', 'No pedimos tu nombre ni tu contacto': "We don't ask for your name or contact",
     'Se guarda sola: podés seguir después': 'It saves itself: you can continue later',
     'Anónima · de 3 a 8 minutos · sirve aunque no corrás carreras': 'Anonymous · 3 to 8 minutes · in Spanish for now',
     'Abrir en otra pestaña': 'Open in a new tab', 'Cargando la encuesta…': 'Loading the survey…', 'Si no aparece, abrila aquí': "If it doesn't show, open it here",
@@ -233,6 +234,9 @@
     'Anotate en la lista de espera y te avisamos primero cuando Xolo Run abra.': "Join the waitlist and we'll tell you first when Xolo Run opens.", 'Volver al inicio': 'Back to home'
   };
   // textos con un número o una variante adentro
+  const MESES = { enero: 'January', febrero: 'February', marzo: 'March', abril: 'April', mayo: 'May', junio: 'June', julio: 'July', agosto: 'August',
+    septiembre: 'September', octubre: 'October', noviembre: 'November', diciembre: 'December' };
+  const MES = (m) => MESES[m] || m;
   const RULES = [
     [/^Paso (\d) de 4$/, (m) => 'Step ' + m[1] + ' of 4'],
     [/^Tenés el #(\d+) en la fila\. Te escribimos por (WhatsApp|correo) cuando abramos\. El QR de tu dorsal es tu enlace: quien lo escanee se anota con vos\.$/,
@@ -240,7 +244,16 @@
     [/^Ese contacto ya se había anotado, así que conservás tu lugar\. Te escribimos por (WhatsApp|correo) cuando abramos\.$/,
       (m) => 'That contact was already on the list, so you keep your spot. We’ll message you ' + (m[1] === 'correo' ? 'by email' : 'on WhatsApp') + ' when we open.'],
     [/^Tu enlace: (.+)$/, (m) => 'Your link: ' + m[1]],
-    [/^LinkedIn de (.+) \(se abre en otra pestaña\)$/, (m) => m[1] + "'s LinkedIn (opens in a new tab)"]
+    [/^LinkedIn de (.+) \(se abre en otra pestaña\)$/, (m) => m[1] + "'s LinkedIn (opens in a new tab)"],
+    // las cifras de la encuesta, que landing.js trae al día
+    [/^Base: (\d+) que ya corrieron una carrera; razones de las (\d+) que no se inscribieron\.$/, (m) => 'Base: ' + m[1] + " who have run a race; reasons from the " + m[2] + " who didn't sign up."],
+    [/^Base: (\d+) que pagaron por transferencia\. El (\d+) % de quienes pagaron no quedó confirmado al instante\.$/, (m) => 'Base: ' + m[1] + ' who paid by transfer. ' + m[2] + " % of those who paid weren't confirmed right away."],
+    [/^Base: (\d+) a quienes les tocó mostrar algo\. El (\d+) % esperó más de 30 minutos por su kit\.$/, (m) => 'Base: ' + m[1] + ' who had to show something. ' + m[2] + ' % waited over 30 minutes for their kit.'],
+    [/^Base: (\d+)\. El (\d+) % salió sin compañía la última vez\.$/, (m) => 'Base: ' + m[1] + '. ' + m[2] + ' % went out alone last time.'],
+    [/^del (\d+) de ([a-z]+) de (\d{4}) al (\d+) de ([a-z]+) de (\d{4})$/, (m) => 'from ' + m[1] + ' ' + MES(m[2]) + ' ' + m[3] + ' to ' + m[4] + ' ' + MES(m[5]) + ' ' + m[6]],
+    [/^del (\d+) de ([a-z]+) al (\d+) de ([a-z]+) de (\d{4})$/, (m) => 'from ' + m[1] + ' ' + MES(m[2]) + ' to ' + m[3] + ' ' + MES(m[4]) + ' ' + m[5]],
+    [/^del (\d+) al (\d+) de ([a-z]+) de (\d{4})$/, (m) => 'from ' + m[1] + ' to ' + m[2] + ' ' + MES(m[3]) + ' ' + m[4]],
+    [/^del (\d+) de ([a-z]+) de (\d{4})$/, (m) => 'from ' + m[1] + ' ' + MES(m[2]) + ' ' + m[3]]
   ];
 
   const params = new URLSearchParams(location.search);

@@ -23,13 +23,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="landing.css?v=202610122218">
+<link rel="stylesheet" href="landing.css?v=202610122350">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Xolo Run","url":"https://xolorun.com/","logo":"https://xolorun.com/marca/apple-touch-icon-180.png","slogan":"Mismas rutas. Más gente.","description":"App nicaragüense que reúne las carreras de running del país en un solo lugar.","areaServed":"NI","founder":[{"@type":"Person","name":"Saymond Montoya","jobTitle":"Cofundador · Producto y tecnología"},{"@type":"Person","name":"Kenneth Rosales","jobTitle":"Cofundador · Operaciones y cumplimiento"},{"@type":"Person","name":"Bigarny Gutiérrez","jobTitle":"Cofundador · Comercial y alianzas"}]}</script>
 <script>document.documentElement.className = 'js';</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
-<script src="i18n.js?v=202610122218" defer></script>
-<script src="landing.js?v=202610122218" defer></script>
+<script src="i18n.js?v=202610122350" defer></script>
+<script src="landing.js?v=202610122350" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Ir al contenido</a>
@@ -149,10 +149,10 @@
     <section class="band dark" id="hoy" aria-labelledby="t-hoy">
       <div class="wrap">
         <p class="label" data-rise>Hoy, inscribirse a una carrera de running</p>
-        <h2 class="h2" id="t-hoy" data-words>Lo que nos contaron 208 personas que corren en Nicaragua</h2>
+        <h2 class="h2" id="t-hoy" data-words>Lo que nos contaron <span data-cifra="total">208</span> personas que corren en Nicaragua</h2>
         <p class="lede" data-rise>Antes de construir, preguntamos. Estas son sus respuestas, con su base. Son el mapa de lo que Xolo Run tiene que resolver.</p>
         <div class="stats" id="stats" role="region" aria-label="Cifras de la encuesta" tabindex="0"></div>
-        <p class="src">Encuesta «Running en Nicaragua», respuestas completas del 6 al 12 de octubre de 2026, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta. <button class="textlink" type="button" data-tab-link="encuesta" style="min-height:auto;color:inherit">Sumate a la encuesta</button>.</p>
+        <p class="src">Encuesta «Running en Nicaragua», respuestas completas <span data-cifra="fechas">del 6 al 12 de octubre de 2026</span>, sin las pruebas del equipo. Los porcentajes son sobre quienes respondieron cada pregunta. <button class="textlink" type="button" data-tab-link="encuesta" style="min-height:auto;color:inherit">Sumate a la encuesta</button>.</p>
       </div>
     </section>
 
@@ -297,7 +297,7 @@
           <button class="camino" type="button" data-tab-link="encuesta">
             <p class="label">Encuesta «Running en Nicaragua»</p>
             <h3 class="h3">Contanos cómo corrés</h3>
-            <p>Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Más de 200 personas ya respondieron.</p>
+            <p>Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Más de <span data-cifra="mas">200</span> personas ya respondieron.</p>
             <span class="go-ln">Responder la encuesta<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             <svg class="mini" viewBox="0 0 211.08 132" aria-hidden="true"><g transform="translate(-24.918 -62)"><path pathLength="1" d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" stroke-width="24" stroke-linejoin="round"/></g></svg>
           </button>
@@ -342,7 +342,7 @@
         <h1 class="h2 enc-h2">Contanos cómo corrés.</h1>
         <p class="lede enc-lede">Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Con lo que nos contés decidimos qué construir primero.</p>
         <ul class="facts enc-facts">
-          <li><i></i><span>Más de 200 personas ya respondieron</span></li>
+          <li><i></i><span>Más de <span data-cifra="mas">200</span> personas ya respondieron</span></li>
           <li><i></i><span>No pedimos tu nombre ni tu contacto</span></li>
           <li><i></i><span>Se guarda sola: podés seguir después</span></li>
         </ul>
