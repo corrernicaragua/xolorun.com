@@ -634,9 +634,10 @@
       tl.to(drv, { q: n, duration: .9 + .32 * Math.abs(n - from), ease: 'power2.inOut' });
       if (n === N) tl.to(drv, { z: 1, duration: 1.1, ease: 'power2.inOut' }, '>-.05');
     }
-    // cada paso dura unos segundos; en la meta se queda un poco más y luego vuelve al inicio. El reloj corre siempre:
+    // un paso nuevo cada ~2,8 s: 1,6 s quieto más ~1,2 s de recorrido (Saymond, 13 oct: antes eran ~5,8 s y se hacía lento); en la meta,
+    // 2 s después del zoom, y vuelve al inicio. El reloj corre siempre:
     // aunque la sección no esté a la vista o se esté en otra pestaña (entonces solo espera), al volver sigue en curso.
-    const AUTO_MS = 4600, META_MS = 4200;
+    const AUTO_MS = 1600, META_MS = 2000;
     function startAuto() {
       stopAuto();
       if (STATIC) return;   // sin GSAP también avanza, con saltos en vez de recorrido
