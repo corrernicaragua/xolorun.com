@@ -9,6 +9,13 @@
 <script>
   // Direcciones que la gente escribe de memoria: se llevan a su pestaña, conservando ?c=… y la campaña
   (function () {
+    // La app (xolorun.com/app) tiene sus propias direcciones (/app/carreras/x…) y Pages no las conoce: se guarda la
+    // dirección pedida y se vuelve a /app/, donde la app la restaura sin que se note (spec 003, N4).
+    if (/^\/app\//i.test(location.pathname)) {
+      try { sessionStorage.setItem('xr-ruta', location.pathname + location.search + location.hash); } catch (e) {}
+      location.replace('/app/');
+      return;
+    }
     var p = location.pathname.toLowerCase().replace(/\/+$/, '');
     var q = location.search;
     var map = {
