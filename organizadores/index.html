@@ -289,15 +289,23 @@
   .fb-tag svg { flex: none; height: auto; }
   .fb-tag.big { gap: 10px; padding: 9px 20px 9px 12px; border-width: 2px; font-size: .9rem; letter-spacing: .2em;
     box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75);
-    animation: settle .5s var(--ease) both, fbGleam 2.4s var(--ease) .4s 1 both; }
-  @keyframes fbGleam { from { background-position: 0 0, 0% 0; } to { background-position: 0 0, 100% 0; } }
-  .fb-tag.big::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, rgba(246, 231, 198, .22) 50%, transparent 60%); transform: translateX(-130%); animation: bdShine 1.8s var(--ease) .6s 1 forwards; pointer-events: none; }
-  @keyframes bdShine { to { transform: translateX(130%); } }
+    animation: settle .5s var(--ease) both; }
+  /* encendida: la luz recorre el filo de ida y vuelta, el halo dorado respira y cada tanto pasa un destello */
+  .fb-tag.lit { animation: fbFlow 3.6s ease-in-out infinite alternate; }
+  .fb-tag.big.lit { animation: settle .5s var(--ease) both, fbFlow 3.6s ease-in-out infinite alternate, fbGlow 3.6s ease-in-out infinite; }
+  @keyframes fbFlow { from { background-position: 0 0, 0% 0; } to { background-position: 0 0, 100% 0; } }
+  @keyframes fbGlow {
+    0%, 100% { box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75), 0 0 0 0 rgba(217, 188, 140, 0); }
+    50% { box-shadow: inset 0 1px 0 rgba(246, 231, 198, .4), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75), 0 0 14px 1px rgba(217, 188, 140, .42); }
+  }
+  .fb-tag::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(105deg, transparent 40%, rgba(246, 231, 198, .28) 50%, transparent 60%); transform: translateX(-140%); pointer-events: none; }
+  .fb-tag.lit::after { animation: fbSheen 4.8s var(--ease) .3s infinite; }
+  @keyframes fbSheen { 0% { transform: translateX(-140%); } 34%, 100% { transform: translateX(140%); } }
   .bd-card { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: var(--blanco); border: 1px solid var(--niebla-300); }
   .bd-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--niebla-200); color: var(--lago); font: 600 .95rem/1 var(--display); }
   .bd-who { display: grid; gap: 5px; min-width: 0; justify-items: start; }
   .bd-who b { font: 600 1.02rem/1.2 var(--display); color: var(--lago); }
-  @media (prefers-reduced-motion: reduce) { .fb-tag.big, .fb-tag.big::after { animation: none !important; } .fb-tag.big { background-position: 0 0, 60% 0; } .fb-tag.big::after { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .fb-tag, .fb-tag::after { animation: none !important; } .fb-tag { background-position: 0 0, 60% 0; } .fb-tag::after { display: none; } }
   .igcard { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 20px; background: var(--blanco); border: 1.5px solid var(--niebla-300); color: var(--lago); text-decoration: none; transition: border-color .25s var(--ease); }
   @media (hover: hover) { .igcard:hover { border-color: var(--lago); } }
   .igcard > svg:first-child { flex: none; width: 28px; height: 28px; color: var(--arcilla-600); }
@@ -1147,9 +1155,20 @@
       scenes.push(new BandScene(band, p, dir === 'same' ? p : lastProgress, marks));
       lastProgress = p;
     } else if (state.view === 'welcome') lastProgress = 0;
+    lightBadges();
     const title = app.querySelector('#qt');
     if (title && dir !== 'same') title.focus({ preventScroll: true });
     save();
+  }
+
+  // La placa de fundador reluce solo cuando entra en pantalla (y se apaga al salir, para no gastar batería)
+  let badgeIO = null;
+  function lightBadges() {
+    if (badgeIO) { badgeIO.disconnect(); badgeIO = null; }
+    const tags = app.querySelectorAll('.fb-tag');
+    if (!tags.length || !('IntersectionObserver' in window)) { tags.forEach((t) => t.classList.add('lit')); return; }
+    badgeIO = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('lit', e.isIntersecting)), { threshold: 0.6 });
+    tags.forEach((t) => badgeIO.observe(t));
   }
 
   // ───────── Acciones ─────────
