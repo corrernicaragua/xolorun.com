@@ -1,0 +1,67 @@
+# Publica la landing, la encuesta y organizadores en dev.xolorun.com con cada push a la rama dev (spec 004, tareas T07–T08).
+# La copia de dev usa el Supabase «Xolo Run dev», no aparece en buscadores y lleva la cinta DEV.
+# No toca /app: la app de dev la publica Saymond02/runapp.
+name: Sitio · dev
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+concurrency: { group: sitio-dev, cancel-in-progress: true }
+permissions: { contents: read }
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: fuente }
+      - uses: actions/checkout@v4
+        with:
+          repository: corrernicaragua/dev.xolorun.com
+          ssh-key: ${{ secrets.DEV_SITE_DEPLOY_KEY }}
+          path: sitio
+      - name: Copiar el sitio (sin /app, CNAME ni archivos del repo)
+        run: |
+          rsync -a --delete \
+            --exclude .git --exclude .github --exclude app --exclude CNAME --exclude robots.txt \
+            --exclude publicar.sh --exclude README.md --exclude .gitignore --exclude .impeccable \
+            fuente/ sitio/
+      - name: Apuntar a Supabase de dev (regla A2)
+        working-directory: sitio
+        env:
+          PROD_URL: https://mwiroczcgigmapzkzeba.supabase.co
+          PROD_KEY: sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI
+          DEV_URL: ${{ vars.DEV_SUPABASE_URL }}
+          DEV_KEY: ${{ vars.DEV_SUPABASE_KEY }}
+        run: |
+          [ -n "$DEV_URL" ] && [ -n "$DEV_KEY" ] || { echo "::error::Faltan las variables DEV_SUPABASE_URL y DEV_SUPABASE_KEY"; exit 1; }
+          grep -rlE "$PROD_URL|$PROD_KEY" --include='*.html' --include='*.js' . | while read -r f; do
+            sed -i "s#$PROD_URL#$DEV_URL#g; s#$PROD_KEY#$DEV_KEY#g" "$f"
+          done
+          if grep -rqE 'mwiroczcgigmapzkzeba|sb_publishable_bZ6aEB26' --include='*.html' --include='*.js' .; then
+            echo "::error::Quedó una referencia a Supabase de producción en la copia de dev"; exit 1
+          fi
+      - name: Fuera de buscadores y cinta DEV
+        working-directory: sitio
+        run: |
+          printf 'User-agent: *\nDisallow: /\n' > robots.txt
+          cat > dev-cinta.js <<'JS'
+          (function () {
+            var d = document.createElement('div');
+            d.textContent = 'DEV · datos de prueba';
+            d.setAttribute('role', 'note');
+            d.style.cssText = 'position:fixed;left:0;bottom:0;z-index:2147483647;padding:4px 10px;background:#C65A3D;color:#fff;font:700 12px/1.2 system-ui,sans-serif;border-top-right-radius:8px;pointer-events:none';
+            document.body.appendChild(d);
+          })();
+          JS
+          find . -name '*.html' -not -path './app/*' | while read -r f; do
+            sed -i 's#<head>#<head><meta name="robots" content="noindex, nofollow">#' "$f"
+            sed -i 's#</body>#<script src="/dev-cinta.js" defer></script></body>#' "$f"
+          done
+      - name: Publicar
+        working-directory: sitio
+        run: |
+          git config user.name "xolorun-publicador" && git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "Sin cambios"; exit 0; }
+          git commit -m "Sitio (dev): ${GITHUB_SHA::7}"
+          git push
