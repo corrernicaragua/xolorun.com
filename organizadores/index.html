@@ -272,23 +272,32 @@
 
   /* ───────── La lista de espera y lo que viene (al final) ───────── */
   .wl .go { margin-top: 4px; }
-  /* muestra del sello: una sola pasada de brillo al aparecer; nada se mueve con movimiento reducido */
-  .badge-demo { margin: 4px 0 0; display: grid; gap: 10px; padding: 14px; border-radius: 16px; background: var(--arena); border: 1px dashed var(--lago-300); }
+  /* muestra del sello: etiqueta con la ruta y filo dorado; una sola pasada de brillo, nada se mueve con movimiento reducido */
+  .badge-demo { margin: 4px 0 0; display: grid; gap: 12px; padding: 14px; border-radius: 16px; background: var(--arena); border: 1px dashed var(--lago-300); }
   .badge-demo figcaption { display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 600 .95rem/1.2 var(--display); color: var(--lago); }
   .badge-demo .tag { padding: 3px 9px; border-radius: 999px; background: var(--niebla-200); color: var(--lago-400); font: 500 .7rem/1.3 var(--display); letter-spacing: .14em; text-transform: uppercase; }
+  .fb-show { display: grid; place-items: center; padding: 14px 0 10px; }
+  .fb-show .fb-tag { justify-self: center; }
+  /* placa: fondo lago y filo de metal dorado con reflejos (degradado en el borde), como una placa iluminada */
+  .fb-tag { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 7px; justify-self: start; padding: 4px 11px 4px 7px; border-radius: 999px;
+    border: 1.5px solid transparent;
+    background: linear-gradient(180deg, #194A50 0%, #12383B 55%, #0E2E31 100%) padding-box,
+      linear-gradient(120deg, #7E5E33 0%, #E8CF9C 18%, #A9844F 36%, #F6E7C6 50%, #9A7543 66%, #D9BC8C 84%, #7E5E33 100%) border-box;
+    background-size: 100% 100%, 220% 100%; background-position: 0 0, 0% 0;
+    color: var(--arena); font: 600 .72rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase;
+    box-shadow: inset 0 1px 0 rgba(246, 231, 198, .22), 0 1px 0 rgba(18, 56, 59, .12); }
+  .fb-tag svg { flex: none; height: auto; }
+  .fb-tag.big { gap: 10px; padding: 9px 20px 9px 12px; border-width: 2px; font-size: .9rem; letter-spacing: .2em;
+    box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75);
+    animation: settle .5s var(--ease) both, fbGleam 2.4s var(--ease) .4s 1 both; }
+  @keyframes fbGleam { from { background-position: 0 0, 0% 0; } to { background-position: 0 0, 100% 0; } }
+  .fb-tag.big::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 40%, rgba(246, 231, 198, .22) 50%, transparent 60%); transform: translateX(-130%); animation: bdShine 1.8s var(--ease) .6s 1 forwards; pointer-events: none; }
+  @keyframes bdShine { to { transform: translateX(130%); } }
   .bd-card { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: var(--blanco); border: 1px solid var(--niebla-300); }
-  .bd-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--lago); color: var(--arena); }
-  .bd-avatar svg { width: 22px; height: 22px; }
-  .bd-who { display: grid; gap: 2px; min-width: 0; }
+  .bd-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--niebla-200); color: var(--lago); font: 600 .95rem/1 var(--display); }
+  .bd-who { display: grid; gap: 5px; min-width: 0; justify-items: start; }
   .bd-who b { font: 600 1.02rem/1.2 var(--display); color: var(--lago); }
-  .bd-who span { font-size: .9rem; color: var(--lago-400); }
-  .bd-badge { position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border-radius: 999px; background: var(--lago); color: var(--arena); justify-self: start; max-width: 100%; animation: settle .5s var(--ease) both; }
-  .bd-badge svg { flex: none; width: 40px; height: 40px; }
-  .bd-badge b { display: block; font: 600 1rem/1.2 var(--display); color: var(--arena); }
-  .bd-badge span span { display: block; font-size: .85rem; color: var(--jade-200); }
-  .bd-badge::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .38) 50%, transparent 65%); transform: translateX(-120%); animation: bdShine 1.4s var(--ease) .5s 1 forwards; pointer-events: none; }
-  @keyframes bdShine { to { transform: translateX(120%); } }
-  @media (prefers-reduced-motion: reduce) { .bd-badge, .bd-badge::after { animation: none !important; } .bd-badge::after { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .fb-tag.big, .fb-tag.big::after { animation: none !important; } .fb-tag.big { background-position: 0 0, 60% 0; } .fb-tag.big::after { display: none; } }
   .igcard { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 20px; background: var(--blanco); border: 1.5px solid var(--niebla-300); color: var(--lago); text-decoration: none; transition: border-color .25s var(--ease); }
   @media (hover: hover) { .igcard:hover { border-color: var(--lago); } }
   .igcard > svg:first-child { flex: none; width: 28px; height: 28px; color: var(--arcilla-600); }
@@ -932,16 +941,18 @@
   const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' para quienes organizan carreras de running en Nicaragua. Es anónima y toma unos 10 minutos: ' + shareURL();
 
   // Muestra del sello en un perfil de organizador: solo en la meta, marcada como ejemplo (manual de marca: contenido de muestra = «Ejemplo»)
-  const PIN_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 21V4M6 4h11.5l-2.6 4 2.6 4H6"/></svg>';
-  const SEAL_SVG = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#C65A3D" stroke-width="1.6" stroke-dasharray="2.2 2.6"/><circle cx="20" cy="20" r="13" fill="#C65A3D"/><path d="M14.2 20.4l3.9 3.9 7.7-8" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  // Sello de Organizador Fundador (opción C elegida por Kenneth): etiqueta corta con la ruta de la marca y detalles dorados finos.
+  // El dorado (#B08D57, de la paleta de medalla anterior) es una excepción pedida por Kenneth, solo para este sello.
+  const ROUTE_MARK = (w) => '<svg viewBox="0 0 211.08 132" width="' + w + '" aria-hidden="true"><g transform="translate(-24.918 -62)"><path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" fill="none" stroke="#F3EFE7" stroke-width="24"/><circle cx="64.055" cy="181.954" r="12" fill="#F3EFE7"/><circle cx="104.874" cy="169.445" r="12" fill="#F3EFE7"/><path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" fill="none" stroke="#C65A3D" stroke-width="24"/></g></svg>';
+  const founderTag = (big) => '<span class="fb-tag' + (big ? ' big' : '') + '">' + ROUTE_MARK(big ? 30 : 20) + '<span>Fundador</span></span>';
   function badgeDemo() {
     return '<figure class="badge-demo" aria-label="Ejemplo de cómo se verá el sello de Organizador Fundador en tu perfil">' +
       '<figcaption><span>Así se verá en tu perfil</span><span class="tag">Ejemplo</span></figcaption>' +
+      '<div class="fb-show" aria-hidden="true">' + founderTag(true) + '</div>' +
       '<div class="bd-card" aria-hidden="true">' +
-        '<span class="bd-avatar">' + PIN_ICON + '</span>' +
-        '<span class="bd-who"><b>Tu organización</b><span>Organizador de carreras</span></span>' +
+        '<span class="bd-avatar">TO</span>' +
+        '<span class="bd-who"><b>Tu organización</b>' + founderTag(false) + '</span>' +
       '</div>' +
-      '<div class="bd-badge" aria-hidden="true">' + SEAL_SVG + '<span><b>Organizador Fundador</b><span>Uno de los primeros</span></span></div>' +
       '</figure>';
   }
 
