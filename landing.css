@@ -74,6 +74,9 @@ img { max-width: 100%; height: auto; }
 .brand svg { height: 28px; width: auto; }
 /* arriba a la derecha: enlaces pequeños (Nosotros, Preguntas); al pasar, una línea se dibuja debajo como la ruta */
 .toplinks { display: flex; align-items: center; gap: 2px; margin-right: -8px; }
+.toplinks .tl-antes, .toplinks .tl-app { display: inline-flex; align-items: center; gap: 2px; }
+.toplinks [hidden] { display: none; }
+.toplinks .tl-reg { color: var(--lago); font-weight: 600; }   /* registrarse pesa un poco más; sigue siendo un enlace pequeño, no un botón */
 .toplinks a, .toplinks button { position: relative; display: inline-flex; align-items: center; min-height: 36px; padding: 0 8px; border: 0; border-radius: 6px; background: none; color: var(--lago-400); font: 500 .8125rem/1 "Inter", sans-serif; letter-spacing: .01em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: color var(--t1) var(--ease); }
 .toplinks a::after, .toplinks button::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: 8px; height: 1.5px; border-radius: 1px; background: currentColor; transform: scaleX(0); transform-origin: 0 50%; transition: transform var(--t1) var(--ease); }
 .toplinks a:hover, .toplinks button:hover, .toplinks [aria-current="page"] { color: var(--lago); }
