@@ -40,7 +40,7 @@ jobs:
           if grep -rqE 'mwiroczcgigmapzkzeba|sb_publishable_bZ6aEB26' --include='*.html' --include='*.js' .; then
             echo "::error::Quedó una referencia a Supabase de producción en la copia de dev"; exit 1
           fi
-      - name: En dev la app está abierta: la cabecera muestra entrar y registrarse (spec 002, decisión 6)
+      - name: "En dev la app está abierta (spec 002, decisión 6): la cabecera muestra entrar y registrarse"
         working-directory: sitio
         run: |
           grep -q 'window.XR_APP_ABIERTA = false;' index.html || { echo "::error::No está el interruptor XR_APP_ABIERTA en index.html"; exit 1; }
