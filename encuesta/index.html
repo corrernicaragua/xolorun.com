@@ -1198,9 +1198,9 @@
     if (!base && !EMBED) return '';
     const q = state.channel === 'prueba' ? 'c=prueba' : 'c=encuesta&campana=' + encodeURIComponent(state.channel || 'directo');
     return '<div class="spread wl"><p class="eyebrow">Lista de espera</p>' +
-      '<h3>Reclamá tu dorsal en ' + BRAND + '</h3>' +
+      '<h3>Sé de los primeros en ' + BRAND + '</h3>' +
       '<p class="muted">Anotate y te damos tu número en la fila. Te avisamos primero cuando abramos. Es aparte de la encuesta: tus respuestas siguen siendo anónimas.</p>' +
-      '<a class="go as-link" href="' + esc(EMBED ? '#lista' : base + '?' + q + '#lista') + '"' + (EMBED ? ' data-embed-lista' : '') + '>Quiero mi dorsal<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
+      '<a class="go as-link" href="' + esc(EMBED ? '#lista' : base + '?' + q + '#lista') + '"' + (EMBED ? ' data-embed-lista' : '') + '>Unite a la lista de espera<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
   }
 
   // La landing (xolorun.com), para quien quiera conocer el proyecto. Incrustada en la landing no hace falta: ya está ahí.
