@@ -17,6 +17,11 @@
       location.replace('/app/');
       return;
     }
+    if (/^\/organizador(\/.*)?$/i.test(location.pathname)) {
+      try { sessionStorage.setItem('xr-ruta', '/app' + location.pathname + location.search + location.hash); } catch (e) {}
+      location.replace('/app/');
+      return;
+    }
     var p = location.pathname.toLowerCase().replace(/\/+$/, '');
     var q = location.search;
     var map = {
