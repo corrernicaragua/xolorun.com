@@ -22,7 +22,7 @@
     'Inscribirte para correr no debería ser una carrera.': "Signing up shouldn't be a race.",
     'Xolo Run es la app del running en Nicaragua: encontrás las carreras, te inscribís, pagás y llevás tu dorsal en el teléfono, todo en un solo lugar. Todavía no sale. Anotate y te avisamos primero.':
       "Xolo Run is the app for Nicaragua's races: find them, sign up, pay and carry your bib on your phone, all in one place. It isn't out yet. Join the list and we'll tell you first.",
-    'Unite a la lista de espera': 'Join the waitlist', 'Ver cómo funciona': 'See how it works', 'Próximamente en': 'Coming soon on',
+    'Unite a la lista de espera': 'Join the waitlist', 'Ver cómo funciona': 'See how it works',
     'personas ya están en la lista de espera': 'people already on the waitlist',
     // el teléfono del caos y las pantallas de muestra
     '¿Hay cupos todavía?': 'Any spots left?', 'Mandé la foto ayer': 'Sent the photo yesterday', 'Se acabaron los cupos': 'Spots sold out',
@@ -107,7 +107,6 @@
     'Anónima, de 3 a 8 minutos. Sirve aunque no corrás carreras. Más de': "Anonymous, 3 to 8 minutes, in Spanish. Useful even if you don't race. Over",
     'personas ya respondieron.': 'people have already answered.',
     'Responder la encuesta': 'Take the survey', 'La app': 'The app',
-    'Próximamente en App Store y Google Play.': 'Coming soon on the App Store and Google Play.',
     'Sin fecha todavía: no la anunciamos hasta que sea segura. Quienes están en la lista se enteran primero.': "No date yet: we won't announce one until it's certain. People on the list hear first.",
     // ─── pestaña encuesta ───
     'Contanos cómo corrés.': 'Tell us how you run.',
