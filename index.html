@@ -27,13 +27,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="landing.css?v=202610130106">
+<link rel="stylesheet" href="landing.css?v=202610190201">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Xolo Run","url":"https://xolorun.com/","logo":"https://xolorun.com/marca/apple-touch-icon-180.png","slogan":"Mismas rutas. Más gente.","description":"App nicaragüense que reúne las carreras de running del país en un solo lugar.","areaServed":"NI","founder":[{"@type":"Person","name":"Saymond Montoya","jobTitle":"Cofundador · Producto y tecnología"},{"@type":"Person","name":"Kenneth Rosales","jobTitle":"Cofundador · Operaciones y cumplimiento"},{"@type":"Person","name":"Bigarny Gutiérrez","jobTitle":"Cofundador · Comercial y alianzas"}]}</script>
 <script>document.documentElement.className = 'js';</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
-<script src="i18n.js?v=202610130106" defer></script>
-<script src="landing.js?v=202610130106" defer></script>
+<script src="i18n.js?v=202610190201" defer></script>
+<script src="landing.js?v=202610190201" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Ir al contenido</a>
@@ -63,10 +63,11 @@
 
 <header class="top" id="top">
   <a class="brand" href="#inicio" data-tab-link="inicio" aria-label="Xolo Run, inicio"><svg viewBox="0 0 1167.83 190" role="img" aria-label="Xolo Run" style="color:#12383B"><use href="#logo-h"/></svg></a>
-  <div class="toplinks"><span class="tl-antes"><a href="nosotros/">Nosotros</a><button type="button" data-sheet>Preguntas</button><a class="ig" href="https://www.instagram.com/xolorun/" target="_blank" rel="noopener" aria-label="Instagram de Xolo Run, @xolorun (se abre en otra pestaña)" title="@xolorun en Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg></a></span><span class="tl-app" hidden><a href="app/entrar">Iniciar sesión</a><a class="tl-reg" href="app/registro">Registrarse</a></span></div>
+  <div class="toplinks"><span class="tl-antes"><a href="nosotros/">Nosotros</a><button type="button" data-sheet>Preguntas</button><a class="ig" href="https://www.instagram.com/xolorun/" target="_blank" rel="noopener" aria-label="Instagram de Xolo Run, @xolorun (se abre en otra pestaña)" title="@xolorun en Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg></a></span><span class="tl-app" hidden><a href="app/">Iniciar sesión</a><a class="tl-reg" href="app/">Registrarse</a></span></div>
 </header>
 <script>
-  // Qué muestra la cabecera: antes del lanzamiento, Nosotros/Preguntas/Instagram; con la app abierta, entrar y registrarse
+  // Qué muestra la cabecera: antes del lanzamiento, Nosotros/Preguntas/Instagram; con la app abierta, entrar y registrarse.
+  // Los dos llevan a /app/: la app abre su bienvenida (crear cuenta, iniciar sesión o explorar) o Inicio si ya hay sesión (spec 013 fase B)
   (function () { var q = new URLSearchParams(location.search).get('app'); var on = q !== null ? q === '1' : !!window.XR_APP_ABIERTA; document.querySelector('.tl-antes').hidden = on; document.querySelector('.tl-app').hidden = !on; })();
 </script>
 <nav aria-label="Secciones"><div class="tabs" id="tabs" role="tablist" aria-label="Secciones">
