@@ -285,11 +285,6 @@
   .soon { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 24px 14px 22px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
   .soon .name { display: block; }
   .soon .name svg { display: block; height: 30px; width: auto; }
-  .stores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 330px; margin-top: 4px; }
-  .store { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 10px; border-radius: 12px; text-align: left; background: var(--lago); color: var(--arena); }
-  .store svg { flex: none; width: 22px; height: 22px; color: var(--arena); }
-  .store small { display: block; font: 500 .62rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--jade-200); margin-bottom: 4px; }
-  .store span { font: 600 .95rem/1 var(--display); white-space: nowrap; color: var(--arena); }
 </style>
 </head>
 <body>
@@ -1148,9 +1143,6 @@
   const MEGA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10v4h3l6 4V6L7 10H4zM16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
   const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
   const SAVE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg>';
-  // Íconos propios, no los logos de las tiendas: sus insignias oficiales solo se usan cuando la app ya está publicada
-  const PHONE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3M10.6 10.2l3.6 2.1-3.6 2.1z"/></svg>';
-  const PHONE2_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="3.2"/><path d="M10.5 18.5h3M9.6 13.8l2.4-5 2.4 5M10.4 12.2h3.2"/></svg>';
   const nudge = (act, q, cta) => '<button type="button" class="nudge" data-act="' + act + '">' + MEGA_ICON + '<span>' + q + ' <b>' + cta + '</b></span>' + CHEV + '</button>';
 
   function viewDone(kids) {
@@ -1198,9 +1190,9 @@
     if (!base && !EMBED) return '';
     const q = state.channel === 'prueba' ? 'c=prueba' : 'c=encuesta&campana=' + encodeURIComponent(state.channel || 'directo');
     return '<div class="spread wl"><p class="eyebrow">Lista de espera</p>' +
-      '<h3>Reclamá tu dorsal en ' + BRAND + '</h3>' +
+      '<h3>Sé de los primeros en ' + BRAND + '</h3>' +
       '<p class="muted">Anotate y te damos tu número en la fila. Te avisamos primero cuando abramos. Es aparte de la encuesta: tus respuestas siguen siendo anónimas.</p>' +
-      '<a class="go as-link" href="' + esc(EMBED ? '#lista' : base + '?' + q + '#lista') + '"' + (EMBED ? ' data-embed-lista' : '') + '>Quiero mi dorsal<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
+      '<a class="go as-link" href="' + esc(EMBED ? '#lista' : base + '?' + q + '#lista') + '"' + (EMBED ? ' data-embed-lista' : '') + '>Unite a la lista de espera<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
   }
 
   // La landing (xolorun.com), para quien quiera conocer el proyecto. Incrustada en la landing no hace falta: ya está ahí.
@@ -1223,10 +1215,7 @@
       '<p class="eyebrow">Próximamente</p>' +
       '<p class="name" role="img" aria-label="' + BRAND + '">' + LOGO_H + '</p>' +
       '<p class="muted">Las carreras de running de Nicaragua, en tu teléfono.</p>' +
-      '<div class="stores">' +
-        '<span class="store">' + PHONE_ICON + '<span><small>Pronto en</small>Google Play</span></span>' +
-        '<span class="store">' + PHONE2_ICON + '<span><small>Pronto en</small>App Store</span></span>' +
-      '</div></section>';
+      '</section>';
   }
 
   // ───────── Transparencia: quiénes somos ─────────

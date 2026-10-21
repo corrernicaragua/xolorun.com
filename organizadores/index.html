@@ -272,40 +272,6 @@
 
   /* ───────── La lista de espera y lo que viene (al final) ───────── */
   .wl .go { margin-top: 4px; }
-  /* muestra del sello: etiqueta con la ruta y filo dorado; una sola pasada de brillo, nada se mueve con movimiento reducido */
-  .badge-demo { margin: 4px 0 0; display: grid; gap: 12px; padding: 14px; border-radius: 16px; background: var(--arena); border: 1px dashed var(--lago-300); }
-  .badge-demo figcaption { display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 600 .95rem/1.2 var(--display); color: var(--lago); }
-  .badge-demo .tag { padding: 3px 9px; border-radius: 999px; background: var(--niebla-200); color: var(--lago-400); font: 500 .7rem/1.3 var(--display); letter-spacing: .14em; text-transform: uppercase; }
-  .fb-show { display: grid; place-items: center; padding: 14px 0 10px; }
-  .fb-show .fb-tag { justify-self: center; }
-  /* placa: fondo lago y filo de metal dorado con reflejos (degradado en el borde), como una placa iluminada */
-  .fb-tag { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 7px; justify-self: start; padding: 4px 11px 4px 7px; border-radius: 999px;
-    border: 1.5px solid transparent;
-    background: linear-gradient(180deg, #194A50 0%, #12383B 55%, #0E2E31 100%) padding-box,
-      linear-gradient(120deg, #7E5E33 0%, #E8CF9C 18%, #A9844F 36%, #F6E7C6 50%, #9A7543 66%, #D9BC8C 84%, #7E5E33 100%) border-box;
-    background-size: 100% 100%, 220% 100%; background-position: 0 0, 0% 0;
-    color: var(--arena); font: 600 .72rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase;
-    box-shadow: inset 0 1px 0 rgba(246, 231, 198, .22), 0 1px 0 rgba(18, 56, 59, .12); }
-  .fb-tag svg { flex: none; height: auto; }
-  .fb-tag.big { gap: 10px; padding: 9px 20px 9px 12px; border-width: 2px; font-size: .9rem; letter-spacing: .2em;
-    box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75);
-    animation: settle .5s var(--ease) both; }
-  /* encendida: la luz recorre el filo de ida y vuelta, el halo dorado respira y cada tanto pasa un destello */
-  .fb-tag.lit { animation: fbFlow 3.6s ease-in-out infinite alternate; }
-  .fb-tag.big.lit { animation: settle .5s var(--ease) both, fbFlow 3.6s ease-in-out infinite alternate, fbGlow 3.6s ease-in-out infinite; }
-  @keyframes fbFlow { from { background-position: 0 0, 0% 0; } to { background-position: 0 0, 100% 0; } }
-  @keyframes fbGlow {
-    0%, 100% { box-shadow: inset 0 1px 0 rgba(246, 231, 198, .28), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75), 0 0 0 0 rgba(217, 188, 140, 0); }
-    50% { box-shadow: inset 0 1px 0 rgba(246, 231, 198, .4), inset 0 -1px 0 rgba(0, 0, 0, .25), 0 12px 24px -14px rgba(18, 56, 59, .75), 0 0 14px 1px rgba(217, 188, 140, .42); }
-  }
-  .fb-tag::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(105deg, transparent 40%, rgba(246, 231, 198, .28) 50%, transparent 60%); transform: translateX(-140%); pointer-events: none; }
-  .fb-tag.lit::after { animation: fbSheen 4.8s var(--ease) .3s infinite; }
-  @keyframes fbSheen { 0% { transform: translateX(-140%); } 34%, 100% { transform: translateX(140%); } }
-  .bd-card { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px; background: var(--blanco); border: 1px solid var(--niebla-300); }
-  .bd-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--niebla-200); color: var(--lago); font: 600 .95rem/1 var(--display); }
-  .bd-who { display: grid; gap: 5px; min-width: 0; justify-items: start; }
-  .bd-who b { font: 600 1.02rem/1.2 var(--display); color: var(--lago); }
-  @media (prefers-reduced-motion: reduce) { .fb-tag, .fb-tag::after { animation: none !important; } .fb-tag { background-position: 0 0, 60% 0; } .fb-tag::after { display: none; } }
   .igcard { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 20px; background: var(--blanco); border: 1.5px solid var(--niebla-300); color: var(--lago); text-decoration: none; transition: border-color .25s var(--ease); }
   @media (hover: hover) { .igcard:hover { border-color: var(--lago); } }
   .igcard > svg:first-child { flex: none; width: 28px; height: 28px; color: var(--arcilla-600); }
@@ -319,11 +285,6 @@
   .soon { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 24px 14px 22px; border-radius: 20px; background: var(--blanco); border: 1px solid var(--niebla-300); }
   .soon .name { display: block; }
   .soon .name svg { display: block; height: 30px; width: auto; }
-  .stores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 330px; margin-top: 4px; }
-  .store { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 10px; border-radius: 12px; text-align: left; background: var(--lago); color: var(--arena); }
-  .store svg { flex: none; width: 22px; height: 22px; color: var(--arena); }
-  .store small { display: block; font: 500 .62rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--jade-200); margin-bottom: 4px; }
-  .store span { font: 600 .95rem/1 var(--display); white-space: nowrap; color: var(--arena); }
 
   /* ───────── Encuesta para organizadores: lo único que no estaba en la encuesta ───────── */
   [hidden] { display: none !important; }
@@ -952,35 +913,19 @@
   const inviteText = () => 'Te paso esta encuesta de ' + BRAND + ' para quienes organizan carreras de running en Nicaragua. Es anónima y toma unos 10 minutos: ' + shareURL();
 
   // Muestra del sello en un perfil de organizador: solo en la meta, marcada como ejemplo (manual de marca: contenido de muestra = «Ejemplo»)
-  // Sello de Organizador Fundador (opción C elegida por Kenneth): etiqueta corta con la ruta de la marca y detalles dorados finos.
-  // El dorado (#B08D57, de la paleta de medalla anterior) es una excepción pedida por Kenneth, solo para este sello.
-  const ROUTE_MARK = (w) => '<svg viewBox="0 0 211.08 132" width="' + w + '" aria-hidden="true"><g transform="translate(-24.918 -62)"><path d="M64.055 181.954 C29.867 180.330 26.659 135.927 62.000 132.000 C90.000 129.000 94.000 74.000 126.000 74.000 C160.000 74.000 168.000 126.000 196.000 130.000 C234.000 135.000 232.000 182.000 198.000 182.000 C168.000 182.000 154.000 164.000 128.000 164.000 C118.509 164.000 111.416 166.399 104.874 169.445" fill="none" stroke="#F3EFE7" stroke-width="24"/><circle cx="64.055" cy="181.954" r="12" fill="#F3EFE7"/><circle cx="104.874" cy="169.445" r="12" fill="#F3EFE7"/><path d="M138.345 76.546 C151.023 82.054 159.594 95.556 168.386 107.642" fill="none" stroke="#C65A3D" stroke-width="24"/></g></svg>';
-  const founderTag = (big) => '<span class="fb-tag' + (big ? ' big' : '') + '">' + ROUTE_MARK(big ? 30 : 20) + '<span>Fundador</span></span>';
-  function badgeDemo() {
-    return '<figure class="badge-demo" aria-label="Ejemplo de cómo se verá el sello de Organizador Fundador en tu perfil">' +
-      '<figcaption><span>Así se verá en tu perfil</span><span class="tag">Ejemplo</span></figcaption>' +
-      '<div class="fb-show" aria-hidden="true">' + founderTag(true) + '</div>' +
-      '<div class="bd-card" aria-hidden="true">' +
-        '<span class="bd-avatar">TO</span>' +
-        '<span class="bd-who"><b>Tu organización</b>' + founderTag(false) + '</span>' +
-      '</div>' +
-      '</figure>';
-  }
-
-  // Lo que hay al final: la invitación a Organizadores Fundadores, con el mismo estilo de tarjeta que la lista de espera de la encuesta
+  // Lo que hay al final: la invitación a Organizadores Xolo, con el mismo estilo de tarjeta que la lista de espera de la encuesta
   function founderBox() {
     const perks = [
+      ['Acceso anticipado a la plataforma', 'Usás la parte para organizadores antes del lanzamiento: publicás tu carrera con sus distancias, cupos y precios, tenés las inscripciones y los pagos ordenados en un solo lugar y entregás los kits escaneando el dorsal QR de cada corredor.'],
       ['Te acompañamos a montar tu carrera', 'Una persona del equipo la publica con vos, paso a paso.'],
       ['Tu carrera en la vitrina del lanzamiento', 'Entre las primeras que verán los corredores en la app y, si lo acordamos juntos, también en nuestras redes.'],
-      ['Sello de Organizador Fundador', 'Queda en tu perfil para siempre, como uno de los primeros.'],
-      ['Tu voz en lo que construimos', 'Probás las funciones antes que nadie y nos decís qué cambiar.'],
+      ['Tu voz en lo que construimos', 'Nos decís qué cambiar y lo tomamos en cuenta antes de lanzar.'],
       ['El resumen del sector, primero', 'Lo que respondieron los organizadores, en cifras y sin nombres de nadie.']
     ];
     return '<div class="spread wl" id="fundadores"><p class="eyebrow">Primera ronda · cupos limitados</p>' +
-      '<h3>Organizadores Fundadores</h3>' +
+      '<h3>Organizadores Xolo</h3>' +
       '<p class="muted">Buscamos a los primeros organizadores para publicar sus carreras en ' + BRAND + ' y construir con ellos la herramienta.</p>' +
       '<ul class="ticks">' + perks.map((x) => '<li>' + CHECK + '<span><b>' + x[0] + '.</b> ' + x[1] + '</span></li>').join('') + '</ul>' +
-      badgeDemo() +
       '<p class="muted">Revisamos cada postulación según las fechas, el tipo de evento y la zona, para empezar con un grupo variado. No todas entran en la primera ronda; las demás quedan para las siguientes. Postularte no tiene costo ni te compromete a nada.</p>' +
       (state.leadSent
         ? '<p class="promise">Ya dejaste tu contacto. Te escribimos pronto.</p>'
@@ -1019,17 +964,12 @@
   }
 
   // Cierre discreto: la app que viene
-  const PHONE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6"/><path d="M10.5 5.5h3M10.6 10.2l3.6 2.1-3.6 2.1z"/></svg>';
-  const PHONE2_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="3.2"/><path d="M10.5 18.5h3M9.6 13.8l2.4-5 2.4 5M10.4 12.2h3.2"/></svg>';
   function soonBox() {
     return '<section class="soon" aria-label="Próximamente">' +
       '<p class="eyebrow">Próximamente</p>' +
       '<p class="name" role="img" aria-label="' + BRAND + '">' + LOGO_H + '</p>' +
       '<p class="muted">Las carreras de running de Nicaragua, en tu teléfono.</p>' +
-      '<div class="stores">' +
-        '<span class="store">' + PHONE_ICON + '<span><small>Pronto en</small>Google Play</span></span>' +
-        '<span class="store">' + PHONE2_ICON + '<span><small>Pronto en</small>App Store</span></span>' +
-      '</div></section>';
+      '</section>';
   }
 
   // ───────── Contacto (solo si quiere, después de la meta) ─────────
@@ -1045,7 +985,7 @@
       '<form id="lead" class="page" style="padding:0" novalidate>' +
         '<section><h2>¿Qué te interesa?</h2><p class="muted">Podés elegir varias.</p>' +
           '<div class="opts" role="group" aria-label="Qué te interesa">' +
-            pick('fundador', 'Postularme como Organizador Fundador', 'Primera ronda, cupos limitados') +
+            pick('fundador', 'Postularme a Organizadores Xolo', 'Primera ronda, cupos limitados') +
             pick('llamada', 'Conversar en una llamada o reunión', '20 a 30 minutos, cuando te quede bien') +
             pick('informe', 'Recibir el resumen de lo que respondieron los organizadores', 'Cifras del sector, sin nombres de nadie') +
           '</div><p class="hint" id="e-int"></p></section>' +
@@ -1076,7 +1016,7 @@
       ? ['Recibimos tu postulación, guardada con tus respuestas.', 'Te escribimos para conversar en los próximos días, por ' + by + '.', 'Te contamos si entrás en la primera ronda. Si no, quedás para la siguiente.']
       : ['Recibimos tus datos, guardados con tus respuestas.', f.interests.includes('llamada') ? 'Te escribimos para coordinar, por ' + by + '.' : 'Te escribimos cuando haya novedades, sin mensajes de más.'].concat(f.interests.includes('informe') ? ['Te mandamos el resumen cuando esté listo.'] : []);
     return pageShell(
-      '<section><p class="eyebrow">' + (DRY ? 'Vista local: no se envió nada' : 'Listo') + '</p><h1 tabindex="-1" id="qt">' + (first ? esc(first) + ', ' : '') + (founder ? 'ya estás en la fila de fundadores.' : 'quedamos en contacto.') + '</h1>' +
+      '<section><p class="eyebrow">' + (DRY ? 'Vista local: no se envió nada' : 'Listo') + '</p><h1 tabindex="-1" id="qt">' + (first ? esc(first) + ', ' : '') + (founder ? 'ya estás en la fila de Organizadores Xolo.' : 'quedamos en contacto.') + '</h1>' +
         (state.leadSend === 'offline' ? '<div class="send" data-s="offline"><span class="dot" aria-hidden="true"></span><div class="msg"><b>Sin señal por ahora.</b><span class="muted">Tus datos se envían solos cuando vuelva la conexión.</span></div></div>' : '') +
         '<ul class="ticks">' + steps.map((s) => '<li>' + CHECK + '<span>' + s + '</span></li>').join('') + '</ul></section>' +
       igBox() + siteBox() + '<div class="stack"><button type="button" class="go" data-act="home">Volver</button></div>');
@@ -1168,20 +1108,9 @@
       scenes.push(new BandScene(band, p, dir === 'same' ? p : lastProgress, marks));
       lastProgress = p;
     } else if (state.view === 'welcome') lastProgress = 0;
-    lightBadges();
     const title = app.querySelector('#qt');
     if (title && dir !== 'same') title.focus({ preventScroll: true });
     save();
-  }
-
-  // La placa de fundador reluce solo cuando entra en pantalla (y se apaga al salir, para no gastar batería)
-  let badgeIO = null;
-  function lightBadges() {
-    if (badgeIO) { badgeIO.disconnect(); badgeIO = null; }
-    const tags = app.querySelectorAll('.fb-tag');
-    if (!tags.length || !('IntersectionObserver' in window)) { tags.forEach((t) => t.classList.add('lit')); return; }
-    badgeIO = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('lit', e.isIntersecting)), { threshold: 0.6 });
-    tags.forEach((t) => badgeIO.observe(t));
   }
 
   // ───────── Acciones ─────────

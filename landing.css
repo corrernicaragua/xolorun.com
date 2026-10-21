@@ -393,22 +393,6 @@ img { max-width: 100%; height: auto; }
 .camino .mini path { stroke: currentColor; fill: none; stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s var(--ease); }
 .camino:hover .mini path, .camino:focus-visible .mini path { stroke-dashoffset: 0; }
 .camino .mini circle { fill: currentColor; }
-
-/* ───────── próximamente en las tiendas (íconos propios: las insignias oficiales solo cuando la app esté publicada) ───────── */
-.tiendas-box { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; padding: 30px 32px; border-radius: 24px; background: var(--white); box-shadow: 0 1px 2px rgba(18, 56, 59, .06); }
-.tiendas-box .h3 { margin-top: 10px; }
-.tiendas-box p:not(.label) { margin: 10px 0 0; max-width: 30rem; color: var(--lago-400); font-size: 1rem; }
-.stores { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
-.badge { display: inline-flex; align-items: center; gap: 12px; min-height: 60px; padding: 8px 22px 8px 14px; border-radius: 12px; border: 1.5px solid var(--lago); background: var(--white); color: var(--obs); font: 700 1.125rem/1.05 "Space Grotesk", sans-serif; letter-spacing: -.01em; }
-.badge .lg { width: 28px; height: 28px; flex: none; }
-.badge .apple { fill: var(--obs); }
-.badge small { display: block; margin-bottom: 3px; font: 500 .6875rem/1 "Inter", sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--lago-400); }
-.hero .soon-line { margin: 22px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-.badge.sm { min-height: 46px; gap: 8px; padding: 5px 12px 5px 10px; border-radius: 10px; font-size: .9375rem; }
-.badge.sm .lg { width: 20px; height: 20px; }
-.badge.sm small { margin-bottom: 2px; font-size: .6875rem; letter-spacing: .06em; }
-@media (max-width: 760px) { .tiendas-box { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; } .badge { flex: 1 1 auto; } .hero .badge.sm { flex: 1 1 calc(50% - 5px); min-width: 0; } }
-@media (max-width: 380px) { .hero .badge.sm { flex-basis: 100%; } }   /* en 360 y menos no caben dos por fila sin partir «Próximamente en» */
 @media (max-width: 760px) { .caminos { grid-template-columns: minmax(0, 1fr); } }
 
 /* ───────── nosotros: misión y visión sobre lago, valores en filas, equipo con forma de dorsal ───────── */
@@ -524,7 +508,7 @@ html.js .pg-nos [data-rise].in { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) { .foot .org-link b svg { transition: none; } }
 /* el último bloque antes del pie no necesita el aire completo de una banda */
-.band.tiendas, .band:has(> .wrap > .nos-fin) { padding-bottom: clamp(48px, 7vw, 88px); }
+.band:has(> .wrap > .nos-fin) { padding-bottom: clamp(48px, 7vw, 88px); }
 
 /* ───────── pestaña: encuesta, dentro del teléfono ───────── */
 .enc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 5vw, 72px); min-height: calc(100svh - var(--top-h)); padding: clamp(24px, 4vh, 48px) 0; }

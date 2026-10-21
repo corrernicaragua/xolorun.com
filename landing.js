@@ -971,7 +971,7 @@
     } catch (e) { filaCount = 0; }
     if (filaCount >= MIN_FILA) {
       $('[data-fila-n]').textContent = filaCount; filaN.hidden = false;
-      heroFila.innerHTML = '<i style="width:22px;height:3px;background:linear-gradient(90deg,#12383B 0 60%,#C65A3D 60%);border-radius:2px"></i><span><b>' + filaCount + '</b> personas ya tienen su dorsal</span>';
+      heroFila.innerHTML = '<i style="width:22px;height:3px;background:linear-gradient(90deg,#12383B 0 60%,#C65A3D 60%);border-radius:2px"></i><span><b>' + filaCount + '</b> personas ya están en la lista de espera</span>';
     }
     return filaCount;
   }
