@@ -18,18 +18,22 @@
 <link rel="alternate" hreflang="x-default" href="https://xolorun.com/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="marca/favicon.svg" type="image/svg+xml">
+<!-- Interruptor del lanzamiento (spec 002, decisión 6): false en producción hasta que la app abra; la Action de dev lo pone en true.
+     ?app=1 / ?app=0 lo fuerzan para ver cómo queda. Con true, la cabecera muestra «Acceder» (decisión 2; antes eran «Iniciar sesión» y «Registrarse»)
+     y Nosotros, Preguntas e Instagram quedan solo en el pie (decisión 5). -->
+<script>window.XR_APP_ABIERTA = false;</script>
 <link rel="icon" href="marca/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="marca/apple-touch-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="landing.css?v=202610160246">
+<link rel="stylesheet" href="landing.css?v=202610211800">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Xolo Run","url":"https://xolorun.com/","logo":"https://xolorun.com/marca/apple-touch-icon-180.png","slogan":"Mismas rutas. Más gente.","description":"App nicaragüense que reúne las carreras de running del país en un solo lugar.","areaServed":"NI","founder":[{"@type":"Person","name":"Saymond Montoya","jobTitle":"Cofundador · Producto y tecnología"},{"@type":"Person","name":"Kenneth Rosales","jobTitle":"Cofundador · Operaciones y cumplimiento"},{"@type":"Person","name":"Bigarny Gutiérrez","jobTitle":"Cofundador · Comercial y alianzas"}]}</script>
 <script>document.documentElement.className = 'js';</script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
-<script src="i18n.js?v=202610160246" defer></script>
-<script src="landing.js?v=202610160246" defer></script>
+<script src="i18n.js?v=202610211800" defer></script>
+<script src="landing.js?v=202610211800" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Ir al contenido</a>
@@ -59,8 +63,13 @@
 
 <header class="top" id="top">
   <a class="brand" href="#inicio" data-tab-link="inicio" aria-label="Xolo Run, inicio"><svg viewBox="0 0 1167.83 190" role="img" aria-label="Xolo Run" style="color:#12383B"><use href="#logo-h"/></svg></a>
-  <div class="toplinks"><a href="nosotros/">Nosotros</a><button type="button" data-sheet>Preguntas</button><a class="ig" href="https://www.instagram.com/xolorun/" target="_blank" rel="noopener" aria-label="Instagram de Xolo Run, @xolorun (se abre en otra pestaña)" title="@xolorun en Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg></a></div>
+  <div class="toplinks"><span class="tl-antes"><a href="nosotros/">Nosotros</a><button type="button" data-sheet>Preguntas</button><a class="ig" href="https://www.instagram.com/xolorun/" target="_blank" rel="noopener" aria-label="Instagram de Xolo Run, @xolorun (se abre en otra pestaña)" title="@xolorun en Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></svg></a></span><span class="tl-app" hidden><a class="tl-reg" href="app/">Acceder</a></span></div>
 </header>
+<script>
+  // Qué muestra la cabecera: antes del lanzamiento, Nosotros/Preguntas/Instagram; con la app abierta, «Acceder».
+  // Uno solo, a /app/: la app abre su bienvenida (crear cuenta, iniciar sesión o explorar) o Inicio si ya hay sesión (spec 013 fase B)
+  (function () { var q = new URLSearchParams(location.search).get('app'); var on = q !== null ? q === '1' : !!window.XR_APP_ABIERTA; document.querySelector('.tl-antes').hidden = on; document.querySelector('.tl-app').hidden = !on; })();
+</script>
 <nav aria-label="Secciones"><div class="tabs" id="tabs" role="tablist" aria-label="Secciones">
     <i class="ind" aria-hidden="true"></i><i class="trk" aria-hidden="true"></i><i class="seg" aria-hidden="true"></i>
     <button class="tab" role="tab" id="tab-inicio" aria-controls="inicio" aria-selected="true" data-tab="inicio">Inicio</button>
