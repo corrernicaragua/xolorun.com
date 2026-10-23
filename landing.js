@@ -939,7 +939,7 @@
     setErr('[data-send]', '');
     store.set(QUEUE, item);
     const r = await send(item);
-    busy = false; btn.disabled = false; btn.classList.remove('busy'); gl.textContent = 'Recibir mi número'; if (btn.parentElement.classList.contains('sweep-w')) btn.parentElement.classList.remove('on');
+    busy = false; btn.disabled = false; btn.classList.remove('busy'); gl.textContent = 'Recibir mi número y mi acceso'; if (btn.parentElement.classList.contains('sweep-w')) btn.parentElement.classList.remove('on');
     if (r.ok) { store.set(QUEUE, null); showResult({ ...r.data, via: mail ? 'mail' : 'wa' }); }
     else if (r.retry) { showResult({ queued: true, via: mail ? 'mail' : 'wa' }); clearTimeout(retryT); retryT = setTimeout(flushQueue, 20000); }
     else { store.set(QUEUE, null); setErr('[data-send]', r.message); }
@@ -1035,7 +1035,7 @@
     if (!r.queued) html += '<div class="enc-box"><p><b>¿Nos ayudás con unos minutos?</b></p><p>Respondé la encuesta «Running en Nicaragua». Es anónima y nos ayuda a diseñar la app con lo que de verdad pasa.</p>' +
       '<button class="textlink" type="button" data-tab-link="encuesta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Responder la encuesta</button></div>';
     if (testing && !r.queued) html += '<details class="raw"><summary>Lo que se guardó (solo en modo prueba)</summary><pre>' + esc(JSON.stringify(r, null, 2)) + '</pre></details>';
-    steps.forEach((s) => { s.hidden = true; }); stepno.textContent = 'Dorsal reclamado'; $('#sub').hidden = true; paintProgress(4);
+    steps.forEach((s) => { s.hidden = true; }); stepno.textContent = 'Dorsal reclamado'; $('#sub').hidden = true; $('#gets').hidden = true; paintProgress(4);
     $('#t-lista').textContent = r.queued ? 'Tu dorsal está en camino' : 'Tu dorsal ya es tuyo';
     res.hidden = false; res.innerHTML = html;
     if (n !== null) bibNumber(n, quiet);
