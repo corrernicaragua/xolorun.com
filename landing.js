@@ -7,7 +7,7 @@
   // ───────── Configuración ─────────
   const SUPABASE_URL = 'https://mwiroczcgigmapzkzeba.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI';
-  const CONSENT_VERSION = '2026-10-06';
+  const CONSENT_VERSION = '2026-10-23';
   // Pendiente antes de publicar (ticket 86aktb1qp): quién responde por los datos, su contacto y el plazo
   const CONTROLLER = { name: '', contact: 'team@xolorun.com', retention: '' };
   const SURVEY_URL = new URL('encuesta/', location.href).href;   // la encuesta vive en este mismo sitio (xolorun.com/encuesta/)
@@ -15,6 +15,8 @@
   const STORE = 'xolo-dorsal-v1', QUEUE = 'xolo-fila-pendiente-v1', ORIGIN = 'xolo-origen-v1';
   // los enlaces de invitación y los QR siempre con la dirección oficial (https, sin www), aunque se haya entrado por http o por www
   // (con el protocolo de la visita: http solo mientras GitHub emite el certificado; con HTTPS forzado todos llegan por https)
+  // enlace de invitación a la comunidad de WhatsApp: se entrega solo al terminar la lista de espera
+  const COMMUNITY_URL = 'https://chat.whatsapp.com/JQEjDllRgYJ5cfWoC4YP3y';
   const PUBLIC_URL = /(^|\.)xolorun\.com$/.test(location.hostname) ? location.protocol + '//xolorun.com/' : location.origin + location.pathname;
   const MIN_FILA = 25;   // la cantidad de personas en la fila se muestra solo a partir de aquí
   // i18n.js (cargado antes) traduce al inglés lo que vive en el DOM; T() es para lo que no: el título, el texto de WhatsApp y la imagen para historias
@@ -104,6 +106,15 @@
   document.addEventListener('click', (e) => {
     if (e.target.closest('a[href^="https://wa.me"]')) hit('compartir_whatsapp');
     if (e.target.closest('a[href^="https://www.instagram.com/"]')) hit('instagram');
+    // la comunidad: cuenta el toque y lo anota en el registro de la persona, para saber a quién todavía hay que mandarle el enlace
+    if (e.target.closest('[data-community]')) {
+      hit('comunidad');
+      const code = state.result && state.result.code;
+      if (code && !testing && !LOCAL) try {
+        fetch(SUPABASE_URL + '/rest/v1/rpc/waitlist_community_click', { method: 'POST', keepalive: true, headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ p_code: code }) }).catch(() => {});
+      } catch (err) {}
+    }
     const tl = e.target.closest('[data-tab-link]'); if (tl) hit('cta_' + tl.dataset.tabLink);
   });
 
@@ -1002,6 +1013,10 @@
     else if (r.existing) html = '<h3>Ya estabas en la fila</h3><p>Ese contacto ya se había anotado, así que conservás tu lugar. Te escribimos ' + who + ' cuando abramos.</p>';
     else if (n === null) html = '<h3>Prueba guardada</h3><p>Las pruebas del equipo no reciben número en la fila.</p>';
     else html = '<h3>Listo. Nos vemos en la ruta.</h3><p>Tenés el #' + n + ' en la fila. Te escribimos ' + who + ' cuando abramos. El QR de tu dorsal es tu enlace: quien lo escanee se anota con vos.</p>';
+    // último paso: la comunidad de WhatsApp (antes el equipo mandaba el enlace a mano)
+    if (!r.queued) html += '<div class="com-box"><p class="label">Último paso</p><h4>Unite a la comunidad de Xolo Run</h4>' +
+      '<p>Es nuestro canal con vos: por ahí te escribimos si necesitamos contactarte, te damos el acceso anticipado a la plataforma y te contamos cada novedad antes que nadie.</p>' +
+      '<a class="go" href="' + COMMUNITY_URL + '" target="_blank" rel="noopener" data-community><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.7 9.7 0 0 0-8.3 14.8L2.4 21.6l4.7-1.2A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.7.8-2.7-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.2-.2-.5-.3z"/></svg>Unirme a la comunidad</a></div>';
     if (!r.queued && r.code) {
       const text = T('Me anoté en Xolo Run, la app del running en Nicaragua') + (n ? T(', y tengo el #') + n + T(' en la fila') : '') + T('. Sacá tu dorsal: ') + link;
       html += '<div class="share">' +
