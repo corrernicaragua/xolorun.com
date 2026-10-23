@@ -621,6 +621,11 @@ html.js .pg-nos [data-rise].in { opacity: 1; transform: none; }
 .res { margin-top: 6px; outline: 0; }
 .res h3 { margin: 0 0 8px; font: 700 clamp(1.5rem, 3vw, 2rem)/1.1 "Space Grotesk", sans-serif; letter-spacing: -.02em; }
 .res p { margin: 0; color: var(--lago-400); }
+.res .com-box { margin-top: 22px; padding: 22px 20px; border-radius: 20px; background: var(--lago); color: var(--white); }
+.res .com-box .label { color: var(--arcilla-100); }
+.res .com-box h4 { margin: 8px 0; font: 700 1.3rem/1.15 "Space Grotesk", sans-serif; letter-spacing: -.01em; }
+.res .com-box p:not(.label) { color: rgba(255, 255, 255, .82); }
+.res .com-box .go { margin-top: 18px; }
 .res .share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 20px; }
 .res .go svg { fill: currentColor; }
 .res .linkline { margin-top: 10px; font-size: .875rem; color: var(--lago-400); word-break: break-all; }
