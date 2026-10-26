@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tu opinión de la beta · Xolo Run</title>
+<meta name="description" content="Contanos cómo te fue con la beta de Xolo Run. Son 2 minutos y tu opinión decide qué mejoramos primero.">
+<!-- Pública pero sin enlazar desde el sitio: solo llega quien recibe el enlace en la comunidad. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F3EFE7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_NI">
+<meta property="og:site_name" content="Xolo Run">
+<meta property="og:title" content="¿Cómo te fue con la beta? · Xolo Run">
+<meta property="og:description" content="Son 2 minutos. Tu opinión decide qué mejoramos primero.">
+<meta property="og:url" content="https://xolorun.com/beta/">
+<meta property="og:image" content="https://xolorun.com/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Xolo Run · Ruta Común: fondo arena, texto lago profundo, arcilla solo para la acción principal.
+     Formulario por pasos con barra de tramos y opciones en fichas. */
+  :root {
+    --arena: #F3EFE7;
+    --blanco: #FFFFFF;
+    --lago: #12383B;
+    --lago-400: #4D6A6C;
+    --lago-300: #889C9D;
+    --lago-100: #DBE1E2;
+    --niebla-300: #DBE0DE;
+    --jade: #1F6366;
+    --jade-100: #DDE8E8;
+    --jade-200: #BCD0D1;
+    --arcilla: #C65A3D;
+    --arcilla-600: #9E4831;
+    --display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --voz: "Newsreader", Georgia, serif;
+    --ease: cubic-bezier(.33, 1, .68, 1);
+    --r: 14px;
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--arena); accent-color: var(--lago); }
+  body {
+    margin: 0; min-height: 100svh; display: flex; flex-direction: column;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: var(--arena); color: var(--lago);
+    font: 400 1.0625rem/1.5 var(--body); -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--lago); color: var(--arena); }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid var(--lago); outline-offset: 3px; }
+  h1, h2, p { margin: 0; }
+  a { color: var(--jade); text-underline-offset: 3px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  [hidden] { display: none !important; }
+
+  .wrap { width: 100%; max-width: 40rem; margin-inline: auto; padding-inline: 16px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; }
+  .wordmark { display: flex; align-items: center; }
+  .wordmark img { display: block; width: auto; height: 24px; }
+  .pill { font: 600 .75rem/1 var(--display); letter-spacing: .12em; text-transform: uppercase; padding: 7px 10px; border-radius: 999px; background: var(--jade-100); color: var(--jade); border: 1px solid var(--jade-200); }
+
+  main { flex: 1; display: flex; flex-direction: column; padding-block: 8px 32px; }
+
+  /* ───────── Portada ───────── */
+  .hero { display: grid; gap: 16px; padding-block: 18px 22px; }
+  .eyebrow { font: 600 .8125rem/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--arcilla-600); }
+  .headline { font: 700 clamp(2.3rem, 10vw, 3.4rem)/1.02 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+  .headline em { font: italic 400 1.04em/1 var(--voz); letter-spacing: -.01em; color: var(--jade); }
+  .lede { font-size: 1.125rem; line-height: 1.45; color: var(--lago-400); max-width: 36ch; }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-weight: 600; font-size: .95rem; padding: 0; margin: 0; list-style: none; }
+  .facts li { display: flex; align-items: center; gap: 8px; }
+  .facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--jade); }
+
+  /* ───────── Tarjeta del formulario ───────── */
+  .card { background: var(--blanco); border: 1px solid var(--niebla-300); border-radius: 22px; padding: 22px 18px; box-shadow: 0 1px 0 rgba(18, 56, 59, .04), 0 18px 40px -28px rgba(18, 56, 59, .35); }
+  .legs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .legs i { display: block; height: 5px; border-radius: 99px; background: var(--niebla-300); overflow: hidden; position: relative; }
+  .legs i::after { content: ""; position: absolute; inset: 0; background: var(--arcilla); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); }
+  .legs i.is-on::after { transform: scaleX(1); }
+  .legs i.is-done::after { transform: scaleX(1); background: var(--jade); }
+  .stepcap { margin-top: 12px; font-size: .9rem; color: var(--lago-400); font-variant-numeric: tabular-nums; }
+  .stepcap b { color: var(--lago); font-weight: 600; }
+
+  .step { display: grid; gap: 22px; margin-top: 18px; }
+  .step.enter { animation: settle .45s var(--ease) both; }
+  @keyframes settle { from { opacity: .3; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .step-head { display: grid; gap: 6px; }
+  .step-head h2 { font: 700 1.6rem/1.15 var(--display); letter-spacing: -.02em; outline: none; }
+  .step-head p { color: var(--lago-400); max-width: 44ch; }
+
+  .q { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; min-width: 0; }
+  .q > legend, .q > label { padding: 0; font: 600 1.0625rem/1.3 var(--display); }
+  .q .opt-note { font: 400 .9rem/1.3 var(--body); color: var(--lago-400); }
+  .row2 { display: grid; gap: 16px; }
+
+  .input, .textarea {
+    width: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1.5px solid var(--lago-300); background: var(--blanco); color: var(--lago);
+    font-size: 1.0625rem; line-height: 1.4; transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .input { min-height: 3.1rem; }
+  .textarea { min-height: 7.5rem; resize: vertical; }
+  .input::placeholder, .textarea::placeholder { color: var(--lago-300); }
+  .input:focus, .textarea:focus { border-color: var(--lago); outline: none; box-shadow: 0 0 0 3px var(--lago-100); }
+  .input[aria-invalid="true"] { border-color: var(--arcilla-600); }
+
+  /* Fichas: la elección se ve de un vistazo y se toca con el pulgar */
+  .chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 10px; }
+  .chips.wide { grid-template-columns: 1fr; }
+  .chip {
+    display: flex; align-items: center; gap: 10px; min-height: 3.1rem; padding: 10px 14px; text-align: left;
+    background: var(--blanco); color: var(--lago); border: 1.5px solid var(--lago-300); border-radius: 12px;
+    font: 500 1rem/1.25 var(--body);
+    transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
+  }
+  .chip svg { flex: none; width: 22px; height: 22px; color: var(--jade); transition: color .2s var(--ease); }
+  .chip small { display: block; margin-top: 2px; font-size: .85rem; color: var(--lago-400); font-weight: 400; }
+  .chip:active { transform: scale(.98); }
+  .chip[aria-checked="true"] { background: var(--lago); border-color: var(--lago); color: var(--arena); font-weight: 600; }
+  .chip[aria-checked="true"] svg { color: var(--arena); }
+  .chip[aria-checked="true"] small { color: var(--arena); opacity: .8; }
+  @media (hover: hover) { .chip:not([aria-checked="true"]):hover { border-color: var(--lago); } }
+
+  /* Escala del 1 al 7 */
+  .scale { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .scale .chip { justify-content: center; padding: 0; min-height: 3.2rem; font: 700 1.125rem/1 var(--display); }
+  .scale-ends { display: flex; justify-content: space-between; font-size: .85rem; color: var(--lago-400); }
+
+  .count { justify-self: end; font-size: .85rem; color: var(--lago-400); font-variant-numeric: tabular-nums; }
+  .hint { color: var(--arcilla-600); font-weight: 600; font-size: .95rem; min-height: 1.3em; }
+  .reveal { display: grid; gap: 10px; padding: 14px; border-radius: 14px; background: var(--jade-100); border: 1px solid var(--jade-200); animation: settle .35s var(--ease) both; }
+  .privacy { font-size: .875rem; color: var(--lago-400); max-width: 50ch; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 26px; }
+  .back { background: none; border: 0; padding: 12px 4px; color: var(--lago); font-weight: 600; text-decoration: underline; text-decoration-color: var(--lago-300); text-underline-offset: 4px; }
+  .next {
+    margin-left: auto; min-height: 3.3rem; min-width: 9.5rem; padding: 0 22px; border: 0; border-radius: var(--r);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--arcilla); color: var(--blanco); font: 700 1.0625rem/1 var(--body);
+    transition: background-color .2s var(--ease), transform .15s var(--ease);
+  }
+  .next svg { width: 20px; height: 20px; }
+  .next:active { transform: translateY(1px); }
+  @media (hover: hover) { .next:hover { background: var(--arcilla-600); } }
+  .next[aria-busy="true"] { opacity: .75; pointer-events: none; }
+
+  .start { width: 100%; margin-top: 6px; }
+
+  /* ───────── Final ───────── */
+  .done { display: grid; gap: 18px; justify-items: center; text-align: center; padding: 18px 6px 6px; }
+  .done svg.medal { width: 120px; height: auto; }
+  .done h2 { font: 700 2rem/1.08 var(--display); letter-spacing: -.02em; text-wrap: balance; }
+  .done p { color: var(--lago-400); max-width: 40ch; }
+  .ghost {
+    width: 100%; min-height: 3.2rem; border-radius: var(--r); border: 1.5px solid var(--lago);
+    background: transparent; color: var(--lago); font: 600 1.0625rem/1 var(--body);
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none;
+  }
+  .send { display: flex; gap: 10px; align-items: flex-start; text-align: left; width: 100%; padding: 12px 14px; border-radius: 12px; background: var(--arena); font-size: .95rem; }
+  .send .dot { flex: none; width: 10px; height: 10px; margin-top: 6px; border-radius: 50%; background: var(--jade); }
+  .send[data-s="error"] .dot { background: var(--arcilla-600); }
+  .send[data-s="sending"] .dot { background: var(--lago); animation: blink 1s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+  .local { margin-top: 14px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--arcilla-600); color: var(--arcilla-600); font-weight: 600; font-size: .9rem; }
+
+  footer { padding-block: 8px calc(18px + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: .85rem; color: var(--lago-400); }
+
+  @media (min-width: 640px) {
+    .wrap { padding-inline: 24px; }
+    .card { padding: 32px 34px; }
+    .row2 { grid-template-columns: 1fr 1fr; }
+    .hero { padding-block: 28px 30px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .step.enter, .reveal, .send .dot { animation: none !important; } .legs i::after, .chip, .next { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <a class="wordmark" href="https://xolorun.com/"><img src="logo.svg" alt="Xolo Run" width="148" height="24"></a>
+    <span class="pill">Beta</span>
+  </header>
+</div>
+
+<main class="wrap" id="app">
+  <!-- Portada -->
+  <section id="intro" class="hero" aria-labelledby="intro-title">
+    <p class="eyebrow">Tu opinión de la beta</p>
+    <h1 class="headline" id="intro-title">¿Cómo te fue con <em>la beta</em>?</h1>
+    <p class="lede">Lo que nos contés decide qué mejoramos primero. Lo leemos todo el equipo.</p>
+    <ul class="facts"><li>2 minutos</li><li>5 pasos</li><li>Sin respuestas incorrectas</li></ul>
+    <button class="next start" id="start" type="button">Empezar
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </section>
+
+  <!-- Formulario -->
+  <section id="form" class="card" hidden aria-live="polite">
+    <div class="legs" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="stepcap" id="stepcap"></p>
+    <div id="stepbox"></div>
+    <p class="hint" id="hint" role="alert"></p>
+    <div class="nav">
+      <button class="back" id="back" type="button">Atrás</button>
+      <button class="next" id="next" type="button"><span id="next-label">Siguiente</span>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Final -->
+  <section id="done" class="card" hidden>
+    <div class="done">
+      <svg class="medal" viewBox="0 0 120 130" fill="none" aria-hidden="true">
+        <path d="M38 4h16l10 34H48z" fill="#1F6366"/><path d="M82 4H66L56 38h16z" fill="#12383B"/>
+        <circle cx="60" cy="82" r="40" fill="#C65A3D"/><circle cx="60" cy="82" r="31" fill="none" stroke="#F3EFE7" stroke-width="3"/>
+        <path d="M44 84l11 11 22-24" stroke="#F3EFE7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 id="done-title" tabindex="-1">¡Gracias!</h2>
+      <p id="done-text">Tu opinión ya está con el equipo. Con lo que nos cuenten, vamos a ir mejorando la beta y les avisamos en la comunidad qué cambió.</p>
+      <div class="send" id="send" data-s="sending"><span class="dot" aria-hidden="true"></span><span id="send-msg">Enviando…</span></div>
+      <a class="ghost" href="https://xolorun.com/app/">Volver a Xolo Run</a>
+    </div>
+  </section>
+
+  <p class="local" id="local" hidden>Vista de prueba: las respuestas no se envían. Agregá <b>?enviar</b> al enlace para enviar de verdad.</p>
+</main>
+
+<footer class="wrap">Xolo Run · La plataforma del running en Nicaragua</footer>
+
+<script>
+(() => {
+  'use strict';
+  const SUPABASE_URL = 'https://mwiroczcgigmapzkzeba.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_bZ6aEB26mibNyVdc3Q4JkA_N3Jl2dBI';   // clave publicable: solo puede llamar a la función
+  const VERSION = 'beta-1';
+  const CONSENT = '2026-10-26';
+  const PARAMS = new URLSearchParams(location.search);
+  const LOCAL = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+  const DRY = LOCAL && !PARAMS.has('enviar');
+  const KEY = 'xolo-beta-opinion';
+
+  const $ = (s) => document.querySelector(s);
+  const store = {
+    get() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } },
+    set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} }
+  };
+  const uuid = () => (crypto.randomUUID ? crypto.randomUUID()
+    : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); }));
+
+  const saved = store.get();
+  const state = Object.assign({
+    client_id: uuid(), step: 0, name: '', device: '', reached: '', ease: null,
+    friction: '', prefer: '', prefer_why: '', wish_race: '', contact_ok: null, whatsapp: '', sent: false
+  }, saved);
+  const channel = (PARAMS.get('c') || saved.channel || 'comunidad').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+  state.channel = channel;
+  const save = () => store.set(state);
+
+  const icon = {
+    android: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 9h10v8a1 1 0 0 1-1 1h-1v3h-2v-3h-2v3H9v-3H8a1 1 0 0 1-1-1zM5 9.5a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm12 0a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zM7.2 8a4.8 4.8 0 0 1 2.4-3.6l-.9-1.6.6-.3.9 1.6A5 5 0 0 1 12 3.8a5 5 0 0 1 1.8.3l.9-1.6.6.3-.9 1.6A4.8 4.8 0 0 1 16.8 8zM10 6.2a.6.6 0 1 0 0 1.2.6.6 0 0 0 0-1.2m4 0a.6.6 0 1 0 0 1.2.6.6 0 0 0 0-1.2"/></svg>',
+    iphone: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.6" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 5h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+  };
+
+  // Cada paso: título, ayuda, preguntas y la regla para avanzar
+  const STEPS = [
+    {
+      cap: 'Vos', title: 'Empecemos por vos', help: 'Para saber quién nos ayudó a mejorar.',
+      render: () => `
+        <div class="q"><label for="f-name">Tu nombre</label>
+          <input class="input" id="f-name" name="name" autocomplete="name" maxlength="80" placeholder="Nombre y apellido" value="${esc(state.name)}"></div>
+        <fieldset class="q"><legend>¿Con qué teléfono la probaste?</legend>
+          ${chips('device', [['android', 'Android', icon.android], ['iphone', 'iPhone', icon.iphone]])}
+        </fieldset>`,
+      check: () => !state.name.trim() ? ['f-name', 'Escribí tu nombre para seguir.']
+        : !state.device ? [null, 'Elegí tu tipo de teléfono.'] : null
+    },
+    {
+      cap: 'Tu prueba', title: 'Tus misiones', help: 'Contanos hasta dónde llegaste. No pasa nada si no terminaste: eso también nos sirve.',
+      render: () => `
+        <fieldset class="q"><legend>¿Hasta dónde llegaste?</legend>
+          ${chips('reached', [
+            ['no_instale', 'No pude instalarla'],
+            ['cuenta', 'Creé mi cuenta'],
+            ['inscripcion', 'Me inscribí en una carrera'],
+            ['compartio', 'Compartí una carrera']
+          ], 'wide')}
+        </fieldset>
+        <fieldset class="q" id="ease-q" ${inscribed() ? '' : 'hidden'}><legend>Del 1 al 7, ¿qué tan fácil fue inscribirte?</legend>
+          <div class="scale" role="radiogroup" aria-label="Facilidad del 1 al 7">
+            ${[1,2,3,4,5,6,7].map(n => `<button type="button" class="chip" role="radio" data-k="ease" data-v="${n}" aria-checked="${state.ease === n}">${n}</button>`).join('')}
+          </div>
+          <div class="scale-ends" aria-hidden="true"><span>Muy difícil</span><span>Muy fácil</span></div>
+        </fieldset>`,
+      check: () => !state.reached ? [null, 'Elegí hasta dónde llegaste.']
+        : inscribed() && !state.ease ? [null, 'Elegí un número del 1 al 7.'] : null
+    },
+    {
+      cap: 'Lo que pasó', title: '¿Qué te costó?', help: 'Lo que nos contés aquí es lo primero que vamos a arreglar.',
+      render: () => `
+        <div class="q"><label for="f-friction">¿En qué momento dudaste o te trabaste? Contanos qué pasó.</label>
+          <textarea class="textarea" id="f-friction" maxlength="1500" placeholder="Por ejemplo: no encontraba dónde instalarla, no entendí un paso, me salió un error…">${esc(state.friction)}</textarea>
+          <span class="opt-note">Si todo fluyó, contanos qué fue lo que más te gustó.</span></div>`,
+      check: () => null
+    },
+    {
+      cap: 'Tu próxima carrera', title: 'Pensá en tu próxima carrera', help: 'Respondé con total sinceridad: nos sirve más una verdad incómoda que un cumplido.',
+      render: () => `
+        <fieldset class="q"><legend>¿Cómo preferirías inscribirte?</legend>
+          ${chips('prefer', [
+            ['xolorun', 'Con Xolo Run'],
+            ['como_hoy', 'Como lo hago hoy', null, 'Formulario, WhatsApp o en persona'],
+            ['igual', 'Me da igual']
+          ], 'wide')}
+        </fieldset>
+        <div class="q"><label for="f-why">¿Por qué elegiste esa opción?</label>
+          <textarea class="textarea" id="f-why" maxlength="1500" placeholder="Contanos con tus palabras">${esc(state.prefer_why)}</textarea></div>`,
+      check: () => !state.prefer ? [null, 'Elegí cómo preferirías inscribirte.'] : null
+    },
+    {
+      cap: 'Para cerrar', title: 'Dos cosas más', help: 'Y terminamos.',
+      render: () => `
+        <div class="q"><label for="f-race">¿Qué carrera te gustaría poder inscribir primero en Xolo Run?</label>
+          <input class="input" id="f-race" maxlength="120" placeholder="Nombre de la carrera" value="${esc(state.wish_race)}"></div>
+        <fieldset class="q"><legend>¿Podemos escribirte para conversar 10 minutos sobre tu experiencia?</legend>
+          ${chips('contact_ok', [[true, 'Sí, con gusto'], [false, 'Mejor no']])}
+        </fieldset>
+        <div class="reveal" id="wa-box" ${state.contact_ok === true ? '' : 'hidden'}>
+          <div class="q"><label for="f-wa">Tu WhatsApp</label>
+            <input class="input" id="f-wa" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="8888 8888" value="${esc(state.whatsapp)}"></div>
+        </div>
+        <p class="privacy">Usamos tus respuestas solo para mejorar Xolo Run. Tu WhatsApp, solo si nos das permiso, y únicamente para esa conversación. No compartimos tus datos.</p>`,
+      check: () => state.contact_ok === null ? [null, 'Contanos si te podemos escribir.']
+        : state.contact_ok && waDigits() < 8 ? ['f-wa', 'Escribí tu WhatsApp para poder contactarte.'] : null
+    }
+  ];
+
+  function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  function inscribed() { return state.reached === 'inscripcion' || state.reached === 'compartio'; }
+  function waDigits() { return (state.whatsapp || '').replace(/\D/g, '').length; }
+  function chips(key, opts, cls = '') {
+    return `<div class="chips ${cls}" role="radiogroup">${opts.map(([v, label, svg, sub]) =>
+      `<button type="button" class="chip" role="radio" data-k="${key}" data-v="${v}" aria-checked="${state[key] === v}">${svg || ''}<span>${label}${sub ? `<small>${sub}</small>` : ''}</span></button>`).join('')}</div>`;
+  }
+
+  const legs = [...document.querySelectorAll('.legs i')];
+  function show(stepIndex, focus = true) {
+    state.step = stepIndex; save();
+    const s = STEPS[stepIndex];
+    legs.forEach((l, i) => { l.className = i < stepIndex ? 'is-done' : i === stepIndex ? 'is-on' : ''; });
+    $('#stepcap').innerHTML = `Paso <b>${stepIndex + 1} de ${STEPS.length}</b> · ${s.cap}`;
+    $('#stepbox').innerHTML = `<div class="step enter"><div class="step-head"><h2 tabindex="-1">${s.title}</h2><p>${s.help}</p></div>${s.render()}</div>`;
+    $('#hint').textContent = '';
+    $('#back').style.visibility = stepIndex === 0 ? 'hidden' : 'visible';
+    $('#next-label').textContent = stepIndex === STEPS.length - 1 ? 'Enviar' : 'Siguiente';
+    if (focus) $('#stepbox h2').focus({ preventScroll: true });
+    $('#form').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  }
+
+  // Elegir una ficha
+  document.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip[data-k]');
+    if (!chip) return;
+    const k = chip.dataset.k; let v = chip.dataset.v;
+    if (k === 'ease') v = Number(v);
+    if (k === 'contact_ok') v = v === 'true';
+    state[k] = v; save();
+    chip.parentElement.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-checked', String(c === chip)));
+    $('#hint').textContent = '';
+    if (k === 'reached') {
+      const q = $('#ease-q'); if (q) q.hidden = !inscribed();
+      if (!inscribed()) state.ease = null;
+    }
+    if (k === 'contact_ok') { const box = $('#wa-box'); box.hidden = !v; if (v) setTimeout(() => $('#f-wa').focus(), 50); }
+  });
+
+  // Escribir en los campos
+  const FIELDS = { 'f-name': 'name', 'f-friction': 'friction', 'f-why': 'prefer_why', 'f-race': 'wish_race', 'f-wa': 'whatsapp' };
+  document.addEventListener('input', (e) => {
+    const k = FIELDS[e.target.id]; if (!k) return;
+    state[k] = e.target.value; e.target.removeAttribute('aria-invalid'); save();
+  });
+
+  $('#start').addEventListener('click', () => {
+    $('#intro').hidden = true; $('#form').hidden = false; show(state.step || 0);
+  });
+  $('#back').addEventListener('click', () => { if (state.step > 0) show(state.step - 1); });
+  $('#next').addEventListener('click', () => {
+    const problem = STEPS[state.step].check();
+    if (problem) {
+      const [field, msg] = problem;
+      $('#hint').textContent = msg;
+      if (field) { const el = document.getElementById(field); el.setAttribute('aria-invalid', 'true'); el.focus(); }
+      return;
+    }
+    if (state.step < STEPS.length - 1) show(state.step + 1);
+    else finish();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.matches('input.input')) { e.preventDefault(); $('#next').click(); }
+  });
+
+  async function send() {
+    const body = {
+      p_client_id: state.client_id, p_name: state.name.trim(), p_device: state.device, p_reached: state.reached,
+      p_ease: inscribed() ? state.ease : null, p_friction: state.friction, p_prefer: state.prefer,
+      p_prefer_why: state.prefer_why, p_wish_race: state.wish_race, p_contact_ok: state.contact_ok === true,
+      p_whatsapp: state.contact_ok ? state.whatsapp : null, p_consent_version: CONSENT,
+      p_channel: state.channel, p_version: VERSION
+    };
+    if (DRY) { console.info('[vista de prueba] no se envía:', body); return true; }
+    const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/submit_beta_feedback', {
+      method: 'POST', headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    return res.ok;
+  }
+
+  async function finish() {
+    $('#next').setAttribute('aria-busy', 'true');
+    $('#form').hidden = true; $('#done').hidden = false;
+    const first = state.name.trim().split(/\s+/)[0];
+    $('#done-title').textContent = `¡Gracias, ${first}!`;
+    $('#done-title').focus();
+    window.scrollTo({ top: 0 });
+    const box = $('#send'), msg = $('#send-msg');
+    for (let attempt = 0; attempt < 3; attempt++) {
+      box.dataset.s = 'sending'; msg.textContent = 'Enviando tu opinión…';
+      try {
+        if (await send()) {
+          state.sent = true; save();
+          box.dataset.s = 'ok'; msg.textContent = DRY ? 'Vista de prueba: no se envió nada.' : 'Listo, tu opinión llegó al equipo.';
+          return;
+        }
+      } catch {}
+      await new Promise(r => setTimeout(r, 1500 * (attempt + 1)));
+    }
+    box.dataset.s = 'error';
+    msg.innerHTML = 'No pudimos enviarla por la conexión. Tus respuestas quedaron guardadas en este teléfono: <button class="back" id="retry" type="button">Intentar de nuevo</button>';
+    $('#retry').addEventListener('click', finish);
+  }
+
+  // Si ya la había enviado, puede corregirla desde el mismo teléfono
+  if (state.sent) {
+    $('.lede').textContent = 'Ya recibimos tu opinión, ¡gracias! Si querés cambiar algo, podés hacerlo de nuevo.';
+    $('#start').firstChild.textContent = 'Revisar mis respuestas ';
+    state.step = 0;
+  }
+  if (DRY) $('#local').hidden = false;
+})();
+</script>
+</body>
+</html>
