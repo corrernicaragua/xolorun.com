@@ -18,10 +18,10 @@
 <link rel="alternate" hreflang="x-default" href="https://xolorun.com/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="marca/favicon.svg" type="image/svg+xml">
-<!-- Interruptor del lanzamiento (spec 002, decisión 6): false en producción hasta que la app abra; la Action de dev lo pone en true.
+<!-- Interruptor del lanzamiento (spec 002, decisión 6): true en producción desde el 26 oct 2026, con la app abierta; false la devuelve a como estaba antes.
      ?app=1 / ?app=0 lo fuerzan para ver cómo queda. Con true, la cabecera muestra «Acceder» (decisión 2; antes eran «Iniciar sesión» y «Registrarse»)
      y Nosotros, Preguntas e Instagram quedan solo en el pie (decisión 5). -->
-<script>window.XR_APP_ABIERTA = false;</script>
+<script>window.XR_APP_ABIERTA = true;</script>
 <link rel="icon" href="marca/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="marca/apple-touch-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
