@@ -13,3 +13,32 @@ Aparte, sin pestaña en la landing:
 Estático, sin build: `index.html`, `landing.css`, `landing.js`, `marca/` (logos e íconos), `og.jpg`. Se publica con GitHub Pages desde `main` en `xolorun.com` (archivo `CNAME`).
 
 Enlaces con atribución: `?c=<canal>&campana=<campaña>&creator=<quién>&ref=<código>` y la pestaña al final (`#lista`, `#encuesta`). Las pruebas se hacen con `?c=prueba` (no se asigna número).
+
+## Despliegue
+
+- **Producción:** GitHub Pages desde `main` → xolorun.com
+- **Dev:** GitHub Actions (`dev.yml`) empuja a `corrernicaragua/dev.xolorun.com` en cada push a `dev`, cambiando credenciales de Supabase y añadiendo cinta DEV + noindex
+- **Publicar a dev:** `./publicar.sh` (estampa versiones, commitea y empuja a `dev`)
+- **Publicar a prod:** PR de `dev` a `main`
+
+## Estructura
+
+```
+index.html         Landing principal (tres pestañas)
+landing.css        Estilos
+landing.js         Lógica (GSAP para animaciones, Supabase para lista de espera)
+marca/             Logos, favicon, apple-touch-icon
+encuesta/          Encuesta pública «Correr en Nicaragua»
+organizadores/     Encuesta para organizadores de carreras
+nosotros/          Página del equipo
+tablero/           Dashboard interno
+publicar.sh        Script de publicación a dev
+CNAME              Dominio xolorun.com
+```
+
+## Repos relacionados
+
+| Repo | Qué es |
+|---|---|
+| [`Saymond02/runapp`](https://github.com/Saymond02/runapp) | App (PWA + Expo) + backend Supabase |
+| [`corrernicaragua/xolorun.com`](https://github.com/corrernicaragua/xolorun.com) | Este repo — landing page |
